@@ -4,15 +4,18 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.adapter.PagerAdapter;
 import com.yinxiang.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener , ViewPager.OnPageChangeListener{
 
 
     private FragmentHomeBinding binding;
@@ -57,10 +60,15 @@ public class HomeFragment extends BaseFragment {
         PagerAdapter mainHomePagerAdapter = new PagerAdapter(getChildFragmentManager());
         mainHomePagerAdapter.addFragment("活动环宇", HomeVideoFragment.newInstance("", ""));
         mainHomePagerAdapter.addFragment("竞技PK", HomeContestFragment.newInstance("", ""));
+        mainHomePagerAdapter.addFragment("荣誉在线", HomeHonorFragment.newInstance("", ""));
         binding.viewPager.setAdapter(mainHomePagerAdapter);
         binding.viewPager.setOffscreenPageLimit(1);
         binding.viewPager.setCurrentItem(0);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
+
+        GlideLoader.LoderClipImage(getActivity(), CommonUtil.getImageListString().get(0), binding.userIcon);
+        binding.userIcon.setOnClickListener(this);
+        binding.viewPager.setOnPageChangeListener(this);
 
         return binding.getRoot();
     }
@@ -83,6 +91,32 @@ public class HomeFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.user_icon:
+                if (mListener != null) {
+                    mListener.onFragmentInteraction(null);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        binding.topView.setBackgroundColor(position == 0 ? getResources().getColor(R.color.transparent) : getResources().getColor(R.color.colorPrimary));
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 
     public interface OnFragmentInteractionListener {

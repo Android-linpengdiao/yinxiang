@@ -32,7 +32,8 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemVideoLayou
     protected void onBindItem(final ItemVideoLayoutBinding binding, String dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             GlideLoader.LoderImage(mContext, dataBean, binding.imgThumb);
-            binding.videoView.setVideoURI(Uri.parse("http://api.lgdama.com:10001/storage/video/d1d4437dc1644a5daaab2727249af25d.mp4"));
+//            binding.videoView.setVideoURI(Uri.parse("http://api.lgdama.com:10001/storage/video/d1d4437dc1644a5daaab2727249af25d.mp4"));
+            binding.videoView.setVideoURI(Uri.parse("http://api.lgdama.com:10001/storage/video/dc0d36f301784ffd8896ce673f6e6ba1.mp4"));
         }
 
     }

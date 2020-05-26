@@ -2,6 +2,7 @@ package com.yinxiang;
 
 
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,9 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.activity.BaseActivity;
 import com.yinxiang.databinding.ActivityMainBinding;
 import com.yinxiang.fragment.ChannelFragment;
@@ -22,7 +26,8 @@ import com.yinxiang.fragment.HomeFragment;
 import com.yinxiang.fragment.ReleaseFragment;
 import com.yinxiang.utils.ViewUtils;
 
-public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
+        NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
 
     private ActivityMainBinding binding;
 
@@ -44,6 +49,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         binding.navView.setNavigationItemSelectedListener(this);
         View headerView = binding.navView.getHeaderView(0);
+        ImageView userIcon = headerView.findViewById(R.id.user_icon);
+        GlideLoader.LoderClipImage(this, CommonUtil.getImageListString().get(0),userIcon);
 
         binding.radioGroupView.setOnCheckedChangeListener(this);
         initDefaultFragment();
@@ -105,4 +112,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         return mCurrentFragment;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        binding.drawerLayout.openDrawer(Gravity.LEFT);
+    }
 }
