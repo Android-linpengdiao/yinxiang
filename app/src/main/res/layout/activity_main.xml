@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/nav_host_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/radio_group_view"/>
+
+            <RadioGroup
+                android:id="@+id/radio_group_view"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_button_home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:padding="3dp"
+                    android:drawableTop="@drawable/navigation_drawable_home"
+                    android:gravity="center"
+                    android:text="酒大仙"
+                    android:textColor="@drawable/navigation_text_color"
+                    android:textSize="@dimen/navigation_text_size" />
+
+                <RadioButton
+                    android:id="@+id/radio_button_channel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:padding="3dp"
+                    android:drawableTop="@drawable/navigation_drawable_channel"
+                    android:gravity="center"
+                    android:text="频道"
+                    android:textColor="@drawable/navigation_text_color"
+                    android:textSize="@dimen/navigation_text_size" />
+
+                <RadioButton
+                    android:id="@+id/radio_button_release"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:padding="3dp"
+                    android:drawableTop="@drawable/navigation_drawable_release"
+                    android:gravity="center"
+                    android:textColor="@drawable/navigation_text_color"
+                    android:textSize="@dimen/navigation_text_size" />
+
+
+                <RadioButton
+                    android:id="@+id/radio_button_friend"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/navigation_drawable_friend"
+                    android:gravity="center"
+                    android:text="好友"
+                    android:padding="3dp"
+                    android:textColor="@drawable/navigation_text_color"
+                    android:textSize="@dimen/navigation_text_size" />
+
+                <TextView
+                    android:id="@+id/radio_button_mine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:padding="3dp"
+                    android:drawableTop="@drawable/navigation_drawable_mine"
+                    android:gravity="center"
+                    android:text="我的"
+                    android:textColor="@drawable/navigation_text_color"
+                    android:textSize="@dimen/navigation_text_size" />
+
+            </RadioGroup>
+
+        </RelativeLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_main"
+            app:menu="@menu/activity_main_drawer"
+            android:visibility="gone"/>
+
+    </android.support.v4.widget.DrawerLayout>
+</layout>

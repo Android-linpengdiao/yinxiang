@@ -1,0 +1,2 @@
+include ':app', ':base', ':LayoutManagerGroup'
+rootProject.name='yinxiang'
