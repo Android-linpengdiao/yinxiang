@@ -83,7 +83,7 @@
             android:layout_height="16dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/button_radius_red"
-            android:drawableLeft="@drawable/toupiao"
+            android:drawableLeft="@drawable/dengji"
             android:drawablePadding="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

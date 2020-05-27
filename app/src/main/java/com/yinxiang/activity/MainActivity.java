@@ -1,4 +1,4 @@
-package com.yinxiang;
+package com.yinxiang.activity;
 
 
 import android.databinding.DataBindingUtil;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
-import com.yinxiang.activity.BaseActivity;
+import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityMainBinding;
 import com.yinxiang.fragment.ChannelFragment;
 import com.yinxiang.fragment.FriendFragment;

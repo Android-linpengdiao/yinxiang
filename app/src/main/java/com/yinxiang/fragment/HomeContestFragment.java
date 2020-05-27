@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,13 +15,13 @@ import com.baselibrary.utils.CommonUtil;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.yinxiang.R;
+import com.yinxiang.adapter.HomeContestAdapter;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeContestBinding;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
 
 public class HomeContestFragment extends BaseFragment {
 
-    private static final String TAG = "HomeVideoFragment";
     private FragmentHomeContestBinding binding;
 
     private static final String ARG_PARAM1 = "param1";
@@ -60,6 +61,10 @@ public class HomeContestFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_contest, container, false);
 
+        HomeContestAdapter adapter = new HomeContestAdapter(getActivity());
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerView.setAdapter(adapter);
+        adapter.refreshData(CommonUtil.getImageListString());
 
         return binding.getRoot();
     }
