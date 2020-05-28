@@ -1,2 +1,2 @@
-include ':app', ':base', ':LayoutManagerGroup'
+include ':app', ':base', ':LayoutManagerGroup', ':okhttp'
 rootProject.name='yinxiang'

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.baselibrary.R;
 import com.baselibrary.view.GlideRoundTransform;
+import com.baselibrary.view.RoundedCornersTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
@@ -38,6 +39,19 @@ public class GlideLoader {
                 .error(R.drawable.head)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(view);
+    }
+
+    public static void LoderRoundedImage(Context context, String url, ImageView view, int round) {
+        RoundedCornersTransform transform = new RoundedCornersTransform(context, CommonUtil.dip2px(context, round));
+        transform.setNeedCorner(true, false, true, false);
+        Glide.with(context)
+                .load(url)
+                .placeholder(R.drawable.button_left_gray)
+                .error(R.drawable.button_left_gray)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transform(transform)
+                .into(view);
+
     }
 
     public static void LoderImageOrGif(Context context, String url, ImageView view) {

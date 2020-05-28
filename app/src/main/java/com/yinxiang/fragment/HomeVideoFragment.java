@@ -21,6 +21,7 @@ import com.baselibrary.utils.CommonUtil;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.yinxiang.R;
+import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
 import com.yinxiang.databinding.FragmentReleaseBinding;
@@ -68,7 +69,6 @@ public class HomeVideoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_video, container, false);
-
         HomeVideoAdapter adapter = new HomeVideoAdapter(getActivity());
         mLayoutManager = new ViewPagerLayoutManager(getActivity(), OrientationHelper.VERTICAL);
         binding.recyclerView.setLayoutManager(mLayoutManager);
@@ -78,6 +78,24 @@ public class HomeVideoFragment extends BaseFragment {
         initListener();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            if (videoView != null) {
+                videoView.pause();
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (videoView != null) {
+            videoView.pause();
+        }
     }
 
     private void initListener() {
@@ -111,11 +129,14 @@ public class HomeVideoFragment extends BaseFragment {
         });
     }
 
+    private VideoView videoView;
+
     private void playVideo(int position) {
         View itemView = binding.recyclerView.getChildAt(0);
-        final VideoView videoView = itemView.findViewById(R.id.video_view);
+        videoView = itemView.findViewById(R.id.video_view);
         final ImageView imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+        ImageView worksPk = itemView.findViewById(R.id.works_pk);
         final RelativeLayout rootView = itemView.findViewById(R.id.root_view);
         final MediaPlayer[] mediaPlayer = new MediaPlayer[1];
         videoView.start();
@@ -134,17 +155,24 @@ public class HomeVideoFragment extends BaseFragment {
 
             }
         });
+        worksPk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(SelectionWorkPKActivity.class);
+            }
+        });
 
 
         imgPlay.setOnClickListener(new View.OnClickListener() {
             boolean isPlaying = true;
+
             @Override
             public void onClick(View v) {
-                if (videoView.isPlaying()){
+                if (videoView.isPlaying()) {
                     imgPlay.animate().alpha(1f).start();
                     videoView.pause();
                     isPlaying = false;
-                }else {
+                } else {
                     imgPlay.animate().alpha(0f).start();
                     videoView.start();
                     isPlaying = true;
@@ -153,7 +181,7 @@ public class HomeVideoFragment extends BaseFragment {
         });
     }
 
-    private void releaseVideo(int index){
+    private void releaseVideo(int index) {
         View itemView = binding.recyclerView.getChildAt(index);
         final VideoView videoView = itemView.findViewById(R.id.video_view);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
@@ -164,8 +192,8 @@ public class HomeVideoFragment extends BaseFragment {
     }
 
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        if (videoView != null) {
+            videoView.pause();
         }
     }
 

@@ -12,10 +12,11 @@ import android.view.ViewGroup;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
+import com.yinxiang.activity.SearchActivity;
 import com.yinxiang.adapter.PagerAdapter;
 import com.yinxiang.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener , ViewPager.OnPageChangeListener{
+public class HomeFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener, HomeVideoFragment.OnFragmentInteractionListener {
 
 
     private FragmentHomeBinding binding;
@@ -23,9 +24,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener ,
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     private String mParam1;
     private String mParam2;
+
+    private HomeVideoFragment homeVideoFragment;
+    private HomeContestFragment homeContestFragment;
+    private HomeHonorFragment homeHonorFragment;
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,16 +62,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener ,
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
         PagerAdapter mainHomePagerAdapter = new PagerAdapter(getChildFragmentManager());
-        mainHomePagerAdapter.addFragment("活动环宇", HomeVideoFragment.newInstance("", ""));
-        mainHomePagerAdapter.addFragment("竞技PK", HomeContestFragment.newInstance("", ""));
-        mainHomePagerAdapter.addFragment("荣誉在线", HomeHonorFragment.newInstance("", ""));
+        homeVideoFragment = new HomeVideoFragment();
+        mainHomePagerAdapter.addFragment("活动环宇", homeVideoFragment);
+        homeContestFragment = new HomeContestFragment();
+        mainHomePagerAdapter.addFragment("竞技PK", homeContestFragment);
+        homeHonorFragment = new HomeHonorFragment();
+        mainHomePagerAdapter.addFragment("荣誉在线", homeHonorFragment);
         binding.viewPager.setAdapter(mainHomePagerAdapter);
-        binding.viewPager.setOffscreenPageLimit(1);
+        binding.viewPager.setOffscreenPageLimit(2);
         binding.viewPager.setCurrentItem(0);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
         GlideLoader.LoderClipImage(getActivity(), CommonUtil.getImageListString().get(0), binding.userIcon);
         binding.userIcon.setOnClickListener(this);
+        binding.ivSearch.setOnClickListener(this);
         binding.viewPager.setOnPageChangeListener(this);
 
         return binding.getRoot();
@@ -95,11 +103,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener ,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.user_icon:
                 if (mListener != null) {
                     mListener.onFragmentInteraction(null);
                 }
+                break;
+            case R.id.iv_search:
+                openActivity(SearchActivity.class);
                 break;
         }
     }
@@ -112,10 +123,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener ,
     @Override
     public void onPageSelected(int position) {
         binding.topView.setBackgroundColor(position == 0 ? getResources().getColor(R.color.transparent) : getResources().getColor(R.color.colorPrimary));
+        if (position != 0) {
+            homeVideoFragment.onButtonPressed(null);
+        }
     }
 
     @Override
     public void onPageScrollStateChanged(int i) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 

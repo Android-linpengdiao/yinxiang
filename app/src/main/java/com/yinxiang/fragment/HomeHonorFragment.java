@@ -4,11 +4,15 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baselibrary.utils.CommonUtil;
 import com.yinxiang.R;
+import com.yinxiang.adapter.HomeContestAdapter;
+import com.yinxiang.adapter.HomeHonorAdapter;
 import com.yinxiang.databinding.FragmentHomeContestBinding;
 import com.yinxiang.databinding.FragmentHomeHonorBinding;
 
@@ -54,6 +58,10 @@ public class HomeHonorFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_honor, container, false);
 
+        HomeHonorAdapter adapter = new HomeHonorAdapter(getActivity());
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerView.setAdapter(adapter);
+        adapter.refreshData(CommonUtil.getImageListString());
 
         return binding.getRoot();
     }
