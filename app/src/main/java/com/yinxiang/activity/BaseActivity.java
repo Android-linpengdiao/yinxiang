@@ -1,7 +1,10 @@
 package com.yinxiang.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -68,5 +71,9 @@ public class BaseActivity extends AppCompatActivity {
             return userinfo;
         }
         return new UserInfo();
+    }
+
+    public <T extends ViewDataBinding> T getViewData(int layoutId) {
+        return DataBindingUtil.setContentView(this, layoutId);
     }
 }

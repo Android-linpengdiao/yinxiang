@@ -41,6 +41,14 @@ public class GlideLoader {
                 .into(view);
     }
 
+    public static void LoderClipImage(Context context, String url, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(view);
+    }
+
     public static void LoderRoundedImage(Context context, String url, ImageView view, int round) {
         RoundedCornersTransform transform = new RoundedCornersTransform(context, CommonUtil.dip2px(context, round));
         transform.setNeedCorner(true, false, true, false);

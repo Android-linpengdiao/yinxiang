@@ -1,2 +1,9 @@
-include ':app', ':base', ':LayoutManagerGroup', ':okhttp'
-rootProject.name='yinxiang'
+include ':app',
+        ':base',
+        ':LayoutManagerGroup',
+        ':okhttp',
+        ':camera',
+        ':videocompressor',
+        ':cropper',
+        ':media'
+rootProject.name = 'yinxiang'

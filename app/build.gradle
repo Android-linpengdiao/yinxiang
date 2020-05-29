@@ -35,8 +35,13 @@ dependencies {
     implementation externalAndroidDesign
     implementation externalAndroidCnstraint
     implementation externalAndroidMultiDex
+    implementation externalEasypermissions
     // 基础库
     implementation project(':base')
     implementation project(':okhttp')
+    implementation project(':camera')
+    implementation project(':cropper')
+    implementation project(':media')
+    implementation project(':videocompressor')
     implementation project(':LayoutManagerGroup')
 }

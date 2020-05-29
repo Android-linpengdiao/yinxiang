@@ -17,12 +17,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/nav_host_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
                 android:layout_above="@+id/radio_group_view"/>
 
             <RadioGroup
@@ -60,7 +62,7 @@
                     android:textColor="@drawable/navigation_text_color"
                     android:textSize="@dimen/navigation_text_size" />
 
-                <RadioButton
+                <TextView
                     android:id="@+id/radio_button_release"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

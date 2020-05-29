@@ -58,7 +58,8 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
                         onClickListener.onClick(v, dataBean);
                     }
                 }
-            });binding.tvReport.setOnClickListener(new View.OnClickListener() {
+            });
+            binding.tvReport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
@@ -67,7 +68,10 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
                 }
             });
             GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
-            binding.videoView.setVideoURI(Uri.parse("http://api.lgdama.com:10001/storage/video/dc0d36f301784ffd8896ce673f6e6ba1.mp4"));
+            GlideLoader.LoderImage(mContext, dataBean, binding.imgThumb);
+            String url1 = "http://api.lgdama.com:10001/storage/video/db236d54a02442ae9ba0d8c4911dba17.mp4";
+            String url2 = "http://api.lgdama.com:10001/storage/video/dc0d36f301784ffd8896ce673f6e6ba1.mp4";
+            binding.videoView.setVideoURI(Uri.parse(position % 2 == 0 ? url1 : url2));
         }
 
     }
