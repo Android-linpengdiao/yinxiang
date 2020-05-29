@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding"
+        android:paddingTop="10dp"
+        android:paddingRight="@dimen/padding"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/userIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/circle_gray" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="街舞艺术交流群"
+            android:textColor="#ff323232"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/selection_view"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="选择"
+            android:gravity="center"
+            android:background="@drawable/selection"
+            android:textColor="@drawable/selection_text_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</layout>

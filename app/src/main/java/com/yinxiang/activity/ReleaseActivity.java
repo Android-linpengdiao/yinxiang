@@ -15,8 +15,12 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
 
     private ActivityReleaseBinding binding;
     private final static int REQUEST_WXCAMERA = 100;
+    private final static int REQUEST_CTYPE = 200;
+    private final static int REQUEST_ATYPE = 300;
     private String videoPath;
     private String coverPath;
+    private String competitionType;
+    private String associationType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,8 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         binding = getViewData(R.layout.activity_release);
         binding.close.setOnClickListener(this);
         binding.releaseVideoView.setOnClickListener(this);
+        binding.tvCompetition.setOnClickListener(this);
+        binding.tvAssociation.setOnClickListener(this);
     }
 
     @Override
@@ -34,6 +40,12 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                 int minTime = 10;
                 int maxTime = 180;
                 CameraActivity.startCameraActivity(ReleaseActivity.this, minTime, maxTime, "#44bf19", type, REQUEST_WXCAMERA);
+                break;
+            case R.id.tv_competition:
+                startActivityForResult(new Intent(ReleaseActivity.this,SelectionCompetitionActivity.class),REQUEST_CTYPE);
+                break;
+            case R.id.tv_association:
+                startActivityForResult(new Intent(ReleaseActivity.this,SelectionAssociationActivity.class),REQUEST_ATYPE);
                 break;
             case R.id.close:
                 finish();
@@ -47,12 +59,22 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_WXCAMERA:
-                    if (data!=null){
-                         videoPath = data.getStringExtra("videoPath");
-                         coverPath = data.getStringExtra("coverPath");
-                        GlideLoader.LoderImage(ReleaseActivity.this,coverPath,binding.cover,10);
+                    if (data != null) {
+                        videoPath = data.getStringExtra("videoPath");
+                        coverPath = data.getStringExtra("coverPath");
+                        GlideLoader.LoderImage(ReleaseActivity.this, coverPath, binding.cover, 10);
                     }
-
+                    break;
+                case REQUEST_CTYPE:
+                    if (data != null) {
+                        competitionType = data.getStringExtra("competitionType");
+                        binding.tvCompetition.setText(competitionType);
+                    }
+                    break;case REQUEST_ATYPE:
+                    if (data != null) {
+                        associationType = data.getStringExtra("associationType");
+                        binding.tvAssociation.setText(associationType);
+                    }
                     break;
             }
         }

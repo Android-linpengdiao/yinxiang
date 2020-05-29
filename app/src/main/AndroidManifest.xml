@@ -15,6 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.CompetitionDetailActivity"></activity>
+        <activity
+            android:name=".activity.SelectionCompetitionActivity"
+            android:theme="@style/AppThemeCompetition" />
+        <activity android:name=".activity.SelectionAssociationActivity" />
         <activity android:name=".activity.ReleaseActivity" />
         <activity android:name=".activity.SelectionWorkRelayActivity" />
         <activity android:name=".activity.ReportActivity" />
