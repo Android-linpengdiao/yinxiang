@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:padding="15dp"
+                    android:src="@drawable/back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="举报"
+                    android:textColor="#ffffffff"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="@dimen/padding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="举报内容类型"
+                    android:textColor="#ff333333"
+                    android:textSize="15sp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_white"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding">
+
+                    <RadioButton
+                        android:id="@+id/radio_button_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/check"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="涉黄"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_button_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/check"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="涉爆"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_button_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/check"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="涉及反动言论"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+
+                    <RadioButton
+                        android:id="@+id/radio_button_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/check"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="其他"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/padding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="举报描述"
+                android:textColor="#ff333333"
+                android:textSize="15sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_white"
+                android:gravity="left"
+                android:hint="请输入举报描述文字"
+                android:minHeight="100dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="@dimen/padding"
+                android:paddingRight="10dp"
+                android:paddingBottom="@dimen/padding"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/padding"
+            android:background="@drawable/button_radius_theme"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="提交"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</layout>

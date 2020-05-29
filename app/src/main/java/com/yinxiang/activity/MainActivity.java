@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.navView.setNavigationItemSelectedListener(this);
         View headerView = binding.navView.getHeaderView(0);
         ImageView userIcon = headerView.findViewById(R.id.user_icon);
-        GlideLoader.LoderClipImage(this, CommonUtil.getImageListString().get(0),userIcon);
+        GlideLoader.LoderCircleImage(this, CommonUtil.getImageListString().get(0),userIcon);
 
         binding.radioGroupView.setOnCheckedChangeListener(this);
         initDefaultFragment();

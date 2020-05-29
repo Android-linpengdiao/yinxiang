@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         binding.viewPager.setCurrentItem(0);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
-        GlideLoader.LoderClipImage(getActivity(), CommonUtil.getImageListString().get(0), binding.userIcon);
+        GlideLoader.LoderCircleImage(getActivity(), CommonUtil.getImageListString().get(0), binding.userIcon);
         binding.userIcon.setOnClickListener(this);
         binding.ivSearch.setOnClickListener(this);
         binding.viewPager.setOnPageChangeListener(this);

@@ -2,6 +2,7 @@ package com.yinxiang.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.view.View;
 
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
@@ -26,10 +27,46 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
     }
 
     @Override
-    protected void onBindItem(final ItemHomeVideoLayoutBinding binding, String dataBean, final int position) {
+    protected void onBindItem(final ItemHomeVideoLayoutBinding binding, final String dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderImage(mContext, dataBean, binding.imgThumb);
-//            binding.videoView.setVideoURI(Uri.parse("http://api.lgdama.com:10001/storage/video/d1d4437dc1644a5daaab2727249af25d.mp4"));
+            binding.ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    binding.ivLike.setSelected(!binding.ivLike.isSelected());
+                }
+            });
+            binding.ivComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });
+            binding.ivWorksPk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });
+            binding.ivRelay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });binding.tvReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });
+            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
             binding.videoView.setVideoURI(Uri.parse("http://api.lgdama.com:10001/storage/video/dc0d36f301784ffd8896ce673f6e6ba1.mp4"));
         }
 

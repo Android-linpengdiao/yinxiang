@@ -36,7 +36,7 @@ public class WorkAdapter extends BaseRecyclerAdapter<String, ItemWorksLayoutBind
     protected void onBindItem(ItemWorksLayoutBinding binding, final String str, final int position) {
         if (mList != null && mList.size() > 0) {
             GlideLoader.LoderRoundedImage(mContext, str, binding.cover, 10);
-            GlideLoader.LoderClipImage(mContext, str, binding.userIcon);
+            GlideLoader.LoderCircleImage(mContext, str, binding.userIcon);
             if (selection) {
                 binding.selectionView.setBackground(position != 0 ? mContext.getResources().getDrawable(R.drawable.button_white_t) : mContext.getResources().getDrawable(R.drawable.button_t));
             }

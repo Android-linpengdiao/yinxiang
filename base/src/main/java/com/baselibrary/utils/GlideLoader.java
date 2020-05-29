@@ -30,7 +30,7 @@ public class GlideLoader {
                 .into(view);
     }
 
-    public static void LoderClipImage(Context context, String url, ImageView view) {
+    public static void LoderCircleImage(Context context, String url, ImageView view) {
         Glide.with(context)
                 .load(domain + url)
                 .centerCrop()

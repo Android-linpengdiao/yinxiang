@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,18 @@ import com.baselibrary.utils.CommonUtil;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.yinxiang.R;
+import com.yinxiang.activity.ReportActivity;
 import com.yinxiang.activity.SelectionWorkPKActivity;
+import com.yinxiang.activity.SelectionWorkRelayActivity;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
 import com.yinxiang.databinding.FragmentReleaseBinding;
+import com.yinxiang.model.CommentData;
+import com.yinxiang.view.CommentListPopupWindow;
+import com.yinxiang.view.OnClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeVideoFragment extends BaseFragment {
 
@@ -74,10 +83,58 @@ public class HomeVideoFragment extends BaseFragment {
         binding.recyclerView.setLayoutManager(mLayoutManager);
         binding.recyclerView.setAdapter(adapter);
         adapter.refreshData(CommonUtil.getImageListString());
+        adapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                switch (view.getId()) {
+                    case R.id.iv_works_pk:
+                        openActivity(SelectionWorkPKActivity.class);
+                        break;
+                    case R.id.iv_relay:
+                        openActivity(SelectionWorkRelayActivity.class);
+                        break;
+                    case R.id.iv_comment:
+                        CommentView();
+                        break;
+                    case R.id.tv_report:
+                        openActivity(ReportActivity.class);
+                        break;
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
 
         initListener();
 
         return binding.getRoot();
+    }
+
+    private void CommentView() {
+        CommentListPopupWindow commentListPopupWindow = new CommentListPopupWindow(getActivity());
+        commentListPopupWindow.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
+        commentListPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+        CommentData commentData = new CommentData();
+        List<CommentData.DataBean> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            CommentData.DataBean dataBean = new CommentData.DataBean();
+            list.add(dataBean);
+        }
+        commentData.setData(list);
+        commentListPopupWindow.setCommentData(commentData);
     }
 
     @Override
@@ -136,7 +193,6 @@ public class HomeVideoFragment extends BaseFragment {
         videoView = itemView.findViewById(R.id.video_view);
         final ImageView imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
-        ImageView worksPk = itemView.findViewById(R.id.works_pk);
         final RelativeLayout rootView = itemView.findViewById(R.id.root_view);
         final MediaPlayer[] mediaPlayer = new MediaPlayer[1];
         videoView.start();
@@ -153,12 +209,6 @@ public class HomeVideoFragment extends BaseFragment {
             @Override
             public void onPrepared(MediaPlayer mp) {
 
-            }
-        });
-        worksPk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivity(SelectionWorkPKActivity.class);
             }
         });
 
