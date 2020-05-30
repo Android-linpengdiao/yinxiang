@@ -30,6 +30,7 @@
         <activity android:name=".activity.MyWorkPKActivity" />
         <activity android:name=".activity.MyWorkActivity" />
         <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.FeedbackActivity" />
         <activity android:name=".activity.EditorActivity" />
         <activity android:name=".activity.ForgotPasswordActivity" />
