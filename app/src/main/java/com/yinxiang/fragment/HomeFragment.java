@@ -2,6 +2,7 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -60,6 +61,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        setStatusBarHeight(binding.getRoot(), Color.TRANSPARENT);
 
         PagerAdapter mainHomePagerAdapter = new PagerAdapter(getChildFragmentManager());
         homeVideoFragment = new HomeVideoFragment();
@@ -122,6 +124,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onPageSelected(int position) {
+        setStatusBarHeight(binding.getRoot(), position == 0 ? Color.TRANSPARENT : getResources().getColor(R.color.colorPrimary));
         binding.topView.setBackgroundColor(position == 0 ? getResources().getColor(R.color.transparent) : getResources().getColor(R.color.colorPrimary));
         if (position != 0) {
             homeVideoFragment.onButtonPressed(null);

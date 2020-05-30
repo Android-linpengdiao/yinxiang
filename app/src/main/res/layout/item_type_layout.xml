@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/selected_item"
-        android:paddingLeft="33dp"
-        android:paddingRight="33dp"
         android:gravity="center"
         android:singleLine="true"
         android:text=""

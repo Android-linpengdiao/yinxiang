@@ -53,6 +53,8 @@ public class FriendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_friend, container, false);
+        setStatusBarHeight(binding.getRoot(), getResources().getColor(R.color.colorPrimary));
+
         return binding.getRoot();
     }
 

@@ -40,7 +40,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        setStatusBarHeight();
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, binding.drawerLayout, null, R.string.app_name, R.string.app_name);
@@ -52,6 +51,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         ImageView userIcon = headerView.findViewById(R.id.user_icon);
         View myFansView = headerView.findViewById(R.id.my_fans_view);
         View myFollowView = headerView.findViewById(R.id.my_follow_view);
+        View myWorkView = headerView.findViewById(R.id.my_work_view);
+        View myWorkPKView = headerView.findViewById(R.id.my_work_pk_view);
+        View myWorkRelayView = headerView.findViewById(R.id.my_work_relay_view);
+        View myWalletView = headerView.findViewById(R.id.my_wallet_view);
+        View myVIPView = headerView.findViewById(R.id.my_vip_view);
         View tvEditor = headerView.findViewById(R.id.tv_editor);
         View tvSetting = headerView.findViewById(R.id.tv_setting);
         GlideLoader.LoderCircleImage(this, CommonUtil.getImageListString().get(0), userIcon);
@@ -66,6 +70,36 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             @Override
             public void onClick(View v) {
                 openActivity(MyFollowActivity.class);
+            }
+        });
+        myWorkView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyWorkActivity.class);
+            }
+        });
+        myWorkPKView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyWorkPKActivity.class);
+            }
+        });
+        myWorkRelayView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyWorkRelayActivity.class);
+            }
+        });
+        myWalletView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyWalletActivity.class);
+            }
+        });
+        myVIPView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyVIPActivity.class);
             }
         });
         tvEditor.setOnClickListener(new View.OnClickListener() {

@@ -42,10 +42,10 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                 CameraActivity.startCameraActivity(ReleaseActivity.this, minTime, maxTime, "#44bf19", type, REQUEST_WXCAMERA);
                 break;
             case R.id.tv_competition:
-                startActivityForResult(new Intent(ReleaseActivity.this,SelectionCompetitionActivity.class),REQUEST_CTYPE);
+                startActivityForResult(new Intent(ReleaseActivity.this, SelectionCompetitionActivity.class), REQUEST_CTYPE);
                 break;
             case R.id.tv_association:
-                startActivityForResult(new Intent(ReleaseActivity.this,SelectionAssociationActivity.class),REQUEST_ATYPE);
+                startActivityForResult(new Intent(ReleaseActivity.this, SelectionAssociationActivity.class), REQUEST_ATYPE);
                 break;
             case R.id.close:
                 finish();
@@ -70,7 +70,8 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                         competitionType = data.getStringExtra("competitionType");
                         binding.tvCompetition.setText(competitionType);
                     }
-                    break;case REQUEST_ATYPE:
+                    break;
+                case REQUEST_ATYPE:
                     if (data != null) {
                         associationType = data.getStringExtra("associationType");
                         binding.tvAssociation.setText(associationType);

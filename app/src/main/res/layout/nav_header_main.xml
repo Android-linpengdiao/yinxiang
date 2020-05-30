@@ -157,6 +157,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/my_work_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -171,6 +172,7 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/my_work_pk_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
@@ -184,6 +186,7 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/my_work_relay_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
@@ -210,6 +213,7 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/my_wallet_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
@@ -223,6 +227,7 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/my_vip_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"

@@ -67,7 +67,7 @@ public class SelectionAssociationActivity extends BaseActivity implements View.O
             case R.id.confirm:
                 if (dataBean != null && dataBean.getStatus() == 1) {
                     Intent intent = new Intent();
-                    intent.putExtra("associationType", dataBean);
+                    intent.putExtra("associationType", dataBean.getName());
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {

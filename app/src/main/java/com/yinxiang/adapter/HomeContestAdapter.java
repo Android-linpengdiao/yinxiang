@@ -28,8 +28,8 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<String, ItemHomeCont
     @Override
     protected void onBindItem(final ItemHomeContestLayoutBinding binding, String dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderImage(mContext, dataBean, binding.userIcon1,100);
-            GlideLoader.LoderImage(mContext, dataBean, binding.userIcon2,100);
+            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon1);
+            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon2);
         }
 
     }

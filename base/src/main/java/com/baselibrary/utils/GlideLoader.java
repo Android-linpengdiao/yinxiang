@@ -13,7 +13,7 @@ import com.bumptech.glide.request.target.Target;
 
 public class GlideLoader {
 
-    public final static String domain = "";
+    public final static String domain = "http://enjoy.fengyunguoyuan.com/";
 
     public static void LoderImage(Context context, String url, ImageView view) {
         LoderImage(context, url, view, 0);

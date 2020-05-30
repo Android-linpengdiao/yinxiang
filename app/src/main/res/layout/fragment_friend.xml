@@ -6,15 +6,18 @@
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".fragment.MainFragment">
+
+        <include layout="@layout/status_bar" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="friend" />
 
-    </FrameLayout>
+    </LinearLayout>
 </layout>

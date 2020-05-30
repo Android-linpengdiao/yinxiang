@@ -27,7 +27,6 @@ import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.activity.SelectionWorkRelayActivity;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
-import com.yinxiang.databinding.FragmentReleaseBinding;
 import com.yinxiang.model.CommentData;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.OnClickListener;

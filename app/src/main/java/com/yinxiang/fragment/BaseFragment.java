@@ -35,7 +35,7 @@ public class BaseFragment extends Fragment {
 
     // 5.0版本以上
     @SuppressLint("NewApi")
-    public void setStatusBarHeight(View view) {
+    public void setStatusBarHeight(View view,int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             View decorView = getActivity().getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
@@ -43,6 +43,7 @@ public class BaseFragment extends Fragment {
             getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
             if (view.findViewById(R.id.status_bar) != null) {
                 view.findViewById(R.id.status_bar).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.status_bar).setBackgroundColor(color);
                 int statusBarHeight = CommonUtil.getStatusBarHeight(getActivity());
                 view.findViewById(R.id.status_bar).getLayoutParams().height = statusBarHeight;
             }

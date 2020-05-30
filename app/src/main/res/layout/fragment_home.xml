@@ -16,45 +16,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <include layout="@layout/status_bar" />
-
         <LinearLayout
-            android:id="@+id/top_view"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/status_bar"
+            android:layout_height="wrap_content"
             android:background="@drawable/top_view"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/padding"
-            android:paddingRight="10dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/user_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+            <include layout="@layout/status_bar" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="40dp"
-                app:tabGravity="center"
-                app:tabIndicatorColor="@color/white"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorHeight="2dp"
-                app:tabMode="fixed"
-                app:tabRippleColor="@android:color/transparent"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextAppearance="@style/TabLayoutTextSize"
-                app:tabTextColor="@color/white" />
+            <LinearLayout
+                android:id="@+id/top_view"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/status_bar"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="10dp">
 
-            <ImageView
-                android:id="@+id/iv_search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:src="@drawable/seach"/>
+                <ImageView
+                    android:id="@+id/user_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@android:color/transparent"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextAppearance="@style/TabLayoutTextSize"
+                    app:tabTextColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/seach" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </RelativeLayout>

@@ -17,7 +17,6 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class WelcomeActivity extends BaseActivity {
-    private static final String TAG = "WelcomeActivity";
     private ActivityWelcomeBinding welcomeBinding;
 
     private String[] permissions = {
@@ -31,7 +30,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         welcomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
-        Log.i(TAG, "onCreate: ");
+        setStatusBarHeight();
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;

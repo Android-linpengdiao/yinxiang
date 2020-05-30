@@ -2,6 +2,7 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -53,6 +54,8 @@ public class ChannelFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_channel, container, false);
+        setStatusBarHeight(binding.getRoot(), getResources().getColor(R.color.colorPrimary));
+
         return binding.getRoot();
     }
 
