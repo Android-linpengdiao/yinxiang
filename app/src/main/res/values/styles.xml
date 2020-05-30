@@ -37,4 +37,9 @@
         <item name="android:windowExitAnimation">@anim/popup_exit</item>
     </style>
 
+    <style name="HomeTypePopupAnimation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter_left</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit_left</item>
+    </style>
+
 </resources>

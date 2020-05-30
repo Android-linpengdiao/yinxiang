@@ -82,10 +82,13 @@ public class SelectionCompetitionActivity extends BaseActivity implements View.O
                 break;
             case R.id.confirm:
                 if (dataBean != null && dataBean.getStatus() == 1) {
-                    Intent intent = new Intent();
-                    intent.putExtra("competitionType", dataBean.getName());
-                    setResult(RESULT_OK, intent);
-                    finish();
+//                    Intent intent = new Intent();
+//                    intent.putExtra("competitionType", dataBean.getName());
+//                    setResult(RESULT_OK, intent);
+//                    finish();
+
+                    openActivity(CompetitionDetailActivity.class);
+
                 } else {
                     ToastUtils.showShort(SelectionCompetitionActivity.this, "请选择分类");
                 }

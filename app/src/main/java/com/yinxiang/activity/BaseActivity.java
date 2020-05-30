@@ -16,8 +16,14 @@ import com.baselibrary.Constants;
 import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.MsgCache;
+import com.baselibrary.utils.PermissionUtils;
 import com.baselibrary.utils.StatusBarUtil;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
+
+import okhttp3.Call;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -61,6 +67,22 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void baseInfo() {
+        SendRequest.baseInfo(getUserInfo().getData().getId(), new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(UserInfo response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+                    setUserInfo(response);
+                }
+            }
+
+        });
+    }
+
     public void setUserInfo(UserInfo userInfo) {
         MsgCache.get(this).put(Constants.USER_INFO, userInfo);
     }
@@ -75,5 +97,16 @@ public class BaseActivity extends AppCompatActivity {
 
     public <T extends ViewDataBinding> T getViewData(int layoutId) {
         return DataBindingUtil.setContentView(this, layoutId);
+    }
+
+    public boolean checkPermissionsAll(String type, int code) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            boolean isAllGranted = PermissionUtils.checkPermissionAllGranted(this, type);
+            if (!isAllGranted) {
+                PermissionUtils.requestPermissions(this, type, code);
+                return false;
+            }
+        }
+        return true;
     }
 }

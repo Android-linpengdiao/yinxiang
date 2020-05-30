@@ -3,13 +3,11 @@ package com.okhttp.utils;
 public class APIUrls {
 
 
+//    public final static String url_domain = "http://enjoy.fengyunguoyuan.com/";
     public final static String url_domain = "http://www.udiandou.com/";
 
     public final static String url_fileUpload = url_domain + "api/common/fileUpload";
-    public final static String url_ossFileUpload = url_domain + "api/common/ossFileUpload";
-//    public final static String url_createSecurityToken = url_domain + "api/common/token";
     public final static String url_createSecurityToken = url_domain + "api/common/stsToken";
-    public final static String URL_STORAGE_CreateSecurityToken = "http://api.lgdama.com:10001/storage/createSecurityToken?session=";
 
 
     //用户信息

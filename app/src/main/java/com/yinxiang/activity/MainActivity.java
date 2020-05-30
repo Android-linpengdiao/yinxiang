@@ -50,7 +50,36 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.navView.setNavigationItemSelectedListener(this);
         View headerView = binding.navView.getHeaderView(0);
         ImageView userIcon = headerView.findViewById(R.id.user_icon);
+        View myFansView = headerView.findViewById(R.id.my_fans_view);
+        View myFollowView = headerView.findViewById(R.id.my_follow_view);
+        View tvEditor = headerView.findViewById(R.id.tv_editor);
+        View tvSetting = headerView.findViewById(R.id.tv_setting);
         GlideLoader.LoderCircleImage(this, CommonUtil.getImageListString().get(0), userIcon);
+
+        myFansView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyFansActivity.class);
+            }
+        });
+        myFollowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyFollowActivity.class);
+            }
+        });
+        tvEditor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(EditorActivity.class);
+            }
+        });
+        tvSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(SettingsActivity.class);
+            }
+        });
 
         binding.radioGroupView.setOnCheckedChangeListener(this);
         initDefaultFragment();

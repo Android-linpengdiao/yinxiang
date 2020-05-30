@@ -106,44 +106,62 @@
         android:orientation="horizontal"
         android:paddingLeft="25dp">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/my_follow_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="关注"
-            android:textColor="#ff666666"
-            android:textSize="14sp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="1878"
-            android:textColor="#ff000000"
-            android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注"
+                android:textColor="#ff666666"
+                android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="粉丝"
-            android:textColor="#ff666666"
-            android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="1878"
+                android:textColor="#ff000000"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/my_fans_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="8729"
-            android:textColor="#ff000000"
-            android:textSize="20sp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="粉丝"
+                android:textColor="#ff666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="8729"
+                android:textColor="#ff000000"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:drawableLeft="@drawable/daohang"
         android:background="?android:attr/selectableItemBackground"
+        android:drawableLeft="@drawable/daohang"
         android:drawableRight="@drawable/right_arrow"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
@@ -155,9 +173,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@drawable/icon_menu01"
         android:drawableRight="@drawable/right_arrow"
-        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
@@ -168,9 +186,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@drawable/bangdan"
         android:drawableRight="@drawable/right_arrow"
-        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
@@ -181,9 +199,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@drawable/xiangqing"
         android:drawableRight="@drawable/right_arrow"
-        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
@@ -194,9 +212,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@drawable/icon_menu03"
         android:drawableRight="@drawable/right_arrow"
-        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
@@ -207,9 +225,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@drawable/biaodankongjianlianxiren"
         android:drawableRight="@drawable/right_arrow"
-        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
@@ -227,6 +245,7 @@
         android:paddingBottom="25dp">
 
         <TextView
+            android:id="@+id/tv_editor"
             android:layout_width="0dp"
             android:layout_height="34dp"
             android:layout_marginRight="15dp"
@@ -238,20 +257,21 @@
             android:textSize="14sp" />
 
         <RelativeLayout
+            android:id="@+id/tv_setting"
             android:layout_width="0dp"
             android:layout_height="34dp"
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/button_radius_theme">
+            android:background="@drawable/button_radius_theme"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/icon_menu04"
-                android:gravity="center"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:text="设置"
                 android:textColor="#ffffffff"
                 android:textSize="14sp" />

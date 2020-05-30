@@ -31,6 +31,7 @@ import com.yinxiang.databinding.FragmentReleaseBinding;
 import com.yinxiang.model.CommentData;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.OnClickListener;
+import com.yinxiang.view.TypePopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,10 +108,32 @@ public class HomeVideoFragment extends BaseFragment {
 
             }
         });
+        binding.type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                typeView();
+            }
+        });
 
         initListener();
 
         return binding.getRoot();
+    }
+
+    private void typeView() {
+        TypePopupWindow typePopupWindow = new TypePopupWindow(getActivity());
+        typePopupWindow.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
+        typePopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
     private void CommentView() {

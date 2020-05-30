@@ -54,7 +54,7 @@ public class SendRequest {
         map.put("phone", phone);
         map.put("password", password);
         map.put("password_confirmation", password_confirmation);
-        map.put("authCode", password_confirmation);
+        map.put("authCode", authCode);
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_register).build().execute(call);
 
     }
