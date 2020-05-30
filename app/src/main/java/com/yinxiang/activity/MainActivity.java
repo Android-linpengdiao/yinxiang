@@ -9,7 +9,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
+import com.baselibrary.utils.ToastUtils;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityMainBinding;
 import com.yinxiang.fragment.ChannelFragment;
@@ -181,5 +184,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void onFragmentInteraction(Uri uri) {
         binding.drawerLayout.openDrawer(Gravity.LEFT);
+    }
+
+    private long lastTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - lastTime > 2000) {
+                lastTime = System.currentTimeMillis();
+                ToastUtils.showShort(MainActivity.this, "再按一次退出应用");
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -30,6 +30,16 @@ public class GlideLoader {
                 .into(view);
     }
 
+    public static void LoderVideoImage(Context context, String url, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .placeholder(R.drawable.cover)
+                .error(R.drawable.cover)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(view);
+    }
+
     public static void LoderCircleImage(Context context, String url, ImageView view) {
         Glide.with(context)
                 .load(domain + url)
@@ -60,6 +70,21 @@ public class GlideLoader {
                 .transform(transform)
                 .into(view);
 
+    }
+
+    public static void LoderLoadImage(Context context, String url, ImageView view) {
+        LoderLoadImage(context,url,view,0);
+    }
+
+    public static void LoderLoadImage(Context context, String url, ImageView view,int round) {
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .transform(new GlideRoundTransform(context, round))
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(view);
     }
 
     public static void LoderImageOrGif(Context context, String url, ImageView view) {
@@ -108,14 +133,6 @@ public class GlideLoader {
     }
 
     public static void LoderLoadImageType(Context context, String url, ImageView view) {
-        Glide.with(context)
-                .load("file://" + url)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(view);
-    }
-
-    public static void LoderLoadImage(Context context, String url, ImageView view) {
         Glide.with(context)
                 .load("file://" + url)
                 .centerCrop()

@@ -2,22 +2,27 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
+import com.alivc.player.AliVcMediaPlayer;
+import com.alivc.player.MediaPlayer;
+import com.alivc.player.VcPlayerLog;
 import com.baselibrary.utils.CommonUtil;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
@@ -50,11 +55,6 @@ public class HomeVideoFragment extends BaseFragment {
     private ViewPagerLayoutManager mLayoutManager;
 
     private OnFragmentInteractionListener mListener;
-
-    public HomeVideoFragment() {
-
-    }
-
 
     public static HomeVideoFragment newInstance(String param1, String param2) {
         HomeVideoFragment fragment = new HomeVideoFragment();
@@ -163,18 +163,14 @@ public class HomeVideoFragment extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            if (videoView != null) {
-                videoView.pause();
-            }
+            pause();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (videoView != null) {
-            videoView.pause();
-        }
+        pause();
     }
 
     private void initListener() {
@@ -201,72 +197,141 @@ public class HomeVideoFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position, boolean isBottom) {
                 Log.e(TAG, "选中位置:" + position + "  是否是滑动到底部:" + isBottom);
-                playVideo(0);
+                playVideo(position);
             }
 
 
         });
     }
 
-    private VideoView videoView;
+    String url1 = "http://api.lgdama.com:10001/storage/video/db236d54a02442ae9ba0d8c4911dba17.mp4";
+    String url2 = "http://api.lgdama.com:10001/storage/video/dc0d36f301784ffd8896ce673f6e6ba1.mp4";
 
     private void playVideo(int position) {
         View itemView = binding.recyclerView.getChildAt(0);
-        videoView = itemView.findViewById(R.id.video_view);
+        SurfaceView mSurfaceView = itemView.findViewById(R.id.surfaceView);
+        mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            public void surfaceCreated(SurfaceHolder holder) {
+                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
+                holder.setKeepScreenOn(true);
+                // 对于从后台切换到前台,需要重设surface;部分手机锁屏也会做前后台切换的处理
+                if (mPlayer != null) {
+                    mPlayer.setVideoSurface(holder.getSurface());
+                }
+
+            }
+
+            public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+                if (mPlayer != null) {
+                    mPlayer.setSurfaceChanged();
+                }
+            }
+
+            public void surfaceDestroyed(SurfaceHolder holder) {
+            }
+        });
         final ImageView imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
-        final RelativeLayout rootView = itemView.findViewById(R.id.root_view);
-        final MediaPlayer[] mediaPlayer = new MediaPlayer[1];
-        videoView.start();
-        videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-            @Override
-            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                mediaPlayer[0] = mp;
-                mp.setLooping(true);
-                imgThumb.animate().alpha(0).setDuration(200).start();
-                return false;
-            }
-        });
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-
-            }
-        });
-
-
-        imgPlay.setOnClickListener(new View.OnClickListener() {
-            boolean isPlaying = true;
+        mSurfaceView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (videoView.isPlaying()) {
+                if (mPlayer.isPlaying()) {
                     imgPlay.animate().alpha(1f).start();
-                    videoView.pause();
-                    isPlaying = false;
+                    mPlayer.pause();
                 } else {
                     imgPlay.animate().alpha(0f).start();
-                    videoView.start();
-                    isPlaying = true;
+                    mPlayer.play();
                 }
             }
         });
+
+
+        mPlayer = new AliVcMediaPlayer(getContext(), mSurfaceView);
+        mPlayer.setCirclePlay(true);
+
+        mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
+            @Override
+            public void onPrepared() {
+                mPlayer.play();
+            }
+        });
+//        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
+//        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
+        mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
+            @Override
+            public void onFrameInfoListener() {
+                imgThumb.animate().alpha(0).setDuration(200).start();
+            }
+        });
+//        mPlayer.setErrorListener(new MyErrorListener(this));
+//        mPlayer.setCompletedListener(new MyCompletedListener(this));
+//        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
+        mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
+            @Override
+            public void onStopped() {
+                imgPlay.animate().alpha(1f).start();
+            }
+        });
+        mPlayer.enableNativeLog();
+        if (mPlayer != null) {
+            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+        }
+        mPlayer.prepareToPlay(position % 2 == 0 ? url1 : url2);
+
     }
 
     private void releaseVideo(int index) {
         View itemView = binding.recyclerView.getChildAt(index);
-        final VideoView videoView = itemView.findViewById(R.id.video_view);
-        final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
-        final ImageView imgPlay = itemView.findViewById(R.id.img_play);
-        videoView.stopPlayback();
+        ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+        ImageView imgPlay = itemView.findViewById(R.id.img_play);
+        destroy();
         imgThumb.animate().alpha(1).start();
         imgPlay.animate().alpha(0f).start();
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (videoView != null) {
-            videoView.pause();
+    private AliVcMediaPlayer mPlayer;
+
+    private void start() {
+        if (mPlayer != null) {
+            mPlayer.prepareToPlay(url1);
         }
+    }
+
+    private void pause() {
+        if (mPlayer != null) {
+            mPlayer.pause();
+        }
+    }
+
+    private void stop() {
+        if (mPlayer != null) {
+            mPlayer.stop();
+        }
+    }
+
+    private void resume() {
+        if (mPlayer != null) {
+            mPlayer.play();
+        }
+    }
+
+    private void destroy() {
+        if (mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.destroy();
+        }
+    }
+
+    private void replay() {
+        stop();
+        start();
+    }
+
+    public void onButtonPressed(Uri uri) {
+//        if (videoView != null) {
+//            videoView.pause();
+//        }
     }
 
     @Override
@@ -281,6 +346,7 @@ public class HomeVideoFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        destroy();
     }
 
     public interface OnFragmentInteractionListener {

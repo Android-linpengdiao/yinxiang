@@ -2,9 +2,10 @@ package com.yinxiang.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.SurfaceView;
 import android.widget.VideoView;
 
-public class FullScreenVideoView extends VideoView {
+public class FullScreenVideoView extends SurfaceView {
     public FullScreenVideoView(Context context) {
         super(context);
     }
