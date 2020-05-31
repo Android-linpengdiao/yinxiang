@@ -5,5 +5,6 @@ include ':app',
         ':camera',
         ':videocompressor',
         ':cropper',
-        ':media'
+        ':media',
+        'cardview'
 rootProject.name = 'yinxiang'

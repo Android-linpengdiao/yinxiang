@@ -3,11 +3,7 @@ package com.yinxiang.fragment;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,13 +13,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.VideoView;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
-import com.alivc.player.VcPlayerLog;
+import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.ToastUtils;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.yinxiang.R;
@@ -34,6 +29,7 @@ import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
 import com.yinxiang.model.CommentData;
 import com.yinxiang.view.CommentListPopupWindow;
+import com.yinxiang.view.ElectionPopupWindow;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.TypePopupWindow;
 
@@ -96,6 +92,9 @@ public class HomeVideoFragment extends BaseFragment {
                     case R.id.iv_comment:
                         CommentView();
                         break;
+                    case R.id.tv_election:
+                        Election();
+                        break;
                     case R.id.tv_report:
                         openActivity(ReportActivity.class);
                         break;
@@ -135,6 +134,49 @@ public class HomeVideoFragment extends BaseFragment {
         typePopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
+    private void Election() {
+        ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
+        electionPopupWindow.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                switch (view.getId()) {
+                    case R.id.tv_election:
+                        ToastUtils.showShort(getActivity(), "以为TA投一票");
+                        break;
+                    case R.id.tv_election_coin:
+                        DialogManager.showElectionDialog(getActivity(), new com.baselibrary.view.OnClickListener() {
+                            @Override
+                            public void onClick(View view, Object object) {
+                                switch (view.getId()) {
+                                    case R.id.tv_confirm:
+
+                                        break;
+                                    case R.id.tv_cancel:
+
+                                        break;
+                                    case R.id.tv_coin:
+
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onLongClick(View view, Object object) {
+
+                            }
+                        });
+                        break;
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
+        electionPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
     private void CommentView() {
         CommentListPopupWindow commentListPopupWindow = new CommentListPopupWindow(getActivity());
         commentListPopupWindow.setOnClickListener(new OnClickListener() {
@@ -162,6 +204,7 @@ public class HomeVideoFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Log.i(TAG, "onHiddenChanged: ");
         if (hidden) {
             pause();
         }
@@ -170,6 +213,7 @@ public class HomeVideoFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+        Log.i(TAG, "onPause: ");
         pause();
     }
 
@@ -275,7 +319,7 @@ public class HomeVideoFragment extends BaseFragment {
         });
         mPlayer.enableNativeLog();
         if (mPlayer != null) {
-            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         }
         mPlayer.prepareToPlay(position % 2 == 0 ? url1 : url2);
 
@@ -329,9 +373,7 @@ public class HomeVideoFragment extends BaseFragment {
     }
 
     public void onButtonPressed(Uri uri) {
-//        if (videoView != null) {
-//            videoView.pause();
-//        }
+
     }
 
     @Override

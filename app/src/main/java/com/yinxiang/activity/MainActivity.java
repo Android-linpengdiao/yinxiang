@@ -26,7 +26,6 @@ import com.yinxiang.databinding.ActivityMainBinding;
 import com.yinxiang.fragment.ChannelFragment;
 import com.yinxiang.fragment.FriendFragment;
 import com.yinxiang.fragment.HomeFragment;
-import com.yinxiang.fragment.ReleaseFragment;
 import com.yinxiang.utils.ViewUtils;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,

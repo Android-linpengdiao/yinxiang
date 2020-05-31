@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="PK·选择作品"
+                android:text="我的作品"
                 android:textColor="#ffffffff"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -38,10 +38,10 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never"
             android:layout_marginTop="5dp"
+            android:overScrollMode="never"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"/>
+            android:paddingRight="5dp" />
 
     </LinearLayout>
 </layout>

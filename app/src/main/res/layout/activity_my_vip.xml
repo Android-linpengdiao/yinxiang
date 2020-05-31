@@ -34,14 +34,176 @@
                 android:textSize="18sp" />
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:overScrollMode="never"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/view_layout_vip"
+                android:layout_width="match_parent"
+                android:layout_height="163dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="@dimen/padding"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="@dimen/padding"
+                android:background="@drawable/bk"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="您已开通VIP"
+                    android:textColor="#ffffffff"
+                    android:textSize="19sp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="18dp">
+
+                    <TextView
+                        android:id="@+id/coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="有效期至"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/coin"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_toRightOf="@+id/coin"
+                        android:text="2020-12-30"
+                        android:textColor="#ffffffff"
+                        android:textSize="11sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/wallet_pay"
+                    android:layout_width="87dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_stroke_radius"
+                    android:gravity="center"
+                    android:text="续费"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_layout_topUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:text="充值金额"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center_vertical"
+                        android:overScrollMode="never"
+                        android:padding="@dimen/padding">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="+V认证"
+                            android:textColor="#ff5855d9"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥"
+                            android:textColor="#ff5855d9"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:text="200"
+                            android:textColor="#ff5855d9"
+                            android:textSize="26sp" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:text="充值方式"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="@dimen/padding"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/checkbox"
+                    android:drawableRight="@drawable/checkbox"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingRight="@dimen/padding"
+                    android:text="微信支付"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="@dimen/padding"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/checkbox"
+                    android:drawableRight="@drawable/checkbox"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingRight="@dimen/padding"
+                    android:text="支付宝支付"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

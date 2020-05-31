@@ -1,10 +1,12 @@
 package com.yinxiang.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
+import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.databinding.ItemWorksLayoutBinding;
 import com.yinxiang.view.OnClickListener;
 
@@ -38,6 +40,7 @@ public class WorkAdapter extends BaseRecyclerAdapter<String, ItemWorksLayoutBind
             GlideLoader.LoderRoundedImage(mContext, str, binding.cover, 10);
             GlideLoader.LoderCircleImage(mContext, str, binding.userIcon);
             if (selection) {
+//                binding.cardView.setSelected(position != 0 ? false : true);
                 binding.selectionView.setBackground(position != 0 ? mContext.getResources().getDrawable(R.drawable.button_white_t) : mContext.getResources().getDrawable(R.drawable.button_t));
             }
             binding.rootView.setOnClickListener(new View.OnClickListener() {

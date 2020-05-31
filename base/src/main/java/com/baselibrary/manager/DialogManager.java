@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.baselibrary.R;
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.view.OnClickListener;
 
 /**
  * Created by Administrator on 2017/9/15.
@@ -99,6 +100,46 @@ public class DialogManager {
                     listener.onItemRight();
                 }
                 dialog.cancel();
+            }
+        });
+    }
+
+
+    public static void showElectionDialog(Activity act, final OnClickListener onClickListener) {
+        final AlertDialog dialog = new AlertDialog.Builder(act, AlertDialog.THEME_HOLO_DARK).create();
+        dialog.setCancelable(true);
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.getDecorView().setBackgroundColor(act.getResources().getColor(R.color.transparent));
+        window.setContentView(R.layout.view_election_dialog_alert);
+        TextView tvConfirm = window.findViewById(R.id.tv_confirm);
+        TextView tvCancel = window.findViewById(R.id.tv_cancel);
+        TextView tvCoin = window.findViewById(R.id.tv_coin);
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                if (onClickListener != null) {
+                    onClickListener.onClick(v, null);
+                }
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                if (onClickListener != null) {
+                    onClickListener.onClick(v, null);
+                }
+            }
+        });
+        tvCoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                if (onClickListener != null) {
+                    onClickListener.onClick(v, null);
+                }
             }
         });
     }

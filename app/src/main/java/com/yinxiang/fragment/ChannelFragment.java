@@ -5,15 +5,20 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
+import com.yinxiang.activity.SearchActivity;
+import com.yinxiang.adapter.PagerAdapter;
 import com.yinxiang.databinding.FragmentChannelBinding;
 import com.yinxiang.databinding.FragmentHomeBinding;
 
-public class ChannelFragment extends BaseFragment {
+public class ChannelFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
 
     private FragmentChannelBinding binding;
@@ -21,16 +26,11 @@ public class ChannelFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
-    public ChannelFragment() {
-
-    }
-
+    private ChannelVideoFragment channelVideoFragment;
+    private ChannelClubFragment channelClubFragment;
 
     public static ChannelFragment newInstance(String param1, String param2) {
         ChannelFragment fragment = new ChannelFragment();
@@ -54,32 +54,64 @@ public class ChannelFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_channel, container, false);
-        setStatusBarHeight(binding.getRoot(), getResources().getColor(R.color.colorPrimary));
+        setStatusBarHeight(binding.getRoot(), Color.TRANSPARENT);
+
+        PagerAdapter mainHomePagerAdapter = new PagerAdapter(getChildFragmentManager());
+        channelVideoFragment = new ChannelVideoFragment();
+        mainHomePagerAdapter.addFragment("热门优选", channelVideoFragment);
+        channelClubFragment = new ChannelClubFragment();
+        mainHomePagerAdapter.addFragment("社团学院", channelClubFragment);
+        binding.viewPager.setAdapter(mainHomePagerAdapter);
+        binding.viewPager.setOffscreenPageLimit(1);
+        binding.viewPager.setCurrentItem(0);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
+
+        binding.tvVideoType.setOnClickListener(this);
+        binding.viewPager.setOnPageChangeListener(this);
 
         return binding.getRoot();
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_video_type:
+
+                break;
         }
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            channelVideoFragment.onPause();
         }
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onPause() {
+        super.onPause();
+        channelVideoFragment.onPause();
     }
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        setStatusBarHeight(binding.getRoot(), position == 0 ? Color.TRANSPARENT : getResources().getColor(R.color.colorPrimary));
+        binding.topView.setBackgroundColor(position == 0 ? getResources().getColor(R.color.transparent) : getResources().getColor(R.color.colorPrimary));
+        binding.tvVideoType.setVisibility(position != 0 ? View.GONE : View.VISIBLE);
+        if (position != 0) {
+            channelVideoFragment.onPause();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }

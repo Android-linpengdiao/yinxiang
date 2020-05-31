@@ -56,23 +56,26 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <cn.wj.android.colorcardview.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    app:cardBackgroundColor="@android:color/white"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="4dp"
+                    app:cardElevation="10dp"
+                    app:cardShadowColorEnd="@color/app_selector_shadow_end"
+                    app:cardShadowColorStart="@color/app_selector_shadow_start"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:background="@color/white"/>
 
-                </android.support.v7.widget.CardView>
+                </cn.wj.android.colorcardview.CardView>
 
             </LinearLayout>
 

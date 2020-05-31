@@ -118,6 +118,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            homeVideoFragment.onPause();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        homeVideoFragment.onPause();
+    }
+
+    @Override
     public void onPageScrolled(int i, float v, int i1) {
 
     }
@@ -127,7 +141,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         setStatusBarHeight(binding.getRoot(), position == 0 ? Color.TRANSPARENT : getResources().getColor(R.color.colorPrimary));
         binding.topView.setBackgroundColor(position == 0 ? getResources().getColor(R.color.transparent) : getResources().getColor(R.color.colorPrimary));
         if (position != 0) {
-            homeVideoFragment.onButtonPressed(null);
+            homeVideoFragment.onPause();
         }
     }
 

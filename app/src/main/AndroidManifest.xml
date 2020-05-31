@@ -21,10 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.ClubDetailActivity"></activity>
+        <activity android:name=".activity.CreateClubActivity" />
+        <activity android:name=".activity.WorkDetailActivity" />
+        <activity android:name=".activity.WalletPayActivity" />
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <activity android:name=".activity.MyVIPActivity"></activity>
+
+        <activity android:name=".activity.MyVIPActivity" />
         <activity android:name=".activity.MyWalletActivity" />
         <activity android:name=".activity.MyWorkRelayActivity" />
         <activity android:name=".activity.MyWorkPKActivity" />

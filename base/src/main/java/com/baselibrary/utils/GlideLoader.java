@@ -5,10 +5,12 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.baselibrary.R;
+import com.baselibrary.view.GlideBlurTransformation;
 import com.baselibrary.view.GlideRoundTransform;
 import com.baselibrary.view.RoundedCornersTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
 public class GlideLoader {
@@ -84,6 +86,18 @@ public class GlideLoader {
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(view);
+    }
+
+    public static void LoderBlurImage(Context context, String url, ImageView view) {
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transform(new GlideBlurTransformation(context));
+        Glide.with(context)
+                .load(url)
+                .apply(requestOptions)
                 .into(view);
     }
 

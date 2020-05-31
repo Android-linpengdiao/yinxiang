@@ -33,6 +33,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     androidTestImplementation externalAndroidTestRunner
     androidTestImplementation externalAndroidTestEspressoCore
     testImplementation externalJunit
@@ -47,6 +48,7 @@ dependencies {
     implementation project(':camera')
     implementation project(':cropper')
     implementation project(':media')
+    implementation project(':cardview')
     implementation project(':videocompressor')
     implementation project(':LayoutManagerGroup')
     // 阿里视频播放器

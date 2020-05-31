@@ -40,6 +40,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="@dimen/padding"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="@dimen/padding"
             android:background="@drawable/bk"
             android:gravity="center"
             android:orientation="vertical">
@@ -79,6 +80,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/wallet_pay"
                 android:layout_width="87dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
@@ -94,10 +96,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:overScrollMode="never"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp" />
+            android:overScrollMode="never"/>
 
     </LinearLayout>
 </layout>
