@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eeeeee"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="入团申请设置"
+                android:textColor="#ffffffff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding"
+            android:background="@drawable/button_white">
+
+            <RadioGroup
+                android:id="@+id/radio_group_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="@dimen/padding">
+
+                <RadioButton
+                    android:id="@+id/radio_button_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/check"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="免费入团"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_button_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/check"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="收费入团"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/radio_group_view"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/padding"
+                android:layout_marginBottom="@dimen/padding"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:minWidth="110dp"
+                    android:layout_height="36dp"
+                    android:gravity="center_vertical|right"
+                    android:text=""
+                    android:inputType="number"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_stroke_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="金币"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="119dp"
+            android:layout_marginRight="@dimen/padding"
+            android:background="@drawable/button_radius_theme"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</layout>

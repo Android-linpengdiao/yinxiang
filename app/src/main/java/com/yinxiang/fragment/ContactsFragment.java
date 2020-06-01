@@ -3,26 +3,18 @@ package com.yinxiang.fragment;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
-import com.baselibrary.utils.CommonUtil;
 import com.yinxiang.R;
-import com.yinxiang.activity.WorkDetailActivity;
-import com.yinxiang.adapter.HomeContestAdapter;
-import com.yinxiang.adapter.WorkAdapter;
-import com.yinxiang.databinding.FragmentClubWorkBinding;
-import com.yinxiang.databinding.FragmentHomeContestBinding;
-import com.yinxiang.view.OnClickListener;
+import com.yinxiang.databinding.FragmentContactsBinding;
+import com.yinxiang.databinding.FragmentMessageBinding;
 
-public class ClubWorkFragment extends BaseFragment {
+public class ContactsFragment extends BaseFragment {
 
-    private FragmentClubWorkBinding binding;
+    private FragmentContactsBinding binding;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -33,13 +25,13 @@ public class ClubWorkFragment extends BaseFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ClubWorkFragment() {
+    public ContactsFragment() {
 
     }
 
 
-    public static ClubWorkFragment newInstance(String param1, String param2) {
-        ClubWorkFragment fragment = new ClubWorkFragment();
+    public static ContactsFragment newInstance(String param1, String param2) {
+        ContactsFragment fragment = new ContactsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,24 +51,9 @@ public class ClubWorkFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_club_work, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_contacts, container, false);
 
-        WorkAdapter workAdapter = new WorkAdapter(getActivity());
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.recyclerView.setNestedScrollingEnabled(false);
-        binding.recyclerView.setAdapter(workAdapter);
-        workAdapter.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view, Object object) {
-                openActivity(WorkDetailActivity.class);
-            }
 
-            @Override
-            public void onLongClick(View view, Object object) {
-
-            }
-        });
-        workAdapter.refreshData(CommonUtil.getImageListString());
 
         return binding.getRoot();
     }

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
+import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
@@ -45,6 +46,7 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
         binding.recyclerView.setOnClickListener(this);
         binding.tvClubWorks.setOnClickListener(this);
         binding.tvClubSetting.setOnClickListener(this);
+        binding.tvConfirm.setOnClickListener(this);
 
         GlideLoader.LoderLoadImage(this, CommonUtil.getImageListString().get(2), binding.ivClubLogo, 100);
         GlideLoader.LoderBlurImage(this, CommonUtil.getImageListString().get(2), binding.ivClubCover);
@@ -114,10 +116,39 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.tv_club_setting:
-//                intent = new Intent(ClubDetailActivity.this, MyWorkPKActivity.class);
-//                intent.putExtra("type", "userDesc");
-//                startActivityForResult(intent, REQUEST_NAME);
+                intent = new Intent(ClubDetailActivity.this, ClubSettingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_confirm:
+                if (uid % 2 == 0) {
+                    intent = new Intent(ClubDetailActivity.this, ClubDeleteActivity.class);
+                    startActivity(intent);
+                } else {
+                    DialogManager.showPayDialog(ClubDetailActivity.this,"街舞艺术交流群·入团交费","确认支付10金币加入该社团?", new com.baselibrary.view.OnClickListener() {
+                        @Override
+                        public void onClick(View view, Object object) {
+                            switch (view.getId()) {
+                                case R.id.tv_confirm:
+
+                                    break;
+                                case R.id.tv_cancel:
+
+                                    break;
+                                case R.id.tv_coin:
+
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onLongClick(View view, Object object) {
+
+                        }
+                    });
+                }
                 break;
         }
     }
+
+
 }

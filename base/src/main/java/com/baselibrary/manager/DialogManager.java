@@ -105,16 +105,24 @@ public class DialogManager {
     }
 
 
-    public static void showElectionDialog(Activity act, final OnClickListener onClickListener) {
+    public static void showPayDialog(Activity act, String title, String desc, final OnClickListener onClickListener) {
         final AlertDialog dialog = new AlertDialog.Builder(act, AlertDialog.THEME_HOLO_DARK).create();
         dialog.setCancelable(true);
         dialog.show();
         Window window = dialog.getWindow();
         window.getDecorView().setBackgroundColor(act.getResources().getColor(R.color.transparent));
         window.setContentView(R.layout.view_election_dialog_alert);
+        TextView tvTitle = window.findViewById(R.id.tv_title);
+        TextView tvDesc = window.findViewById(R.id.tv_desc);
         TextView tvConfirm = window.findViewById(R.id.tv_confirm);
         TextView tvCancel = window.findViewById(R.id.tv_cancel);
         TextView tvCoin = window.findViewById(R.id.tv_coin);
+        if (!CommonUtil.isBlank(title)) {
+            tvTitle.setText(title);
+        }
+        if (!CommonUtil.isBlank(desc)) {
+            tvDesc.setText(desc);
+        }
         tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

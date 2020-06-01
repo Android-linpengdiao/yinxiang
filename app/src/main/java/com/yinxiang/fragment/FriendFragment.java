@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yinxiang.R;
+import com.yinxiang.adapter.PagerAdapter;
 import com.yinxiang.databinding.FragmentFriendBinding;
 import com.yinxiang.databinding.FragmentHomeBinding;
 
@@ -54,6 +55,14 @@ public class FriendFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_friend, container, false);
         setStatusBarHeight(binding.getRoot(), getResources().getColor(R.color.colorPrimary));
+
+        PagerAdapter mainHomePagerAdapter = new PagerAdapter(getChildFragmentManager());
+        mainHomePagerAdapter.addFragment("消息", new MessageFragment());
+        mainHomePagerAdapter.addFragment("通讯录", new ContactsFragment());
+        binding.viewPager.setAdapter(mainHomePagerAdapter);
+        binding.viewPager.setOffscreenPageLimit(2);
+        binding.viewPager.setCurrentItem(0);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
 
         return binding.getRoot();
     }
