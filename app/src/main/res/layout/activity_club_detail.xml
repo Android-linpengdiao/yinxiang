@@ -92,7 +92,7 @@
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tabLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
                         app:tabGravity="center"
                         app:tabIndicatorColor="#333333"
                         app:tabIndicatorFullWidth="false"
@@ -134,8 +134,9 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/edit_club_desc"
                             android:layout_width="wrap_content"
-                            android:layout_height="24dp"
+                            android:layout_height="wrap_content"
                             android:background="@drawable/button_radius_theme"
                             android:gravity="center"
                             android:paddingLeft="18dp"
@@ -146,6 +147,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_club_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -197,6 +199,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_club_works"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding"
@@ -219,6 +222,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_club_setting"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding"
@@ -243,6 +247,7 @@
             android:padding="@dimen/padding">
 
             <TextView
+                android:id="@+id/tv_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/button_radius_theme"

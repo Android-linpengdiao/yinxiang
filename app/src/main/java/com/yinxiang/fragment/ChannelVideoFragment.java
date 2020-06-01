@@ -77,7 +77,7 @@ public class ChannelVideoFragment extends BaseFragment {
         mLayoutManager = new ViewPagerLayoutManager(getActivity(), OrientationHelper.VERTICAL);
         binding.recyclerView.setLayoutManager(mLayoutManager);
         binding.recyclerView.setAdapter(adapter);
-        adapter.refreshData(CommonUtil.getImageListString());
+        adapter.refreshData(CommonUtil.getVideoCoverListString());
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -223,9 +223,7 @@ public class ChannelVideoFragment extends BaseFragment {
         });
     }
 
-    String url1 = "http://api.lgdama.com:10001/storage/video/db236d54a02442ae9ba0d8c4911dba17.mp4";
-    String url2 = "http://api.lgdama.com:10001/storage/video/dc0d36f301784ffd8896ce673f6e6ba1.mp4";
-
+    private ImageView imgPlay;
     private void playVideo(int position) {
         View itemView = binding.recyclerView.getChildAt(0);
         SurfaceView mSurfaceView = itemView.findViewById(R.id.surfaceView);
@@ -249,7 +247,7 @@ public class ChannelVideoFragment extends BaseFragment {
             public void surfaceDestroyed(SurfaceHolder holder) {
             }
         });
-        final ImageView imgPlay = itemView.findViewById(R.id.img_play);
+        imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
         mSurfaceView.setOnClickListener(new View.OnClickListener() {
 
@@ -296,7 +294,7 @@ public class ChannelVideoFragment extends BaseFragment {
         if (mPlayer != null) {
             mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         }
-        mPlayer.prepareToPlay(position % 2 == 0 ? url1 : url2);
+        mPlayer.prepareToPlay(CommonUtil.getVideoListString().get(position));
 
     }
 
@@ -312,14 +310,17 @@ public class ChannelVideoFragment extends BaseFragment {
     private AliVcMediaPlayer mPlayer;
 
     private void start() {
-        if (mPlayer != null) {
-            mPlayer.prepareToPlay(url1);
-        }
+//        if (mPlayer != null) {
+//            mPlayer.prepareToPlay(url1);
+//        }
     }
 
     private void pause() {
         if (mPlayer != null) {
             mPlayer.pause();
+        }
+        if (imgPlay!=null) {
+            imgPlay.animate().alpha(1f).start();
         }
     }
 

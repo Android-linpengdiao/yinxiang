@@ -9,12 +9,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding"
-        android:background="@drawable/button_white">
+        android:padding="@dimen/padding">
 
         <RelativeLayout
             android:id="@+id/view_layout"
             android:layout_width="match_parent"
+            android:background="@drawable/button_white"
             android:layout_height="124dp">
 
             <android.support.v7.widget.RecyclerView

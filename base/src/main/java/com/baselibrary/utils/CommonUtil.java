@@ -31,6 +31,20 @@ import java.util.List;
 
 public class CommonUtil {
 
+    public static List<String> getVideoListString() {
+        String url1 = "http://api.lgdama.com:10001/storage/video/e31e0cd72f8a4f2786111e02a3275cf2.mp4";
+        String url2 = "http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4";
+        String url3 = "http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4";
+        return new ArrayList<String>(Arrays.asList(url1, url2,url3));
+    }
+
+    public static List<String> getVideoCoverListString() {
+        String url1 = "http://v.quakoo.com/image/cover/623A4327AFCB4BDDB3D2DE4D19D9AF5C-6-2.png?auth_key=1590986707-0-0-4393c227e14709899eff89c6e21c71f9";
+        String url2 = "http://v.quakoo.com/image/cover/E9A835B5998243A1BC5B3DFED3C868AF-6-2.png?auth_key=1590982538-0-0-71e3e54b7e2d7d4643a282c539def704";
+        String url3 = "http://v.quakoo.com/image/cover/E9BBB37FBCD84EB2A614EF6503FF4E1E-6-2.png?auth_key=1590982211-0-0-3d05c35ad9326ef0fafbaa76de5c064f";
+        return new ArrayList<String>(Arrays.asList(url1, url2,url3));
+    }
+
     public static List<String> getImageListString() {
         String url1 = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2836123484,3030068744&fm=26&gp=0.jpg";
         String url2 = "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1789569952,4029204763&fm=26&gp=0.jpg";

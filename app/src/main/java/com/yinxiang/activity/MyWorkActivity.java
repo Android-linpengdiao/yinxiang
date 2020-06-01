@@ -18,11 +18,21 @@ public class MyWorkActivity extends BaseActivity implements View.OnClickListener
 
     private ActivityMyWorkBinding binding;
     private WorkAdapter workAdapter;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_work);
+
+        if (getIntent().hasExtra("id")) {
+            id = getIntent().getIntExtra("type", 0);
+            if (id == getUserInfo().getData().getId()) {
+                binding.title.setText("我的作品");
+            }else {
+                binding.title.setText("社团作品");
+            }
+        }
 
         binding.back.setOnClickListener(this);
 

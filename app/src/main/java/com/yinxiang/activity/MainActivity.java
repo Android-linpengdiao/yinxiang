@@ -1,6 +1,7 @@
 package com.yinxiang.activity;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -77,7 +78,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myWorkView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(MyWorkActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyWorkActivity.class);
+                intent.putExtra("id", getUserInfo().getData().getId());
+                startActivity(intent);
             }
         });
         myWorkPKView.setOnClickListener(new View.OnClickListener() {

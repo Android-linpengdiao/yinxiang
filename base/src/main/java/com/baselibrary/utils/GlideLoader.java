@@ -35,7 +35,7 @@ public class GlideLoader {
     public static void LoderVideoImage(Context context, String url, ImageView view) {
         Glide.with(context)
                 .load(url)
-                .centerCrop()
+                .centerInside()
                 .placeholder(R.drawable.cover)
                 .error(R.drawable.cover)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -48,6 +48,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         binding.back.setOnClickListener(this);
         binding.userIcon.setOnClickListener(this);
         binding.userName.setOnClickListener(this);
+        binding.userDesc.setOnClickListener(this);
 
         initView(getUserInfo().getData().getAvatar(), getUserInfo().getData().getName());
     }
@@ -65,6 +66,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.back:
                 finish();
@@ -99,8 +101,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.user_name:
-//                Intent intent1 = new Intent(EditorActivity.this, UpdataNicknameActivity.class);
-//                startActivityForResult(intent1, REQUEST_NAME);
+                intent = new Intent(EditorActivity.this, EditTextActivity.class);
+                intent.putExtra("type", "userName");
+                startActivityForResult(intent, REQUEST_NAME);
+                break;
+            case R.id.user_desc:
+                intent = new Intent(EditorActivity.this, EditTextActivity.class);
+                intent.putExtra("type", "userDesc");
+                startActivityForResult(intent, REQUEST_NAME);
                 break;
         }
     }
