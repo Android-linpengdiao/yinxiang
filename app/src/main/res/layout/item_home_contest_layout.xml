@@ -41,6 +41,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/rivalWorkView"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="@drawable/button_radius_right_theme"
@@ -86,6 +87,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/myWorkView"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="@drawable/button_radius_left_blue"

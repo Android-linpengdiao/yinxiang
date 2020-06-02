@@ -1,12 +1,15 @@
 package com.yinxiang.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.View;
 
 import com.baselibrary.Constants;
@@ -17,7 +20,15 @@ import com.baselibrary.utils.StatusBarUtil;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.UiError;
 import com.yinxiang.R;
+import com.yinxiang.manager.TencentHelper;
+import com.yinxiang.manager.WXManager;
+import com.yinxiang.view.OnClickListener;
+import com.yinxiang.view.SharePopupWindow;
+
+import java.io.File;
 
 import okhttp3.Call;
 
@@ -35,7 +46,7 @@ public class BaseFragment extends Fragment {
 
     // 5.0版本以上
     @SuppressLint("NewApi")
-    public void setStatusBarHeight(View view,int color) {
+    public void setStatusBarHeight(View view, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             View decorView = getActivity().getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
@@ -50,8 +61,58 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    public SharePopupWindow shareView(final Activity activity, final OnClickListener onClickListener) {
+        SharePopupWindow sharePopupWindow = new SharePopupWindow(activity);
+        sharePopupWindow.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view, Object object) {
+                switch (view.getId()) {
+                    case R.id.shareWx:
+                        // scene 0代表好友   1代表朋友圈
+                        WXManager.send(activity, 0);
+
+                        break;
+                    case R.id.shareWxMoment:
+                        WXManager.send(activity, 1);
+
+                        break;
+                    case R.id.shareQQ:
+                        TencentHelper.shareToQQ(activity, "https://www.baidu.com/", "title", "desc", null, new IUiListener() {
+                            @Override
+                            public void onComplete(Object o) {
+                            }
+
+                            @Override
+
+                            public void onError(UiError uiError) {
+
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+                        });
+
+                        break;
+                    case R.id.shareWeibo:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
+        sharePopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+        return sharePopupWindow;
+    }
+
     public void openActivity(Class<?> mClass) {
-        openActivity(mClass,null);
+        openActivity(mClass, null);
     }
 
     public void openActivity(Class<?> mClass, Bundle mBundle) {

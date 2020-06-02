@@ -12,6 +12,7 @@ import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivityMyWorkBinding;
 import com.yinxiang.databinding.ActivityMyWorkPkBinding;
 import com.yinxiang.databinding.ActivitySelectionWorkPkBinding;
+import com.yinxiang.view.OnClickListener;
 
 public class MyWorkPKActivity extends BaseActivity implements View.OnClickListener {
 
@@ -28,6 +29,17 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
         adapter.refreshData(CommonUtil.getImageListString());
+        adapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                openActivity(WorkDetailActivity.class);
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
 
     }
 

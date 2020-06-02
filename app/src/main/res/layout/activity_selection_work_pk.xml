@@ -34,14 +34,50 @@
                 android:textSize="18sp" />
         </RelativeLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding"
+            android:text="请选择一个作品与TA进行PK"
+            android:textColor="#ff333333"
+            android:textSize="16sp" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
+            android:layout_height="0dp"
             android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:overScrollMode="never"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"/>
+            android:paddingRight="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/padding">
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/button_radius_theme"
+                android:gravity="center"
+                android:text="开始PK"
+                android:textColor="#ffffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding"
+                android:gravity="center"
+                android:text="已报名参加比赛活动的作品，方可参加PK"
+                android:textColor="#ff999999"
+                android:textSize="15sp" />
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

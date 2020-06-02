@@ -42,7 +42,7 @@ public class TypePopupWindow extends BasePopupWindow {
         recyclerView.setAdapter(adapter);
         NavData navData = new NavData();
         List<NavData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             NavData.DataBean dataBean = new NavData.DataBean();
             dataBean.setName("音乐活动" + i);
             dataBean.setStatus(i == 0 ? 1 : 0);

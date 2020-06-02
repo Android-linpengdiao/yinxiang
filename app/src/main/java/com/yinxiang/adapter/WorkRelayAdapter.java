@@ -1,6 +1,7 @@
 package com.yinxiang.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
@@ -30,6 +31,21 @@ public class WorkRelayAdapter extends BaseRecyclerAdapter<String, ItemWorkRelayL
         if (mList != null && mList.size() > 0) {
             GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon1);
             GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon2);
+            binding.rivalWorkView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener!=null){
+                        onClickListener.onClick(v,position);
+                    }
+                }
+            });binding.myWorkView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener!=null){
+                        onClickListener.onClick(v,position);
+                    }
+                }
+            });
         }
 
     }

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="活动详情"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/videoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="211dp"
+                android:background="@color/black">
+
+                <SurfaceView
+                    android:id="@+id/surfaceView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
+
+                <ImageView
+                    android:id="@+id/thumbnails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/player_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/player_cover_top">
+
+                        <ImageView
+                            android:id="@+id/player_back"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:src="@drawable/back"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/progress_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/player_cover_bottom"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/video_play"
+                            android:layout_width="35dp"
+                            android:layout_height="40dp"
+                            android:layout_centerInParent="true"
+                            android:padding="10dp"
+                            android:src="@drawable/video_play" />
+
+                        <TextView
+                            android:id="@+id/current_duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="14dp"
+                            android:text="00:00"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <SeekBar
+                            android:id="@+id/progress"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:maxHeight="3dp"
+                            android:minHeight="3dp"
+                            android:progressDrawable="@drawable/seek_bar_progress"
+                            android:thumb="@drawable/seek_bar_thumb" />
+
+                        <TextView
+                            android:id="@+id/total_duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="14dp"
+                            android:text="00:00"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:id="@+id/fullscreen"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerInParent="true"
+                            android:padding="10dp"
+                            android:src="@drawable/fullscreen" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/loading"
+                    style="@android:style/Widget.Holo.ProgressBar.Large"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="《这就是街舞3》海选比赛"
+                            android:textColor="#333333"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="2020.06.06-07.07"
+                            android:textColor="#ff999999"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_competition_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@drawable/button_radius_gray_dark"
+                        android:gravity="center"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="22dp"
+                        android:text="决赛进行中"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingRight="@dimen/padding">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:background="@color/colorPrimary" />
+
+                        <ImageView
+                            android:id="@+id/iv_point_1"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/point" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_title_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text="初赛-已晋级"
+                            android:textColor="#ff333333"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_rank_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text=""
+                            android:textColor="#ff2b51f3"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_poll_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="#ff666666"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_cover_1"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginBottom="20dp"
+                        android:src="@drawable/placeholder" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingRight="@dimen/padding">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:background="@color/colorPrimary" />
+
+                        <ImageView
+                            android:id="@+id/iv_point_2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/point" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_title_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text="复赛-未开始"
+                            android:textColor="#ff333333"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_rank_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text=""
+                            android:textColor="#ff2b51f3"
+                            android:textSize="15sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_poll_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="#ff666666"
+                            android:textSize="15sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_upload_2"
+                            android:layout_width="150dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/button_radius_theme"
+                            android:gravity="center"
+                            android:text="上传复赛作品"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/iv_cover_2"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="20dp"
+                            android:src="@drawable/placeholder"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingRight="@dimen/padding">
+
+                    <ImageView
+                        android:id="@+id/iv_point_3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/point" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_title_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text="决赛-未开始"
+                            android:textColor="#ff333333"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_rank_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text=""
+                            android:textColor="#ff2b51f3"
+                            android:textSize="15sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_poll_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="#ff666666"
+                            android:textSize="15sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_upload_3"
+                            android:layout_width="150dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/button_radius_theme"
+                            android:gravity="center"
+                            android:text="上传决赛作品"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/iv_cover_3"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="20dp"
+                            android:src="@drawable/placeholder"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

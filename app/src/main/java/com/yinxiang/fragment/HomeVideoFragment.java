@@ -25,6 +25,7 @@ import com.yinxiang.R;
 import com.yinxiang.activity.ReportActivity;
 import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.activity.SelectionWorkRelayActivity;
+import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
 import com.yinxiang.model.CommentData;
@@ -92,11 +93,27 @@ public class HomeVideoFragment extends BaseFragment {
                     case R.id.iv_comment:
                         CommentView();
                         break;
+                    case R.id.iv_share:
+                        shareView(getActivity(), new OnClickListener() {
+                            @Override
+                            public void onClick(View view, Object object) {
+
+                            }
+
+                            @Override
+                            public void onLongClick(View view, Object object) {
+
+                            }
+                        });
+                        break;
                     case R.id.tv_election:
                         Election();
                         break;
                     case R.id.tv_report:
                         openActivity(ReportActivity.class);
+                        break;
+                    case R.id.user_icon:
+                        openActivity(UserHomeActivity.class);
                         break;
                 }
             }
@@ -144,7 +161,7 @@ public class HomeVideoFragment extends BaseFragment {
                         ToastUtils.showShort(getActivity(), "以为TA投一票");
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(),"为TA投三票","确认支付10金币为TA投三票?", new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付10金币为TA投三票?", new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
@@ -254,6 +271,7 @@ public class HomeVideoFragment extends BaseFragment {
     }
 
     private ImageView imgPlay;
+
     private void playVideo(int position) {
         View itemView = binding.recyclerView.getChildAt(0);
         SurfaceView mSurfaceView = itemView.findViewById(R.id.surfaceView);
@@ -349,7 +367,7 @@ public class HomeVideoFragment extends BaseFragment {
         if (mPlayer != null) {
             mPlayer.pause();
         }
-        if (imgPlay!=null) {
+        if (imgPlay != null) {
             imgPlay.animate().alpha(1f).start();
         }
     }

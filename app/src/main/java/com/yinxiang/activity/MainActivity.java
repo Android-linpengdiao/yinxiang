@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         View myWorkView = headerView.findViewById(R.id.my_work_view);
         View myWorkPKView = headerView.findViewById(R.id.my_work_pk_view);
         View myWorkRelayView = headerView.findViewById(R.id.my_work_relay_view);
+        View myCompetitionView = headerView.findViewById(R.id.my_competition_view);
         View myWalletView = headerView.findViewById(R.id.my_wallet_view);
         View myVIPView = headerView.findViewById(R.id.my_vip_view);
         View tvEditor = headerView.findViewById(R.id.tv_editor);
@@ -93,6 +94,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             @Override
             public void onClick(View v) {
                 openActivity(MyWorkRelayActivity.class);
+            }
+        });
+        myCompetitionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(MyCompetitionActivity.class);
             }
         });
         myWalletView.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +196,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     private long lastTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

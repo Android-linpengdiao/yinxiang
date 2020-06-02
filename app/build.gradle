@@ -55,4 +55,6 @@ dependencies {
     api files('libs/AlivcReporter-1.2.aar')
     api files('libs/AlivcPlayer-3.4.6.aar')
     api files('libs/AliyunVodPlayer-3.4.6.aar')
+    implementation files('libs/open_sdk_r6019_lite.jar')
+    implementation files('libs/wechat-sdk-android-with-mta-5.3.1.jar')
 }

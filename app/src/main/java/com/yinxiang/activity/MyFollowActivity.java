@@ -74,6 +74,7 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
+                ToastUtils.showShort(MyFollowActivity.this, ""+e.getMessage());
             }
 
             @Override

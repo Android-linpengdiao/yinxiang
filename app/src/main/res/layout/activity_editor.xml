@@ -58,8 +58,8 @@
                 android:id="@+id/user_icon"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:padding="0.5dp"
-                android:background="@drawable/circle_gray" />
+                android:background="@drawable/circle_gray"
+                android:padding="0.5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,9 +87,8 @@
             android:paddingRight="@dimen/padding">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="昵称"
                 android:textColor="#333333"
@@ -97,11 +96,12 @@
 
             <TextView
                 android:id="@+id/user_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawableRight="@drawable/icon_more"
                 android:drawablePadding="10dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:text="赵子龙"
                 android:textColor="#999999"
                 android:textSize="15sp" />
@@ -122,20 +122,21 @@
             android:paddingRight="@dimen/padding">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="性别"
                 android:textColor="#333333"
                 android:textSize="15sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/user_sex"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawableRight="@drawable/icon_more"
                 android:drawablePadding="10dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:text="男"
                 android:textColor="#999999"
                 android:textSize="15sp" />
@@ -157,20 +158,20 @@
             android:paddingRight="@dimen/padding">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="简介"
                 android:textColor="#333333"
                 android:textSize="15sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawableRight="@drawable/icon_more"
                 android:drawablePadding="10dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:text="这就是街舞第二集总结赛冠军"
                 android:textColor="#999999"
                 android:textSize="15sp" />
@@ -191,20 +192,20 @@
             android:paddingRight="@dimen/padding">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="地区"
                 android:textColor="#333333"
                 android:textSize="15sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawableRight="@drawable/icon_more"
                 android:drawablePadding="10dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:text="中国 北京 北京"
                 android:textColor="#999999"
                 android:textSize="15sp" />
@@ -215,7 +216,6 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#DCDCDC" />
-
 
 
     </LinearLayout>

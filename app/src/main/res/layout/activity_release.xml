@@ -88,20 +88,20 @@
             android:padding="@dimen/padding">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="默认不参加任何比赛"
                 android:textColor="#ff333333"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_competition"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawableRight="@drawable/icon_more"
                 android:drawablePadding="8dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:text="选择比赛活动"
                 android:textColor="#ff999999"
                 android:textSize="15sp" />
@@ -125,20 +125,20 @@
             android:padding="@dimen/padding">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="默认不同步"
                 android:textColor="#ff333333"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_association"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawableRight="@drawable/icon_more"
                 android:drawablePadding="8dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:text="选择社团"
                 android:textColor="#ff999999"
                 android:textSize="15sp" />

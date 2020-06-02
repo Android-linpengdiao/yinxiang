@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.Window;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.FileUtils;
@@ -49,6 +53,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         binding.userIcon.setOnClickListener(this);
         binding.userName.setOnClickListener(this);
         binding.userDesc.setOnClickListener(this);
+        binding.userSex.setOnClickListener(this);
 
         initView(getUserInfo().getData().getAvatar(), getUserInfo().getData().getName());
     }
@@ -110,7 +115,35 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 intent.putExtra("type", "userDesc");
                 startActivityForResult(intent, REQUEST_NAME);
                 break;
+            case R.id.user_sex:
+                setSexDialog();
+                break;
         }
+    }
+
+    private void setSexDialog() {
+        final AlertDialog dialog = new AlertDialog.Builder(EditorActivity.this).create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.getDecorView().setBackgroundColor(getResources().getColor(R.color.transparent));
+        window.setContentView(R.layout.view_sex_dialog_alert);
+        RadioGroup radioGroupView = window.findViewById(R.id.radio_group_view);
+        radioGroupView.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_button_boy:
+                        binding.userSex.setText("男");
+                        break;
+                    case R.id.radio_button_girl:
+                        binding.userSex.setText("女");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
     }
 
 

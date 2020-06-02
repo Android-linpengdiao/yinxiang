@@ -40,10 +40,10 @@ public class WorkAdapter extends BaseRecyclerAdapter<String, ItemWorksLayoutBind
             GlideLoader.LoderRoundedImage(mContext, str, binding.cover, 10);
             GlideLoader.LoderCircleImage(mContext, str, binding.userIcon);
             if (selection) {
-//                binding.cardView.setSelected(position != 0 ? false : true);
                 binding.selectionView.setBackground(position != 0 ? mContext.getResources().getDrawable(R.drawable.button_white_t) : mContext.getResources().getDrawable(R.drawable.button_t));
+                binding.selectionView.setEnabled(position != 0 ? false : true);
             }
-            binding.rootView.setOnClickListener(new View.OnClickListener() {
+            binding.selectionView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {

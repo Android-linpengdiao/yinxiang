@@ -29,13 +29,36 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
     @Override
     protected void onBindItem(final ItemHomeVideoLayoutBinding binding, final String dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
+            binding.tvFollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    binding.tvFollow.setSelected(!binding.tvFollow.isSelected());
+                    binding.tvFollow.setText(binding.tvFollow.isSelected() ? "已关注" : "关注");
+                }
+            });
             binding.ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     binding.ivLike.setSelected(!binding.ivLike.isSelected());
                 }
             });
+            binding.userIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });
             binding.ivComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });
+            binding.ivShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
@@ -66,7 +89,8 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
                         onClickListener.onClick(v, dataBean);
                     }
                 }
-            });binding.tvElection.setOnClickListener(new View.OnClickListener() {
+            });
+            binding.tvElection.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {

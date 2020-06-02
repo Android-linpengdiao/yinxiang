@@ -39,7 +39,7 @@ public class SelectionAssociationActivity extends BaseActivity implements View.O
         List<NavData.DataBean> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             NavData.DataBean dataBean = new NavData.DataBean();
-            dataBean.setName("音乐活动" + i);
+            dataBean.setName("街舞艺术交流群" + i);
             list.add(dataBean);
         }
         navData.setData(list);

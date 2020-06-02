@@ -23,6 +23,7 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
         binding = DataBindingUtil.setContentView(this, R.layout.activity_selection_work_relay);
 
         binding.back.setOnClickListener(this);
+        binding.tvConfirm.setOnClickListener(this);
 
         workAdapter = new WorkAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -34,6 +35,10 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
+                finish();
+                break;
+            case R.id.tv_confirm:
+                openActivity(MyWorkRelayActivity.class);
                 finish();
                 break;
         }

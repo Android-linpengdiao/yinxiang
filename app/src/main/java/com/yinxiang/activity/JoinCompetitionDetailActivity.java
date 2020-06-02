@@ -6,36 +6,34 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
-import com.baselibrary.MessageBus;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
 import com.yinxiang.R;
-import com.yinxiang.databinding.ActivityCompetitionDetailBinding;
+import com.yinxiang.databinding.ActivityJoinCompetitionDetailBinding;
 
-import java.util.Date;
+public class JoinCompetitionDetailActivity extends BaseActivity implements View.OnClickListener {
 
-public class CompetitionDetailActivity extends BaseActivity implements View.OnClickListener {
-
-    private ActivityCompetitionDetailBinding binding;
+    private ActivityJoinCompetitionDetailBinding binding;
+    private int type = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_competition_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_join_competition_detail);
+
+        if (getIntent().getExtras() != null) {
+            type = getIntent().getExtras().getInt("type");
+        }
 
         binding.back.setOnClickListener(this);
         binding.playerBack.setOnClickListener(this);
@@ -83,8 +81,24 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         }
     }
 
+    /**
+     * 比赛进程
+     */
+
+
     private void initView() {
-        GlideLoader.LoderVideoImage(this, CommonUtil.getImageListString().get(6), binding.thumbnails);
+        if (type < 2) {
+            initChusaiView();
+        } else if (type < 4) {
+            initChusaiView();
+            initFusaiView();
+        } else if (type < 6) {
+            initChusaiView();
+            initFusaiView();
+            initJuesaiView();
+        }
+
+        GlideLoader.LoderVideoImage(this, "http://v.quakoo.com/image/cover/E9A835B5998243A1BC5B3DFED3C868AF-6-2.png?auth_key=1590982538-0-0-71e3e54b7e2d7d4643a282c539def704", binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -109,6 +123,69 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
             }
         });
     }
+
+    private void initChusaiView() {
+        GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, CommonUtil.getImageListString().get(0), binding.ivCover1, 10);
+        binding.tvTitle1.setText("初赛-已晋级");
+        binding.tvRank1.setText("排名No.1");
+        binding.tvPoll1.setText("票数1000w");
+        binding.ivPoint1.setSelected(true);
+        if (type == 0) {
+            binding.tvTitle1.setText("初赛-已晋级");
+            binding.tvCompetitionTitle.setText("初赛-已晋级");
+        } else if (type >= 0) {
+            binding.tvTitle1.setText("初赛-已结束");
+            binding.tvCompetitionTitle.setText("初赛-已结束");
+        }
+    }
+
+    private void initFusaiView() {
+        binding.ivPoint2.setSelected(true);
+        if (type == 2) {
+            binding.tvTitle2.setText("复赛-已晋级");
+            binding.tvCompetitionTitle.setText("复赛-已晋级");
+            binding.tvUpload2.setVisibility(View.VISIBLE);
+
+        } else if (type >= 2) {
+
+            binding.tvRank2.setVisibility(View.VISIBLE);
+            binding.tvPoll2.setVisibility(View.VISIBLE);
+            binding.ivCover2.setVisibility(View.VISIBLE);
+
+            binding.tvTitle2.setText("复赛-已结束");
+            binding.tvCompetitionTitle.setText("复赛-已结束");
+            binding.tvRank2.setText("排名No.1");
+            binding.tvPoll2.setText("票数1000w");
+            GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, CommonUtil.getImageListString().get(1), binding.ivCover2, 10);
+        }
+    }
+
+    private void initJuesaiView() {
+        binding.ivPoint3.setSelected(true);
+        if (type == 4) {
+            binding.tvTitle3.setText("决赛-已晋级");
+            binding.tvCompetitionTitle.setText("决赛-已晋级");
+            binding.tvUpload3.setVisibility(View.VISIBLE);
+
+        } else if (type >= 4) {
+
+            binding.tvRank3.setVisibility(View.VISIBLE);
+            binding.tvPoll3.setVisibility(View.VISIBLE);
+            binding.ivCover3.setVisibility(View.VISIBLE);
+
+            binding.tvTitle3.setText("决赛-已结束");
+            binding.tvCompetitionTitle.setText("决赛-已结束");
+            binding.tvRank3.setText("排名No.1");
+            binding.tvPoll3.setText("票数1000w");
+            GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, CommonUtil.getImageListString().get(2), binding.ivCover3, 10);
+        }
+    }
+
+
+    /**
+     * 视频播放器
+     */
+
 
     private void showVideoProgressInfo() {
         if (mPlayer != null && !inSeek) {
@@ -177,7 +254,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         });
 
 
-        mPlayer = new AliVcMediaPlayer(CompetitionDetailActivity.this, binding.surfaceView);
+        mPlayer = new AliVcMediaPlayer(JoinCompetitionDetailActivity.this, binding.surfaceView);
         mPlayer.setCirclePlay(true);
 
         mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
@@ -226,7 +303,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         });
         mPlayer.enableNativeLog();
         if (mPlayer != null) {
-            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+            mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
         }
         mPlayer.prepareToPlay(url1);
         binding.loading.setVisibility(View.VISIBLE);
@@ -306,7 +383,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         showNavigationBar();
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.videoContainer.getLayoutParams();
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = CommonUtil.dip2px(CompetitionDetailActivity.this, 211);
+        layoutParams.height = CommonUtil.dip2px(JoinCompetitionDetailActivity.this, 211);
         binding.videoContainer.setLayoutParams(layoutParams);
     }
 

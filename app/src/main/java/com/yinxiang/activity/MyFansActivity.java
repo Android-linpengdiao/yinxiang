@@ -72,6 +72,7 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
+                ToastUtils.showShort(MyFansActivity.this, ""+e.getMessage());
             }
 
             @Override

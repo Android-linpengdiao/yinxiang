@@ -36,6 +36,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding.playerBack.setOnClickListener(this);
         binding.ivComment.setOnClickListener(this);
         binding.ivLike.setOnClickListener(this);
+        binding.userInfoView.setOnClickListener(this);
         initView();
         playVideo();
     }
@@ -51,6 +52,9 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.player_back:
                 finish();
+                break;
+            case R.id.user_info_view:
+                openActivity(UserHomeActivity.class);
                 break;
         }
     }

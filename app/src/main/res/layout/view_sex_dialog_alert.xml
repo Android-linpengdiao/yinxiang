@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button_white"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center|left"
+            android:text="性别"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_button_boy"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:button="@null"
+                android:checked="true"
+                android:drawableRight="@drawable/check"
+                android:gravity="center_vertical|left"
+                android:text="男"
+                android:textColor="#333333"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#EEEEEE"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+
+            <RadioButton
+                android:id="@+id/radio_button_girl"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:button="@null"
+                android:drawableRight="@drawable/check"
+                android:gravity="center_vertical|left"
+                android:text="女"
+                android:textColor="#333333"
+                android:textSize="15sp" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>

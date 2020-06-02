@@ -25,51 +25,24 @@
                 android:src="@drawable/back" />
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="接力·选择作品 "
+                android:text="我的活动"
                 android:textColor="#ffffffff"
                 android:textSize="18sp" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding"
-            android:text="请选择一个作品与TA进行接力"
-            android:textColor="#ff333333"
-            android:textSize="16sp" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:overScrollMode="never"
             android:paddingLeft="5dp"
             android:paddingRight="5dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/padding">
-
-            <TextView
-                android:id="@+id/tv_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/button_radius_theme"
-                android:gravity="center"
-                android:text="开始接力"
-                android:textColor="#ffffffff"
-                android:textSize="16sp" />
-
-        </LinearLayout>
 
     </LinearLayout>
 </layout>
