@@ -182,9 +182,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public Fragment replaceContentFragment(Class<?> mclass) {
         Fragment fragment = ViewUtils.createFragment(mclass, true);
         if (fragment.isAdded()) {
-            mFragmentManager.beginTransaction().hide(mCurrentFragment).show(fragment).commitAllowingStateLoss();
+            mFragmentManager.beginTransaction().hide(mCurrentFragment).show(fragment).commit();
         } else {
-            mFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.nav_host_fragment, fragment).commitAllowingStateLoss();
+            mFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.nav_host_fragment, fragment).commit();
         }
         mCurrentFragment = fragment;
         return mCurrentFragment;

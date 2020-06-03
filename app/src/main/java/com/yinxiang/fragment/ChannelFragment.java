@@ -62,7 +62,7 @@ public class ChannelFragment extends BaseFragment implements View.OnClickListene
         channelClubFragment = new ChannelClubFragment();
         mainHomePagerAdapter.addFragment("社团学院", channelClubFragment);
         binding.viewPager.setAdapter(mainHomePagerAdapter);
-        binding.viewPager.setOffscreenPageLimit(1);
+        binding.viewPager.setOffscreenPageLimit(2);
         binding.viewPager.setCurrentItem(0);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
