@@ -178,6 +178,7 @@ public class MessageBus {
     }
 
     //消息ID
+    public static final String msgId_hiddenChanged = "hiddenChanged";
     public static final String msgId_playTime = "playTime";
     public static final String msgId_closePlay = "closePlay";
     public static final String msgId_fullScreen = "fullScreen";

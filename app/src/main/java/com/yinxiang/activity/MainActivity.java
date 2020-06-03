@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.baselibrary.MessageBus;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
@@ -29,6 +31,8 @@ import com.yinxiang.fragment.FriendFragment;
 import com.yinxiang.fragment.HomeFragment;
 import com.yinxiang.utils.ViewUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
         NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
 
@@ -38,6 +42,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     private FragmentManager mFragmentManager;
     public static Fragment mCurrentFragment;
+
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,17 +139,38 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.radioButtonRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                index = 2;
                 openActivity(ReleaseActivity.class);
             }
         });
         binding.radioButtonMine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                index = 4;
                 binding.drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
 
 
+    }
+
+    private static final String TAG = "MainActivity";
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                MessageBus.Builder builder = new MessageBus.Builder();
+                MessageBus messageBus = builder
+                        .codeType(MessageBus.msgId_hiddenChanged)
+                        .param1(index)
+                        .build();
+                EventBus.getDefault().post(messageBus);
+            }
+        },500);
     }
 
     @Override
@@ -160,12 +187,15 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.radio_button_home:
+                index = 0;
                 replaceContentFragment(HomeFragment.class);
                 break;
             case R.id.radio_button_channel:
+                index = 1;
                 replaceContentFragment(ChannelFragment.class);
                 break;
             case R.id.radio_button_friend:
+                index = 3;
                 replaceContentFragment(FriendFragment.class);
                 break;
             default:
@@ -208,5 +238,5 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
         return super.onKeyDown(keyCode, event);
     }
-    
+
 }

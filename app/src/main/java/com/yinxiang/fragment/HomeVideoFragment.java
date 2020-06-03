@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
+import com.baselibrary.MessageBus;
 import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
@@ -36,6 +37,10 @@ import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.ElectionPopupWindow;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.TypePopupWindow;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +140,8 @@ public class HomeVideoFragment extends BaseFragment {
 
         initListener();
 
+        EventBus.getDefault().register(this);
+
         return binding.getRoot();
     }
 
@@ -225,11 +232,11 @@ public class HomeVideoFragment extends BaseFragment {
         Log.i(TAG, "onHiddenSurfaceViewChanged: ");
         if (hidden) {
             pause();
-            if (mSurfaceView!=null) {
+            if (mSurfaceView != null) {
                 mSurfaceView.setVisibility(View.GONE);
             }
         } else {
-            if (mSurfaceView!=null) {
+            if (mSurfaceView != null) {
                 mSurfaceView.setVisibility(View.VISIBLE);
             }
         }
@@ -258,13 +265,33 @@ public class HomeVideoFragment extends BaseFragment {
         super.onPause();
     }
 
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMainMessage(MessageBus messageBus) {
+        if (messageBus.getCodeType().equals(messageBus.msgId_hiddenChanged)) {
+            int index = (int) messageBus.getParam1();
+            Log.i(TAG, "onResume getMainMessage: "+index);
+            if (mSurfaceView != null) {
+                mSurfaceView.setVisibility(index == 0 ? View.VISIBLE : View.GONE);
+                Log.i(TAG, "onResume getMainMessage: "+mSurfaceView.isShown());
+            }
+        }
+
+    }
+
     private void initListener() {
         mLayoutManager.setOnViewPagerListener(new OnViewPagerListener() {
 
             @Override
             public void onInitComplete() {
                 Log.e(TAG, "onInitComplete");
-                playVideo(0,false);
+                playVideo(0, false);
             }
 
             @Override
@@ -282,7 +309,7 @@ public class HomeVideoFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position, boolean isBottom) {
                 Log.e(TAG, "选中位置:" + position + "  是否是滑动到底部:" + isBottom);
-                playVideo(position,isBottom);
+                playVideo(position, isBottom);
             }
 
 
@@ -292,13 +319,12 @@ public class HomeVideoFragment extends BaseFragment {
     private SurfaceView mSurfaceView;
     private ImageView imgPlay;
 
-    private void playVideo(int position,boolean isBottom) {
-        if (isBottom&&mPlayer!=null){
+    private void playVideo(int position, boolean isBottom) {
+        if (isBottom && mPlayer != null) {
 
         }
         View itemView = binding.recyclerView.getChildAt(0);
         mSurfaceView = itemView.findViewById(R.id.surfaceView);
-        mSurfaceView.setZOrderMediaOverlay(true);
         mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
 //                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
