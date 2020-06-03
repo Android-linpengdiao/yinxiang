@@ -221,12 +221,8 @@ public class HomeVideoFragment extends BaseFragment {
         commentListPopupWindow.setCommentData(commentData);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     public void onHiddenSurfaceViewChanged(boolean hidden) {
+        Log.i(TAG, "onHiddenSurfaceViewChanged: ");
         if (hidden) {
             pause();
             if (mSurfaceView!=null) {
@@ -242,18 +238,24 @@ public class HomeVideoFragment extends BaseFragment {
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
         Log.i(TAG, "onHiddenChanged: ");
         if (hidden) {
             pause();
         }
+        super.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void onResume() {
+        Log.i(TAG, "onResume: ");
+        super.onResume();
     }
 
     @Override
     public void onPause() {
-        super.onPause();
         Log.i(TAG, "onPause: ");
         pause();
+        super.onPause();
     }
 
     private void initListener() {

@@ -129,6 +129,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onResume() {
+        Log.i(TAG, "onResume: ");
         if (homeVideoFragment!=null) {
             homeVideoFragment.onHiddenSurfaceViewChanged(false);
         }
@@ -137,6 +138,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onPause() {
+        Log.i(TAG, "onPause: ");
         if (homeVideoFragment!=null) {
             homeVideoFragment.onHiddenSurfaceViewChanged(true);
         }

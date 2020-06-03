@@ -93,6 +93,7 @@ public class ChannelFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onResume() {
+        Log.i(TAG, "onResume: ");
         if (channelVideoFragment!=null) {
             channelVideoFragment.onHiddenSurfaceViewChanged(false);
         }
@@ -101,6 +102,7 @@ public class ChannelFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onPause() {
+        Log.i(TAG, "onPause: ");
         if (channelVideoFragment!=null) {
             channelVideoFragment.onHiddenSurfaceViewChanged(true);
         }
@@ -116,7 +118,7 @@ public class ChannelFragment extends BaseFragment implements View.OnClickListene
     public void onPageSelected(int position) {
         setStatusBarHeight(binding.getRoot(), position == 0 ? Color.TRANSPARENT : getResources().getColor(R.color.colorPrimary));
         binding.topView.setBackgroundColor(position == 0 ? getResources().getColor(R.color.transparent) : getResources().getColor(R.color.colorPrimary));
-        binding.tvVideoType.setVisibility(position != 0 ? View.GONE : View.VISIBLE);
+        binding.tvVideoType.setVisibility(position != 0 ? View.INVISIBLE : View.VISIBLE);
         if (position != 0) {
             channelVideoFragment.onPause();
         }

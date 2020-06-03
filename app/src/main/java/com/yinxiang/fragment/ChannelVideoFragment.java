@@ -196,6 +196,7 @@ public class ChannelVideoFragment extends BaseFragment {
     }
 
     public void onHiddenSurfaceViewChanged(boolean hidden) {
+        Log.i(TAG, "onHiddenSurfaceViewChanged: ");
         if (hidden) {
             pause();
             if (mSurfaceView!=null) {
@@ -216,6 +217,12 @@ public class ChannelVideoFragment extends BaseFragment {
             pause();
         }
         super.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void onResume() {
+        Log.i(TAG, "onResume: ");
+        super.onResume();
     }
 
     @Override
