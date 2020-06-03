@@ -50,7 +50,7 @@
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/navigation_drawable_home"
                     android:gravity="center"
-                    android:text="酒大仙"
+                    android:text="首页"
                     android:textColor="@drawable/navigation_text_color"
                     android:textSize="@dimen/navigation_text_size" />
 

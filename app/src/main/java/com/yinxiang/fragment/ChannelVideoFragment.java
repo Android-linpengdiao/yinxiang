@@ -244,9 +244,10 @@ public class ChannelVideoFragment extends BaseFragment {
     private void playVideo(int position) {
         View itemView = binding.recyclerView.getChildAt(0);
         mSurfaceView = itemView.findViewById(R.id.surfaceView);
+        mSurfaceView.setZOrderMediaOverlay(true);
         mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
-                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
+//                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
                 holder.setKeepScreenOn(true);
                 // 对于从后台切换到前台,需要重设surface;部分手机锁屏也会做前后台切换的处理
                 if (mPlayer != null) {
