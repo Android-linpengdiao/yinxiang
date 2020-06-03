@@ -94,7 +94,8 @@ public class ChannelVideoFragment extends BaseFragment {
                         break;
                     case R.id.iv_comment:
                         CommentView();
-                        break;case R.id.iv_share:
+                        break;
+                    case R.id.iv_share:
                         shareView(getActivity(), new OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
@@ -137,7 +138,7 @@ public class ChannelVideoFragment extends BaseFragment {
                         ToastUtils.showShort(getActivity(), "以为TA投一票");
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(),"为TA投三票","确认支付10金币为TA投三票?", new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付10金币为TA投三票?", new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
@@ -194,18 +195,34 @@ public class ChannelVideoFragment extends BaseFragment {
         commentListPopupWindow.setCommentData(commentData);
     }
 
+    public void onHiddenSurfaceViewChanged(boolean hidden) {
+        if (hidden) {
+            pause();
+            if (mSurfaceView!=null) {
+                mSurfaceView.setVisibility(View.GONE);
+            }
+        } else {
+            if (mSurfaceView!=null) {
+                mSurfaceView.setVisibility(View.VISIBLE);
+            }
+        }
+
+    }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
+        Log.i(TAG, "onHiddenChanged: ");
         if (hidden) {
             pause();
         }
+        super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onPause() {
-        super.onPause();
+        Log.i(TAG, "onPause: ");
         pause();
+        super.onPause();
     }
 
     private void initListener() {
@@ -241,6 +258,7 @@ public class ChannelVideoFragment extends BaseFragment {
 
     private SurfaceView mSurfaceView;
     private ImageView imgPlay;
+
     private void playVideo(int position) {
         View itemView = binding.recyclerView.getChildAt(0);
         mSurfaceView = itemView.findViewById(R.id.surfaceView);
@@ -340,7 +358,7 @@ public class ChannelVideoFragment extends BaseFragment {
         if (mPlayer != null) {
             mPlayer.pause();
         }
-        if (imgPlay!=null) {
+        if (imgPlay != null) {
             imgPlay.animate().alpha(1f).start();
         }
     }

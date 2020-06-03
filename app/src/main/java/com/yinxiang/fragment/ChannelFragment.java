@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import com.yinxiang.databinding.FragmentHomeBinding;
 
 public class ChannelFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
-
+    private static final String TAG = "ChannelFragment";
     private FragmentChannelBinding binding;
 
     private static final String ARG_PARAM1 = "param1";
@@ -83,20 +84,27 @@ public class ChannelFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            if (channelVideoFragment!=null) {
-                channelVideoFragment.onPause();
-            }
+        Log.i(TAG, "onHiddenChanged: ");
+        if (channelVideoFragment!=null) {
+            channelVideoFragment.onHiddenSurfaceViewChanged(hidden);
         }
+        super.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void onResume() {
+        if (channelVideoFragment!=null) {
+            channelVideoFragment.onHiddenSurfaceViewChanged(false);
+        }
+        super.onResume();
     }
 
     @Override
     public void onPause() {
-        super.onPause();
         if (channelVideoFragment!=null) {
-            channelVideoFragment.onPause();
+            channelVideoFragment.onHiddenSurfaceViewChanged(true);
         }
+        super.onPause();
     }
 
     @Override

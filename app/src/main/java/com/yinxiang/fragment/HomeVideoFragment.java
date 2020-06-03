@@ -226,6 +226,20 @@ public class HomeVideoFragment extends BaseFragment {
         super.onResume();
     }
 
+    public void onHiddenSurfaceViewChanged(boolean hidden) {
+        if (hidden) {
+            pause();
+            if (mSurfaceView!=null) {
+                mSurfaceView.setVisibility(View.GONE);
+            }
+        } else {
+            if (mSurfaceView!=null) {
+                mSurfaceView.setVisibility(View.VISIBLE);
+            }
+        }
+
+    }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
