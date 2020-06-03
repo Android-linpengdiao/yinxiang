@@ -87,6 +87,7 @@
                 android:textSize="17sp" />
 
             <TextView
+                android:id="@+id/storage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableRight="@drawable/icon_more"
@@ -138,6 +139,7 @@
             android:background="#DCDCDC" />
 
         <LinearLayout
+            android:id="@+id/consult"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
@@ -239,6 +241,7 @@
             android:background="#DCDCDC" />
 
         <LinearLayout
+            android:id="@+id/version"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"

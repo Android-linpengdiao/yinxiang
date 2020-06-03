@@ -1,6 +1,8 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -21,6 +23,10 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
 
         binding.back.setOnClickListener(this);
+        binding.version.setOnClickListener(this);
+        binding.consult.setOnClickListener(this);
+        binding.service.setOnClickListener(this);
+        binding.message.setOnClickListener(this);
         binding.about.setOnClickListener(this);
         binding.feedback.setOnClickListener(this);
         binding.clear.setOnClickListener(this);
@@ -31,6 +37,21 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.version:
+                ToastUtils.showShort(SettingsActivity.this, "当前为最新版本");
+                break;
+            case R.id.service:
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                Uri data = Uri.parse("tel:400-889-8866");
+                intent.setData(data);
+                startActivity(intent);
+                break;
+            case R.id.message:
+                openActivity(NoticeManageActivity.class);
+                break;
+            case R.id.consult:
+                openActivity(ConsultActivity.class);
+                break;
             case R.id.back:
                 finish();
                 break;
@@ -41,10 +62,11 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 openActivity(FeedbackActivity.class);
                 break;
             case R.id.clear:
+                binding.storage.setText("0.0M");
                 ToastUtils.showShort(SettingsActivity.this, "已完成清理");
                 break;
             case R.id.password_manage:
-//                openActivity(ResetPasswordActivity.class);
+                openActivity(ResetPasswordActivity.class);
                 break;
             case R.id.logout:
                 DialogManager.showConfirmDialog(SettingsActivity.this, "确定要退出登录？", new DialogManager.Listener() {

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="·04-27"
+            android:text="04-27"
             android:textColor="#ff999999"
             android:textSize="12sp" />
 

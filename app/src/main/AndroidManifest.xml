@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".MyApplication"
@@ -21,7 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ClubMessageDetailActivity"></activity>
+        <activity android:name=".activity.CitySelectionActivity"></activity>
+        <activity android:name=".activity.ConsultActivity"/>
+        <activity android:name=".activity.ResetPasswordActivity" />
+        <activity android:name=".activity.NoticeManageActivity" />
+        <activity android:name=".activity.ClubMessageDetailActivity" />
         <activity android:name=".activity.ClubMessageActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.LikeActivity" />
@@ -56,7 +61,9 @@
         <activity android:name=".activity.EditorActivity" />
         <activity android:name=".activity.ForgotPasswordActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoginActivity" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppThemeCompetition" />
         <activity android:name=".activity.MyFollowActivity" />
         <activity android:name=".activity.UserHomeActivity" />
         <activity android:name=".activity.MyFansActivity" />
@@ -80,9 +87,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.MainActivity">
-        </activity>
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"

@@ -54,6 +54,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         binding.userName.setOnClickListener(this);
         binding.userDesc.setOnClickListener(this);
         binding.userSex.setOnClickListener(this);
+        binding.cityView.setOnClickListener(this);
 
         initView(getUserInfo().getData().getAvatar(), getUserInfo().getData().getName());
     }
@@ -73,6 +74,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.city_view:
+                openActivity(CitySelectionActivity.class);
+                break;
             case R.id.back:
                 finish();
                 break;
