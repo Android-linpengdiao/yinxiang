@@ -1,5 +1,6 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Handler;
@@ -36,7 +37,16 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding.playerBack.setOnClickListener(this);
         binding.ivComment.setOnClickListener(this);
         binding.ivLike.setOnClickListener(this);
+        binding.ivShare.setOnClickListener(this);
         binding.userInfoView.setOnClickListener(this);
+        initView();
+        playVideo();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
         initView();
         playVideo();
     }
@@ -55,6 +65,19 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.user_info_view:
                 openActivity(UserHomeActivity.class);
+                break;
+            case R.id.iv_share:
+                shareView(WorkDetailActivity.this, new OnClickListener() {
+                    @Override
+                    public void onClick(View view, Object object) {
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, Object object) {
+
+                    }
+                });
                 break;
         }
     }
@@ -85,8 +108,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onResume() {
+//        playVideo();
         super.onResume();
-        playVideo();
     }
 
     @Override
@@ -105,7 +128,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initView() {
-        GlideLoader.LoderVideoImage(this, CommonUtil.getImageListString().get(6), binding.thumbnails);
+        GlideLoader.LoderVideoImage(this, CommonUtil.getVideoCoverListString().get(0), binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -158,8 +181,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
             showVideoProgressInfo();
         }
     };
-    private static final String TAG = "CompetitionDetailActivi";
-    String url1 = "http://api.lgdama.com:10001/storage/video/db236d54a02442ae9ba0d8c4911dba17.mp4";
+    //    String url1 = "http://api.lgdama.com:10001/storage/video/db236d54a02442ae9ba0d8c4911dba17.mp4";
+    String url1 = CommonUtil.getVideoListString().get(0);
 
     private void playVideo() {
         binding.surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {

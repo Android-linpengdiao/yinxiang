@@ -32,23 +32,24 @@ public class MyFansAdapter extends BaseRecyclerAdapter<FansUserData.DataBeanX.Da
     @Override
     protected void onBindItem(final ItemFriendsLayoutBinding binding, final FansUserData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.tvTitle.setText(dataBean.getName());
-            binding.tvDesc.setText("粉丝：" + dataBean.getLiker());
-            binding.tvFollowers.setText(dataBean.isAttention()?"已关注":"关注");
-            GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
-            binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onClickListener != null) {
-                        onClickListener.onClick(v, dataBean);
-                    }
-                }
-            });
+//            binding.tvTitle.setText(dataBean.getName());
+//            binding.tvDesc.setText("粉丝：" + dataBean.getLiker());
+//            binding.tvFollowers.setText(dataBean.isAttention()?"已关注":"关注");
+//            GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
+//            binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (onClickListener != null) {
+//                        onClickListener.onClick(v, dataBean);
+//                    }
+//                }
+//            });
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-                    intent.putExtra("uid", dataBean.getId());
+//                    intent.putExtra("uid", dataBean.getId());
+                    intent.putExtra("uid", 0);
                     intent.putExtra("isFollow", dataBean.isAttention());
                     mContext.startActivity(intent);
                 }

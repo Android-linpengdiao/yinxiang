@@ -17,10 +17,12 @@ import com.baselibrary.utils.CommonUtil;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.yinxiang.R;
+import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.adapter.HomeContestAdapter;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeContestBinding;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
+import com.yinxiang.view.OnClickListener;
 
 public class HomeContestFragment extends BaseFragment {
 
@@ -71,6 +73,17 @@ public class HomeContestFragment extends BaseFragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerView.setAdapter(adapter);
         adapter.refreshData(CommonUtil.getImageListString());
+        adapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                openActivity(WorkDetailActivity.class);
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
 
         return binding.getRoot();
     }

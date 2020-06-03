@@ -17,6 +17,7 @@ import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.okhttp.utils.APIUrls;
 import com.yinxiang.R;
+import com.yinxiang.adapter.UserHomeWorkAdapter;
 import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivityUserHomeBinding;
 import com.yinxiang.model.WorkData;
@@ -24,11 +25,13 @@ import com.yinxiang.view.GridItemDecoration;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 import okhttp3.Call;
 
 public class UserHomeActivity extends BaseActivity implements View.OnClickListener {
     private ActivityUserHomeBinding binding;
-    private WorkAdapter adapter;
+    private UserHomeWorkAdapter adapter;
     private int uid;
     private boolean isFollow;
 
@@ -40,16 +43,16 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         uid = getIntent().getIntExtra("uid", 0);
         isFollow = getIntent().getBooleanExtra("isFollow", false);
         binding.back.setOnClickListener(this);
-        binding.tvIsFollow.setVisibility(View.VISIBLE);
-        binding.tvSetting.setVisibility(View.GONE);
 
-        adapter = new WorkAdapter(this);
+        adapter = new UserHomeWorkAdapter(this);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         GridItemDecoration.Builder builder = new GridItemDecoration.Builder(this);
         builder.color(R.color.transparent);
-        builder.size(CommonUtil.dip2px(this, 2));
+        builder.size(CommonUtil.dip2px(this, 15));
         binding.recyclerView.addItemDecoration(new GridItemDecoration(builder));
         binding.recyclerView.setAdapter(adapter);
+
+        adapter.refreshData(CommonUtil.getImageListString());
 
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -58,8 +61,8 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 initData();
             }
         });
-        binding.swipeRefreshLayout.setRefreshing(true);
-        initData();
+//        binding.swipeRefreshLayout.setRefreshing(true);
+//        initData();
 
     }
 
@@ -129,7 +132,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.tvIsFollow.setOnClickListener(this);
 
         binding.userName.setText(userInfo.getData().getName());
-        binding.touristId.setText("点逗号：" + userInfo.getData().getTourist_id());
+        binding.touristId.setText("引享号：" + userInfo.getData().getTourist_id());
         GlideLoader.LoderCircleImage(UserHomeActivity.this, userInfo.getData().getAvatar(), binding.userIcon);
         binding.tvFollowers.setText(getUserInfo().getData().getFollowers() + "");
         binding.tvLiker.setText(getUserInfo().getData().getLiker() + "");
@@ -153,7 +156,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 SendRequest.centerFollow(getUserInfo().getData().getId(), uid, url, new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        ToastUtils.showShort(UserHomeActivity.this, e.getMessage());
                     }
 
                     @Override

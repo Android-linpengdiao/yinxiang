@@ -2,6 +2,8 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.OrientationHelper;
@@ -13,6 +15,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
@@ -25,6 +28,7 @@ import com.yinxiang.R;
 import com.yinxiang.activity.ReportActivity;
 import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.activity.SelectionWorkRelayActivity;
+import com.yinxiang.adapter.ChannelVideoAdapter;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentChannelVideoBinding;
 import com.yinxiang.model.CommentData;
@@ -73,7 +77,7 @@ public class ChannelVideoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_channel_video, container, false);
-        HomeVideoAdapter adapter = new HomeVideoAdapter(getActivity());
+        ChannelVideoAdapter adapter = new ChannelVideoAdapter(getActivity());
         mLayoutManager = new ViewPagerLayoutManager(getActivity(), OrientationHelper.VERTICAL);
         binding.recyclerView.setLayoutManager(mLayoutManager);
         binding.recyclerView.setAdapter(adapter);
@@ -90,6 +94,18 @@ public class ChannelVideoFragment extends BaseFragment {
                         break;
                     case R.id.iv_comment:
                         CommentView();
+                        break;case R.id.iv_share:
+                        shareView(getActivity(), new OnClickListener() {
+                            @Override
+                            public void onClick(View view, Object object) {
+
+                            }
+
+                            @Override
+                            public void onLongClick(View view, Object object) {
+
+                            }
+                        });
                         break;
                     case R.id.tv_election:
                         Election();
@@ -223,10 +239,11 @@ public class ChannelVideoFragment extends BaseFragment {
         });
     }
 
+    private SurfaceView mSurfaceView;
     private ImageView imgPlay;
     private void playVideo(int position) {
         View itemView = binding.recyclerView.getChildAt(0);
-        SurfaceView mSurfaceView = itemView.findViewById(R.id.surfaceView);
+        mSurfaceView = itemView.findViewById(R.id.surfaceView);
         mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
                 holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
@@ -249,6 +266,7 @@ public class ChannelVideoFragment extends BaseFragment {
         });
         imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+        final ProgressBar loading = itemView.findViewById(R.id.loading);
         mSurfaceView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -270,6 +288,8 @@ public class ChannelVideoFragment extends BaseFragment {
         mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
             @Override
             public void onPrepared() {
+//                mSurfaceView.setBackgroundColor(Color.TRANSPARENT);
+                loading.setVisibility(View.GONE);
                 mPlayer.play();
             }
         });

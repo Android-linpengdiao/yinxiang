@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.baselibrary.utils.CommonUtil;
 import com.yinxiang.R;
+import com.yinxiang.activity.ClubMessageActivity;
 import com.yinxiang.activity.CommentActivity;
 import com.yinxiang.activity.LikeActivity;
 import com.yinxiang.activity.NoticeActivity;
@@ -67,6 +68,7 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
         binding.systemNoticeView.setOnClickListener(this);
         binding.likeView.setOnClickListener(this);
         binding.commentView.setOnClickListener(this);
+        binding.groupMessageView.setOnClickListener(this);
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         MessageAdapter adapter = new MessageAdapter(getActivity());
@@ -76,9 +78,9 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-                intent.putExtra("uid", 0);
-                getActivity().startActivity(intent);
+//                Intent intent = new Intent(getActivity(), UserHomeActivity.class);
+//                intent.putExtra("uid", 0);
+//                getActivity().startActivity(intent);
             }
 
             @Override
@@ -121,6 +123,9 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.comment_view:
                 openActivity(CommentActivity.class);
+                break;
+            case R.id.group_message_view:
+                openActivity(ClubMessageActivity.class);
                 break;
         }
     }

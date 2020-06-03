@@ -2,6 +2,8 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.OrientationHelper;
@@ -13,6 +15,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
@@ -245,7 +248,7 @@ public class HomeVideoFragment extends BaseFragment {
             @Override
             public void onInitComplete() {
                 Log.e(TAG, "onInitComplete");
-                playVideo(0);
+                playVideo(0,false);
             }
 
             @Override
@@ -263,18 +266,22 @@ public class HomeVideoFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position, boolean isBottom) {
                 Log.e(TAG, "选中位置:" + position + "  是否是滑动到底部:" + isBottom);
-                playVideo(position);
+                playVideo(position,isBottom);
             }
 
 
         });
     }
 
+    private SurfaceView mSurfaceView;
     private ImageView imgPlay;
 
-    private void playVideo(int position) {
+    private void playVideo(int position,boolean isBottom) {
+        if (isBottom&&mPlayer!=null){
+
+        }
         View itemView = binding.recyclerView.getChildAt(0);
-        SurfaceView mSurfaceView = itemView.findViewById(R.id.surfaceView);
+        mSurfaceView = itemView.findViewById(R.id.surfaceView);
         mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
                 holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
@@ -297,6 +304,7 @@ public class HomeVideoFragment extends BaseFragment {
         });
         imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+        final ProgressBar loading = itemView.findViewById(R.id.loading);
         mSurfaceView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -318,6 +326,8 @@ public class HomeVideoFragment extends BaseFragment {
         mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
             @Override
             public void onPrepared() {
+//                mSurfaceView.setBackgroundColor(Color.TRANSPARENT);
+                loading.setVisibility(View.GONE);
                 mPlayer.play();
             }
         });

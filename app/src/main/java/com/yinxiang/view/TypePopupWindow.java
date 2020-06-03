@@ -45,7 +45,7 @@ public class TypePopupWindow extends BasePopupWindow {
         for (int i = 0; i < 20; i++) {
             NavData.DataBean dataBean = new NavData.DataBean();
             dataBean.setName("音乐活动" + i);
-            dataBean.setStatus(i == 0 ? 1 : 0);
+            dataBean.setStatus(i == 5 ? 1 : 0);
             list.add(dataBean);
         }
         navData.setData(list);

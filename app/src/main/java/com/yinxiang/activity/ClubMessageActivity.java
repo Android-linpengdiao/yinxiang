@@ -1,8 +1,8 @@
 package com.yinxiang.activity;
 
 import android.databinding.DataBindingUtil;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -14,9 +14,10 @@ import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.okhttp.utils.APIUrls;
 import com.yinxiang.R;
+import com.yinxiang.adapter.ClubMessageAdapter;
 import com.yinxiang.adapter.MyFollowAdapter;
+import com.yinxiang.databinding.ActivityClubMessageBinding;
 import com.yinxiang.databinding.ActivityMyFollowBinding;
-import com.yinxiang.model.FansUserData;
 import com.yinxiang.model.FollowUserData;
 import com.yinxiang.view.OnClickListener;
 
@@ -27,20 +28,20 @@ import java.util.List;
 
 import okhttp3.Call;
 
-public class MyFollowActivity extends BaseActivity implements View.OnClickListener {
+public class ClubMessageActivity extends BaseActivity implements View.OnClickListener {
 
-    private ActivityMyFollowBinding binding;
-    private MyFollowAdapter adapter;
+    private ActivityClubMessageBinding binding;
+    private ClubMessageAdapter adapter;
     private FollowUserData followUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_follow);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_club_message);
 
         binding.back.setOnClickListener(this);
 
-        adapter = new MyFollowAdapter(this);
+        adapter = new ClubMessageAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(new OnClickListener() {
@@ -85,7 +86,7 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                ToastUtils.showShort(MyFollowActivity.this, ""+e.getMessage());
+                ToastUtils.showShort(ClubMessageActivity.this, ""+e.getMessage());
             }
 
             @Override
@@ -95,7 +96,7 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
 //                    adapter.refreshData(response.getData().getData());
                 } else {
-                    ToastUtils.showShort(MyFollowActivity.this, response.getMsg());
+                    ToastUtils.showShort(ClubMessageActivity.this, response.getMsg());
                 }
             }
 
@@ -118,18 +119,18 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
                         if (jsonObject.optInt("code") == 200) {
                             dataBean.setAttention(dataBean.getAttention() != -1 ? -1 : 0);
                             if (dataBean.getAttention() != -1) {
-                                ToastUtils.showShort(MyFollowActivity.this, "已关注");
+                                ToastUtils.showShort(ClubMessageActivity.this, "已关注");
                             }
                             adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
                         } else {
-                            ToastUtils.showShort(MyFollowActivity.this, jsonObject.optString("msg"));
+                            ToastUtils.showShort(ClubMessageActivity.this, jsonObject.optString("msg"));
                         }
                     } else {
-                        ToastUtils.showShort(MyFollowActivity.this, "请求失败");
+                        ToastUtils.showShort(ClubMessageActivity.this, "请求失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ToastUtils.showShort(MyFollowActivity.this, "请求失败");
+                    ToastUtils.showShort(ClubMessageActivity.this, "请求失败");
                 }
 
             }

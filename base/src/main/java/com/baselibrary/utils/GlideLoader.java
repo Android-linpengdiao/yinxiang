@@ -42,6 +42,16 @@ public class GlideLoader {
                 .into(view);
     }
 
+    public static void LoderVideoCenterCropImage(Context context, String url, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .placeholder(R.drawable.cover)
+                .error(R.drawable.cover)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(view);
+    }
+
     public static void LoderCircleImage(Context context, String url, ImageView view) {
         Glide.with(context)
                 .load(domain + url)

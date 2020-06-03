@@ -16,11 +16,14 @@
         android:padding="@dimen/padding">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No.1"
+            android:id="@+id/tv_rank"
+            android:layout_width="31dp"
+            android:layout_height="45dp"
+            android:text=""
+            android:gravity="center"
             android:textColor="#ff333333"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:background="@drawable/icon_num01"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,13 +102,12 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_follow"
+                android:layout_width="80dp"
                 android:layout_height="35dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/button_radius_theme"
                 android:gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:text="关注"
                 android:textColor="#ffffffff"
                 android:textSize="16sp" />

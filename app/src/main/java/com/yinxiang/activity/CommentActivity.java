@@ -13,7 +13,11 @@ import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.CommentAdapter;
 import com.yinxiang.databinding.ActivityCommentBinding;
+import com.yinxiang.model.LikeData;
 import com.yinxiang.model.MessageData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 
@@ -28,9 +32,16 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         binding = DataBindingUtil.setContentView(this, R.layout.activity_comment);
         binding.back.setOnClickListener(this);
 
-        adapter = new CommentAdapter(this, 3);
+        adapter = new CommentAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
+
+        List<MessageData.DataBean> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            MessageData.DataBean dataBean = new MessageData.DataBean();
+            list.add(dataBean);
+        }
+        adapter.refreshData(list);
 
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -39,8 +50,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 initData();
             }
         });
-        binding.swipeRefreshLayout.setRefreshing(true);
-        initData();
+//        binding.swipeRefreshLayout.setRefreshing(true);
+//        initData();
 
     }
 

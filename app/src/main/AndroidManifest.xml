@@ -21,19 +21,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CommentActivity"></activity>
+        <activity android:name=".activity.ClubMessageDetailActivity"></activity>
+        <activity android:name=".activity.ClubMessageActivity" />
+        <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.LikeActivity" />
         <activity android:name=".activity.NoticeActivity" />
-        <activity android:name=".activity.JoinCompetitionDetailActivity"
+        <activity
+            android:name=".activity.JoinCompetitionDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.MyCompetitionActivity"/>
+        <activity android:name=".activity.MyCompetitionActivity" />
         <activity android:name=".activity.ClubDeleteActivity" />
         <activity android:name=".activity.ClubSettingActivity" />
         <activity android:name=".activity.EditTextActivity" />
         <activity android:name=".activity.ClubDetailActivity" />
         <activity android:name=".activity.CreateClubActivity" />
-        <activity android:name=".activity.WorkDetailActivity" />
+        <activity
+            android:name=".activity.WorkDetailActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.WalletPayActivity" />
 
         <uses-library
@@ -76,15 +81,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".activity.MainActivity">
         </activity>
-
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"

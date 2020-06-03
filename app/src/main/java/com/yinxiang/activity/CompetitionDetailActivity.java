@@ -84,7 +84,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void initView() {
-        GlideLoader.LoderVideoImage(this, CommonUtil.getImageListString().get(6), binding.thumbnails);
+        GlideLoader.LoderVideoImage(this, CommonUtil.getVideoCoverListString().get(1), binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -139,7 +139,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
             showVideoProgressInfo();
         }
     };
-    String url1 = "http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4";
+    String url1 = CommonUtil.getVideoListString().get(1);
 
     private void playVideo() {
         binding.surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {

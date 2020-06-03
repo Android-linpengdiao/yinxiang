@@ -29,17 +29,17 @@ public class NoticeAdapter extends BaseRecyclerAdapter<NoticeData.DataBean, Item
     @Override
     protected void onBindItem(final ItemNoticeLayoutBinding binding, final NoticeData.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.tvTitle.setText(dataBean.getTitle());
-            binding.tvDesc.setText(dataBean.getDesc());
-            binding.tvTime.setText(dataBean.getUpdated_at());
-            binding.viewLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onClickListener != null) {
-                        onClickListener.onClick(v, position);
-                    }
-                }
-            });
+//            binding.tvTitle.setText(dataBean.getTitle());
+//            binding.tvDesc.setText(dataBean.getDesc());
+//            binding.tvTime.setText(dataBean.getUpdated_at());
+//            binding.viewLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (onClickListener != null) {
+//                        onClickListener.onClick(v, position);
+//                    }
+//                }
+//            });
         }
 
     }

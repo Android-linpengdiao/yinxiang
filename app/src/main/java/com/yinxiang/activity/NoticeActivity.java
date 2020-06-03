@@ -16,6 +16,9 @@ import com.yinxiang.adapter.NoticeAdapter;
 import com.yinxiang.databinding.ActivityNoticeBinding;
 import com.yinxiang.model.NoticeData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.Call;
 
 public class NoticeActivity extends BaseActivity implements View.OnClickListener {
@@ -32,6 +35,13 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
 
+        List<NoticeData.DataBean> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            NoticeData.DataBean dataBean = new NoticeData.DataBean();
+            list.add(dataBean);
+        }
+        adapter.refreshData(list);
+
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -39,8 +49,8 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
                 initData();
             }
         });
-        binding.swipeRefreshLayout.setRefreshing(true);
-        initData();
+//        binding.swipeRefreshLayout.setRefreshing(true);
+//        initData();
 
     }
 

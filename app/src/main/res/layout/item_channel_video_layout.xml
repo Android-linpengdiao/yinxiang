@@ -129,14 +129,16 @@
                     android:layout_width="37dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/pk" />
+                    android:src="@drawable/pk"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/iv_relay"
                     android:layout_width="37dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/jieli" />
+                    android:src="@drawable/jieli"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/iv_like"
@@ -169,7 +171,8 @@
                     android:gravity="center"
                     android:text="100w"
                     android:textColor="#ffffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
         </RelativeLayout>

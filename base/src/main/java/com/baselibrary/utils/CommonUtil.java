@@ -35,14 +35,14 @@ public class CommonUtil {
         String url1 = "http://api.lgdama.com:10001/storage/video/e31e0cd72f8a4f2786111e02a3275cf2.mp4";
         String url2 = "http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4";
         String url3 = "http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4";
-        return new ArrayList<String>(Arrays.asList(url1, url2,url3));
+        return new ArrayList<String>(Arrays.asList(url1, url2, url3, url1, url2, url3, url1, url2, url3, url1, url2, url3));
     }
 
     public static List<String> getVideoCoverListString() {
-        String url1 = "http://v.quakoo.com/image/cover/623A4327AFCB4BDDB3D2DE4D19D9AF5C-6-2.png?auth_key=1590986707-0-0-4393c227e14709899eff89c6e21c71f9";
-        String url2 = "http://v.quakoo.com/image/cover/E9A835B5998243A1BC5B3DFED3C868AF-6-2.png?auth_key=1590982538-0-0-71e3e54b7e2d7d4643a282c539def704";
-        String url3 = "http://v.quakoo.com/image/cover/E9BBB37FBCD84EB2A614EF6503FF4E1E-6-2.png?auth_key=1590982211-0-0-3d05c35ad9326ef0fafbaa76de5c064f";
-        return new ArrayList<String>(Arrays.asList(url1, url2,url3));
+        String url1 = "http://www.udiandou.com/upload/20200603124337NLGcd.jpg";
+        String url2 = "http://www.udiandou.com/upload/20200603124338REaoe.jpg";
+        String url3 = "http://www.udiandou.com/upload/20200603124338y2SST.jpg";
+        return new ArrayList<String>(Arrays.asList(url1, url2, url3, url1, url2, url3, url1, url2, url3, url1, url2, url3));
     }
 
     public static List<String> getImageListString() {
@@ -66,7 +66,7 @@ public class CommonUtil {
     }
 
     public static List<String> getTextTabListString() {
-        return new ArrayList<String>(Arrays.asList("热门", "音乐", "棋类","故事", "运动", "美术", "书法", "曲艺", "方言", "国学", "心声", "街舞"));
+        return new ArrayList<String>(Arrays.asList("热门", "音乐", "棋类", "故事", "运动", "美术", "书法", "曲艺", "方言", "国学", "心声", "街舞"));
     }
 
     public static List<String> getTextListString() {
@@ -108,7 +108,7 @@ public class CommonUtil {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        activity.startActivityForResult(intent,requestCode);
+                        activity.startActivityForResult(intent, requestCode);
                         dialogInterface.dismiss();
                     }
                 })

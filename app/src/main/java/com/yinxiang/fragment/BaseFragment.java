@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,7 +27,6 @@ import com.yinxiang.manager.WXManager;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.SharePopupWindow;
 
-import java.io.File;
 
 import okhttp3.Call;
 

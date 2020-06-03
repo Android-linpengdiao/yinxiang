@@ -121,14 +121,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            homeVideoFragment.onPause();
+            if (homeVideoFragment!=null) {
+                homeVideoFragment.onPause();
+            }
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        homeVideoFragment.onPause();
+        if (homeVideoFragment!=null) {
+            homeVideoFragment.onPause();
+        }
     }
 
     @Override

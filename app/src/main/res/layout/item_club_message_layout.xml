@@ -10,12 +10,13 @@
         android:id="@+id/view_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="30dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="10dp"
         android:background="?android:attr/selectableItemBackground"
-        android:paddingRight="30dp">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/user_icon"
@@ -26,8 +27,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="18dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -35,7 +35,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="一江春水向东流"
+                android:text="月魂殇"
                 android:textColor="#ff333333"
                 android:textSize="16sp" />
 
@@ -43,27 +43,24 @@
                 android:id="@+id/tv_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="评论了你的作品"
+                android:layout_marginTop="10dp"
+                android:text="申请加入街舞交流群"
                 android:textColor="#ff999999"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="04-26"
-                android:textColor="#ff999999"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/cover"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:src="@drawable/placeholder" />
+        <TextView
+            android:id="@+id/tv_followers"
+            android:layout_width="91dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button_radius_theme"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="同意"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

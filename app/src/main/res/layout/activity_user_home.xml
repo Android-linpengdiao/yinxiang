@@ -31,7 +31,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="4dp"
                     android:padding="10dp"
-                    android:src="@drawable/back"/>
+                    android:src="@drawable/back" />
 
             </RelativeLayout>
 
@@ -59,7 +59,7 @@
                         android:id="@+id/user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="舞林至尊Jhon"
                         android:textColor="#ffffffff"
                         android:textSize="30sp" />
 
@@ -68,7 +68,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="点逗号："
+                        android:text="引享号：64888863"
                         android:textColor="#ffffffff"
                         android:textSize="15sp" />
 
@@ -90,15 +90,15 @@
                             android:paddingRight="28dp"
                             android:text="关注"
                             android:textColor="#666666"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tv_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="34dp"
+                            android:layout_marginLeft="15dp"
                             android:background="@drawable/button_radius_white"
                             android:drawablePadding="5dp"
-                            android:layout_marginLeft="15dp"
                             android:gravity="center"
                             android:paddingLeft="28dp"
                             android:paddingRight="28dp"
@@ -112,12 +112,21 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="20dp"
+                android:text="舞林至尊大赛第一季冠军，嘉禾工作室"
+                android:textColor="#ffffffff"
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,18 +175,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="25dp"
-                android:layout_marginLeft="@dimen/padding"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/followers_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="50dp"
-                    android:gravity="center"
                     android:layout_marginRight="25dp"
+                    android:gravity="center"
+                    android:minWidth="50dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -202,9 +211,9 @@
                     android:id="@+id/liker_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="50dp"
-                    android:gravity="center"
                     android:layout_marginRight="25dp"
+                    android:gravity="center"
+                    android:minWidth="50dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -229,8 +238,8 @@
                     android:id="@+id/appreciate_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="50dp"
                     android:gravity="center"
+                    android:minWidth="50dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -253,11 +262,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:drawableLeft="@drawable/back"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/luxiangxuanzhong"
             android:drawablePadding="5dp"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="作品"
             android:textColor="#ff999999"
             android:textSize="16sp" />
@@ -271,7 +281,9 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"/>
+                android:overScrollMode="never"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

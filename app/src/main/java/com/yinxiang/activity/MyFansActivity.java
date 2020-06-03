@@ -17,9 +17,13 @@ import com.yinxiang.R;
 import com.yinxiang.adapter.MyFansAdapter;
 import com.yinxiang.databinding.ActivityMyFansBinding;
 import com.yinxiang.model.FansUserData;
+import com.yinxiang.model.LikeData;
 import com.yinxiang.view.OnClickListener;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 
@@ -50,6 +54,13 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
+        List<FansUserData.DataBeanX.DataBean> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            FansUserData.DataBeanX.DataBean dataBean = new FansUserData.DataBeanX.DataBean();
+            list.add(dataBean);
+        }
+        adapter.refreshData(list);
+
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -63,8 +74,8 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        binding.swipeRefreshLayout.setRefreshing(true);
-        initData();
+//        binding.swipeRefreshLayout.setRefreshing(true);
+//        initData();
     }
 
     private void initData() {
@@ -80,7 +91,7 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
                 fansUserData = response;
                 binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-                    adapter.refreshData(response.getData().getData());
+//                    adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(MyFansActivity.this, response.getMsg());
                 }

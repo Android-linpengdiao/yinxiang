@@ -32,16 +32,17 @@ public class LikeAdapter extends BaseRecyclerAdapter<LikeData.DataBean, ItemLike
     @Override
     protected void onBindItem(final ItemLikeLayoutBinding binding, final LikeData.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.tvTitle.setText(dataBean.getTourist().getName());
-            binding.tvDesc.setText("赞了你视频");
-            binding.tvTime.setText(dataBean.getUpdated_at());
-            GlideLoader.LoderImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon, 100);
-            GlideLoader.LoderImage(mContext, dataBean.getContent().getImg(), binding.cover, 2);
+//            binding.tvTitle.setText(dataBean.getTourist().getName());
+//            binding.tvDesc.setText("赞了你视频");
+//            binding.tvTime.setText(dataBean.getUpdated_at());
+//            GlideLoader.LoderImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon, 100);
+//            GlideLoader.LoderImage(mContext, dataBean.getContent().getImg(), binding.cover, 2);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-                    intent.putExtra("uid", dataBean.getTourist().getId());
+//                    intent.putExtra("uid", dataBean.getTourist().getId());
+                    intent.putExtra("uid", 0);
                     intent.putExtra("isFollow", false);
                     mContext.startActivity(intent);
                 }

@@ -85,14 +85,18 @@ public class ChannelFragment extends BaseFragment implements View.OnClickListene
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            channelVideoFragment.onPause();
+            if (channelVideoFragment!=null) {
+                channelVideoFragment.onPause();
+            }
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        channelVideoFragment.onPause();
+        if (channelVideoFragment!=null) {
+            channelVideoFragment.onPause();
+        }
     }
 
     @Override
