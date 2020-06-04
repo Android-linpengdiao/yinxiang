@@ -199,15 +199,49 @@ public class SendRequest {
 
     }
 
-    public static void publishWork(int tourist_id, int follow_id, String nav_name, String link, String desc, String img, String addr, Callback call) {
+    /**
+     * 首页-活动
+     *
+     * @param type 类型 （1->全部 2->未结束的）
+     * @param call
+     */
+    public static void homePageActives(int type, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("type", String.valueOf(type));
+        OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_homePageActives).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-活动环宇
+     *
+     * @param active_id 活动id
+     * @param perPage
+     * @param call
+     */
+    public static void homePageVideos(int active_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("active_id", String.valueOf(active_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideos).build().execute(call);
+
+    }
+
+    /**
+     * 发布视频
+     *
+     * @param tourist_id
+     * @param video      视频连接
+     * @param active_id  活动id 默认值0
+     * @param club_id    社团id 默认值0
+     */
+
+    public static void publishWork(int tourist_id, String video, int active_id, int club_id, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
-        map.put("nav_id", String.valueOf(follow_id));
-        map.put("nav_name", nav_name);
-        map.put("link", link);
-        map.put("desc", desc);
-        map.put("img", img);
-        map.put("addr", addr);
+        map.put("video", video);
+        map.put("active_id", String.valueOf(active_id));
+        map.put("club_id", String.valueOf(club_id));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_publishWork).build().execute(call);
     }
 
@@ -311,7 +345,8 @@ public class SendRequest {
         map.put("content_id", String.valueOf(content_id));
         OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_contentIsAssist).build().execute(call);
     }
-    public static void publishContentAssist(int tourist_id, int content_id,String assistUrl, Callback call) {
+
+    public static void publishContentAssist(int tourist_id, int content_id, String assistUrl, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("content_id", String.valueOf(content_id));

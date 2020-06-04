@@ -7,11 +7,12 @@ import android.view.View;
 import com.yinxiang.R;
 import com.yinxiang.activity.CompetitionDetailActivity;
 import com.yinxiang.databinding.ItemCompetitionLayoutBinding;
+import com.yinxiang.model.HomeActives;
 import com.yinxiang.model.NavData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class CompetitionAdapter extends BaseRecyclerAdapter<NavData.DataBean, ItemCompetitionLayoutBinding> {
+public class CompetitionAdapter extends BaseRecyclerAdapter<HomeActives.DataBean, ItemCompetitionLayoutBinding> {
     private OnClickListener onClickListener;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -28,9 +29,9 @@ public class CompetitionAdapter extends BaseRecyclerAdapter<NavData.DataBean, It
     }
 
     @Override
-    protected void onBindItem(final ItemCompetitionLayoutBinding binding, final NavData.DataBean dataBean, final int position) {
+    protected void onBindItem(final ItemCompetitionLayoutBinding binding, final HomeActives.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.name.setText(dataBean.getName());
+            binding.name.setText(dataBean.getTitle());
             binding.name.setSelected(dataBean.getStatus() == 0 ? false : true);
             binding.name.setOnClickListener(new View.OnClickListener() {
                 @Override

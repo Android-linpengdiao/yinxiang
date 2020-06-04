@@ -25,14 +25,22 @@ import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.callbacks.StringCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
+import com.yinxiang.activity.ReleaseActivity;
 import com.yinxiang.activity.ReportActivity;
+import com.yinxiang.activity.SelectionCompetitionActivity;
 import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.activity.SelectionWorkRelayActivity;
 import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
 import com.yinxiang.model.CommentData;
+import com.yinxiang.model.HomeActives;
+import com.yinxiang.model.HomeVideos;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.ElectionPopupWindow;
 import com.yinxiang.view.OnClickListener;
@@ -41,9 +49,13 @@ import com.yinxiang.view.TypePopupWindow;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
 
 public class HomeVideoFragment extends BaseFragment {
 
@@ -53,9 +65,10 @@ public class HomeVideoFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     private String mParam1;
     private String mParam2;
+
+    private HomeVideoAdapter adapter;
 
     private ViewPagerLayoutManager mLayoutManager;
 
@@ -83,7 +96,7 @@ public class HomeVideoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_video, container, false);
-        HomeVideoAdapter adapter = new HomeVideoAdapter(getActivity());
+        adapter = new HomeVideoAdapter(getActivity());
         mLayoutManager = new ViewPagerLayoutManager(getActivity(), OrientationHelper.VERTICAL);
         binding.recyclerView.setLayoutManager(mLayoutManager);
         binding.recyclerView.setAdapter(adapter);
@@ -141,6 +154,44 @@ public class HomeVideoFragment extends BaseFragment {
         initListener();
 
         EventBus.getDefault().register(this);
+
+        SendRequest.homePageVideos(1, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(HomeVideos response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+//                    adapter.refreshData(response.getData());
+                } else {
+                    ToastUtils.showShort(getActivity(), response.getMsg());
+                }
+            }
+
+        });
+
+        SendRequest.homePageVideos(1, 10, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optInt("code") == 200) {
+
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        });
 
         return binding.getRoot();
     }
@@ -276,10 +327,10 @@ public class HomeVideoFragment extends BaseFragment {
     public void getMainMessage(MessageBus messageBus) {
         if (messageBus.getCodeType().equals(messageBus.msgId_hiddenChanged)) {
             int index = (int) messageBus.getParam1();
-            Log.i(TAG, "onResume getMainMessage: "+index);
+            Log.i(TAG, "onResume getMainMessage: " + index);
             if (mSurfaceView != null) {
                 mSurfaceView.setVisibility(index == 0 ? View.VISIBLE : View.GONE);
-                Log.i(TAG, "onResume getMainMessage: "+mSurfaceView.isShown());
+                Log.i(TAG, "onResume getMainMessage: " + mSurfaceView.isShown());
             }
         }
 
@@ -347,6 +398,7 @@ public class HomeVideoFragment extends BaseFragment {
         });
         imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+        final ImageView background = itemView.findViewById(R.id.background);
         final ProgressBar loading = itemView.findViewById(R.id.loading);
         mSurfaceView.setOnClickListener(new View.OnClickListener() {
 
@@ -380,6 +432,7 @@ public class HomeVideoFragment extends BaseFragment {
         mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
             @Override
             public void onFrameInfoListener() {
+                background.setVisibility(View.GONE);
                 imgThumb.animate().alpha(0).setDuration(200).start();
             }
         });

@@ -26,6 +26,10 @@ public class APIUrls {
     public final static String url_report = url_domain + "api/center/report";
     public final static String url_profile = url_domain + "api/center/profile";
 
+    //首页-活动
+    public final static String url_homePageActives = url_domain + "api/homepageActives/info";
+    public final static String url_homePageVideos = url_domain + "api/homepageVideos/active";
+
     public final static String url_commonStartUp = url_domain + "api/common/startUp";
     public final static String url_commonNav = url_domain + "api/common/nav";
     public final static String url_commonBanner = url_domain + "api/common/banner";
@@ -62,7 +66,7 @@ public class APIUrls {
     //获取用户最爱的作品
     public final static String url_favouriteContent = url_domain + "api/center/favouriteContent";
     //用户发表作品
-    public final static String url_publishWork = url_domain + "api/center/publishWork";
+    public final static String url_publishWork = url_domain + "api/publish/video";
 
     //获取系统消息
     public final static String url_commonMessage = url_domain + "api/common/message";

@@ -100,6 +100,7 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
             });
             GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
             GlideLoader.LoderVideoImage(mContext, dataBean, binding.imgThumb);
+            GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
         }
 
     }

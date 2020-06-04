@@ -18,7 +18,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url "https://maven.aliyun.com/nexus/content/repositories/releases" }
     }
 }
 
