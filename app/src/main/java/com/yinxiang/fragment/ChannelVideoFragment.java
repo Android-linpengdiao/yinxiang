@@ -333,7 +333,7 @@ public class ChannelVideoFragment extends BaseFragment {
             }
         });
 
-
+        destroy();
         mPlayer = new AliVcMediaPlayer(getContext(), mSurfaceView);
         mPlayer.setCirclePlay(true);
 
@@ -374,9 +374,9 @@ public class ChannelVideoFragment extends BaseFragment {
         View itemView = binding.recyclerView.getChildAt(index);
         ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
         ImageView imgPlay = itemView.findViewById(R.id.img_play);
-        destroy();
         imgThumb.animate().alpha(1).start();
         imgPlay.animate().alpha(0f).start();
+        stop();
     }
 
     private AliVcMediaPlayer mPlayer;

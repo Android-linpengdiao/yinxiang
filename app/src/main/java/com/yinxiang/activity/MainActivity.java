@@ -139,14 +139,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.radioButtonRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index = 2;
                 openActivity(ReleaseActivity.class);
             }
         });
         binding.radioButtonMine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index = 4;
                 binding.drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
