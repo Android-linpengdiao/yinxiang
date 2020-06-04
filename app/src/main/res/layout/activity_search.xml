@@ -40,7 +40,7 @@
                     android:drawableLeft="@drawable/search"
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
-                    android:hint="请输入您要搜索的救援知识"
+                    android:hint="请输入您要搜索内容"
                     android:imeOptions="actionSearch"
                     android:maxLines="1"
                     android:paddingLeft="10dp"

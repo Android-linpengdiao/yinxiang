@@ -213,19 +213,595 @@ public class SendRequest {
     }
 
     /**
+     * =======================================首页================================================
+     */
+    /**
      * 首页-视频-活动环宇
      *
      * @param active_id 活动id
      * @param perPage
      * @param call
      */
-    public static void homePageVideos(int active_id, int perPage, Callback call) {
+    public static void homePageVideosActive(int active_id, int perPage, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("active_id", String.valueOf(active_id));
         map.put("perPage", String.valueOf(perPage));
-        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideos).build().execute(call);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosActive).build().execute(call);
 
     }
+
+    /**
+     * 首页-视频-pk
+     *
+     * @param tourist_id
+     * @param video_id
+     * @param pkvideo_id
+     * @param call
+     */
+    public static void homePageVideosCreatePk(int tourist_id, int video_id, int pkvideo_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("video_id", String.valueOf(video_id));
+        map.put("pkvideo_id", String.valueOf(pkvideo_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosCreatePk).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-接力
+     *
+     * @param touristVideoId 用户视频id
+     * @param relaytVideoId  接力视频id
+     * @param call
+     */
+    public static void homePageVideosCreatePk(int touristVideoId, int relaytVideoId, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("touristVideoId", String.valueOf(touristVideoId));
+        map.put("relaytVideoId", String.valueOf(relaytVideoId));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosRelay).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-举报
+     *
+     * @param tourist_id
+     * @param video_id
+     * @param type       类型 1涉黄 2涉爆 3涉及反动言论 4其他
+     * @param body
+     * @param call
+     */
+    public static void homePageVideosReport(int tourist_id, int video_id, int type, int body, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("video_id", String.valueOf(video_id));
+        map.put("type", String.valueOf(type));
+        map.put("body", String.valueOf(body));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosReport).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-是否点赞
+     *
+     * @param tourist_id
+     * @param video_id
+     * @param url
+     * @param call
+     */
+    public static void homePageVideosIsAssist(int tourist_id, int video_id, String url, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("video_id", String.valueOf(video_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosIsAssist).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-点赞
+     *
+     * @param tourist_id
+     * @param video_id
+     * @param url
+     * @param call
+     */
+    public static void homePageVideosAssist(int tourist_id, int video_id, String url, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("video_id", String.valueOf(video_id));
+        OkHttpUtils.getInstance().post().params(map).url(url).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-搜索
+     *
+     * @param active_id
+     * @param keyword
+     * @param perPage
+     * @param call
+     */
+    public static void homePageVideosSearch(int active_id, String keyword, String perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("active_id", String.valueOf(active_id));
+        map.put("keyword", keyword);
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosSearch).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-创建评论
+     *
+     * @param tourist_id
+     * @param video_id
+     * @param body
+     * @param call
+     */
+    public static void homePageVideosCreateComment(int tourist_id, String video_id, String body, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("body", body);
+        map.put("video_id", String.valueOf(video_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosCreateComment).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-获取评论
+     *
+     * @param perPage
+     * @param video_id
+     * @param call
+     */
+    public static void homePageVideosComment(int perPage, String video_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("perPage", String.valueOf(perPage));
+        map.put("video_id", String.valueOf(video_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosComment).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-获取收费投票设置
+     *
+     * @param call
+     */
+    public static void homePageVideosVoteSet(Callback call) {
+        Map<String, String> map = new HashMap<>();
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosVoteSet).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-投票
+     *
+     * @param tourist_id
+     * @param video_id
+     * @param free       是否免费 1是 2收费
+     * @param call
+     */
+    public static void homePageVideosVote(int tourist_id, int video_id, int free, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("video_id", String.valueOf(video_id));
+        map.put("free", String.valueOf(free));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosVote).build().execute(call);
+
+    }
+
+
+    /**
+     * 首页-视频-竞技PK
+     *
+     * @param tourist_id
+     * @param active_id
+     * @param perPage
+     * @param call
+     */
+    public static void homePageVideosPK(int tourist_id, int active_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("active_id", String.valueOf(active_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosPK).build().execute(call);
+
+    }
+
+
+    /**
+     * 首页-视频-荣耀在线
+     *
+     * @param tourist_id
+     * @param active_id
+     * @param perPage
+     * @param call
+     */
+    public static void homePageVideosHonour(int tourist_id, int active_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("active_id", String.valueOf(active_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosHonour).build().execute(call);
+
+    }
+
+    /**
+     * 首页-用户关注用户
+     *
+     * @param tourist_id
+     * @param follow_id  要关注的用户id
+     * @param call
+     */
+    public static void homePagePersonFollow(int tourist_id, int follow_id, String url, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("follow_id", String.valueOf(follow_id));
+        OkHttpUtils.getInstance().post().params(map).url(url).build().execute(call);
+
+    }
+
+    /**
+     * 首页-用户是否关注用户
+     *
+     * @param tourist_id
+     * @param follow_id
+     * @param call
+     */
+    public static void homePagePersonIsFollow(int tourist_id, int follow_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("follow_id", String.valueOf(follow_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePagePersonIsFollow).build().execute(call);
+
+    }
+
+
+    /**
+     * ======================================我的===================================
+     */
+
+    /**
+     * 好友-消息-系统消息
+     *
+     * @param perPage
+     * @param call
+     */
+    public static void friendSystem(int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendSystem).build().execute(call);
+
+    }
+
+    /**
+     * 好友-消息-点赞消息
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void friendAssist(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendAssist).build().execute(call);
+
+    }
+
+    /**
+     * 好友-消息-评论消息
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void friendComment(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendComment).build().execute(call);
+
+    }
+
+    /**
+     * 好友-消息-群消息
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void friendClub(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendClub).build().execute(call);
+
+    }
+
+    /**
+     * 好友-消息-同意加群/拒绝加群
+     *
+     * @param tourist_id
+     * @param status     状态 1同意/2拒绝
+     * @param call
+     */
+    public static void friendClubAction(int tourist_id, int status, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("status", String.valueOf(status));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendClubAction).build().execute(call);
+
+    }
+
+    /**
+     * ======================================频道===================================
+     */
+
+    /**
+     * 频道-社团-获取社团
+     *
+     * @param tourist_id
+     * @param status     状态 1审核通过 2审核未通过 3正在审核中
+     * @param call
+     */
+    public static void channelClub(int tourist_id, int status, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("status", String.valueOf(status));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelClub).build().execute(call);
+
+    }
+
+
+    /**
+     * 频道-社团-创建社团
+     *
+     * @param tourist_id
+     * @param logo         社团logo
+     * @param license      营业执照
+     * @param idcard_front 身份证正面
+     * @param idcard_back  身份证反面
+     * @param phone        手机号码
+     * @param authCode     验证码
+     * @param desc         社团简介
+     * @param call
+     */
+    public static void channelCreateClub(int tourist_id, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("logo", logo);
+        map.put("license", license);
+        map.put("idcard_front", idcard_front);
+        map.put("idcard_back", idcard_back);
+        map.put("phone", phone);
+        map.put("authCode", authCode);
+        map.put("desc", desc);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelCreateClub).build().execute(call);
+
+    }
+
+    /**
+     * 频道-社团-编辑社团
+     *
+     * @param tourist_id
+     * @param logo         社团logo
+     * @param license      营业执照
+     * @param idcard_front 身份证正面
+     * @param idcard_back  身份证反面
+     * @param phone        手机号码
+     * @param authCode     验证码
+     * @param desc         社团简介
+     * @param call
+     */
+    public static void channelEditClub(int tourist_id, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("logo", logo);
+        map.put("license", license);
+        map.put("idcard_front", idcard_front);
+        map.put("idcard_back", idcard_back);
+        map.put("phone", phone);
+        map.put("authCode", authCode);
+        map.put("desc", desc);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelEditClub).build().execute(call);
+
+    }
+
+    /**
+     * 频道-社团-解散
+     *
+     * @param tourist_id
+     * @param club_id
+     * @param dissolve      解散理由
+     * @param dissolve_time
+     * @param call
+     */
+    public static void channelEissolveClub(int tourist_id, int club_id, String dissolve, String dissolve_time, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("club_id", String.valueOf(club_id));
+        map.put("dissolve", dissolve);
+        map.put("dissolve_time", dissolve_time);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelEissolveClub).build().execute(call);
+
+    }
+
+    /**
+     * 频道-社团-入团申请设置
+     *
+     * @param tourist_id
+     * @param club_id
+     * @param join       1收费 2免费
+     * @param join_token 金币数 免费传0
+     * @param call
+     */
+    public static void channelJoinClubSet(int tourist_id, int club_id, String join, String join_token, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("club_id", String.valueOf(club_id));
+        map.put("join", join);
+        map.put("join_token", join_token);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelJoinClubSet).build().execute(call);
+
+    }
+
+
+    /**
+     * ======================================我的===================================
+     */
+
+
+    /**
+     * 我的-我的关注
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void personInformFollows(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personInformFollows).build().execute(call);
+
+    }
+
+    /**
+     * 我的-我的粉丝
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void personInformFans(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personInformFans).build().execute(call);
+
+    }
+
+    /**
+     * 我的-用户资料
+     *
+     * @param tourist_id
+     * @param key        avatar=>头像 name=>用户昵称 sex=>用户性别（1男 2女） desc=>简介 addr=>地区
+     * @param value
+     * @param call
+     */
+    public static void personInformEditBase(int tourist_id, String key, String value, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put(key, value);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personInformEditBase).build().execute(call);
+
+    }
+
+    /**
+     * 我的-获取用户资料
+     *
+     * @param tourist_id
+     * @param call
+     */
+    public static void personInformInfo(int tourist_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personInformInfo).build().execute(call);
+
+    }
+
+    /***
+     * 我的-设置-关于我们
+     * @param call
+     */
+    public static void personSettingsAbout(Callback call) {
+        Map<String, String> map = new HashMap<>();
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personSettingsAbout).build().execute(call);
+
+    }
+
+    /**
+     * 我的-设置-常见问题
+     *
+     * @param call
+     */
+    public static void personSettingsQuestion(Callback call) {
+        Map<String, String> map = new HashMap<>();
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personSettingsQuestion).build().execute(call);
+
+    }
+
+    /**
+     * 我的-设置-我要反馈
+     *
+     * @param call
+     */
+    public static void personSettingsFeedback(int tourist_id, String content, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("content", content);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personSettingsFeedback).build().execute(call);
+
+    }
+
+    /**
+     * 我的-设置-通知设置
+     *
+     * @param tourist_id
+     * @param key        like_notice=>点赞通知 comment_notice=>评论通知 （1是 2否）
+     * @param value
+     * @param call
+     */
+    public static void personSettingsNotice(int tourist_id, String key, int value, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put(key, String.valueOf(value));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personSettingsNotice).build().execute(call);
+
+    }
+
+    /**
+     * 我的-获取vip相关金额信息
+     *
+     * @param call
+     */
+    public static void personVipSet(Callback call) {
+        Map<String, String> map = new HashMap<>();
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personVipSet).build().execute(call);
+
+    }
+
+    /**
+     * 我的-我的钱包-充值设置
+     *
+     * @param call
+     */
+    public static void personWalletSet(Callback call) {
+        Map<String, String> map = new HashMap<>();
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personWalletSet).build().execute(call);
+
+    }
+
+    /**
+     * 我的-我的钱包-消费记录
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void personWalletRecord(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personWalletRecord).build().execute(call);
+
+    }
+
+
+    /**
+     * ===================================发布===========================================================
+     */
 
     /**
      * 发布视频

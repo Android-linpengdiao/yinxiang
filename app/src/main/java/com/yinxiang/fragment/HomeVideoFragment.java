@@ -155,7 +155,7 @@ public class HomeVideoFragment extends BaseFragment {
 
         EventBus.getDefault().register(this);
 
-        SendRequest.homePageVideos(1, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+        SendRequest.homePageVideosActive(1, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -170,27 +170,6 @@ public class HomeVideoFragment extends BaseFragment {
                 }
             }
 
-        });
-
-        SendRequest.homePageVideos(1, 10, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.optInt("code") == 200) {
-
-                    } else {
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-
-                }
-            }
         });
 
         return binding.getRoot();

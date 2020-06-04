@@ -28,7 +28,111 @@ public class APIUrls {
 
     //首页-活动
     public final static String url_homePageActives = url_domain + "api/homepageActives/info";
-    public final static String url_homePageVideos = url_domain + "api/homepageVideos/active";
+
+    /**
+     * 首页-视频-活动环宇
+     */
+    //首页-视频-活动环宇
+    public final static String url_homePageVideosActive = url_domain + "api/homepageVideos/active";
+    //首页-视频-pk
+    public final static String url_homePageVideosCreatePk = url_domain + "api/homepageVideos/createPk";
+    //首页-视频-接力
+    public final static String url_homePageVideosRelay = url_domain + "api/homepageVideos/relay";
+    //首页-视频-举报
+    public final static String url_homePageVideosReport = url_domain + "api/homepageVideos/report";
+    //首页-视频-是否点赞
+    public final static String url_homePageVideosIsAssist = url_domain + "api/homepageVideos/isAssist";
+    //首页-视频-点赞
+    public final static String url_homePageVideosAssist = url_domain + "api/homepageVideos/assist";
+    //首页-视频-点赞取消
+    public final static String url_homePageVideosCancelAssist = url_domain + "api/homepageVideos/cancelAssist";
+    //首页-视频-搜索
+    public final static String url_homePageVideosSearch = url_domain + "api/homepageVideos/search";
+    //首页-视频-创建评论
+    public final static String url_homePageVideosCreateComment = url_domain + "api/homepageVideos/createComment";
+    //首页-视频-获取评论
+    public final static String url_homePageVideosComment = url_domain + "api/homepageVideos/comment";
+    //首页-视频-获取收费投票设置
+    public final static String url_homePageVideosVoteSet = url_domain + "api/homepageVideos/voteSet";
+    //首页-视频-投票
+    public final static String url_homePageVideosVote = url_domain + "api/homepageVideos/vote";
+
+
+    //首页-视频-竞技PK
+    public final static String url_homePageVideosPK = url_domain + "api/homepageVideos/pk";
+
+
+    //首页-视频-荣耀在线
+    public final static String url_homePageVideosHonour = url_domain + "api/homepageVideos/honour";
+
+    //首页-用户关注用户
+    public final static String url_homePagePersonFollow = url_domain + "api/homepage/personFollow";
+    //首页-用户取消关注用户
+    public final static String url_homePagePersonUnFollow = url_domain + "api/homepage/personUnFollow";
+    //首页-用户是否关注用户
+    public final static String url_homePagePersonIsFollow = url_domain + "api/homepage/personIsFollow";
+
+
+    /**
+     * 好友
+     */
+
+    //好友-消息-系统消息
+    public final static String url_friendSystem = url_domain + "api/friend/system";
+    //好友-消息-点赞消息
+    public final static String url_friendAssist = url_domain + "api/friend/assist";
+    // 好友-消息-评论消息
+    public final static String url_friendComment = url_domain + "api/friend/comment";
+    //好友-消息-系统消息
+    public final static String url_friendClub = url_domain + "api/friend/api/friend/club";
+    //好友-消息-同意加群/拒绝加群
+    public final static String url_friendClubAction = url_domain + "api/friend/clubAction";
+
+
+
+    /**
+     * 频道
+     */
+
+    //频道-社团-获取社团
+    public final static String url_channelClub = url_domain + "api/channel/club";
+    //频道-社团-创建社团
+    public final static String url_channelCreateClub = url_domain + "api/channel/createClub";
+    //频道-社团-编辑社团
+    public final static String url_channelEditClub = url_domain + "api/channel/editClub";
+    //频道-社团-解散
+    public final static String url_channelEissolveClub = url_domain + "api/channel/dissolveClub";
+    //频道-社团-入团申请设置
+    public final static String url_channelJoinClubSet = url_domain + "api/channel/joinClubSet";
+
+    /**
+     * 我的
+     */
+    //我的-我的关注
+    public final static String url_personInformFollows = url_domain + "api/personInform/follows";
+    //我的-我的粉丝
+    public final static String url_personInformFans = url_domain + "api/personInform/fans";
+    // 我的-用户资料
+    public final static String url_personInformEditBase = url_domain + "api/personInform/editBase";
+    //我的-获取用户资料
+    public final static String url_personInformInfo = url_domain + "api/personInform/info";
+
+    //我的-设置-关于我们
+    public final static String url_personSettingsAbout = url_domain + "api/personSettings/about";
+    //我的-设置-常见问题
+    public final static String url_personSettingsQuestion = url_domain + "api/personSettings/question";
+    //我的-设置-我要反馈
+    public final static String url_personSettingsFeedback = url_domain + "api/personSettings/feedback";
+    //我的-设置-通知设置
+    public final static String url_personSettingsNotice = url_domain + "api/personSettings/notice";
+
+    //我的-获取vip相关金额信息
+    public final static String url_personVipSet = url_domain + "api/personVip/set";
+    //我的-我的钱包-充值设置
+    public final static String url_personWalletSet = url_domain + "api/personWallet/set";
+    //我的-我的钱包-消费记录
+    public final static String url_personWalletRecord = url_domain + "api/personWallet/record";
+
 
     public final static String url_commonStartUp = url_domain + "api/common/startUp";
     public final static String url_commonNav = url_domain + "api/common/nav";

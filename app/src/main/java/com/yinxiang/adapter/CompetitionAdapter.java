@@ -32,12 +32,12 @@ public class CompetitionAdapter extends BaseRecyclerAdapter<HomeActives.DataBean
     protected void onBindItem(final ItemCompetitionLayoutBinding binding, final HomeActives.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.name.setText(dataBean.getTitle());
-            binding.name.setSelected(dataBean.getStatus() == 0 ? false : true);
+            binding.name.setSelected(dataBean.getStatus() == 1 ? false : true);
             binding.name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        dataBean.setStatus(dataBean.getStatus() == 0 ? 1 : 0);
+                        dataBean.setStatus(dataBean.getStatus() == 1 ? 0 : 1);
                         for (int i = 0; i < mList.size(); i++) {
                             if (dataBean != mList.get(i)) {
                                 mList.get(i).setStatus(0);
