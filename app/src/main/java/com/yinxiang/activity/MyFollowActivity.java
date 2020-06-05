@@ -55,14 +55,6 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
 
             }
         });
-
-        List<FollowUserData.DataBeanX.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            FollowUserData.DataBeanX.DataBean dataBean = new FollowUserData.DataBeanX.DataBean();
-            list.add(dataBean);
-        }
-        adapter.refreshData(list);
-
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -76,8 +68,8 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-//        binding.swipeRefreshLayout.setRefreshing(true);
-//        initData();
+        binding.swipeRefreshLayout.setRefreshing(true);
+        initData();
     }
 
     private void initData() {
@@ -93,7 +85,7 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
                 followUserData = response;
                 binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-//                    adapter.refreshData(response.getData().getData());
+                    adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(MyFollowActivity.this, response.getMsg());
                 }
@@ -103,37 +95,37 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void setFollow(final FollowUserData.DataBeanX.DataBean dataBean) {
-        String url = dataBean.getAttention() != -1 ? APIUrls.url_centerUnFollow : APIUrls.url_centerFollow;
-        SendRequest.centerFollow(getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    if (!CommonUtil.isBlank(response)) {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.optInt("code") == 200) {
-                            dataBean.setAttention(dataBean.getAttention() != -1 ? -1 : 0);
-                            if (dataBean.getAttention() != -1) {
-                                ToastUtils.showShort(MyFollowActivity.this, "已关注");
-                            }
-                            adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
-                        } else {
-                            ToastUtils.showShort(MyFollowActivity.this, jsonObject.optString("msg"));
-                        }
-                    } else {
-                        ToastUtils.showShort(MyFollowActivity.this, "请求失败");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ToastUtils.showShort(MyFollowActivity.this, "请求失败");
-                }
-
-            }
-        });
+//        String url = dataBean.getAttention() != -1 ? APIUrls.url_centerUnFollow : APIUrls.url_centerFollow;
+//        SendRequest.centerFollow(getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                try {
+//                    if (!CommonUtil.isBlank(response)) {
+//                        JSONObject jsonObject = new JSONObject(response);
+//                        if (jsonObject.optInt("code") == 200) {
+//                            dataBean.setAttention(dataBean.getAttention() != -1 ? -1 : 0);
+//                            if (dataBean.getAttention() != -1) {
+//                                ToastUtils.showShort(MyFollowActivity.this, "已关注");
+//                            }
+//                            adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
+//                        } else {
+//                            ToastUtils.showShort(MyFollowActivity.this, jsonObject.optString("msg"));
+//                        }
+//                    } else {
+//                        ToastUtils.showShort(MyFollowActivity.this, "请求失败");
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    ToastUtils.showShort(MyFollowActivity.this, "请求失败");
+//                }
+//
+//            }
+//        });
     }
 
     @Override

@@ -104,37 +104,37 @@ public class ClubMessageActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void setFollow(final FollowUserData.DataBeanX.DataBean dataBean) {
-        String url = dataBean.getAttention() != -1 ? APIUrls.url_centerUnFollow : APIUrls.url_centerFollow;
-        SendRequest.centerFollow(getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    if (!CommonUtil.isBlank(response)) {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.optInt("code") == 200) {
-                            dataBean.setAttention(dataBean.getAttention() != -1 ? -1 : 0);
-                            if (dataBean.getAttention() != -1) {
-                                ToastUtils.showShort(ClubMessageActivity.this, "已关注");
-                            }
-                            adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
-                        } else {
-                            ToastUtils.showShort(ClubMessageActivity.this, jsonObject.optString("msg"));
-                        }
-                    } else {
-                        ToastUtils.showShort(ClubMessageActivity.this, "请求失败");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ToastUtils.showShort(ClubMessageActivity.this, "请求失败");
-                }
-
-            }
-        });
+//        String url = dataBean.getAttention() != -1 ? APIUrls.url_centerUnFollow : APIUrls.url_centerFollow;
+//        SendRequest.centerFollow(getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                try {
+//                    if (!CommonUtil.isBlank(response)) {
+//                        JSONObject jsonObject = new JSONObject(response);
+//                        if (jsonObject.optInt("code") == 200) {
+////                            dataBean.setAttention(dataBean.getAttention() != -1 ? -1 : 0);
+////                            if (dataBean.getAttention() != -1) {
+////                                ToastUtils.showShort(ClubMessageActivity.this, "已关注");
+////                            }
+////                            adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
+//                        } else {
+//                            ToastUtils.showShort(ClubMessageActivity.this, jsonObject.optString("msg"));
+//                        }
+//                    } else {
+//                        ToastUtils.showShort(ClubMessageActivity.this, "请求失败");
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    ToastUtils.showShort(ClubMessageActivity.this, "请求失败");
+//                }
+//
+//            }
+//        });
     }
 
     @Override

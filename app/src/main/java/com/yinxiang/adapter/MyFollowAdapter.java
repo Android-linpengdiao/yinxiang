@@ -32,26 +32,26 @@ public class MyFollowAdapter extends BaseRecyclerAdapter<FollowUserData.DataBean
     @Override
     protected void onBindItem(final ItemFriendsLayoutBinding binding, final FollowUserData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-//            binding.tvTitle.setText(dataBean.getName());
+            binding.tvTitle.setText(dataBean.getName());
 //            binding.tvDesc.setText("粉丝：" + dataBean.getLiker());
-//            binding.tvFollowers.setText("已关注");
+            binding.tvFollowers.setText("已关注");
 //            binding.tvFollowers.setText(dataBean.getAttention() != -1 ? "已关注" : "关注");
-//            GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
-//            binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (onClickListener != null) {
-//                        onClickListener.onClick(v, dataBean);
-//                    }
-//                }
-//            });
+            GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
+            binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
 //                    intent.putExtra("uid", dataBean.getId());
                     intent.putExtra("uid", 0);
-                    intent.putExtra("isFollow", dataBean.getAttention() != -1 ? true : false);
+//                    intent.putExtra("isFollow", dataBean.getAttention() != -1 ? true : false);
                     mContext.startActivity(intent);
                 }
             });

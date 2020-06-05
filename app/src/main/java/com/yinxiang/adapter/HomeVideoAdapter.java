@@ -3,12 +3,24 @@ package com.yinxiang.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.view.View;
+import android.widget.TextView;
 
+import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
+import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.StringCallback;
+import com.okhttp.utils.APIUrls;
+import com.yinxiang.MyApplication;
 import com.yinxiang.R;
+import com.yinxiang.activity.MyFollowActivity;
 import com.yinxiang.databinding.ItemHomeVideoLayoutBinding;
 import com.yinxiang.model.HomeVideos;
 import com.yinxiang.view.OnClickListener;
+
+import org.json.JSONObject;
+
+import okhttp3.Call;
 
 
 public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.DataBean, ItemHomeVideoLayoutBinding> {
@@ -22,10 +34,10 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
         super(context);
     }
 
-    public HomeVideos.DataBeanX.DataBean getItem(int position){
+    public HomeVideos.DataBeanX.DataBean getItem(int position) {
         if (mList != null && mList.size() > 0) {
             return mList.get(position);
-        }else {
+        } else {
             return null;
         }
     }
@@ -38,11 +50,11 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
     @Override
     protected void onBindItem(final ItemHomeVideoLayoutBinding binding, final HomeVideos.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
+            binding.userName.setText(dataBean.getTourist_name() + "");
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    binding.tvFollow.setSelected(!binding.tvFollow.isSelected());
-                    binding.tvFollow.setText(binding.tvFollow.isSelected() ? "已关注" : "关注");
+                    homePagePersonFollow(binding.tvFollow,dataBean);
                 }
             });
             binding.ivLike.setOnClickListener(new View.OnClickListener() {
@@ -112,5 +124,38 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
             GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
         }
 
+    }
+
+    private void homePagePersonFollow(TextView tvFollow, final HomeVideos.DataBeanX.DataBean dataBean){
+        SendRequest.homePagePersonFollow(MyApplication.getInstance().getUserInfo().getData().getId(), dataBean.getTourist_id(), APIUrls.url_homePagePersonFollow, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+//                            dataBean.setAttention(dataBean.getAttention() != -1 ? -1 : 0);
+//                            if (dataBean.getAttention() != -1) {
+//                                ToastUtils.showShort(MyFollowActivity.this, "已关注");
+//                            }
+//                            adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
+                        } else {
+                            ToastUtils.showShort(mContext, jsonObject.optString("msg"));
+                        }
+                    } else {
+                        ToastUtils.showShort(mContext, "请求失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(mContext, "请求失败");
+                }
+
+            }
+        });
     }
 }

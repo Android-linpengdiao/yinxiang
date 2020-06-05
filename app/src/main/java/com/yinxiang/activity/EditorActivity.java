@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
@@ -72,10 +73,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initView(UserInfo userInfo) {
-        binding.userName.setText(userInfo.getData().getName()+"");
+        binding.userName.setText(userInfo.getData().getName() + "");
         binding.userSex.setText(userInfo.getData().getSex() == 1 ? "男" : "女");
-        binding.userDesc.setText(userInfo.getData().getDesc()+"");
-        binding.userAddr.setText(userInfo.getData().getAddr()+"");
+        binding.userDesc.setText(userInfo.getData().getDesc() + "");
+        binding.userAddr.setText(userInfo.getData().getAddr() + "");
         GlideLoader.LoderCircleImage(this, userInfo.getData().getAvatar(), binding.userIcon);
     }
 
@@ -252,7 +253,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private static final String TAG = "EditorActivity";
+
     private void uploadFile(String file) {
+        Log.i(TAG, "uploadFile: " + file);
         SendRequest.fileUpload(file, file.substring(file.lastIndexOf("/") + 1), new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

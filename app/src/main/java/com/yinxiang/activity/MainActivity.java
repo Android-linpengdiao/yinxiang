@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baselibrary.MessageBus;
@@ -55,9 +56,17 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
+        intHeaderView();
+
+    }
+
+    private void intHeaderView() {
         binding.navView.setNavigationItemSelectedListener(this);
         View headerView = binding.navView.getHeaderView(0);
         ImageView userIcon = headerView.findViewById(R.id.user_icon);
+        TextView userName = headerView.findViewById(R.id.user_name);
+        TextView userTouristId = headerView.findViewById(R.id.user_tourist_id);
+        TextView userAddr = headerView.findViewById(R.id.user_addr);
         View myFansView = headerView.findViewById(R.id.my_fans_view);
         View myFollowView = headerView.findViewById(R.id.my_follow_view);
         View myWorkView = headerView.findViewById(R.id.my_work_view);
@@ -68,7 +77,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         View myVIPView = headerView.findViewById(R.id.my_vip_view);
         View tvEditor = headerView.findViewById(R.id.tv_editor);
         View tvSetting = headerView.findViewById(R.id.tv_setting);
-        GlideLoader.LoderCircleImage(this, CommonUtil.getImageListString().get(0), userIcon);
+
+        userName.setText(getUserInfo().getData().getName() + "");
+        userTouristId.setText("海博号："+getUserInfo().getData().getTourist_id());
+        userAddr.setText(getUserInfo().getData().getAddr() + "");
+        GlideLoader.LoderCircleImage(this, getUserInfo().getData().getAvatar(), userIcon);
 
         myFansView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,12 +161,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 binding.drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
-
-
     }
 
     private static final String TAG = "MainActivity";
-    
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -168,7 +180,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                         .build();
                 EventBus.getDefault().post(messageBus);
             }
-        },100);
+        }, 100);
     }
 
     @Override

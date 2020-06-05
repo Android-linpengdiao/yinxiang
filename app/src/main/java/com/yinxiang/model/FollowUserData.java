@@ -7,7 +7,7 @@ public class FollowUserData {
     /**
      * code : 200
      * msg : 成功
-     * data : {"current_page":1,"data":[{"id":1,"name":"ooooo","phone":"17600201805","avatar":"upload/202003310557540Fpya.jpg","password":"$2y$10$CScwI.k6m12BSP547GGwF.RD/UrGHDP6zw9ZA8.UzzfJNgbMkBINe","remember_token":null,"settings":null,"created_at":"2020-03-23 10:05:31","updated_at":"2020-03-31 18:12:10","tourist_id":"13515786","sex":2,"birth":"2020-03-28","openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":"pppppo","weibo":"微博13pp","reg":"191e35f7e0ddb44139a","qq_id":"4EE4396DF3AFA7BA7D8EC90FA47091A2","weibo_id":"6027212432","liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":1,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-25 16:10:56","updated_at":"2020-03-25 16:10:56"},"attention":1,"content_num":7},{"id":6,"name":"O9Cm8J","phone":"18611001339","avatar":"users/default.png","password":"$2y$10$juBfS1JzvkT6B6kl7O8R9uvWh/8aNK0yqFF.ZKXpIHpTy3HdiyPee","remember_token":null,"settings":null,"created_at":"2020-03-25 21:10:55","updated_at":"2020-03-25 21:23:10","tourist_id":"75567584","sex":1,"birth":null,"openid":"oH48X07cqrOuB_KLDXZbvgUk3wi4","headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":null,"weibo":null,"reg":"","qq_id":"73775B2E666798A1482423132B0E9CD2","weibo_id":null,"liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":6,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-26 11:00:53","updated_at":"2020-03-26 11:00:53"},"attention":3,"content_num":1},{"id":7,"name":"M8wdFy","phone":"15935964770","avatar":"users/default.png","password":"$2y$10$7W0HtAjw9OrdS2YBcfVHn.867qETI1YeLn1JWoQT8AVPI7uuMSpdq","remember_token":null,"settings":null,"created_at":"2020-03-27 11:06:40","updated_at":"2020-03-27 11:06:40","tourist_id":"13602710","sex":1,"birth":null,"openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":null,"weibo":null,"reg":"1517bfd3f7454ae6742","qq_id":null,"weibo_id":null,"liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":7,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-27 13:49:49","updated_at":"2020-03-27 13:49:49"},"attention":1,"content_num":2},{"id":10,"name":"嘟米宝贝","phone":"18911071170","avatar":"users/default.png","password":"$2y$10$y89FwtQzdYVF1DpL9i.Ad.lDT8jpud0h73PdmO.R5Shu4j1GV5NIW","remember_token":null,"settings":null,"created_at":"2020-03-27 19:02:00","updated_at":"2020-03-27 19:11:28","tourist_id":"25785415","sex":2,"birth":"2020-3-27","openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":"","weibo":"","reg":"","qq_id":null,"weibo_id":null,"liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":10,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-27 19:14:42","updated_at":"2020-03-27 19:14:42"},"attention":4,"content_num":1}],"first_page_url":"http://admin.udiandou.com/api/center/concern?page=1","from":1,"last_page":1,"last_page_url":"http://admin.udiandou.com/api/center/concern?page=1","next_page_url":null,"path":"http://admin.udiandou.com/api/center/concern","per_page":"10","prev_page_url":null,"to":4,"total":4}
+     * data : {"current_page":1,"data":[{"id":3,"name":"信用度","phone":"13521614827","avatar":"upload/20200605033007B4Zn5.jpg","password":"$2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q","remember_token":null,"created_at":"2020-05-30T04:08:57.000000Z","updated_at":"2020-06-05T07:30:07.000000Z","tourist_id":"52185256","sex":2,"cancel":1,"reg":"","desc":"这个可以有","addr":"北京市 海淀区","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":0,"follow_number":0,"level":1,"age":0,"pivot":{"liker_id":6,"likeable_id":3,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/personInform/follows?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/personInform/follows?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/personInform/follows","per_page":"10","prev_page_url":null,"to":1,"total":1}
      */
 
     private int code;
@@ -41,17 +41,17 @@ public class FollowUserData {
     public static class DataBeanX {
         /**
          * current_page : 1
-         * data : [{"id":1,"name":"ooooo","phone":"17600201805","avatar":"upload/202003310557540Fpya.jpg","password":"$2y$10$CScwI.k6m12BSP547GGwF.RD/UrGHDP6zw9ZA8.UzzfJNgbMkBINe","remember_token":null,"settings":null,"created_at":"2020-03-23 10:05:31","updated_at":"2020-03-31 18:12:10","tourist_id":"13515786","sex":2,"birth":"2020-03-28","openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":"pppppo","weibo":"微博13pp","reg":"191e35f7e0ddb44139a","qq_id":"4EE4396DF3AFA7BA7D8EC90FA47091A2","weibo_id":"6027212432","liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":1,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-25 16:10:56","updated_at":"2020-03-25 16:10:56"},"attention":1,"content_num":7},{"id":6,"name":"O9Cm8J","phone":"18611001339","avatar":"users/default.png","password":"$2y$10$juBfS1JzvkT6B6kl7O8R9uvWh/8aNK0yqFF.ZKXpIHpTy3HdiyPee","remember_token":null,"settings":null,"created_at":"2020-03-25 21:10:55","updated_at":"2020-03-25 21:23:10","tourist_id":"75567584","sex":1,"birth":null,"openid":"oH48X07cqrOuB_KLDXZbvgUk3wi4","headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":null,"weibo":null,"reg":"","qq_id":"73775B2E666798A1482423132B0E9CD2","weibo_id":null,"liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":6,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-26 11:00:53","updated_at":"2020-03-26 11:00:53"},"attention":3,"content_num":1},{"id":7,"name":"M8wdFy","phone":"15935964770","avatar":"users/default.png","password":"$2y$10$7W0HtAjw9OrdS2YBcfVHn.867qETI1YeLn1JWoQT8AVPI7uuMSpdq","remember_token":null,"settings":null,"created_at":"2020-03-27 11:06:40","updated_at":"2020-03-27 11:06:40","tourist_id":"13602710","sex":1,"birth":null,"openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":null,"weibo":null,"reg":"1517bfd3f7454ae6742","qq_id":null,"weibo_id":null,"liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":7,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-27 13:49:49","updated_at":"2020-03-27 13:49:49"},"attention":1,"content_num":2},{"id":10,"name":"嘟米宝贝","phone":"18911071170","avatar":"users/default.png","password":"$2y$10$y89FwtQzdYVF1DpL9i.Ad.lDT8jpud0h73PdmO.R5Shu4j1GV5NIW","remember_token":null,"settings":null,"created_at":"2020-03-27 19:02:00","updated_at":"2020-03-27 19:11:28","tourist_id":"25785415","sex":2,"birth":"2020-3-27","openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":"","weibo":"","reg":"","qq_id":null,"weibo_id":null,"liker":0,"followers":0,"comment":0,"pivot":{"liker_id":3,"likeable_id":10,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-27 19:14:42","updated_at":"2020-03-27 19:14:42"},"attention":4,"content_num":1}]
-         * first_page_url : http://admin.udiandou.com/api/center/concern?page=1
+         * data : [{"id":3,"name":"信用度","phone":"13521614827","avatar":"upload/20200605033007B4Zn5.jpg","password":"$2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q","remember_token":null,"created_at":"2020-05-30T04:08:57.000000Z","updated_at":"2020-06-05T07:30:07.000000Z","tourist_id":"52185256","sex":2,"cancel":1,"reg":"","desc":"这个可以有","addr":"北京市 海淀区","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":0,"follow_number":0,"level":1,"age":0,"pivot":{"liker_id":6,"likeable_id":3,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}}]
+         * first_page_url : http://enjoy.fengyunguoyuan.com/api/personInform/follows?page=1
          * from : 1
          * last_page : 1
-         * last_page_url : http://admin.udiandou.com/api/center/concern?page=1
+         * last_page_url : http://enjoy.fengyunguoyuan.com/api/personInform/follows?page=1
          * next_page_url : null
-         * path : http://admin.udiandou.com/api/center/concern
+         * path : http://enjoy.fengyunguoyuan.com/api/personInform/follows
          * per_page : 10
          * prev_page_url : null
-         * to : 4
-         * total : 4
+         * to : 1
+         * total : 1
          */
 
         private int current_page;
@@ -59,10 +59,10 @@ public class FollowUserData {
         private int from;
         private int last_page;
         private String last_page_url;
-        private Object next_page_url;
+        private String next_page_url;
         private String path;
         private String per_page;
-        private Object prev_page_url;
+        private String prev_page_url;
         private int to;
         private int total;
         private List<DataBean> data;
@@ -107,11 +107,11 @@ public class FollowUserData {
             this.last_page_url = last_page_url;
         }
 
-        public Object getNext_page_url() {
+        public String getNext_page_url() {
             return next_page_url;
         }
 
-        public void setNext_page_url(Object next_page_url) {
+        public void setNext_page_url(String next_page_url) {
             this.next_page_url = next_page_url;
         }
 
@@ -131,11 +131,11 @@ public class FollowUserData {
             this.per_page = per_page;
         }
 
-        public Object getPrev_page_url() {
+        public String getPrev_page_url() {
             return prev_page_url;
         }
 
-        public void setPrev_page_url(Object prev_page_url) {
+        public void setPrev_page_url(String prev_page_url) {
             this.prev_page_url = prev_page_url;
         }
 
@@ -165,34 +165,30 @@ public class FollowUserData {
 
         public static class DataBean {
             /**
-             * id : 1
-             * name : ooooo
-             * phone : 17600201805
-             * avatar : upload/202003310557540Fpya.jpg
-             * password : $2y$10$CScwI.k6m12BSP547GGwF.RD/UrGHDP6zw9ZA8.UzzfJNgbMkBINe
+             * id : 3
+             * name : 信用度
+             * phone : 13521614827
+             * avatar : upload/20200605033007B4Zn5.jpg
+             * password : $2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q
              * remember_token : null
-             * settings : null
-             * created_at : 2020-03-23 10:05:31
-             * updated_at : 2020-03-31 18:12:10
-             * tourist_id : 13515786
+             * created_at : 2020-05-30T04:08:57.000000Z
+             * updated_at : 2020-06-05T07:30:07.000000Z
+             * tourist_id : 52185256
              * sex : 2
-             * birth : 2020-03-28
-             * openid : null
-             * headimgurl : null
-             * city : null
-             * province : null
              * cancel : 1
-             * autograph : pppppo
-             * weibo : 微博13pp
-             * reg : 191e35f7e0ddb44139a
-             * qq_id : 4EE4396DF3AFA7BA7D8EC90FA47091A2
-             * weibo_id : 6027212432
-             * liker : 0
-             * followers : 0
-             * comment : 0
-             * pivot : {"liker_id":3,"likeable_id":1,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-03-25 16:10:56","updated_at":"2020-03-25 16:10:56"}
-             * attention : 1
-             * content_num : 7
+             * reg :
+             * desc : 这个可以有
+             * addr : 北京市 海淀区
+             * like_notice : 1
+             * comment_notice : 1
+             * is_vip : 2
+             * vip_expire : null
+             * wallet_token : 0
+             * fan_number : 0
+             * follow_number : 0
+             * level : 1
+             * age : 0
+             * pivot : {"liker_id":6,"likeable_id":3,"liker_type":"App\\Tourist","likeable_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}
              */
 
             private int id;
@@ -200,29 +196,25 @@ public class FollowUserData {
             private String phone;
             private String avatar;
             private String password;
-            private Object remember_token;
-            private Object settings;
+            private String remember_token;
             private String created_at;
             private String updated_at;
             private String tourist_id;
             private int sex;
-            private String birth;
-            private Object openid;
-            private Object headimgurl;
-            private Object city;
-            private Object province;
             private int cancel;
-            private String autograph;
-            private String weibo;
             private String reg;
-            private String qq_id;
-            private String weibo_id;
-            private int liker;
-            private int followers;
-            private int comment;
+            private String desc;
+            private String addr;
+            private int like_notice;
+            private int comment_notice;
+            private int is_vip;
+            private int vip_expire;
+            private int wallet_token;
+            private int fan_number;
+            private int follow_number;
+            private int level;
+            private int age;
             private PivotBean pivot;
-            private int attention;
-            private int content_num;
 
             public int getId() {
                 return id;
@@ -264,20 +256,12 @@ public class FollowUserData {
                 this.password = password;
             }
 
-            public Object getRemember_token() {
+            public String getRemember_token() {
                 return remember_token;
             }
 
-            public void setRemember_token(Object remember_token) {
+            public void setRemember_token(String remember_token) {
                 this.remember_token = remember_token;
-            }
-
-            public Object getSettings() {
-                return settings;
-            }
-
-            public void setSettings(Object settings) {
-                this.settings = settings;
             }
 
             public String getCreated_at() {
@@ -312,68 +296,12 @@ public class FollowUserData {
                 this.sex = sex;
             }
 
-            public String getBirth() {
-                return birth;
-            }
-
-            public void setBirth(String birth) {
-                this.birth = birth;
-            }
-
-            public Object getOpenid() {
-                return openid;
-            }
-
-            public void setOpenid(Object openid) {
-                this.openid = openid;
-            }
-
-            public Object getHeadimgurl() {
-                return headimgurl;
-            }
-
-            public void setHeadimgurl(Object headimgurl) {
-                this.headimgurl = headimgurl;
-            }
-
-            public Object getCity() {
-                return city;
-            }
-
-            public void setCity(Object city) {
-                this.city = city;
-            }
-
-            public Object getProvince() {
-                return province;
-            }
-
-            public void setProvince(Object province) {
-                this.province = province;
-            }
-
             public int getCancel() {
                 return cancel;
             }
 
             public void setCancel(int cancel) {
                 this.cancel = cancel;
-            }
-
-            public String getAutograph() {
-                return autograph;
-            }
-
-            public void setAutograph(String autograph) {
-                this.autograph = autograph;
-            }
-
-            public String getWeibo() {
-                return weibo;
-            }
-
-            public void setWeibo(String weibo) {
-                this.weibo = weibo;
             }
 
             public String getReg() {
@@ -384,44 +312,92 @@ public class FollowUserData {
                 this.reg = reg;
             }
 
-            public String getQq_id() {
-                return qq_id;
+            public String getDesc() {
+                return desc;
             }
 
-            public void setQq_id(String qq_id) {
-                this.qq_id = qq_id;
+            public void setDesc(String desc) {
+                this.desc = desc;
             }
 
-            public String getWeibo_id() {
-                return weibo_id;
+            public String getAddr() {
+                return addr;
             }
 
-            public void setWeibo_id(String weibo_id) {
-                this.weibo_id = weibo_id;
+            public void setAddr(String addr) {
+                this.addr = addr;
             }
 
-            public int getLiker() {
-                return liker;
+            public int getLike_notice() {
+                return like_notice;
             }
 
-            public void setLiker(int liker) {
-                this.liker = liker;
+            public void setLike_notice(int like_notice) {
+                this.like_notice = like_notice;
             }
 
-            public int getFollowers() {
-                return followers;
+            public int getComment_notice() {
+                return comment_notice;
             }
 
-            public void setFollowers(int followers) {
-                this.followers = followers;
+            public void setComment_notice(int comment_notice) {
+                this.comment_notice = comment_notice;
             }
 
-            public int getComment() {
-                return comment;
+            public int getIs_vip() {
+                return is_vip;
             }
 
-            public void setComment(int comment) {
-                this.comment = comment;
+            public void setIs_vip(int is_vip) {
+                this.is_vip = is_vip;
+            }
+
+            public int getVip_expire() {
+                return vip_expire;
+            }
+
+            public void setVip_expire(int vip_expire) {
+                this.vip_expire = vip_expire;
+            }
+
+            public int getWallet_token() {
+                return wallet_token;
+            }
+
+            public void setWallet_token(int wallet_token) {
+                this.wallet_token = wallet_token;
+            }
+
+            public int getFan_number() {
+                return fan_number;
+            }
+
+            public void setFan_number(int fan_number) {
+                this.fan_number = fan_number;
+            }
+
+            public int getFollow_number() {
+                return follow_number;
+            }
+
+            public void setFollow_number(int follow_number) {
+                this.follow_number = follow_number;
+            }
+
+            public int getLevel() {
+                return level;
+            }
+
+            public void setLevel(int level) {
+                this.level = level;
+            }
+
+            public int getAge() {
+                return age;
+            }
+
+            public void setAge(int age) {
+                this.age = age;
             }
 
             public PivotBean getPivot() {
@@ -432,30 +408,14 @@ public class FollowUserData {
                 this.pivot = pivot;
             }
 
-            public int getAttention() {
-                return attention;
-            }
-
-            public void setAttention(int attention) {
-                this.attention = attention;
-            }
-
-            public int getContent_num() {
-                return content_num;
-            }
-
-            public void setContent_num(int content_num) {
-                this.content_num = content_num;
-            }
-
             public static class PivotBean {
                 /**
-                 * liker_id : 3
-                 * likeable_id : 1
+                 * liker_id : 6
+                 * likeable_id : 3
                  * liker_type : App\Tourist
                  * likeable_type : App\Tourist
-                 * created_at : 2020-03-25 16:10:56
-                 * updated_at : 2020-03-25 16:10:56
+                 * created_at : 2020-06-05T08:03:11.000000Z
+                 * updated_at : 2020-06-05T08:03:11.000000Z
                  */
 
                 private int liker_id;

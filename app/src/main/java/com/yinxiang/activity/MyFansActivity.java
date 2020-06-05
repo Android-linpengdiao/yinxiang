@@ -74,16 +74,16 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-//        binding.swipeRefreshLayout.setRefreshing(true);
-//        initData();
+        binding.swipeRefreshLayout.setRefreshing(true);
+        initData();
     }
 
     private void initData() {
-        SendRequest.centerAttention(getUserInfo().getData().getId(), 10, 1, new GenericsCallback<FansUserData>(new JsonGenericsSerializator()) {
+        SendRequest.personInformFans(getUserInfo().getData().getId(), 10, new GenericsCallback<FansUserData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                ToastUtils.showShort(MyFansActivity.this, ""+e.getMessage());
+                ToastUtils.showShort(MyFansActivity.this, "" + e.getMessage());
             }
 
             @Override
@@ -91,7 +91,7 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
                 fansUserData = response;
                 binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-//                    adapter.refreshData(response.getData().getData());
+                    adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(MyFansActivity.this, response.getMsg());
                 }
@@ -101,37 +101,37 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setFollow(final FansUserData.DataBeanX.DataBean dataBean) {
-        String url = dataBean.isAttention() ? APIUrls.url_centerUnFollow : APIUrls.url_centerFollow;
-        SendRequest.centerFollow(getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    if (!CommonUtil.isBlank(response)) {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.optInt("code") == 200) {
-                            dataBean.setAttention(!dataBean.isAttention());
-                            if (dataBean.isAttention()) {
-                                ToastUtils.showShort(MyFansActivity.this, "已关注");
-                            }
-                            adapter.notifyItemChanged(fansUserData.getData().getData().indexOf(dataBean));
-                        } else {
-                            ToastUtils.showShort(MyFansActivity.this, jsonObject.optString("msg"));
-                        }
-                    } else {
-                        ToastUtils.showShort(MyFansActivity.this, "请求失败");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ToastUtils.showShort(MyFansActivity.this, "请求失败");
-                }
-
-            }
-        });
+//        String url = dataBean.isAttention() ? APIUrls.url_centerUnFollow : APIUrls.url_centerFollow;
+//        SendRequest.centerFollow(getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                try {
+//                    if (!CommonUtil.isBlank(response)) {
+//                        JSONObject jsonObject = new JSONObject(response);
+//                        if (jsonObject.optInt("code") == 200) {
+//                            dataBean.setAttention(!dataBean.isAttention());
+//                            if (dataBean.isAttention()) {
+//                                ToastUtils.showShort(MyFansActivity.this, "已关注");
+//                            }
+//                            adapter.notifyItemChanged(fansUserData.getData().getData().indexOf(dataBean));
+//                        } else {
+//                            ToastUtils.showShort(MyFansActivity.this, jsonObject.optString("msg"));
+//                        }
+//                    } else {
+//                        ToastUtils.showShort(MyFansActivity.this, "请求失败");
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    ToastUtils.showShort(MyFansActivity.this, "请求失败");
+//                }
+//
+//            }
+//        });
     }
 
     @Override
