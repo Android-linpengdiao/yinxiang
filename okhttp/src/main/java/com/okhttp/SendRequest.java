@@ -549,7 +549,21 @@ public class SendRequest {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("status", String.valueOf(status));
-        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelClub).build().execute(call);
+        OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_channelClub).build().execute(call);
+
+    }
+
+    public static void channelClubTouristId(int tourist_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_channelClub).build().execute(call);
+
+    }
+
+    public static void channelClubStatus(int status, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", String.valueOf(status));
+        OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_channelClub).build().execute(call);
 
     }
 
@@ -567,9 +581,10 @@ public class SendRequest {
      * @param desc         社团简介
      * @param call
      */
-    public static void channelCreateClub(int tourist_id, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
+    public static void channelCreateClub(int tourist_id, String name,String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("name", name);
         map.put("logo", logo);
         map.put("license", license);
         map.put("idcard_front", idcard_front);

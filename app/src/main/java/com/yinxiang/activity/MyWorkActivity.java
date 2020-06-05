@@ -8,11 +8,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivityMyWorkBinding;
 import com.yinxiang.databinding.ActivitySelectionWorkPkBinding;
+import com.yinxiang.model.FollowUserData;
 import com.yinxiang.view.OnClickListener;
+
+import okhttp3.Call;
 
 public class MyWorkActivity extends BaseActivity implements View.OnClickListener {
 
@@ -61,4 +68,26 @@ public class MyWorkActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
     }
+
+//    private void initData() {
+//        SendRequest.personInformFollows(getUserInfo().getData().getId(), 10, new GenericsCallback<FollowUserData>(new JsonGenericsSerializator()) {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//                binding.swipeRefreshLayout.setRefreshing(false);
+//                ToastUtils.showShort(MyFollowActivity.this, "" + e.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(FollowUserData response, int id) {
+//                followUserData = response;
+//                binding.swipeRefreshLayout.setRefreshing(false);
+//                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+//                    adapter.refreshData(response.getData().getData());
+//                } else {
+//                    ToastUtils.showShort(MyFollowActivity.this, response.getMsg());
+//                }
+//            }
+//
+//        });
+//    }
 }

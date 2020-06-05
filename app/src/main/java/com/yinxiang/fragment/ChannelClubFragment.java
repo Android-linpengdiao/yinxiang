@@ -11,13 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.callbacks.StringCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.activity.ClubDetailActivity;
 import com.yinxiang.activity.CreateClubActivity;
 import com.yinxiang.adapter.ClubAdapter;
 import com.yinxiang.databinding.FragmentChannelClubBinding;
+import com.yinxiang.model.ClubData;
 import com.yinxiang.view.OnClickListener;
+
+import org.json.JSONObject;
+
+import okhttp3.Call;
 
 public class ChannelClubFragment extends BaseFragment implements View.OnClickListener {
 
@@ -26,9 +37,7 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
-    private String mParam1;
-    private String mParam2;
+    private ClubAdapter adapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -50,8 +59,6 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -66,15 +73,15 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
 
         binding.createClubView.setOnClickListener(this);
 
-        ClubAdapter adapter = new ClubAdapter(getActivity());
+        adapter = new ClubAdapter(getActivity());
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         binding.recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("uid",(int)object);
-                openActivity(ClubDetailActivity.class,bundle);
+                bundle.putInt("uid", (int) object);
+                openActivity(ClubDetailActivity.class, bundle);
             }
 
             @Override
@@ -82,7 +89,8 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
 
             }
         });
-        adapter.refreshData(CommonUtil.getImageListString());
+
+        initData();
 
         return binding.getRoot();
     }
@@ -95,6 +103,23 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
                 break;
         }
     }
+
+    private void initData() {
+        SendRequest.channelClubStatus(1, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(ClubData response, int id) {
+                if (response != null && response.getCode() == 200 && response.getData() != null) {
+                    adapter.refreshData(response.getData());
+                }
+            }
+
+        });
+    }
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

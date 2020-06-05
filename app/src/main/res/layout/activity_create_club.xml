@@ -58,16 +58,17 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/et_club_name"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/button_white"
                     android:gravity="center_vertical"
+                    android:hint="请输入社团名称"
                     android:paddingLeft="12dp"
                     android:singleLine="true"
-                    android:hint="请输入社团名称"
-                    android:textColorHint="#333333"
-                    android:textColor="#999999" />
+                    android:textColor="#333333"
+                    android:textColorHint="#999999" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding"
-                    android:text=" 企业营业执照"
+                    android:text="企业营业执照"
                     android:textColor="#ff333333"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -131,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding"
-                    android:text=" 身份认证"
+                    android:text="身份认证"
                     android:textColor="#ff333333"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -207,12 +208,13 @@
                         android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="43dp"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:hint="请输入手机号码"
                         android:background="@null"
-                        android:textColorHint="#333333"
-                        android:textColor="#999999"
+                        android:gravity="center_vertical"
+                        android:hint="请输入手机号码"
+                        android:inputType="phone"
+                        android:singleLine="true"
+                        android:textColor="#333333"
+                        android:textColorHint="#999999"
                         android:textSize="15sp" />
 
                     <View
@@ -232,10 +234,10 @@
                             android:layout_weight="1"
                             android:background="@null"
                             android:gravity="center_vertical"
-                            android:singleLine="true"
                             android:hint="请输入短信验证码"
-                            android:textColorHint="#333333"
-                            android:textColor="#999999"
+                            android:singleLine="true"
+                            android:textColor="#333333"
+                            android:textColorHint="#999999"
                             android:textSize="15sp" />
 
                         <TextView
@@ -265,6 +267,7 @@
             android:padding="@dimen/padding">
 
             <TextView
+                android:id="@+id/tv_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/button_radius_theme"

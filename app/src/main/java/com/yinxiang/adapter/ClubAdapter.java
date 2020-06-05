@@ -7,10 +7,11 @@ import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ItemClubLayoutBinding;
 import com.yinxiang.databinding.ItemCoinLayoutBinding;
+import com.yinxiang.model.ClubData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class ClubAdapter extends BaseRecyclerAdapter<String, ItemClubLayoutBinding> {
+public class ClubAdapter extends BaseRecyclerAdapter<ClubData.DataBean, ItemClubLayoutBinding> {
     private OnClickListener onClickListener;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -27,9 +28,10 @@ public class ClubAdapter extends BaseRecyclerAdapter<String, ItemClubLayoutBindi
     }
 
     @Override
-    protected void onBindItem(final ItemClubLayoutBinding binding, final String dataBean, final int position) {
+    protected void onBindItem(final ItemClubLayoutBinding binding, final ClubData.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderLoadImage(mContext, dataBean, binding.icon, 100);
+            binding.name.setText(dataBean.getName());
+            GlideLoader.LoderCircleImage(mContext, dataBean.getLogo(), binding.icon);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
