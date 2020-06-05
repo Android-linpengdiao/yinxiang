@@ -134,8 +134,8 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.userName.setText(userInfo.getData().getName());
         binding.touristId.setText("引享号：" + userInfo.getData().getTourist_id());
         GlideLoader.LoderCircleImage(UserHomeActivity.this, userInfo.getData().getAvatar(), binding.userIcon);
-        binding.tvFollowers.setText(getUserInfo().getData().getFollowers() + "");
-        binding.tvLiker.setText(getUserInfo().getData().getLiker() + "");
+//        binding.tvFollowers.setText(getUserInfo().getData().getFollowers() + "");
+//        binding.tvLiker.setText(getUserInfo().getData().getLiker() + "");
 
         binding.tvIsFollow.setSelected(isFollow);
         binding.tvIsFollow.setText(isFollow ? "已关注" : "关注");

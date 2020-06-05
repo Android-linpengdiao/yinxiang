@@ -81,11 +81,11 @@ public class MyFollowActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initData() {
-        SendRequest.centerConcern(getUserInfo().getData().getId(), 10, 1, new GenericsCallback<FollowUserData>(new JsonGenericsSerializator()) {
+        SendRequest.personInformFollows(getUserInfo().getData().getId(), 10, new GenericsCallback<FollowUserData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                ToastUtils.showShort(MyFollowActivity.this, ""+e.getMessage());
+                ToastUtils.showShort(MyFollowActivity.this, "" + e.getMessage());
             }
 
             @Override

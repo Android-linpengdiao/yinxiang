@@ -8,7 +8,7 @@ public class HomeActives  implements Serializable {
     /**
      * code : 200
      * msg : 成功
-     * data : [{"id":1,"created_at":"2020-05-25T07:21:02.000000Z","updated_at":null,"title":"这就是街舞3","desc":"这就是街舞描述","video":null,"pre_start_time":null,"rematch_start_time":null,"final_start_time":null,"status":2,"pre_end_time":null,"rematch_end_time":null,"final_end_time":null},{"id":2,"created_at":"2020-05-31T04:58:55.000000Z","updated_at":"2020-05-31T04:58:55.000000Z","title":"舞蹈大赛","desc":null,"video":"[{\"download_link\":\"active-categories\\/May2020\\/faBWzSrVaQwb59DlsTrs.mp4\",\"original_name\":\"test.mp4\"}]","pre_start_time":"2020-05-31 00:00:00","rematch_start_time":"2020-06-01 00:00:00","final_start_time":"2020-07-01 00:00:00","status":1,"pre_end_time":"2020-05-31 00:00:00","rematch_end_time":"2020-07-01 00:00:00","final_end_time":"2020-07-04 00:00:00"}]
+     * data : [{"id":2,"created_at":"2020-05-31T04:58:55.000000Z","updated_at":"2020-05-31T04:58:55.000000Z","title":"舞蹈大赛","desc":null,"video":"[{\"download_link\":\"active-categories\\/May2020\\/faBWzSrVaQwb59DlsTrs.mp4\",\"original_name\":\"test.mp4\"}]","pre_start_time":"2020-05-31 00:00:00","rematch_start_time":"2020-06-01 00:00:00","final_start_time":"2020-07-01 00:00:00","status":1,"pre_end_time":"2020-05-31 00:00:00","rematch_end_time":"2020-07-01 00:00:00","final_end_time":"2020-07-04 00:00:00"}]
      */
 
     private int code;
@@ -39,36 +39,37 @@ public class HomeActives  implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable {
+    public static class DataBean implements Serializable{
         /**
-         * id : 1
-         * created_at : 2020-05-25T07:21:02.000000Z
-         * updated_at : null
-         * title : 这就是街舞3
-         * desc : 这就是街舞描述
-         * video : null
-         * pre_start_time : null
-         * rematch_start_time : null
-         * final_start_time : null
-         * status : 2
-         * pre_end_time : null
-         * rematch_end_time : null
-         * final_end_time : null
+         * id : 2
+         * created_at : 2020-05-31T04:58:55.000000Z
+         * updated_at : 2020-05-31T04:58:55.000000Z
+         * title : 舞蹈大赛
+         * desc : null
+         * video : [{"download_link":"active-categories\/May2020\/faBWzSrVaQwb59DlsTrs.mp4","original_name":"test.mp4"}]
+         * pre_start_time : 2020-05-31 00:00:00
+         * rematch_start_time : 2020-06-01 00:00:00
+         * final_start_time : 2020-07-01 00:00:00
+         * status : 1
+         * pre_end_time : 2020-05-31 00:00:00
+         * rematch_end_time : 2020-07-01 00:00:00
+         * final_end_time : 2020-07-04 00:00:00
          */
 
         private int id;
         private String created_at;
-        private Object updated_at;
+        private String updated_at;
         private String title;
-        private String desc;
-        private Object video;
-        private Object pre_start_time;
-        private Object rematch_start_time;
-        private Object final_start_time;
+        private Object desc;
+        private String video;
+        private String pre_start_time;
+        private String rematch_start_time;
+        private String final_start_time;
         private int status;
-        private Object pre_end_time;
-        private Object rematch_end_time;
-        private Object final_end_time;
+        private int selected;
+        private String pre_end_time;
+        private String rematch_end_time;
+        private String final_end_time;
 
         public int getId() {
             return id;
@@ -86,11 +87,11 @@ public class HomeActives  implements Serializable {
             this.created_at = created_at;
         }
 
-        public Object getUpdated_at() {
+        public String getUpdated_at() {
             return updated_at;
         }
 
-        public void setUpdated_at(Object updated_at) {
+        public void setUpdated_at(String updated_at) {
             this.updated_at = updated_at;
         }
 
@@ -102,43 +103,43 @@ public class HomeActives  implements Serializable {
             this.title = title;
         }
 
-        public String getDesc() {
+        public Object getDesc() {
             return desc;
         }
 
-        public void setDesc(String desc) {
+        public void setDesc(Object desc) {
             this.desc = desc;
         }
 
-        public Object getVideo() {
+        public String getVideo() {
             return video;
         }
 
-        public void setVideo(Object video) {
+        public void setVideo(String video) {
             this.video = video;
         }
 
-        public Object getPre_start_time() {
+        public String getPre_start_time() {
             return pre_start_time;
         }
 
-        public void setPre_start_time(Object pre_start_time) {
+        public void setPre_start_time(String pre_start_time) {
             this.pre_start_time = pre_start_time;
         }
 
-        public Object getRematch_start_time() {
+        public String getRematch_start_time() {
             return rematch_start_time;
         }
 
-        public void setRematch_start_time(Object rematch_start_time) {
+        public void setRematch_start_time(String rematch_start_time) {
             this.rematch_start_time = rematch_start_time;
         }
 
-        public Object getFinal_start_time() {
+        public String getFinal_start_time() {
             return final_start_time;
         }
 
-        public void setFinal_start_time(Object final_start_time) {
+        public void setFinal_start_time(String final_start_time) {
             this.final_start_time = final_start_time;
         }
 
@@ -150,27 +151,35 @@ public class HomeActives  implements Serializable {
             this.status = status;
         }
 
-        public Object getPre_end_time() {
+        public int getSelected() {
+            return selected;
+        }
+
+        public void setSelected(int selected) {
+            this.selected = selected;
+        }
+
+        public String getPre_end_time() {
             return pre_end_time;
         }
 
-        public void setPre_end_time(Object pre_end_time) {
+        public void setPre_end_time(String pre_end_time) {
             this.pre_end_time = pre_end_time;
         }
 
-        public Object getRematch_end_time() {
+        public String getRematch_end_time() {
             return rematch_end_time;
         }
 
-        public void setRematch_end_time(Object rematch_end_time) {
+        public void setRematch_end_time(String rematch_end_time) {
             this.rematch_end_time = rematch_end_time;
         }
 
-        public Object getFinal_end_time() {
+        public String getFinal_end_time() {
             return final_end_time;
         }
 
-        public void setFinal_end_time(Object final_end_time) {
+        public void setFinal_end_time(String final_end_time) {
             this.final_end_time = final_end_time;
         }
     }

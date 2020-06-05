@@ -124,8 +124,8 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void baseInfo() {
-        SendRequest.baseInfo(getUserInfo().getData().getId(), new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
+    public void personInformInfo() {
+        SendRequest.personInformInfo(getUserInfo().getData().getId(), new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
             }

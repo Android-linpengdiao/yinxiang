@@ -2,6 +2,7 @@ package com.yinxiang.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.yinxiang.R;
@@ -32,19 +33,12 @@ public class CompetitionAdapter extends BaseRecyclerAdapter<HomeActives.DataBean
     protected void onBindItem(final ItemCompetitionLayoutBinding binding, final HomeActives.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.name.setText(dataBean.getTitle());
-            binding.name.setSelected(dataBean.getStatus() == 1 ? false : true);
+            binding.name.setSelected(dataBean.getSelected() == 1 ? true : false);
             binding.name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        dataBean.setStatus(dataBean.getStatus() == 1 ? 0 : 1);
-                        for (int i = 0; i < mList.size(); i++) {
-                            if (dataBean != mList.get(i)) {
-                                mList.get(i).setStatus(0);
-                            }
-                        }
                         onClickListener.onClick(v, dataBean);
-                        notifyDataSetChanged();
                     }
                 }
             });

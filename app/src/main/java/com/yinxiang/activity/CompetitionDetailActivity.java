@@ -1,5 +1,6 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -25,19 +26,28 @@ import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityCompetitionDetailBinding;
+import com.yinxiang.model.HomeActives;
 
 import java.util.Date;
 
 public class CompetitionDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityCompetitionDetailBinding binding;
+    private HomeActives.DataBean dataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_competition_detail);
 
+        if (getIntent().hasExtra("homeActives")) {
+            dataBean = (HomeActives.DataBean) getIntent().getSerializableExtra("homeActives");
+        } else {
+            finish();
+        }
+
         binding.back.setOnClickListener(this);
+        binding.tvJoin.setOnClickListener(this);
         binding.playerBack.setOnClickListener(this);
         binding.fullscreen.setOnClickListener(this);
         initView();
@@ -68,6 +78,12 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_join:
+                Intent intent = new Intent();
+                intent.putExtra("homeActives", dataBean);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
             case R.id.back:
                 finish();
                 break;
@@ -84,6 +100,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void initView() {
+        binding.title.setText(dataBean.getTitle());
         GlideLoader.LoderVideoImage(this, CommonUtil.getVideoCoverListString().get(1), binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -125,12 +142,16 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void startUpdateTimer() {
-        progressUpdateTimer.removeMessages(0);
-        progressUpdateTimer.sendEmptyMessageDelayed(0, 1000);
+        if (progressUpdateTimer!=null) {
+            progressUpdateTimer.removeMessages(0);
+            progressUpdateTimer.sendEmptyMessageDelayed(0, 1000);
+        }
     }
 
     private void stopUpdateTimer() {
-        progressUpdateTimer.removeMessages(0);
+        if (progressUpdateTimer!=null) {
+            progressUpdateTimer.removeMessages(0);
+        }
     }
 
     private Handler progressUpdateTimer = new Handler() {

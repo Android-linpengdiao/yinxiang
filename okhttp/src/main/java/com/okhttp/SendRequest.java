@@ -807,15 +807,17 @@ public class SendRequest {
      * 发布视频
      *
      * @param tourist_id
-     * @param video      视频连接
+     * @param coverUrl   视频封面
+     * @param videoUrl   视频连接
      * @param active_id  活动id 默认值0
      * @param club_id    社团id 默认值0
      */
 
-    public static void publishWork(int tourist_id, String video, int active_id, int club_id, Callback call) {
+    public static void publishWork(int tourist_id, String coverUrl, String videoUrl, int active_id, int club_id, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
-        map.put("video", video);
+        map.put("img", coverUrl);
+        map.put("video", videoUrl);
         map.put("active_id", String.valueOf(active_id));
         map.put("club_id", String.valueOf(club_id));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_publishWork).build().execute(call);

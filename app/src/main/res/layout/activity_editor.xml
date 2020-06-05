@@ -149,7 +149,6 @@
             android:background="#DCDCDC" />
 
         <LinearLayout
-            android:id="@+id/user_desc"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -166,6 +165,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/user_desc"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -184,7 +184,6 @@
             android:background="#DCDCDC" />
 
         <LinearLayout
-            android:id="@+id/city_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -201,6 +200,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/user_addr"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

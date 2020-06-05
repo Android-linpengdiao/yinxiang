@@ -8,7 +8,7 @@ public class HomeVideos implements Serializable {
     /**
      * code : 200
      * msg : 成功
-     * data : {"current_page":1,"data":[{"id":2,"created_at":"2020-05-25T09:17:54.000000Z","updated_at":"2020-05-25T09:17:54.000000Z","is_deleted":2,"tourist_id":1,"tourist_name":"测试","active_id":1,"active_name":"这就是街舞3","video":"upload/20200525120121QkKOt.jpg","img":null,"recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":2,"club_name":"街舞社团","assist_num":0,"comment_num":0,"name":""}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active","per_page":"10","prev_page_url":null,"to":1,"total":1}
+     * data : {"current_page":1,"data":[{"id":8,"created_at":"2020-06-05T01:53:02.000000Z","updated_at":"2020-06-05T01:53:02.000000Z","is_deleted":2,"tourist_id":3,"tourist_name":"XMhKfU","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4","img":"http://www.udiandou.com/upload/20200603124338y2SST.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":0,"club_name":"","assist_num":0,"comment_num":0,"name":""}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active","per_page":"10","prev_page_url":null,"to":1,"total":1}
      */
 
     private int code;
@@ -39,10 +39,10 @@ public class HomeVideos implements Serializable {
         this.data = data;
     }
 
-    public static class DataBeanX {
+    public static class DataBeanX implements Serializable{
         /**
          * current_page : 1
-         * data : [{"id":2,"created_at":"2020-05-25T09:17:54.000000Z","updated_at":"2020-05-25T09:17:54.000000Z","is_deleted":2,"tourist_id":1,"tourist_name":"测试","active_id":1,"active_name":"这就是街舞3","video":"upload/20200525120121QkKOt.jpg","img":null,"recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":2,"club_name":"街舞社团","assist_num":0,"comment_num":0,"name":""}]
+         * data : [{"id":8,"created_at":"2020-06-05T01:53:02.000000Z","updated_at":"2020-06-05T01:53:02.000000Z","is_deleted":2,"tourist_id":3,"tourist_name":"XMhKfU","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4","img":"http://www.udiandou.com/upload/20200603124338y2SST.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":0,"club_name":"","assist_num":0,"comment_num":0,"name":""}]
          * first_page_url : http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1
          * from : 1
          * last_page : 1
@@ -60,10 +60,10 @@ public class HomeVideos implements Serializable {
         private int from;
         private int last_page;
         private String last_page_url;
-        private Object next_page_url;
+        private String next_page_url;
         private String path;
         private String per_page;
-        private Object prev_page_url;
+        private String prev_page_url;
         private int to;
         private int total;
         private List<DataBean> data;
@@ -108,11 +108,11 @@ public class HomeVideos implements Serializable {
             this.last_page_url = last_page_url;
         }
 
-        public Object getNext_page_url() {
+        public String getNext_page_url() {
             return next_page_url;
         }
 
-        public void setNext_page_url(Object next_page_url) {
+        public void setNext_page_url(String next_page_url) {
             this.next_page_url = next_page_url;
         }
 
@@ -132,11 +132,11 @@ public class HomeVideos implements Serializable {
             this.per_page = per_page;
         }
 
-        public Object getPrev_page_url() {
+        public String getPrev_page_url() {
             return prev_page_url;
         }
 
-        public void setPrev_page_url(Object prev_page_url) {
+        public void setPrev_page_url(String prev_page_url) {
             this.prev_page_url = prev_page_url;
         }
 
@@ -164,24 +164,24 @@ public class HomeVideos implements Serializable {
             this.data = data;
         }
 
-        public static class DataBean {
+        public static class DataBean implements Serializable{
             /**
-             * id : 2
-             * created_at : 2020-05-25T09:17:54.000000Z
-             * updated_at : 2020-05-25T09:17:54.000000Z
+             * id : 8
+             * created_at : 2020-06-05T01:53:02.000000Z
+             * updated_at : 2020-06-05T01:53:02.000000Z
              * is_deleted : 2
-             * tourist_id : 1
-             * tourist_name : 测试
-             * active_id : 1
-             * active_name : 这就是街舞3
-             * video : upload/20200525120121QkKOt.jpg
-             * img : null
+             * tourist_id : 3
+             * tourist_name : XMhKfU
+             * active_id : 2
+             * active_name : 舞蹈大赛
+             * video : http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4
+             * img : http://www.udiandou.com/upload/20200603124338y2SST.jpg
              * recommend : 2
              * pre_votes : 0
              * final_votes : 0
              * rematch_votes : 0
-             * club_id : 2
-             * club_name : 街舞社团
+             * club_id : 0
+             * club_name :
              * assist_num : 0
              * comment_num : 0
              * name :
@@ -196,7 +196,7 @@ public class HomeVideos implements Serializable {
             private int active_id;
             private String active_name;
             private String video;
-            private Object img;
+            private String img;
             private int recommend;
             private int pre_votes;
             private int final_votes;
@@ -279,11 +279,11 @@ public class HomeVideos implements Serializable {
                 this.video = video;
             }
 
-            public Object getImg() {
+            public String getImg() {
                 return img;
             }
 
-            public void setImg(Object img) {
+            public void setImg(String img) {
                 this.img = img;
             }
 

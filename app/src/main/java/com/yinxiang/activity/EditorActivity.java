@@ -14,9 +14,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.FileUtils;
 import com.baselibrary.utils.GlideLoader;
@@ -25,7 +27,9 @@ import com.baselibrary.utils.ToastUtils;
 import com.media.MediaActivity;
 import com.media.image.ImageModel;
 import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityEditorBinding;
 
@@ -43,6 +47,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private static final int REQUEST_NAME = 100;
     private static final int REQUEST_IMAGE = 200;
     private static final int REQUEST_CAMERA = 300;
+    private static final int REQUEST_DESC = 400;
+    private static final int REQUEST_ADDR = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +60,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         binding.userName.setOnClickListener(this);
         binding.userDesc.setOnClickListener(this);
         binding.userSex.setOnClickListener(this);
-        binding.cityView.setOnClickListener(this);
+        binding.userAddr.setOnClickListener(this);
 
-        initView(getUserInfo().getData().getAvatar(), getUserInfo().getData().getName());
+        initView(getUserInfo());
     }
 
 
@@ -65,18 +71,18 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         super.onResume();
     }
 
-    private void initView(String avatar, String name) {
-        binding.userName.setText(name);
-        GlideLoader.LoderCircleImage(this, avatar, binding.userIcon);
+    private void initView(UserInfo userInfo) {
+        binding.userName.setText(userInfo.getData().getName()+"");
+        binding.userSex.setText(userInfo.getData().getSex() == 1 ? "男" : "女");
+        binding.userDesc.setText(userInfo.getData().getDesc()+"");
+        binding.userAddr.setText(userInfo.getData().getAddr()+"");
+        GlideLoader.LoderCircleImage(this, userInfo.getData().getAvatar(), binding.userIcon);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.city_view:
-                openActivity(CitySelectionActivity.class);
-                break;
             case R.id.back:
                 finish();
                 break;
@@ -117,7 +123,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.user_desc:
                 intent = new Intent(EditorActivity.this, EditTextActivity.class);
                 intent.putExtra("type", "userDesc");
-                startActivityForResult(intent, REQUEST_NAME);
+                startActivityForResult(intent, REQUEST_DESC);
+                break;
+            case R.id.user_addr:
+                intent = new Intent(EditorActivity.this, CitySelectionActivity.class);
+                startActivityForResult(intent, REQUEST_ADDR);
                 break;
             case R.id.user_sex:
                 setSexDialog();
@@ -132,15 +142,23 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         window.getDecorView().setBackgroundColor(getResources().getColor(R.color.transparent));
         window.setContentView(R.layout.view_sex_dialog_alert);
         RadioGroup radioGroupView = window.findViewById(R.id.radio_group_view);
+        RadioButton radioButtonBoy = window.findViewById(R.id.radio_button_boy);
+        RadioButton radioButtonGirl = window.findViewById(R.id.radio_button_girl);
+        radioButtonBoy.setChecked(getUserInfo().getData().getSex() == 1 ? true : false);
+        radioButtonGirl.setChecked(getUserInfo().getData().getSex() == 2 ? true : false);
         radioGroupView.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio_button_boy:
                         binding.userSex.setText("男");
+                        personInformEditBase("sex", "1");
+                        dialog.dismiss();
                         break;
                     case R.id.radio_button_girl:
                         binding.userSex.setText("女");
+                        personInformEditBase("sex", "2");
+                        dialog.dismiss();
                         break;
                     default:
                         break;
@@ -214,8 +232,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     break;
                 case REQUEST_NAME:
                     if (data != null) {
-                        String name = data.getStringExtra("name");
-                        initView(getUserInfo().getData().getAvatar(), name);
+                        String name = data.getStringExtra("userName");
+                        personInformEditBase("name", name);
+                    }
+                    break;
+                case REQUEST_DESC:
+                    if (data != null) {
+                        String desc = data.getStringExtra("userDesc");
+                        personInformEditBase("desc", desc);
+                    }
+                    break;
+                case REQUEST_ADDR:
+                    if (data != null) {
+                        String addr = data.getStringExtra("userAddr");
+                        personInformEditBase("addr", addr);
                     }
                     break;
             }
@@ -234,7 +264,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 try {
                     JSONObject object = new JSONObject(response);
                     String url = object.optString("data");
-                    editPersonal(url);
+                    personInformEditBase("avatar", url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -243,32 +273,22 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-    private void editPersonal(final String avatar) {
-        SendRequest.editPersonal(getUserInfo().getData().getId(), getUserInfo().getData().getId(), avatar, getUserInfo().getData().getName(), new StringCallback() {
+    private void personInformEditBase(String key, String value) {
+        SendRequest.personInformEditBase(getUserInfo().getData().getId(), key, value, new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
-
             }
 
             @Override
-            public void onResponse(String response, int id) {
-                try {
-                    if (!CommonUtil.isBlank(response)) {
-                        JSONObject jsonObject = new JSONObject(response);
-                        ToastUtils.showShort(EditorActivity.this, jsonObject.optString("msg"));
-                        if (jsonObject.optInt("code") == 200) {
-                            baseInfo();
-                            initView(avatar, getUserInfo().getData().getName());
-                        }
-                    } else {
-                        ToastUtils.showShort(EditorActivity.this, "编辑失败");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ToastUtils.showShort(EditorActivity.this, "编辑失败");
+            public void onResponse(UserInfo response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+                    setUserInfo(response);
+                    initView(response);
+                } else {
+                    ToastUtils.showShort(EditorActivity.this, response.getMsg());
                 }
-
             }
+
         });
     }
 

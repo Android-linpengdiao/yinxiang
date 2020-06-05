@@ -10,6 +10,7 @@ import com.baselibrary.utils.BasePopupWindow;
 import com.baselibrary.utils.CommonUtil;
 import com.yinxiang.R;
 import com.yinxiang.adapter.TypeAdapter;
+import com.yinxiang.model.HomeActives;
 import com.yinxiang.model.NavData;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class TypePopupWindow extends BasePopupWindow {
 
+    private HomeActives homeActives;
     private OnClickListener onClickListener;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -27,29 +29,29 @@ public class TypePopupWindow extends BasePopupWindow {
         super(context);
     }
 
+
+    public void setHomeActives(HomeActives homeActives) {
+        this.homeActives = homeActives;
+        if (homeActives != null && homeActives.getCode() == 200 && homeActives.getData() != null) {
+            adapter.refreshData(homeActives.getData());
+        }
+    }
+
     @Override
     protected int animationStyle() {
         return R.style.HomeTypePopupAnimation;
     }
+
+    private TypeAdapter adapter;
 
     @Override
     protected View initContentView() {
         View contentView = LayoutInflater.from(context).inflate(R.layout.view_type_popup_layout, null, false);
         View viewLayout = contentView.findViewById(R.id.view_layout);
         RecyclerView recyclerView = contentView.findViewById(R.id.recyclerView);
-        TypeAdapter adapter = new TypeAdapter(context);
+        adapter = new TypeAdapter(context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
-        NavData navData = new NavData();
-        List<NavData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            NavData.DataBean dataBean = new NavData.DataBean();
-            dataBean.setName("音乐活动" + i);
-            dataBean.setStatus(i == 5 ? 1 : 0);
-            list.add(dataBean);
-        }
-        navData.setData(list);
-        adapter.refreshData(navData.getData());
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {

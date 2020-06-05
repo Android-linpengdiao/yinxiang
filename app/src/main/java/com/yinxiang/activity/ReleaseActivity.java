@@ -44,6 +44,8 @@ import com.yinxiang.model.NavData;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 import okhttp3.Call;
 import okhttp3.Request;
 
@@ -56,7 +58,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     private final static int REQUEST_ATYPE = 400;
     private String videoPath;
     private String coverPath;
-    private HomeActives.DataBean dataBean;
+    private HomeActives.DataBean homeDataBean;
     private String associationType;
 
     @Override
@@ -69,14 +71,15 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         binding.tvAssociation.setOnClickListener(this);
         binding.tvConfirm.setOnClickListener(this);
 
+        int typeId = (new Random()).nextInt(2);
+        Log.i(TAG, "onCreate: "+typeId);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-//                publishWork(CommonUtil.getVideoCoverListString().get(0),CommonUtil.getVideoListString().get(0),CommonUtil.isBlank(dataBean)?0:dataBean.getId(),0);
-                publishWork(CommonUtil.getVideoCoverListString().get(0),CommonUtil.getVideoListString().get(0), 0,0);
+                publishWork(CommonUtil.getVideoCoverListString().get(0), CommonUtil.getVideoListString().get(0), homeDataBean != null ? homeDataBean.getId() : 0, 0);
                 break;
             case R.id.release_video_view:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ReleaseActivity.this);
@@ -170,8 +173,8 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                     break;
                 case REQUEST_CTYPE:
                     if (data != null) {
-                        dataBean = (HomeActives.DataBean) data.getSerializableExtra("homeActives");
-                        binding.tvCompetition.setText(dataBean.getTitle() + "");
+                        homeDataBean = (HomeActives.DataBean) data.getSerializableExtra("homeActives");
+                        binding.tvCompetition.setText(homeDataBean.getTitle() + "");
                     }
                     break;
                 case REQUEST_ATYPE:
@@ -342,7 +345,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void publishWork(String coverUrl, String videoUrl, int active_id, int club_id) {
-        SendRequest.publishWork(getUserInfo().getData().getId(), videoUrl, dataBean.getId(), 0, new StringCallback() {
+        SendRequest.publishWork(getUserInfo().getData().getId(), coverUrl, videoUrl, active_id, club_id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtils.showShort(ReleaseActivity.this, "发布失败");

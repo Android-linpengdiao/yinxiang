@@ -43,6 +43,7 @@ import com.yinxiang.model.HomeActives;
 import com.yinxiang.model.HomeVideos;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.ElectionPopupWindow;
+import com.yinxiang.view.LoadingView;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.TypePopupWindow;
 
@@ -57,7 +58,7 @@ import java.util.List;
 
 import okhttp3.Call;
 
-public class HomeVideoFragment extends BaseFragment {
+public class HomeVideoFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String TAG = "HomeVideoFragment";
     private FragmentHomeVideoBinding binding;
@@ -65,10 +66,8 @@ public class HomeVideoFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
-
     private HomeVideoAdapter adapter;
+    private HomeActives homeActives;
 
     private ViewPagerLayoutManager mLayoutManager;
 
@@ -87,8 +86,6 @@ public class HomeVideoFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -100,7 +97,6 @@ public class HomeVideoFragment extends BaseFragment {
         mLayoutManager = new ViewPagerLayoutManager(getActivity(), OrientationHelper.VERTICAL);
         binding.recyclerView.setLayoutManager(mLayoutManager);
         binding.recyclerView.setAdapter(adapter);
-        adapter.refreshData(CommonUtil.getVideoCoverListString());
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -144,29 +140,24 @@ public class HomeVideoFragment extends BaseFragment {
 
             }
         });
-        binding.type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeView();
-            }
-        });
+        binding.type.setOnClickListener(this);
 
         initListener();
 
         EventBus.getDefault().register(this);
 
-        SendRequest.homePageVideosActive(1, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+        SendRequest.homePageActives(1, new GenericsCallback<HomeActives>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
 
             }
 
             @Override
-            public void onResponse(HomeVideos response, int id) {
-                if (response.getCode() == 200 && response.getData() != null) {
-//                    adapter.refreshData(response.getData());
-                } else {
-                    ToastUtils.showShort(getActivity(), response.getMsg());
+            public void onResponse(HomeActives response, int id) {
+                homeActives = response;
+                if (response.getCode() == 200 && response.getData() != null && response.getData().size() > 0) {
+                    response.getData().get(0).setSelected(1);
+                    homePageVideosActive(response.getData().get(0));
                 }
             }
 
@@ -175,11 +166,40 @@ public class HomeVideoFragment extends BaseFragment {
         return binding.getRoot();
     }
 
-    private void typeView() {
+    private void homePageVideosActive(HomeActives.DataBean dataBean) {
+        SendRequest.homePageVideosActive(dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(HomeVideos response, int id) {
+                if (response != null && response.getCode() == 200) {
+                    if (response.getData() != null && response.getData().getData() != null && response.getData().getData().size() > 0) {
+                        binding.recyclerView.setVisibility(View.VISIBLE);
+                        adapter.refreshData(response.getData().getData());
+                    } else {
+                        adapter.refreshData(new ArrayList<HomeVideos.DataBeanX.DataBean>());
+                        binding.recyclerView.setVisibility(View.GONE);
+                    }
+                } else {
+                    ToastUtils.showShort(getActivity(), response.getMsg());
+                }
+            }
+
+        });
+    }
+
+    private void typeView(HomeActives response) {
         TypePopupWindow typePopupWindow = new TypePopupWindow(getActivity());
+        typePopupWindow.setHomeActives(response);
         typePopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
+                if (object instanceof HomeActives.DataBean) {
+                    homePageVideosActive((HomeActives.DataBean) object);
+                }
 
             }
 
@@ -256,6 +276,15 @@ public class HomeVideoFragment extends BaseFragment {
         }
         commentData.setData(list);
         commentListPopupWindow.setCommentData(commentData);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.type:
+                typeView(homeActives);
+                break;
+        }
     }
 
     public void onHiddenSurfaceViewChanged(boolean hidden) {
@@ -378,7 +407,7 @@ public class HomeVideoFragment extends BaseFragment {
         imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
         final ImageView background = itemView.findViewById(R.id.background);
-        final ProgressBar loading = itemView.findViewById(R.id.loading);
+        final LoadingView loading = itemView.findViewById(R.id.loadingView);
         mSurfaceView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -406,8 +435,6 @@ public class HomeVideoFragment extends BaseFragment {
                 mPlayer.play();
             }
         });
-//        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
-//        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
         mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
             @Override
             public void onFrameInfoListener() {
@@ -415,29 +442,35 @@ public class HomeVideoFragment extends BaseFragment {
                 imgThumb.animate().alpha(0).setDuration(200).start();
             }
         });
-//        mPlayer.setErrorListener(new MyErrorListener(this));
-//        mPlayer.setCompletedListener(new MyCompletedListener(this));
-//        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
         mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
             @Override
             public void onStopped() {
                 imgPlay.animate().alpha(1f).start();
             }
         });
+//        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
+//        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
+//        mPlayer.setErrorListener(new MyErrorListener(this));
+//        mPlayer.setCompletedListener(new MyCompletedListener(this));
+//        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
         mPlayer.enableNativeLog();
         if (mPlayer != null) {
             mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
         }
-        mPlayer.prepareToPlay(CommonUtil.getVideoListString().get(position));
+        if (adapter.getItem(position) != null) {
+            mPlayer.prepareToPlay(adapter.getItem(position).getVideo());
+        }
 
     }
 
     private void releaseVideo(int index) {
         View itemView = binding.recyclerView.getChildAt(index);
-        ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
-        ImageView imgPlay = itemView.findViewById(R.id.img_play);
-        imgThumb.animate().alpha(1).start();
-        imgPlay.animate().alpha(0f).start();
+        if (itemView != null) {
+            ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+            ImageView imgPlay = itemView.findViewById(R.id.img_play);
+            imgThumb.animate().alpha(1).start();
+            imgPlay.animate().alpha(0f).start();
+        }
         stop();
     }
 

@@ -40,7 +40,6 @@ public class EditTextActivity extends BaseActivity implements View.OnClickListen
             } else if (type.equals("clubDesc")) {
                 binding.title.setText("社团简介");
                 binding.edContent.setHint("请输入您的社团简介");
-
             }
         } else {
             finish();
@@ -59,43 +58,18 @@ public class EditTextActivity extends BaseActivity implements View.OnClickListen
                     ToastUtils.showShort(EditTextActivity.this, "请输入内容");
                     return;
                 }
-                editPersonal(content);
+                Intent intent = new Intent();
+                if (type.equals("userName")) {
+                    intent.putExtra("userName", content);
+                } else if (type.equals("userDesc")) {
+                    intent.putExtra("userDesc", content);
+                } else if (type.equals("clubDesc")) {
+                    intent.putExtra("clubDesc", content);
+
+                }
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }
-
-    private void editPersonal(final String content) {
-        SendRequest.editPersonal(getUserInfo().getData().getId(), getUserInfo().getData().getId(), getUserInfo().getData().getAvatar(), content, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    if (!CommonUtil.isBlank(response)) {
-                        JSONObject jsonObject = new JSONObject(response);
-                        ToastUtils.showShort(EditTextActivity.this, jsonObject.optString("msg"));
-                        if (jsonObject.optInt("code") == 200) {
-                            baseInfo();
-                            Intent intent = new Intent();
-                            intent.putExtra("name", content);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        }
-                    } else {
-                        ToastUtils.showShort(EditTextActivity.this, "编辑失败");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ToastUtils.showShort(EditTextActivity.this, "编辑失败");
-                }
-
-            }
-        });
-
-    }
-
-
 }

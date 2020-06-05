@@ -1,5 +1,6 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -78,6 +79,12 @@ public class CitySelectionActivity extends BaseActivity implements View.OnClickL
                 mBinding.areaFirst.setSelected(false);
                 mBinding.areaSecond.setSelected(true);
                 mBinding.areaSecond.setVisibility(areaData.getStatus() == 0 ? View.GONE : View.VISIBLE);
+
+                Intent intent = new Intent();
+                intent.putExtra("userAddr", areaData.getName() + " " + areaFirstData.getName());
+                setResult(RESULT_OK, intent);
+                finish();
+
             }
 
             @Override

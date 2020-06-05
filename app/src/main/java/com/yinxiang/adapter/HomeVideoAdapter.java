@@ -7,10 +7,11 @@ import android.view.View;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ItemHomeVideoLayoutBinding;
+import com.yinxiang.model.HomeVideos;
 import com.yinxiang.view.OnClickListener;
 
 
-public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoLayoutBinding> {
+public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.DataBean, ItemHomeVideoLayoutBinding> {
     private OnClickListener onClickListener;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -21,13 +22,21 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
         super(context);
     }
 
+    public HomeVideos.DataBeanX.DataBean getItem(int position){
+        if (mList != null && mList.size() > 0) {
+            return mList.get(position);
+        }else {
+            return null;
+        }
+    }
+
     @Override
     protected int getLayoutResId(int viewType) { //应该在此根viewType 选择不同布局的,但设计图上给的差距不大.就整合成一个布局了
         return R.layout.item_home_video_layout;
     }
 
     @Override
-    protected void onBindItem(final ItemHomeVideoLayoutBinding binding, final String dataBean, final int position) {
+    protected void onBindItem(final ItemHomeVideoLayoutBinding binding, final HomeVideos.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,8 +107,8 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<String, ItemHomeVideoL
                     }
                 }
             });
-            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
-            GlideLoader.LoderVideoImage(mContext, dataBean, binding.imgThumb);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getVideo(), binding.userIcon);
+            GlideLoader.LoderVideoImage(mContext, dataBean.getVideo(), binding.imgThumb);
             GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
         }
 
