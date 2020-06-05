@@ -47,8 +47,6 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
     private static final int REQUEST_LICENSE = 300;
     private static final int REQUEST_IDCARD_FRONT = 400;
     private static final int REQUEST_IDCARD_BACK = 500;
-    private static final int REQUEST_PHONE = 600;
-    private static final int REQUEST_CODE = 700;
 
     private String logo;
     private String license;
