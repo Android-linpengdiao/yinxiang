@@ -18,12 +18,15 @@ import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
+import com.yinxiang.activity.ClubWorkActivity;
 import com.yinxiang.activity.MyWorkActivity;
 import com.yinxiang.activity.WorkDetailActivity;
+import com.yinxiang.adapter.ClubWorkAdapter;
 import com.yinxiang.adapter.HomeContestAdapter;
 import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.FragmentClubWorkBinding;
 import com.yinxiang.databinding.FragmentHomeContestBinding;
+import com.yinxiang.model.ClubWorkData;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
 
@@ -32,9 +35,9 @@ import okhttp3.Call;
 public class ClubWorkFragment extends BaseFragment {
 
     private FragmentClubWorkBinding binding;
+    private ClubWorkAdapter workAdapter;
 
     private static final String ARG_CID = "cid";
-
     private int cid;
 
     private OnFragmentInteractionListener mListener;
@@ -65,7 +68,7 @@ public class ClubWorkFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_club_work, container, false);
 
-        WorkAdapter workAdapter = new WorkAdapter(getActivity());
+        workAdapter = new ClubWorkAdapter(getActivity());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerView.setNestedScrollingEnabled(false);
         binding.recyclerView.setAdapter(workAdapter);
@@ -85,27 +88,27 @@ public class ClubWorkFragment extends BaseFragment {
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                channelClubContent();
+                initData();
             }
         });
         binding.swipeRefreshLayout.setRefreshing(true);
-        channelClubContent();
+        initData();
 
         return binding.getRoot();
     }
 
-    private void channelClubContent() {
-        SendRequest.channelClubContent(cid, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+    private void initData() {
+        SendRequest.channelClubContent(cid, 10, new GenericsCallback<ClubWorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
-            public void onResponse(WorkData response, int id) {
+            public void onResponse(ClubWorkData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-//                    adapter.refreshData(response.getData().getData());
+                if (response.getCode() == 200 && response.getData() != null) {
+                    workAdapter.refreshData(response.getData());
                 } else {
                     ToastUtils.showShort(getActivity(), response.getMsg());
                 }

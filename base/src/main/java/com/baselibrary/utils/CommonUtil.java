@@ -32,17 +32,19 @@ import java.util.List;
 public class CommonUtil {
 
     public static List<String> getVideoListString() {
-        String url1 = "http://api.lgdama.com:10001/storage/video/e31e0cd72f8a4f2786111e02a3275cf2.mp4";
+        String url1 = "http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4";
         String url2 = "http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4";
         String url3 = "http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4";
-        return new ArrayList<String>(Arrays.asList(url1, url2, url3, url1, url2, url3, url1, url2, url3, url1, url2, url3));
+        String url4 = "http://api.lgdama.com:10001/storage/video/e31e0cd72f8a4f2786111e02a3275cf2.mp4";
+        return new ArrayList<String>(Arrays.asList(url1, url2, url3, url4, url1, url2, url3, url4, url1, url2, url3, url4));
     }
 
     public static List<String> getVideoCoverListString() {
-        String url1 = "http://www.udiandou.com/upload/20200603124337NLGcd.jpg";
+        String url1 = "http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg";
         String url2 = "http://www.udiandou.com/upload/20200603124338REaoe.jpg";
         String url3 = "http://www.udiandou.com/upload/20200603124338y2SST.jpg";
-        return new ArrayList<String>(Arrays.asList(url1, url2, url3, url1, url2, url3, url1, url2, url3, url1, url2, url3));
+        String url4 = "http://www.udiandou.com/upload/20200603124337NLGcd.jpg";
+        return new ArrayList<String>(Arrays.asList(url1, url2, url3, url4, url1, url2, url3, url4, url1, url2, url3, url4));
     }
 
     public static List<String> getImageListString() {

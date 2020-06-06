@@ -55,11 +55,11 @@ public class ClubWorkActivity extends BaseActivity implements View.OnClickListen
             binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    initClubData(id);
+                    initData(id);
                 }
             });
             binding.swipeRefreshLayout.setRefreshing(true);
-            initClubData(id);
+            initData(id);
         }
 
     }
@@ -72,7 +72,7 @@ public class ClubWorkActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    private void initClubData(int id) {
+    private void initData(int id) {
         SendRequest.channelClubContent(id, 10, new GenericsCallback<ClubWorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
