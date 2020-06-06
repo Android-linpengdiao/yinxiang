@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.baselibrary.Constants;
 import com.baselibrary.manager.DialogManager;
+import com.baselibrary.utils.FileSizeUtil;
+import com.baselibrary.utils.FileUtils;
 import com.baselibrary.utils.MsgCache;
 import com.baselibrary.utils.ToastUtils;
 import com.yinxiang.R;
@@ -21,7 +23,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
-
+        addActivity(this);
         binding.back.setOnClickListener(this);
         binding.version.setOnClickListener(this);
         binding.consult.setOnClickListener(this);
@@ -32,6 +34,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         binding.clear.setOnClickListener(this);
         binding.passwordManage.setOnClickListener(this);
         binding.logout.setOnClickListener(this);
+
+        double fileSize = FileSizeUtil.getFileOrFilesSize(FileUtils.getPath(), 3);
+        binding.tvFileSize.setText(fileSize + "MB");
     }
 
     @Override
@@ -62,8 +67,22 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 openActivity(FeedbackActivity.class);
                 break;
             case R.id.clear:
-                binding.storage.setText("0.0M");
-                ToastUtils.showShort(SettingsActivity.this, "已完成清理");
+
+                DialogManager.showConfirmDialog(this, "确定清理缓存？", new DialogManager.Listener() {
+
+                    @Override
+                    public void onItemLeft() {
+
+                    }
+
+                    @Override
+                    public void onItemRight() {
+                        FileUtils.clearFile();
+                        double fileSize = FileSizeUtil.getFileOrFilesSize(FileUtils.getPath(), 3);
+                        binding.tvFileSize.setText(fileSize + "MB");
+                        ToastUtils.showShort(SettingsActivity.this, "已完成清理");
+                    }
+                });
                 break;
             case R.id.password_manage:
                 openActivity(ResetPasswordActivity.class);
@@ -79,6 +98,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                     public void onItemRight() {
                         MsgCache.get(SettingsActivity.this).remove(Constants.USER_INFO);
                         openActivity(LoginActivity.class);
+                        finish();
                     }
                 });
                 break;

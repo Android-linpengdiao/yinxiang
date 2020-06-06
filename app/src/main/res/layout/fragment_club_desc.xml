@@ -11,12 +11,13 @@
         android:padding="@dimen/padding">
 
         <TextView
+            android:id="@+id/club_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="208dp"
             android:padding="@dimen/padding"
             android:background="@drawable/button_white"
-            android:text="街舞交流群，来源于北京SK街舞社。旨在广交街舞爱好者，共同交流，共同学习，弘扬街舞文化。"
+            android:text=""
             android:textColor="#ff333333"
             android:textSize="15sp" />
 

@@ -52,6 +52,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        finishAllActivity();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:

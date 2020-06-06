@@ -127,7 +127,7 @@ public class ResetPasswordActivity extends BaseActivity {
             ToastUtils.showShort(ResetPasswordActivity.this, "验证码不能为空");
             return;
         }
-        if (password.length() < 8 || confirmPassword.length() < 6) {
+        if (password.length() < 6 || confirmPassword.length() < 6) {
             ToastUtils.showShort(ResetPasswordActivity.this, "密码不能小于6位");
             return;
         }

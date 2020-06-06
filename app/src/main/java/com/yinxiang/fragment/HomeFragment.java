@@ -76,7 +76,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         binding.viewPager.setCurrentItem(0);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
-        GlideLoader.LoderCircleImage(getActivity(), CommonUtil.getImageListString().get(0), binding.userIcon);
+        GlideLoader.LoderCircleImage(getActivity(), getUserInfo().getData().getAvatar(), binding.userIcon);
         binding.userIcon.setOnClickListener(this);
         binding.ivSearch.setOnClickListener(this);
         binding.viewPager.setOnPageChangeListener(this);
@@ -121,7 +121,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onHiddenChanged(boolean hidden) {
         Log.i(TAG, "onHiddenChanged: ");
-        if (homeVideoFragment!=null) {
+        if (homeVideoFragment != null) {
             homeVideoFragment.onHiddenSurfaceViewChanged(hidden);
         }
         super.onHiddenChanged(hidden);
@@ -130,7 +130,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onResume() {
         Log.i(TAG, "onResume: ");
-        if (homeVideoFragment!=null) {
+        if (homeVideoFragment != null) {
             homeVideoFragment.onHiddenSurfaceViewChanged(false);
         }
         super.onResume();
@@ -139,7 +139,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPause() {
         Log.i(TAG, "onPause: ");
-        if (homeVideoFragment!=null) {
+        if (homeVideoFragment != null) {
             homeVideoFragment.onHiddenSurfaceViewChanged(true);
         }
         super.onPause();

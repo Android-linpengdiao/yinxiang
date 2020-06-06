@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="我的作品"
+                android:text="社团作品"
                 android:textColor="#ffffffff"
                 android:textSize="18sp" />
         </RelativeLayout>

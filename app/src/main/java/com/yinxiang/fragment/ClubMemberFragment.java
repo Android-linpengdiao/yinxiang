@@ -26,12 +26,9 @@ public class ClubMemberFragment extends BaseFragment {
 
     private FragmentClubMenberBinding binding;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_CID = "cid";
 
-
-    private String mParam1;
-    private String mParam2;
+    private int cid;
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,11 +37,10 @@ public class ClubMemberFragment extends BaseFragment {
     }
 
 
-    public static ClubMemberFragment newInstance(String param1, String param2) {
+    public static ClubMemberFragment newInstance(int cid) {
         ClubMemberFragment fragment = new ClubMemberFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_CID, cid);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,8 +49,7 @@ public class ClubMemberFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            cid = getArguments().getInt(ARG_CID);
         }
     }
 

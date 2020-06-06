@@ -141,6 +141,8 @@
                             android:gravity="center"
                             android:paddingLeft="18dp"
                             android:paddingRight="18dp"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
                             android:text="编辑"
                             android:textColor="#ffffffff"
                             android:textSize="14sp" />

@@ -109,7 +109,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void searchWork(String content) {
-        searchResultAdapter.refreshData(CommonUtil.getImageListString());
+//        searchResultAdapter.refreshData(CommonUtil.getImageListString());
 
     }
 }

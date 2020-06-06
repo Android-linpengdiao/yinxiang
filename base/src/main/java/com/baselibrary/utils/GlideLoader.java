@@ -106,7 +106,7 @@ public class GlideLoader {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(new GlideBlurTransformation(context));
         Glide.with(context)
-                .load(url)
+                .load(domain + url)
                 .apply(requestOptions)
                 .into(view);
     }

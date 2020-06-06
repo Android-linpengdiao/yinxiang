@@ -36,7 +36,7 @@ public class ClubAdapter extends BaseRecyclerAdapter<ClubData.DataBean, ItemClub
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, position);
+                        onClickListener.onClick(v, dataBean);
                     }
                 }
             });

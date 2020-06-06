@@ -38,8 +38,8 @@ import com.okhttp.SendRequest;
 import com.okhttp.callbacks.StringCallback;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityReleaseBinding;
+import com.yinxiang.model.ClubData;
 import com.yinxiang.model.HomeActives;
-import com.yinxiang.model.NavData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +59,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     private String videoPath;
     private String coverPath;
     private HomeActives.DataBean homeDataBean;
-    private String associationType;
+    private ClubData.DataBean clubDataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +72,14 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         binding.tvConfirm.setOnClickListener(this);
 
         int typeId = (new Random()).nextInt(2);
-        Log.i(TAG, "onCreate: "+typeId);
+        Log.i(TAG, "onCreate: " + typeId);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-                publishWork(CommonUtil.getVideoCoverListString().get(0), CommonUtil.getVideoListString().get(0), homeDataBean != null ? homeDataBean.getId() : 0, 0);
+                publishWork(CommonUtil.getVideoCoverListString().get(2), CommonUtil.getVideoListString().get(2), homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
                 break;
             case R.id.release_video_view:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ReleaseActivity.this);
@@ -110,7 +110,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                 startActivityForResult(new Intent(ReleaseActivity.this, SelectionCompetitionActivity.class), REQUEST_CTYPE);
                 break;
             case R.id.tv_association:
-                startActivityForResult(new Intent(ReleaseActivity.this, SelectionAssociationActivity.class), REQUEST_ATYPE);
+                startActivityForResult(new Intent(ReleaseActivity.this, SelectionClubActivity.class), REQUEST_ATYPE);
                 break;
             case R.id.close:
                 finish();
@@ -174,13 +174,17 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                 case REQUEST_CTYPE:
                     if (data != null) {
                         homeDataBean = (HomeActives.DataBean) data.getSerializableExtra("homeActives");
-                        binding.tvCompetition.setText(homeDataBean.getTitle() + "");
+                        if (homeDataBean!=null) {
+                            binding.tvCompetition.setText(homeDataBean.getTitle() + "");
+                        }
                     }
                     break;
                 case REQUEST_ATYPE:
                     if (data != null) {
-                        associationType = data.getStringExtra("associationType");
-                        binding.tvAssociation.setText(associationType);
+                        clubDataBean = (ClubData.DataBean) data.getSerializableExtra("clubDataBean");
+                        if (clubDataBean != null) {
+                            binding.tvAssociation.setText(clubDataBean.getName());
+                        }
                     }
                     break;
             }

@@ -23,12 +23,12 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_about);
         binding.back.setOnClickListener(this);
 
-        initData();
+        personSettingsAbout();
 
     }
 
-    private void initData() {
-        SendRequest.commonAbout(new StringCallback() {
+    private void personSettingsAbout() {
+        SendRequest.personSettingsAbout(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 

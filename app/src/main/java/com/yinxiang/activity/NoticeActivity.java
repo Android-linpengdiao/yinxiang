@@ -35,13 +35,6 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
 
-        List<NoticeData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            NoticeData.DataBean dataBean = new NoticeData.DataBean();
-            list.add(dataBean);
-        }
-        adapter.refreshData(list);
-
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -49,13 +42,13 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
                 initData();
             }
         });
-//        binding.swipeRefreshLayout.setRefreshing(true);
-//        initData();
+        binding.swipeRefreshLayout.setRefreshing(true);
+        initData();
 
     }
 
     private void initData() {
-        SendRequest.commonMessage(new GenericsCallback<NoticeData>(new JsonGenericsSerializator()) {
+        SendRequest.friendSystem(10, new GenericsCallback<NoticeData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);

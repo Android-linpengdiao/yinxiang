@@ -19,12 +19,13 @@
         android:paddingBottom="5dp">
 
         <ImageView
-            android:id="@+id/userIcon"
+            android:id="@+id/club_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/circle_gray" />
 
         <TextView
+            android:id="@+id/club_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

@@ -40,7 +40,7 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                     ToastUtils.showShort(FeedbackActivity.this, "请输入您的宝贵意见");
                     return;
                 }
-                SendRequest.centerComment(getUserInfo().getData().getId(), content, new StringCallback() {
+                SendRequest.personSettingsFeedback(getUserInfo().getData().getId(), content, new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
 

@@ -39,7 +39,7 @@ public class ClubData implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 2
          * created_at : 2020-05-25T08:07:11.000000Z
@@ -74,6 +74,7 @@ public class ClubData implements Serializable {
         private String tourist_name;
         private String desc;
         private int status;
+        private int selected;
         private Object refuse;
         private int join;
         private int join_token;
@@ -182,6 +183,14 @@ public class ClubData implements Serializable {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+
+        public int getSelected() {
+            return selected;
+        }
+
+        public void setSelected(int selected) {
+            this.selected = selected;
         }
 
         public Object getRefuse() {

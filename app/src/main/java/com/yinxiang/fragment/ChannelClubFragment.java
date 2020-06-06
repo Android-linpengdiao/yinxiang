@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,9 +80,11 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("uid", (int) object);
-                openActivity(ClubDetailActivity.class, bundle);
+                if (object instanceof  ClubData.DataBean) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("dataBean", (ClubData.DataBean)object);
+                    openActivity(ClubDetailActivity.class, bundle);
+                }
             }
 
             @Override
@@ -90,6 +93,14 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
             }
         });
 
+        binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
+        binding.swipeRefreshLayout.setRefreshing(true);
         initData();
 
         return binding.getRoot();
@@ -108,10 +119,12 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
         SendRequest.channelClubStatus(1, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onResponse(ClubData response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
                 if (response != null && response.getCode() == 200 && response.getData() != null) {
                     adapter.refreshData(response.getData());
                 }

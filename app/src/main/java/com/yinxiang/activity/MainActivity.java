@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        addActivity(this);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, binding.drawerLayout, null, R.string.app_name, R.string.app_name);
         binding.drawerLayout.setDrawerListener(mDrawerToggle);
@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         View tvSetting = headerView.findViewById(R.id.tv_setting);
 
         userName.setText(getUserInfo().getData().getName() + "");
-        userTouristId.setText("海博号："+getUserInfo().getData().getTourist_id());
+        userTouristId.setText("海博号：" + getUserInfo().getData().getTourist_id());
         userAddr.setText(getUserInfo().getData().getAddr() + "");
         GlideLoader.LoderCircleImage(this, getUserInfo().getData().getAvatar(), userIcon);
 
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MyWorkActivity.class);
-                intent.putExtra("id", getUserInfo().getData().getId());
+                intent.putExtra("uid", getUserInfo().getData().getId());
                 startActivity(intent);
             }
         });

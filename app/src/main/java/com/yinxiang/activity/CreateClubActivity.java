@@ -134,11 +134,6 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
                     return;
                 }
 
-                logo = imageUrl;
-                license = imageUrl;
-                idcard_front = imageUrl;
-                idcard_back = imageUrl;
-
                 initData(name, logo, license, idcard_front, idcard_back, phone, authCode, desc);
                 break;
             case R.id.back:
@@ -146,8 +141,6 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
-
-    private String imageUrl = "upload/20200605111858YtmZU.jpg";
 
     private void initData(String name, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc) {
         SendRequest.channelCreateClub(getUserInfo().getData().getId(), name, logo, license, idcard_front, idcard_back, phone, authCode, desc, new StringCallback() {

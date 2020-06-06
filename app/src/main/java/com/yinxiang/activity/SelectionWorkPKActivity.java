@@ -29,7 +29,7 @@ public class SelectionWorkPKActivity extends BaseActivity implements View.OnClic
         workAdapter.setSelection(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(workAdapter);
-        workAdapter.refreshData(CommonUtil.getImageListString());
+//        workAdapter.refreshData(CommonUtil.getImageListString());
         workAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {

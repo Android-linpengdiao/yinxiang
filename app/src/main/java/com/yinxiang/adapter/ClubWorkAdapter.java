@@ -1,18 +1,17 @@
 package com.yinxiang.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
-import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.databinding.ItemWorksLayoutBinding;
+import com.yinxiang.model.ClubWorkData;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean, ItemWorksLayoutBinding> {
+public class ClubWorkAdapter extends BaseRecyclerAdapter<ClubWorkData.DataBean, ItemWorksLayoutBinding> {
 
     private boolean selection = false;
 
@@ -26,7 +25,7 @@ public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean
         this.selection = selection;
     }
 
-    public WorkAdapter(Context context) {
+    public ClubWorkAdapter(Context context) {
         super(context);
     }
 
@@ -36,7 +35,7 @@ public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean
     }
 
     @Override
-    protected void onBindItem(ItemWorksLayoutBinding binding, final WorkData.DataBeanX.DataBean dataBean, final int position) {
+    protected void onBindItem(ItemWorksLayoutBinding binding, final ClubWorkData.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.workName.setText(dataBean.getActive_name());
             binding.userName.setText(dataBean.getTourist_name());
@@ -51,7 +50,7 @@ public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, mList.get(position));
+                        onClickListener.onClick(v, dataBean);
                     }
                 }
             });

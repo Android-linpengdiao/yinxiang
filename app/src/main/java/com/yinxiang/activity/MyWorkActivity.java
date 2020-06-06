@@ -1,8 +1,7 @@
 package com.yinxiang.activity;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -15,8 +14,8 @@ import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivityMyWorkBinding;
-import com.yinxiang.databinding.ActivitySelectionWorkPkBinding;
 import com.yinxiang.model.FollowUserData;
+import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
 
 import okhttp3.Call;
@@ -31,15 +30,6 @@ public class MyWorkActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_work);
-
-        if (getIntent().hasExtra("id")) {
-            id = getIntent().getIntExtra("type", 0);
-            if (id == getUserInfo().getData().getId()) {
-                binding.title.setText("我的作品");
-            }else {
-                binding.title.setText("社团作品");
-            }
-        }
 
         binding.back.setOnClickListener(this);
 
@@ -57,7 +47,32 @@ public class MyWorkActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
-        workAdapter.refreshData(CommonUtil.getImageListString());
+
+        if (getIntent().hasExtra("uid")) {
+            binding.title.setText("我的作品");
+            id = getIntent().getIntExtra("uid", 0);
+            binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+            binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    initUserData(id);
+                }
+            });
+            binding.swipeRefreshLayout.setRefreshing(true);
+            initUserData(id);
+        } else if (getIntent().hasExtra("cid")) {
+            binding.title.setText("社团作品");
+            id = getIntent().getIntExtra("cid", 0);
+            binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+            binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    initClubData(id);
+                }
+            });
+            binding.swipeRefreshLayout.setRefreshing(true);
+            initClubData(id);
+        }
 
     }
 
@@ -69,25 +84,43 @@ public class MyWorkActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-//    private void initData() {
-//        SendRequest.personInformFollows(getUserInfo().getData().getId(), 10, new GenericsCallback<FollowUserData>(new JsonGenericsSerializator()) {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//                binding.swipeRefreshLayout.setRefreshing(false);
-//                ToastUtils.showShort(MyFollowActivity.this, "" + e.getMessage());
-//            }
-//
-//            @Override
-//            public void onResponse(FollowUserData response, int id) {
-//                followUserData = response;
-//                binding.swipeRefreshLayout.setRefreshing(false);
-//                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+    private void initUserData(int id) {
+        SendRequest.personInformWorks(id, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onResponse(WorkData response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    workAdapter.refreshData(response.getData().getData());
+                } else {
+                    ToastUtils.showShort(MyWorkActivity.this, response.getMsg());
+                }
+            }
+
+        });
+    }
+
+    private void initClubData(int id) {
+        SendRequest.channelClubContent(id, 10,new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onResponse(WorkData response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
 //                    adapter.refreshData(response.getData().getData());
-//                } else {
-//                    ToastUtils.showShort(MyFollowActivity.this, response.getMsg());
-//                }
-//            }
-//
-//        });
-//    }
+                } else {
+                    ToastUtils.showShort(MyWorkActivity.this, response.getMsg());
+                }
+            }
+
+        });
+    }
 }

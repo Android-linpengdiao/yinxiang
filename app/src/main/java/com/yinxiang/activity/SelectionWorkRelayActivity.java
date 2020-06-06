@@ -28,7 +28,7 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
         workAdapter = new WorkAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(workAdapter);
-        workAdapter.refreshData(CommonUtil.getImageListString());
+//        workAdapter.refreshData(CommonUtil.getImageListString());
 
     }
 

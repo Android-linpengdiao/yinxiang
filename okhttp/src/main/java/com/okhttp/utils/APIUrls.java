@@ -81,13 +81,12 @@ public class APIUrls {
     public final static String url_friendSystem = url_domain + "api/friend/system";
     //好友-消息-点赞消息
     public final static String url_friendAssist = url_domain + "api/friend/assist";
-    // 好友-消息-评论消息
+    //好友-消息-评论消息
     public final static String url_friendComment = url_domain + "api/friend/comment";
     //好友-消息-系统消息
     public final static String url_friendClub = url_domain + "api/friend/api/friend/club";
     //好友-消息-同意加群/拒绝加群
     public final static String url_friendClubAction = url_domain + "api/friend/clubAction";
-
 
 
     /**
@@ -100,10 +99,16 @@ public class APIUrls {
     public final static String url_channelCreateClub = url_domain + "api/channel/createClub";
     //频道-社团-编辑社团
     public final static String url_channelEditClub = url_domain + "api/channel/editClub";
+    //频道-社团-编辑社团简介
+    public final static String url_channelEditClubDesc = url_domain + "api/channel/editClubDesc";
     //频道-社团-解散
     public final static String url_channelEissolveClub = url_domain + "api/channel/dissolveClub";
     //频道-社团-入团申请设置
     public final static String url_channelJoinClubSet = url_domain + "api/channel/joinClubSet";
+    //频道-社团-主页-社团作品
+    public final static String url_channelClubContent = url_domain + "api/channel/clubContent";
+    //频道-社团-主页-社团成员
+    public final static String url_channelClubMember = url_domain + "api/channel/clubMember";
 
     /**
      * 我的
@@ -112,6 +117,8 @@ public class APIUrls {
     public final static String url_personInformFollows = url_domain + "api/personInform/follows";
     //我的-我的粉丝
     public final static String url_personInformFans = url_domain + "api/personInform/fans";
+    //我的-我的作品
+    public final static String url_personInformWorks = url_domain + "api/personInform/works";
     // 我的-用户资料
     public final static String url_personInformEditBase = url_domain + "api/personInform/editBase";
     //我的-获取用户资料

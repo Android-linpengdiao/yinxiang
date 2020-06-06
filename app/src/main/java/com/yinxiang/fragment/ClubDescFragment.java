@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.yinxiang.R;
 import com.yinxiang.databinding.FragmentClubDescBinding;
 
@@ -14,12 +15,10 @@ public class ClubDescFragment extends BaseFragment {
 
     private FragmentClubDescBinding binding;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_DESC = "desc";
 
 
-    private String mParam1;
-    private String mParam2;
+    private String desc;
 
     private OnFragmentInteractionListener mListener;
 
@@ -28,11 +27,10 @@ public class ClubDescFragment extends BaseFragment {
     }
 
 
-    public static ClubDescFragment newInstance(String param1, String param2) {
+    public static ClubDescFragment newInstance(String desc) {
         ClubDescFragment fragment = new ClubDescFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_DESC, desc);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,8 +39,7 @@ public class ClubDescFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            desc = getArguments().getString(ARG_DESC);
         }
     }
 
@@ -50,6 +47,8 @@ public class ClubDescFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_club_desc, container, false);
+
+        binding.clubDesc.setText(desc);
 
         return binding.getRoot();
     }
