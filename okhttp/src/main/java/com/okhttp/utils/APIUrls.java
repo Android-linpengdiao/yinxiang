@@ -36,8 +36,12 @@ public class APIUrls {
     public final static String url_homePageVideosActive = url_domain + "api/homepageVideos/active";
     //首页-视频-pk
     public final static String url_homePageVideosCreatePk = url_domain + "api/homepageVideos/createPk";
+    //首页-视频-我的pk
+    public final static String url_homePageVideosSelfPk = url_domain + "api/homepageVideos/selfPk";
     //首页-视频-接力
     public final static String url_homePageVideosRelay = url_domain + "api/homepageVideos/relay";
+    //首页-视频-我的接力
+    public final static String url_homepageVideosSelfRelay = url_domain + "api/homepageVideos/selfRelay";
     //首页-视频-举报
     public final static String url_homePageVideosReport = url_domain + "api/homepageVideos/report";
     //首页-视频-是否点赞

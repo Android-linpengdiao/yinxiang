@@ -1,22 +1,27 @@
 package com.yinxiang.activity;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
-import com.yinxiang.adapter.HomeContestAdapter;
 import com.yinxiang.adapter.WorkRelayAdapter;
-import com.yinxiang.databinding.ActivityMyWorkBinding;
 import com.yinxiang.databinding.ActivityMyWorkRelayBinding;
+import com.yinxiang.model.WorkRelayData;
 import com.yinxiang.view.OnClickListener;
+
+import okhttp3.Call;
 
 public class MyWorkRelayActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityMyWorkRelayBinding binding;
+    private WorkRelayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +30,21 @@ public class MyWorkRelayActivity extends BaseActivity implements View.OnClickLis
 
         binding.back.setOnClickListener(this);
 
-        WorkRelayAdapter adapter = new WorkRelayAdapter(this);
+        adapter = new WorkRelayAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
-        adapter.refreshData(CommonUtil.getImageListString());
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                openActivity(WorkDetailActivity.class);
+                Bundle bundle = new Bundle();
+                if (object instanceof WorkRelayData.DataBeanX.DataBean.FollowerBean) {
+                    WorkRelayData.DataBeanX.DataBean.FollowerBean followerBean = (WorkRelayData.DataBeanX.DataBean.FollowerBean) object;
+                    bundle.putInt("workId", followerBean.getId());
+                } else if (object instanceof WorkRelayData.DataBeanX.DataBean.FollowableBean) {
+                    WorkRelayData.DataBeanX.DataBean.FollowableBean followableBean = (WorkRelayData.DataBeanX.DataBean.FollowableBean) object;
+                    bundle.putInt("workId", followableBean.getId());
+                }
+                openActivity(WorkDetailActivity.class, bundle);
             }
 
             @Override
@@ -40,6 +52,16 @@ public class MyWorkRelayActivity extends BaseActivity implements View.OnClickLis
 
             }
         });
+
+        binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
+        binding.swipeRefreshLayout.setRefreshing(true);
+        initData();
 
     }
 
@@ -49,5 +71,25 @@ public class MyWorkRelayActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
         }
+    }
+
+    private void initData() {
+        SendRequest.homepageVideosSelfRelay(getUserInfo().getData().getId(), 10, new GenericsCallback<WorkRelayData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onResponse(WorkRelayData response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    adapter.refreshData(response.getData().getData());
+                } else {
+                    ToastUtils.showShort(MyWorkRelayActivity.this, response.getMsg());
+                }
+            }
+
+        });
     }
 }

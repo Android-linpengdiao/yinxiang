@@ -7,10 +7,11 @@ import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ItemHomeContestLayoutBinding;
 import com.yinxiang.databinding.ItemWorkRelayLayoutBinding;
+import com.yinxiang.model.WorkRelayData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class WorkRelayAdapter extends BaseRecyclerAdapter<String, ItemWorkRelayLayoutBinding> {
+public class WorkRelayAdapter extends BaseRecyclerAdapter<WorkRelayData.DataBeanX.DataBean, ItemWorkRelayLayoutBinding> {
     private OnClickListener onClickListener;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -27,22 +28,25 @@ public class WorkRelayAdapter extends BaseRecyclerAdapter<String, ItemWorkRelayL
     }
 
     @Override
-    protected void onBindItem(final ItemWorkRelayLayoutBinding binding, String dataBean, final int position) {
+    protected void onBindItem(final ItemWorkRelayLayoutBinding binding, final WorkRelayData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon1);
-            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon2);
-            binding.rivalWorkView.setOnClickListener(new View.OnClickListener() {
+            binding.followerName.setText(dataBean.getFollower().getActive_name());
+            binding.followableName.setText(dataBean.getFollowable().getActive_name());
+            GlideLoader.LoderCircleImageUrl(mContext, dataBean.getFollower().getImg(), binding.followerImg);
+            GlideLoader.LoderCircleImageUrl(mContext, dataBean.getFollowable().getImg(), binding.followableImg);
+            binding.followerView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onClickListener!=null){
-                        onClickListener.onClick(v,position);
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean.getFollower());
                     }
                 }
-            });binding.myWorkView.setOnClickListener(new View.OnClickListener() {
+            });
+            binding.followableView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onClickListener!=null){
-                        onClickListener.onClick(v,position);
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean.getFollowable());
                     }
                 }
             });

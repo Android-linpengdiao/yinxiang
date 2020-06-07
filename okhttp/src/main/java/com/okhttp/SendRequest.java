@@ -248,17 +248,47 @@ public class SendRequest {
     }
 
     /**
+     * 首页-视频-我的pk
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void homePageVideosSelfPk(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosSelfPk).build().execute(call);
+
+    }
+
+    /**
      * 首页-视频-接力
      *
      * @param touristVideoId 用户视频id
      * @param relaytVideoId  接力视频id
      * @param call
      */
-    public static void homePageVideosCreatePk(int touristVideoId, int relaytVideoId, Callback call) {
+    public static void homePageVideosRelay(int touristVideoId, int relaytVideoId, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("touristVideoId", String.valueOf(touristVideoId));
         map.put("relaytVideoId", String.valueOf(relaytVideoId));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosRelay).build().execute(call);
+
+    }
+
+    /**
+     * 首页-视频-我的接力
+     *
+     * @param tourist_id
+     * @param perPage
+     * @param call
+     */
+    public static void homepageVideosSelfRelay(int tourist_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homepageVideosSelfRelay).build().execute(call);
 
     }
 
@@ -399,9 +429,8 @@ public class SendRequest {
      * @param perPage
      * @param call
      */
-    public static void homePageVideosPK(int tourist_id, int active_id, int perPage, Callback call) {
+    public static void homePageVideosPK(int active_id, int perPage, Callback call) {
         Map<String, String> map = new HashMap<>();
-        map.put("tourist_id", String.valueOf(tourist_id));
         map.put("active_id", String.valueOf(active_id));
         map.put("perPage", String.valueOf(perPage));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosPK).build().execute(call);
@@ -676,7 +705,7 @@ public class SendRequest {
      * @param club_id
      * @param call
      */
-    public static void channelClubContent(int club_id,int perPage, Callback call) {
+    public static void channelClubContent(int club_id, int perPage, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("club_id", String.valueOf(club_id));
 //        map.put("perPage", String.valueOf(perPage));

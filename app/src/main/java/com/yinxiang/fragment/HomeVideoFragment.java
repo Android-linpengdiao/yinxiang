@@ -100,12 +100,24 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
+                HomeVideos.DataBeanX.DataBean dataBean;
+                Bundle bundle;
                 switch (view.getId()) {
                     case R.id.iv_works_pk:
-                        openActivity(SelectionWorkPKActivity.class);
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            bundle = new Bundle();
+                            bundle.putInt("videoId", dataBean.getId());
+                            openActivity(SelectionWorkPKActivity.class, bundle);
+                        }
                         break;
                     case R.id.iv_relay:
-                        openActivity(SelectionWorkRelayActivity.class);
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            bundle = new Bundle();
+                            bundle.putInt("videoId", dataBean.getId());
+                            openActivity(SelectionWorkRelayActivity.class, bundle);
+                        }
                         break;
                     case R.id.iv_comment:
                         CommentView();
