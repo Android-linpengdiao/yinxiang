@@ -24,9 +24,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.baselibrary.R;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CommonUtil {
@@ -73,6 +79,93 @@ public class CommonUtil {
 
     public static List<String> getTextListString() {
         return new ArrayList<String>(Arrays.asList("这里是话题标题这里是话题标题这里是话题标题", "事做不做得到", "说了不一定有机会，但不说一定没机会", "让你的员工为共同的目标工作"));
+    }
+
+    public static String getStringToDate(String time) {
+        String timeStamp = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d;
+        try {
+            d = sdf.parse(time);
+            long l = d.getTime();
+            timeStamp = String.valueOf(l);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return timeStamp;
+    }
+
+    public static String getDateToString(String time) {
+        long lcc = Long.valueOf(time);
+        Date d = new Date(lcc);
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdr.format(d);
+    }
+
+    public static String getDuration(Context context, String rel_time, String now_time) {
+
+        if (TextUtils.isEmpty(now_time)) {
+            if (!TextUtils.isEmpty(rel_time)) {
+                String showTime = rel_time.substring(0, rel_time.lastIndexOf(":"));
+
+                return showTime;
+            }
+
+            return "时间错误";
+        }
+
+        String backStr = "";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date d1 = null;
+        Date d2 = null;
+
+        try {
+            d1 = format.parse(rel_time);
+            d2 = format.parse(now_time);
+            // 毫秒ms
+            long diff = d2.getTime() - d1.getTime();
+
+            long diffMinutes = diff / (60 * 1000) % 60;
+            long diffHours = diff / (60 * 60 * 1000) % 24;
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+
+            if (diffDays != 0) {
+                if (diffDays < 30) {
+                    if (1 < diffDays && diffDays < 2) {
+                        backStr = context.getString(R.string.yesterday);
+                    } else if (1 < diffDays && diffDays < 2) {
+                        backStr = context.getString(R.string.The_day_before_yesterday);
+                    } else {
+                        backStr = String.valueOf(diffDays) + context.getString(R.string.Days_ago);
+                    }
+                } else {
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    Date chatTime = null;
+                    try {
+                        chatTime = df.parse(rel_time);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    backStr = df.format(chatTime);
+//                    backStr = context.getString(R.string.long_long_ago);
+                }
+            } else if (diffHours != 0) {
+                backStr = String.valueOf(diffHours) + context.getString(R.string.An_hour_ago);
+
+            } else if (diffMinutes != 0) {
+                backStr = String.valueOf(diffMinutes) + context.getString(R.string.minutes_ago);
+
+            } else {
+                backStr = context.getString(R.string.just);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return backStr;
+
     }
 
     /**

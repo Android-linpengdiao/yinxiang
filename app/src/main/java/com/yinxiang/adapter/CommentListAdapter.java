@@ -11,7 +11,7 @@ import com.yinxiang.model.CommentData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class CommentListAdapter extends BaseRecyclerAdapter<CommentData.DataBean, ItemCommentListLayoutBinding> {
+public class CommentListAdapter extends BaseRecyclerAdapter<CommentData.DataBeanX.DataBean, ItemCommentListLayoutBinding> {
 
     private OnClickListener onClickListener;
 
@@ -29,13 +29,12 @@ public class CommentListAdapter extends BaseRecyclerAdapter<CommentData.DataBean
     }
 
     @Override
-    protected void onBindItem(final ItemCommentListLayoutBinding binding, final CommentData.DataBean dataBean, final int position) {
+    protected void onBindItem(final ItemCommentListLayoutBinding binding, final CommentData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-//            binding.userName.setText(dataBean.getTourist().getName());
-//            binding.tvTime.setText(dataBean.getUpdated_at());
-//            binding.tvComment.setText(dataBean.getBody());
-//            GlideLoader.LoderImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon, 100);
-            GlideLoader.LoderImage(mContext, CommonUtil.getImageListString().get(6), binding.userIcon, 100);
+            binding.userName.setText(dataBean.getTourist().getName());
+            binding.tvTime.setText(dataBean.getUpdated_at());
+            binding.tvComment.setText(dataBean.getBody());
+            GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

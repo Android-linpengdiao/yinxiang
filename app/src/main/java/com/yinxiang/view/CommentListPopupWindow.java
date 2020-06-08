@@ -29,9 +29,9 @@ public class CommentListPopupWindow extends BasePopupWindow {
 
     public void setCommentData(CommentData commentData) {
         this.commentData = commentData;
-        if (commentData != null && commentData.getData() != null) {
-            adapter.refreshData(commentData.getData());
-            tvCommentNumber.setText("全部评论(" + commentData.getData().size() + ")");
+        if (commentData != null && commentData.getData() != null && commentData.getData().getData() != null) {
+            adapter.refreshData(commentData.getData().getData());
+            tvCommentNumber.setText("全部评论(" + commentData.getData().getData().size() + ")");
         }
     }
 

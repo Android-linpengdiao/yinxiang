@@ -8,10 +8,11 @@ import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.databinding.ItemHomeHonorLayoutBinding;
+import com.yinxiang.model.HonourData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class HomeHonorAdapter extends BaseRecyclerAdapter<String, ItemHomeHonorLayoutBinding> {
+public class HomeHonorAdapter extends BaseRecyclerAdapter<HonourData.DataBeanX.DataBean, ItemHomeHonorLayoutBinding> {
     private OnClickListener onClickListener;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -28,9 +29,9 @@ public class HomeHonorAdapter extends BaseRecyclerAdapter<String, ItemHomeHonorL
     }
 
     @Override
-    protected void onBindItem(final ItemHomeHonorLayoutBinding binding, String dataBean, final int position) {
+    protected void onBindItem(final ItemHomeHonorLayoutBinding binding, HonourData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
+//            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
             binding.tvRank.setText("");
             if (position == 0){
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num01));

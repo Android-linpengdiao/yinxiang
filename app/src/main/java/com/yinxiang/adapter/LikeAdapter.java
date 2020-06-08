@@ -4,15 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.databinding.ItemLikeLayoutBinding;
 import com.yinxiang.model.LikeData;
+import com.yinxiang.model.MessageData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class LikeAdapter extends BaseRecyclerAdapter<LikeData.DataBean, ItemLikeLayoutBinding> {
+public class LikeAdapter extends BaseRecyclerAdapter<MessageData.DataBeanX.DataBean, ItemLikeLayoutBinding> {
 
     private OnClickListener onClickListener;
 
@@ -30,13 +32,13 @@ public class LikeAdapter extends BaseRecyclerAdapter<LikeData.DataBean, ItemLike
     }
 
     @Override
-    protected void onBindItem(final ItemLikeLayoutBinding binding, final LikeData.DataBean dataBean, final int position) {
+    protected void onBindItem(final ItemLikeLayoutBinding binding, final MessageData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-//            binding.tvTitle.setText(dataBean.getTourist().getName());
-//            binding.tvDesc.setText("赞了你视频");
-//            binding.tvTime.setText(dataBean.getUpdated_at());
-//            GlideLoader.LoderImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon, 100);
-//            GlideLoader.LoderImage(mContext, dataBean.getContent().getImg(), binding.cover, 2);
+            binding.tvTitle.setText(dataBean.getTourist().getName());
+            binding.tvDesc.setText("赞了你视频");
+            binding.tvTime.setText(CommonUtil.getStringToDate(dataBean.getUpdated_at()));
+            GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
+            GlideLoader.LoderImageUrl(mContext, dataBean.getContent().getImg(), binding.cover, 2);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

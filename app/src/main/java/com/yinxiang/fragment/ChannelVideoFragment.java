@@ -193,12 +193,6 @@ public class ChannelVideoFragment extends BaseFragment {
         });
         commentListPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
         CommentData commentData = new CommentData();
-        List<CommentData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            CommentData.DataBean dataBean = new CommentData.DataBean();
-            list.add(dataBean);
-        }
-        commentData.setData(list);
         commentListPopupWindow.setCommentData(commentData);
     }
 

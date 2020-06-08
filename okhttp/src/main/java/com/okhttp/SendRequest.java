@@ -368,11 +368,11 @@ public class SendRequest {
      * @param body
      * @param call
      */
-    public static void homePageVideosCreateComment(int tourist_id, String video_id, String body, Callback call) {
+    public static void homePageVideosCreateComment(int tourist_id, int video_id, String body, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
-        map.put("body", body);
         map.put("video_id", String.valueOf(video_id));
+        map.put("body", body);
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosCreateComment).build().execute(call);
 
     }
@@ -384,7 +384,7 @@ public class SendRequest {
      * @param video_id
      * @param call
      */
-    public static void homePageVideosComment(int perPage, String video_id, Callback call) {
+    public static void homePageVideosComment(int perPage, int video_id, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("perPage", String.valueOf(perPage));
         map.put("video_id", String.valueOf(video_id));

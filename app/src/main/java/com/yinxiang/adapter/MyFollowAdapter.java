@@ -33,7 +33,7 @@ public class MyFollowAdapter extends BaseRecyclerAdapter<FollowUserData.DataBean
     protected void onBindItem(final ItemFriendsLayoutBinding binding, final FollowUserData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.tvTitle.setText(dataBean.getName());
-//            binding.tvDesc.setText("粉丝：" + dataBean.getLiker());
+            binding.tvDesc.setText("粉丝：" + dataBean.getFan_number());
             binding.tvFollowers.setText("已关注");
 //            binding.tvFollowers.setText(dataBean.getAttention() != -1 ? "已关注" : "关注");
             GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);

@@ -36,13 +36,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
 
-        List<MessageData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            MessageData.DataBean dataBean = new MessageData.DataBean();
-            list.add(dataBean);
-        }
-        adapter.refreshData(list);
-
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -50,13 +43,13 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 initData();
             }
         });
-//        binding.swipeRefreshLayout.setRefreshing(true);
-//        initData();
+        binding.swipeRefreshLayout.setRefreshing(true);
+        initData();
 
     }
 
     private void initData() {
-        SendRequest.centerDiscuss(getUserInfo().getData().getId(), new GenericsCallback<MessageData>(new JsonGenericsSerializator()) {
+        SendRequest.friendComment(getUserInfo().getData().getId(), 10, new GenericsCallback<MessageData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -65,8 +58,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onResponse(MessageData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                if (response.getCode() == 200 && response.getData() != null) {
-                    adapter.refreshData(response.getData());
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(CommentActivity.this, response.getMsg());
                 }

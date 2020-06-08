@@ -17,6 +17,7 @@ import com.yinxiang.adapter.NoticeAdapter;
 import com.yinxiang.databinding.ActivityLikeBinding;
 import com.yinxiang.databinding.ActivityNoticeBinding;
 import com.yinxiang.model.LikeData;
+import com.yinxiang.model.MessageData;
 import com.yinxiang.model.NoticeData;
 
 import java.util.ArrayList;
@@ -39,13 +40,6 @@ public class LikeActivity extends BaseActivity implements View.OnClickListener {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(LikeActivity.this));
         binding.recyclerView.setAdapter(adapter);
 
-        List<LikeData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            LikeData.DataBean dataBean = new LikeData.DataBean();
-            list.add(dataBean);
-        }
-        adapter.refreshData(list);
-
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -53,22 +47,23 @@ public class LikeActivity extends BaseActivity implements View.OnClickListener {
                 initData();
             }
         });
-//        binding.swipeRefreshLayout.setRefreshing(true);
-//        initData();
+        binding.swipeRefreshLayout.setRefreshing(true);
+        initData();
 
     }
+
     private void initData() {
-        SendRequest.centerFabulous(getUserInfo().getData().getId(), new GenericsCallback<LikeData>(new JsonGenericsSerializator()) {
+        SendRequest.friendAssist(getUserInfo().getData().getId(), 100, new GenericsCallback<MessageData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
-            public void onResponse(LikeData response, int id) {
+            public void onResponse(MessageData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                if (response.getCode() == 200 && response.getData() != null) {
-                    adapter.refreshData(response.getData());
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(LikeActivity.this, response.getMsg());
                 }

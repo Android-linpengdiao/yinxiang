@@ -120,7 +120,11 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         }
                         break;
                     case R.id.iv_comment:
-                        CommentView();
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            commentListPopupWindow = null;
+                            homePageVideosComment(dataBean.getId());
+                        }
                         break;
                     case R.id.iv_share:
                         shareView(getActivity(), new OnClickListener() {
@@ -203,6 +207,54 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         });
     }
 
+    private void homePageVideosComment(final int video_id) {
+        SendRequest.homePageVideosComment(100, video_id, new GenericsCallback<CommentData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(CommentData response, int id) {
+                if (response != null && response.getCode() == 200 && response.getData() != null) {
+                    if (commentListPopupWindow != null) {
+                        commentListPopupWindow.setCommentData(response);
+                    } else {
+                        CommentView(response, video_id);
+                    }
+                } else {
+                    ToastUtils.showShort(getActivity(), response.getMsg());
+                }
+            }
+
+        });
+
+    }
+
+    private void homePageVideosCreateComment(final int video_id, String content) {
+        SendRequest.homePageVideosCreateComment(getUserInfo().getData().getId(), video_id, content, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optInt("code") == 200) {
+                        homePageVideosComment(video_id);
+                    } else {
+                        ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
     private void typeView(HomeActives response) {
         TypePopupWindow typePopupWindow = new TypePopupWindow(getActivity());
         typePopupWindow.setHomeActives(response);
@@ -266,12 +318,14 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         electionPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
-    private void CommentView() {
-        CommentListPopupWindow commentListPopupWindow = new CommentListPopupWindow(getActivity());
+    private CommentListPopupWindow commentListPopupWindow;
+
+    private void CommentView(CommentData commentData, final int video_id) {
+        commentListPopupWindow = new CommentListPopupWindow(getActivity());
         commentListPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-
+                homePageVideosCreateComment(video_id, (String) object);
             }
 
             @Override
@@ -280,13 +334,6 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
             }
         });
         commentListPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-        CommentData commentData = new CommentData();
-        List<CommentData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            CommentData.DataBean dataBean = new CommentData.DataBean();
-            list.add(dataBean);
-        }
-        commentData.setData(list);
         commentListPopupWindow.setCommentData(commentData);
     }
 

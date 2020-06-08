@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">酣客</string>
+    <string name="app_name">引享</string>
+
+    <string name="yesterday">昨天</string>
+    <string name="The_day_before_yesterday">前天</string>
+    <string name="Days_ago">天前</string>
+    <string name="long_long_ago">很久以前</string>
+    <string name="An_hour_ago">小时前</string>
+    <string name="minutes_ago">分钟前</string>
+    <string name="just">刚刚</string>
 </resources>

@@ -7,12 +7,12 @@ public class CommentData {
     /**
      * code : 200
      * msg : 成功
-     * data : [{"id":20,"created_at":"2020-04-27 01:04:05","updated_at":"2020-04-27 01:04:05","status":1,"tourist_id":12,"content_id":26,"parent_id":0,"body":"25555855","root_id":0,"child":[],"tourist":{"id":12,"name":"LE0sR3","phone":"18335929380","avatar":"users/default.png","password":"$2y$10$r4ig8Pxx2I8vnwKTOyCzje2VI0dUtcUvHFuSUj3Z2Kq8l4CyWT4Z.","remember_token":null,"settings":null,"created_at":"2020-04-21 20:52:41","updated_at":"2020-04-21 20:52:41","tourist_id":"80841516","sex":1,"birth":null,"openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":null,"weibo":null,"reg":"","qq_id":null,"weibo_id":null,"liker":0,"followers":0,"comment":0}}]
+     * data : {"current_page":1,"data":[{"id":1,"created_at":"2020-06-08T04:50:58.000000Z","updated_at":"2020-06-08T04:50:58.000000Z","tourist_id":3,"content_id":10,"body":"评论一下","tourist_name":"信用度","tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg","phone":"13521614827"}}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/comment?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/comment?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/comment","per_page":"10","prev_page_url":null,"to":1,"total":1}
      */
 
     private int code;
     private String msg;
-    private List<DataBean> data;
+    private DataBeanX data;
 
     public int getCode() {
         return code;
@@ -30,183 +30,159 @@ public class CommentData {
         this.msg = msg;
     }
 
-    public List<DataBean> getData() {
+    public DataBeanX getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBeanX data) {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBeanX {
         /**
-         * id : 20
-         * created_at : 2020-04-27 01:04:05
-         * updated_at : 2020-04-27 01:04:05
-         * status : 1
-         * tourist_id : 12
-         * content_id : 26
-         * parent_id : 0
-         * body : 25555855
-         * root_id : 0
-         * child : []
-         * tourist : {"id":12,"name":"LE0sR3","phone":"18335929380","avatar":"users/default.png","password":"$2y$10$r4ig8Pxx2I8vnwKTOyCzje2VI0dUtcUvHFuSUj3Z2Kq8l4CyWT4Z.","remember_token":null,"settings":null,"created_at":"2020-04-21 20:52:41","updated_at":"2020-04-21 20:52:41","tourist_id":"80841516","sex":1,"birth":null,"openid":null,"headimgurl":null,"city":null,"province":null,"cancel":1,"autograph":null,"weibo":null,"reg":"","qq_id":null,"weibo_id":null,"liker":0,"followers":0,"comment":0}
+         * current_page : 1
+         * data : [{"id":1,"created_at":"2020-06-08T04:50:58.000000Z","updated_at":"2020-06-08T04:50:58.000000Z","tourist_id":3,"content_id":10,"body":"评论一下","tourist_name":"信用度","tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg","phone":"13521614827"}}]
+         * first_page_url : http://enjoy.fengyunguoyuan.com/api/homepageVideos/comment?page=1
+         * from : 1
+         * last_page : 1
+         * last_page_url : http://enjoy.fengyunguoyuan.com/api/homepageVideos/comment?page=1
+         * next_page_url : null
+         * path : http://enjoy.fengyunguoyuan.com/api/homepageVideos/comment
+         * per_page : 10
+         * prev_page_url : null
+         * to : 1
+         * total : 1
          */
 
-        private int id;
-        private String created_at;
-        private String updated_at;
-        private int status;
-        private int tourist_id;
-        private int content_id;
-        private int parent_id;
-        private String body;
-        private int root_id;
-        private TouristBean tourist;
-        private List<?> child;
+        private int current_page;
+        private String first_page_url;
+        private int from;
+        private int last_page;
+        private String last_page_url;
+        private Object next_page_url;
+        private String path;
+        private String per_page;
+        private Object prev_page_url;
+        private int to;
+        private int total;
+        private List<DataBean> data;
 
-        public int getId() {
-            return id;
+        public int getCurrent_page() {
+            return current_page;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setCurrent_page(int current_page) {
+            this.current_page = current_page;
         }
 
-        public String getCreated_at() {
-            return created_at;
+        public String getFirst_page_url() {
+            return first_page_url;
         }
 
-        public void setCreated_at(String created_at) {
-            this.created_at = created_at;
+        public void setFirst_page_url(String first_page_url) {
+            this.first_page_url = first_page_url;
         }
 
-        public String getUpdated_at() {
-            return updated_at;
+        public int getFrom() {
+            return from;
         }
 
-        public void setUpdated_at(String updated_at) {
-            this.updated_at = updated_at;
+        public void setFrom(int from) {
+            this.from = from;
         }
 
-        public int getStatus() {
-            return status;
+        public int getLast_page() {
+            return last_page;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setLast_page(int last_page) {
+            this.last_page = last_page;
         }
 
-        public int getTourist_id() {
-            return tourist_id;
+        public String getLast_page_url() {
+            return last_page_url;
         }
 
-        public void setTourist_id(int tourist_id) {
-            this.tourist_id = tourist_id;
+        public void setLast_page_url(String last_page_url) {
+            this.last_page_url = last_page_url;
         }
 
-        public int getContent_id() {
-            return content_id;
+        public Object getNext_page_url() {
+            return next_page_url;
         }
 
-        public void setContent_id(int content_id) {
-            this.content_id = content_id;
+        public void setNext_page_url(Object next_page_url) {
+            this.next_page_url = next_page_url;
         }
 
-        public int getParent_id() {
-            return parent_id;
+        public String getPath() {
+            return path;
         }
 
-        public void setParent_id(int parent_id) {
-            this.parent_id = parent_id;
+        public void setPath(String path) {
+            this.path = path;
         }
 
-        public String getBody() {
-            return body;
+        public String getPer_page() {
+            return per_page;
         }
 
-        public void setBody(String body) {
-            this.body = body;
+        public void setPer_page(String per_page) {
+            this.per_page = per_page;
         }
 
-        public int getRoot_id() {
-            return root_id;
+        public Object getPrev_page_url() {
+            return prev_page_url;
         }
 
-        public void setRoot_id(int root_id) {
-            this.root_id = root_id;
+        public void setPrev_page_url(Object prev_page_url) {
+            this.prev_page_url = prev_page_url;
         }
 
-        public TouristBean getTourist() {
-            return tourist;
+        public int getTo() {
+            return to;
         }
 
-        public void setTourist(TouristBean tourist) {
-            this.tourist = tourist;
+        public void setTo(int to) {
+            this.to = to;
         }
 
-        public List<?> getChild() {
-            return child;
+        public int getTotal() {
+            return total;
         }
 
-        public void setChild(List<?> child) {
-            this.child = child;
+        public void setTotal(int total) {
+            this.total = total;
         }
 
-        public static class TouristBean {
+        public List<DataBean> getData() {
+            return data;
+        }
+
+        public void setData(List<DataBean> data) {
+            this.data = data;
+        }
+
+        public static class DataBean {
             /**
-             * id : 12
-             * name : LE0sR3
-             * phone : 18335929380
-             * avatar : users/default.png
-             * password : $2y$10$r4ig8Pxx2I8vnwKTOyCzje2VI0dUtcUvHFuSUj3Z2Kq8l4CyWT4Z.
-             * remember_token : null
-             * settings : null
-             * created_at : 2020-04-21 20:52:41
-             * updated_at : 2020-04-21 20:52:41
-             * tourist_id : 80841516
-             * sex : 1
-             * birth : null
-             * openid : null
-             * headimgurl : null
-             * city : null
-             * province : null
-             * cancel : 1
-             * autograph : null
-             * weibo : null
-             * reg :
-             * qq_id : null
-             * weibo_id : null
-             * liker : 0
-             * followers : 0
-             * comment : 0
+             * id : 1
+             * created_at : 2020-06-08T04:50:58.000000Z
+             * updated_at : 2020-06-08T04:50:58.000000Z
+             * tourist_id : 3
+             * content_id : 10
+             * body : 评论一下
+             * tourist_name : 信用度
+             * tourist : {"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg","phone":"13521614827"}
              */
 
             private int id;
-            private String name;
-            private String phone;
-            private String avatar;
-            private String password;
-            private Object remember_token;
-            private Object settings;
             private String created_at;
             private String updated_at;
-            private String tourist_id;
-            private int sex;
-            private Object birth;
-            private Object openid;
-            private Object headimgurl;
-            private Object city;
-            private Object province;
-            private int cancel;
-            private Object autograph;
-            private Object weibo;
-            private String reg;
-            private Object qq_id;
-            private Object weibo_id;
-            private int liker;
-            private int followers;
-            private int comment;
+            private int tourist_id;
+            private int content_id;
+            private String body;
+            private String tourist_name;
+            private TouristBean tourist;
 
             public int getId() {
                 return id;
@@ -214,54 +190,6 @@ public class CommentData {
 
             public void setId(int id) {
                 this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getPhone() {
-                return phone;
-            }
-
-            public void setPhone(String phone) {
-                this.phone = phone;
-            }
-
-            public String getAvatar() {
-                return avatar;
-            }
-
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
-            }
-
-            public String getPassword() {
-                return password;
-            }
-
-            public void setPassword(String password) {
-                this.password = password;
-            }
-
-            public Object getRemember_token() {
-                return remember_token;
-            }
-
-            public void setRemember_token(Object remember_token) {
-                this.remember_token = remember_token;
-            }
-
-            public Object getSettings() {
-                return settings;
-            }
-
-            public void setSettings(Object settings) {
-                this.settings = settings;
             }
 
             public String getCreated_at() {
@@ -280,132 +208,90 @@ public class CommentData {
                 this.updated_at = updated_at;
             }
 
-            public String getTourist_id() {
+            public int getTourist_id() {
                 return tourist_id;
             }
 
-            public void setTourist_id(String tourist_id) {
+            public void setTourist_id(int tourist_id) {
                 this.tourist_id = tourist_id;
             }
 
-            public int getSex() {
-                return sex;
+            public int getContent_id() {
+                return content_id;
             }
 
-            public void setSex(int sex) {
-                this.sex = sex;
+            public void setContent_id(int content_id) {
+                this.content_id = content_id;
             }
 
-            public Object getBirth() {
-                return birth;
+            public String getBody() {
+                return body;
             }
 
-            public void setBirth(Object birth) {
-                this.birth = birth;
+            public void setBody(String body) {
+                this.body = body;
             }
 
-            public Object getOpenid() {
-                return openid;
+            public String getTourist_name() {
+                return tourist_name;
             }
 
-            public void setOpenid(Object openid) {
-                this.openid = openid;
+            public void setTourist_name(String tourist_name) {
+                this.tourist_name = tourist_name;
             }
 
-            public Object getHeadimgurl() {
-                return headimgurl;
+            public TouristBean getTourist() {
+                return tourist;
             }
 
-            public void setHeadimgurl(Object headimgurl) {
-                this.headimgurl = headimgurl;
+            public void setTourist(TouristBean tourist) {
+                this.tourist = tourist;
             }
 
-            public Object getCity() {
-                return city;
-            }
+            public static class TouristBean {
+                /**
+                 * id : 3
+                 * name : 信用度
+                 * avatar : upload/20200606024929Gkda2.jpg
+                 * phone : 13521614827
+                 */
 
-            public void setCity(Object city) {
-                this.city = city;
-            }
+                private int id;
+                private String name;
+                private String avatar;
+                private String phone;
 
-            public Object getProvince() {
-                return province;
-            }
+                public int getId() {
+                    return id;
+                }
 
-            public void setProvince(Object province) {
-                this.province = province;
-            }
+                public void setId(int id) {
+                    this.id = id;
+                }
 
-            public int getCancel() {
-                return cancel;
-            }
+                public String getName() {
+                    return name;
+                }
 
-            public void setCancel(int cancel) {
-                this.cancel = cancel;
-            }
+                public void setName(String name) {
+                    this.name = name;
+                }
 
-            public Object getAutograph() {
-                return autograph;
-            }
+                public String getAvatar() {
+                    return avatar;
+                }
 
-            public void setAutograph(Object autograph) {
-                this.autograph = autograph;
-            }
+                public void setAvatar(String avatar) {
+                    this.avatar = avatar;
+                }
 
-            public Object getWeibo() {
-                return weibo;
-            }
+                public String getPhone() {
+                    return phone;
+                }
 
-            public void setWeibo(Object weibo) {
-                this.weibo = weibo;
-            }
-
-            public String getReg() {
-                return reg;
-            }
-
-            public void setReg(String reg) {
-                this.reg = reg;
-            }
-
-            public Object getQq_id() {
-                return qq_id;
-            }
-
-            public void setQq_id(Object qq_id) {
-                this.qq_id = qq_id;
-            }
-
-            public Object getWeibo_id() {
-                return weibo_id;
-            }
-
-            public void setWeibo_id(Object weibo_id) {
-                this.weibo_id = weibo_id;
-            }
-
-            public int getLiker() {
-                return liker;
-            }
-
-            public void setLiker(int liker) {
-                this.liker = liker;
-            }
-
-            public int getFollowers() {
-                return followers;
-            }
-
-            public void setFollowers(int followers) {
-                this.followers = followers;
-            }
-
-            public int getComment() {
-                return comment;
-            }
-
-            public void setComment(int comment) {
-                this.comment = comment;
+                public void setPhone(String phone) {
+                    this.phone = phone;
+                }
             }
         }
     }

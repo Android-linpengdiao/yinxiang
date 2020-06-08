@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.databinding.ItemWorksLayoutBinding;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean, ItemWorksLayoutBinding> {
@@ -40,7 +45,9 @@ public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean
         if (mList != null && mList.size() > 0) {
             binding.workName.setText(dataBean.getActive_name());
             binding.userName.setText(dataBean.getTourist_name());
-//            binding.tvTime.setText(dataBean.getCreated_at());
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
+            binding.tvTime.setText(time);
             GlideLoader.LoderRoundedImage(mContext, dataBean.getImg(), binding.cover, 10);
             GlideLoader.LoderCircleImage(mContext, dataBean.getImg(), binding.userIcon);
             if (selection) {

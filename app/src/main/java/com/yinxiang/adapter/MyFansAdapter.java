@@ -33,7 +33,7 @@ public class MyFansAdapter extends BaseRecyclerAdapter<FansUserData.DataBeanX.Da
     protected void onBindItem(final ItemFriendsLayoutBinding binding, final FansUserData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.tvTitle.setText(dataBean.getName());
-//            binding.tvDesc.setText("粉丝：" + dataBean.getLiker());
+            binding.tvDesc.setText("粉丝：" + dataBean.getFan_number());
             binding.tvFollowers.setText("已关注");
 //            binding.tvFollowers.setText(dataBean.isAttention()?"已关注":"关注");
             GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);

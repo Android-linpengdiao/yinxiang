@@ -97,12 +97,6 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         });
         commentListPopupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
         CommentData commentData = new CommentData();
-        List<CommentData.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            CommentData.DataBean dataBean = new CommentData.DataBean();
-            list.add(dataBean);
-        }
-        commentData.setData(list);
         commentListPopupWindow.setCommentData(commentData);
     }
 

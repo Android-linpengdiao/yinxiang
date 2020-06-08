@@ -3,6 +3,7 @@ package com.yinxiang.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baselibrary.utils.CommonUtil;
@@ -54,13 +55,13 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    homePagePersonFollow(binding.tvFollow,dataBean);
+                    homePagePersonFollow(binding.tvFollow, dataBean);
                 }
             });
             binding.ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    binding.ivLike.setSelected(!binding.ivLike.isSelected());
+                    homePageVideosAssist(binding.ivLike, dataBean);
                 }
             });
             binding.userIcon.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +127,7 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
 
     }
 
-    private void homePagePersonFollow(TextView tvFollow, final HomeVideos.DataBeanX.DataBean dataBean){
+    private void homePagePersonFollow(TextView tvFollow, final HomeVideos.DataBeanX.DataBean dataBean) {
         SendRequest.homePagePersonFollow(MyApplication.getInstance().getUserInfo().getData().getId(), dataBean.getTourist_id(), APIUrls.url_homePagePersonFollow, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -144,6 +145,37 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
 //                                ToastUtils.showShort(MyFollowActivity.this, "已关注");
 //                            }
 //                            adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
+                        } else {
+                            ToastUtils.showShort(mContext, jsonObject.optString("msg"));
+                        }
+                    } else {
+                        ToastUtils.showShort(mContext, "请求失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(mContext, "请求失败");
+                }
+
+            }
+        });
+    }
+
+
+    private void homePageVideosAssist(final ImageView ivLike, final HomeVideos.DataBeanX.DataBean dataBean) {
+        String url = ivLike.isSelected() ? APIUrls.url_homePageVideosCancelAssist : APIUrls.url_homePageVideosAssist;
+        SendRequest.homePageVideosAssist(MyApplication.getInstance().getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            ivLike.setSelected(!ivLike.isSelected());
                         } else {
                             ToastUtils.showShort(mContext, jsonObject.optString("msg"));
                         }
