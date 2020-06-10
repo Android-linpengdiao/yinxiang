@@ -40,19 +40,21 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tv_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
-                        android:text="20"
+                        android:text=""
                         android:textColor="#ff5855d9"
                         android:textSize="26sp" />
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_coin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="3000金币"
+                    android:text=""
                     android:textColor="#ff999999"
                     android:textSize="10sp" />
 

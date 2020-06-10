@@ -70,7 +70,6 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
                 initData();
             }
         });
-        binding.swipeRefreshLayout.setRefreshing(true);
         initData();
 
     }
@@ -87,6 +86,7 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
     }
 
     private void initData() {
+        binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.personInformWorks(getUserInfo().getData().getId(), 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

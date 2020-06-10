@@ -67,7 +67,6 @@ public class SelectionClubActivity extends BaseActivity implements View.OnClickL
                 initData();
             }
         });
-        binding.swipeRefreshLayout.setRefreshing(true);
         initData();
     }
 
@@ -92,6 +91,7 @@ public class SelectionClubActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initData() {
+        binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.channelClub(getUserInfo().getData().getId(), 1, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

@@ -56,7 +56,7 @@ public class UserInfo implements Serializable {
          * addr :
          * like_notice : 1
          * comment_notice : 1
-         * is_vip : 2
+         * is_vip : 2              1是vip 2不是vip
          * vip_expire : null
          * wallet_token : 0
          * fan_number : 0

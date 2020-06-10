@@ -68,7 +68,6 @@ public class SelectionWorkPKActivity extends BaseActivity implements View.OnClic
                 initData();
             }
         });
-        binding.swipeRefreshLayout.setRefreshing(true);
         initData();
 
     }

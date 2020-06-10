@@ -5,10 +5,11 @@ import android.content.Context;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ItemCoinLayoutBinding;
 import com.yinxiang.databinding.ItemWalletLayoutBinding;
+import com.yinxiang.model.WalletSetData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class CoinAdapter extends BaseRecyclerAdapter<String, ItemCoinLayoutBinding> {
+public class CoinAdapter extends BaseRecyclerAdapter<WalletSetData.DataBean, ItemCoinLayoutBinding> {
     private OnClickListener onClickListener;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -25,9 +26,10 @@ public class CoinAdapter extends BaseRecyclerAdapter<String, ItemCoinLayoutBindi
     }
 
     @Override
-    protected void onBindItem(final ItemCoinLayoutBinding binding, final String dataBean, final int position) {
+    protected void onBindItem(final ItemCoinLayoutBinding binding, final WalletSetData.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-
+            binding.tvMoney.setText(dataBean.getMoney());
+            binding.tvCoin.setText(dataBean.getWallet_token()+"金币");
         }
 
     }

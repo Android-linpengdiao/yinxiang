@@ -101,6 +101,10 @@ public class APIUrls {
     public final static String url_channelClub = url_domain + "api/channel/club";
     //频道-社团-创建社团
     public final static String url_channelCreateClub = url_domain + "api/channel/createClub";
+    //频道-社团-加入社团
+    public final static String url_channelJoinClub = url_domain + "api/channel/joinClub";
+    //频道-社团-社团详情
+    public final static String url_channelClubDetail = url_domain + "api/channel/clubDetail";
     //频道-社团-编辑社团
     public final static String url_channelEditClub = url_domain + "api/channel/editClub";
     //频道-社团-编辑社团简介
@@ -143,6 +147,16 @@ public class APIUrls {
     public final static String url_personWalletSet = url_domain + "api/personWallet/set";
     //我的-我的钱包-消费记录
     public final static String url_personWalletRecord = url_domain + "api/personWallet/record";
+
+    /**
+     * 充值
+     */
+    //充值
+    public final static String url_cashPay = url_domain + "api/cash/pay";
+    //充值-加入付费社团
+    public final static String url_cashJoinClub = url_domain + "api/cash/joinClub";
+    //充值-用户作品推广
+    public final static String url_cashSpread = url_domain + "api/cash/spread";
 
 
     public final static String url_commonStartUp = url_domain + "api/common/startUp";

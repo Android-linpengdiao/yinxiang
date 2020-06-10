@@ -8,12 +8,20 @@ import android.util.Log;
 import android.view.View;
 
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.WorkRelayAdapter;
 import com.yinxiang.databinding.ActivityMyVipBinding;
 import com.yinxiang.databinding.ActivityMyWorkRelayBinding;
+import com.yinxiang.model.VipSetData;
+import com.yinxiang.model.WalletSetData;
 
 import java.util.Random;
+
+import okhttp3.Call;
 
 public class MyVIPActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "MyVIPActivity";
@@ -26,9 +34,12 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
 
         binding.back.setOnClickListener(this);
 
-        int isVip = (new Random()).nextInt(2);
-        binding.viewLayoutVip.setVisibility(isVip == 1 ? View.VISIBLE : View.GONE);
-        binding.viewLayoutTopUp.setVisibility(isVip == 0 ? View.VISIBLE : View.GONE);
+        if (getUserInfo().getData().getIs_vip() == 1) {
+            binding.viewLayoutVip.setVisibility(View.VISIBLE);
+        } else if (getUserInfo().getData().getIs_vip() == 2) {
+            binding.viewLayoutTopUp.setVisibility(View.VISIBLE);
+            initData();
+        }
 
     }
 
@@ -38,6 +49,24 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
                 finish();
                 break;
         }
+    }
+
+    private void initData() {
+        SendRequest.personVipSet(new GenericsCallback<VipSetData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(VipSetData response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+                    binding.tvMoney.setText(String.valueOf(response.getData().getMoney()));
+                } else {
+                    ToastUtils.showShort(MyVIPActivity.this, response.getMsg());
+                }
+            }
+
+        });
     }
 }
 

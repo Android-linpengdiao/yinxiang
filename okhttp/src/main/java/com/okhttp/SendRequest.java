@@ -626,6 +626,34 @@ public class SendRequest {
     }
 
     /**
+     * 频道-社团-加入社团
+     *
+     * @param tourist_id
+     * @param club_id
+     * @param call
+     */
+    public static void channelJoinClub(int tourist_id, int club_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("club_id", String.valueOf(club_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelJoinClub).build().execute(call);
+
+    }
+
+    /**
+     * 频道-社团-社团详情
+     *
+     * @param club_id
+     * @param call
+     */
+    public static void channelClubDetail(int club_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("club_id", String.valueOf(club_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelClubDetail).build().execute(call);
+
+    }
+
+    /**
      * 频道-社团-编辑社团
      *
      * @param tourist_id
@@ -865,7 +893,7 @@ public class SendRequest {
      */
     public static void personVipSet(Callback call) {
         Map<String, String> map = new HashMap<>();
-        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personVipSet).build().execute(call);
+        OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_personVipSet).build().execute(call);
 
     }
 
@@ -876,7 +904,7 @@ public class SendRequest {
      */
     public static void personWalletSet(Callback call) {
         Map<String, String> map = new HashMap<>();
-        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personWalletSet).build().execute(call);
+        OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_personWalletSet).build().execute(call);
 
     }
 
@@ -892,6 +920,63 @@ public class SendRequest {
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("perPage", String.valueOf(perPage));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_personWalletRecord).build().execute(call);
+
+    }
+
+    /**
+     * ===================================充值===========================================================
+     */
+
+
+    /**
+     * @param tourist_id
+     * @param money        充值金额
+     * @param type         充值渠道 wechat=>微信 alipay=>支付宝
+     * @param purpose      充值目的 vip=>开通vip wallet=>钱包充值
+     * @param wallet_token 钱包充值兑换的平台币数量
+     * @param call
+     */
+    public static void cashPay(int tourist_id, int money, int type, int purpose, int wallet_token, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("money", String.valueOf(money));
+        map.put("type", String.valueOf(type));
+        map.put("wallet_token", String.valueOf(wallet_token));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashPay).build().execute(call);
+
+    }
+
+    /**
+     * 充值-加入付费社团
+     *
+     * @param tourist_id
+     * @param club_id
+     * @param wallet_token
+     * @param call
+     */
+    public static void cashJoinClub(int tourist_id, int club_id, int wallet_token, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("club_id", String.valueOf(club_id));
+        map.put("wallet_token", String.valueOf(wallet_token));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashJoinClub).build().execute(call);
+
+    }
+
+    /**
+     * 充值-用户作品推广
+     *
+     * @param club_id
+     * @param video_id
+     * @param wallet_token
+     * @param call
+     */
+    public static void cashSpread(int club_id, int video_id, int wallet_token, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("club_id", String.valueOf(club_id));
+        map.put("video_id", String.valueOf(video_id));
+        map.put("wallet_token", String.valueOf(wallet_token));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashSpread).build().execute(call);
 
     }
 

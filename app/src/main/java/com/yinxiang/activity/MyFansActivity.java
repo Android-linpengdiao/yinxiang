@@ -54,13 +54,6 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-        List<FansUserData.DataBeanX.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            FansUserData.DataBeanX.DataBean dataBean = new FansUserData.DataBeanX.DataBean();
-            list.add(dataBean);
-        }
-        adapter.refreshData(list);
-
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
