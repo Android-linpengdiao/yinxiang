@@ -39,7 +39,7 @@ public class ClubData implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
         /**
          * id : 2
          * created_at : 2020-05-25T08:07:11.000000Z
@@ -75,11 +75,11 @@ public class ClubData implements Serializable {
         private String desc;
         private int status;
         private int selected;
-        private Object refuse;
-        private int join;
+        private String refuse;
+        private int join;  // 1收费入团 2免费入团
         private int join_token;
-        private Object dissolve;
-        private Object dissolve_time;
+        private String dissolve;
+        private String dissolve_time;
 
         public int getId() {
             return id;
@@ -193,11 +193,11 @@ public class ClubData implements Serializable {
             this.selected = selected;
         }
 
-        public Object getRefuse() {
+        public String getRefuse() {
             return refuse;
         }
 
-        public void setRefuse(Object refuse) {
+        public void setRefuse(String refuse) {
             this.refuse = refuse;
         }
 
@@ -217,19 +217,19 @@ public class ClubData implements Serializable {
             this.join_token = join_token;
         }
 
-        public Object getDissolve() {
+        public String getDissolve() {
             return dissolve;
         }
 
-        public void setDissolve(Object dissolve) {
+        public void setDissolve(String dissolve) {
             this.dissolve = dissolve;
         }
 
-        public Object getDissolve_time() {
+        public String getDissolve_time() {
             return dissolve_time;
         }
 
-        public void setDissolve_time(Object dissolve_time) {
+        public void setDissolve_time(String dissolve_time) {
             this.dissolve_time = dissolve_time;
         }
     }

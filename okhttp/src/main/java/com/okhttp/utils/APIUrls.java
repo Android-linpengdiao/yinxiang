@@ -88,7 +88,7 @@ public class APIUrls {
     //好友-消息-评论消息
     public final static String url_friendComment = url_domain + "api/friend/comment";
     //好友-消息-系统消息
-    public final static String url_friendClub = url_domain + "api/friend/api/friend/club";
+    public final static String url_friendClub = url_domain + "api/friend/club";
     //好友-消息-同意加群/拒绝加群
     public final static String url_friendClubAction = url_domain + "api/friend/clubAction";
 

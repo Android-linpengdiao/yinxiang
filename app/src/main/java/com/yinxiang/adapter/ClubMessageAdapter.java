@@ -4,16 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.activity.ClubMessageDetailActivity;
 import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.databinding.ItemClubMessageLayoutBinding;
 import com.yinxiang.databinding.ItemFriendsLayoutBinding;
+import com.yinxiang.model.ClubMessageData;
 import com.yinxiang.model.FollowUserData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class ClubMessageAdapter extends BaseRecyclerAdapter<FollowUserData.DataBeanX.DataBean, ItemClubMessageLayoutBinding> {
+public class ClubMessageAdapter extends BaseRecyclerAdapter<ClubMessageData.DataBeanX.DataBean, ItemClubMessageLayoutBinding> {
 
     private OnClickListener onClickListener;
 
@@ -31,27 +33,18 @@ public class ClubMessageAdapter extends BaseRecyclerAdapter<FollowUserData.DataB
     }
 
     @Override
-    protected void onBindItem(final ItemClubMessageLayoutBinding binding, final FollowUserData.DataBeanX.DataBean dataBean, final int position) {
+    protected void onBindItem(final ItemClubMessageLayoutBinding binding, final ClubMessageData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-//            binding.tvTitle.setText(dataBean.getName());
-//            binding.tvDesc.setText("粉丝：" + dataBean.getLiker());
-//            binding.tvFollowers.setText("已关注");
-//            binding.tvFollowers.setText(dataBean.getAttention() != -1 ? "已关注" : "关注");
-//            GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
-//            binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (onClickListener != null) {
-//                        onClickListener.onClick(v, dataBean);
-//                    }
-//                }
-//            });
+            binding.tvTitle.setText(dataBean.getTourist().getName());
+            binding.tvDesc.setText("申请加入" + dataBean.getClub().getName());
+            binding.tvAgree.setText("同意");
+            binding.tvAgree.setText(dataBean.getStatus() == 1 ? "已同意" : dataBean.getStatus() == 1 ? "已拒绝" : "同意");
+            GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, ClubMessageDetailActivity.class);
-//                    intent.putExtra("uid", dataBean.getId());
-                    intent.putExtra("uid", 0);
+                    intent.putExtra("dataBean", dataBean);
                     mContext.startActivity(intent);
                 }
             });

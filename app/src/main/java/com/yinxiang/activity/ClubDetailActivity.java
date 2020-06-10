@@ -144,27 +144,31 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
                     intent = new Intent(ClubDetailActivity.this, ClubDeleteActivity.class);
                     startActivity(intent);
                 } else {
-                    DialogManager.showPayDialog(ClubDetailActivity.this, "街舞艺术交流群·入团交费", "确认支付10金币加入该社团?", new com.baselibrary.view.OnClickListener() {
-                        @Override
-                        public void onClick(View view, Object object) {
-                            switch (view.getId()) {
-                                case R.id.tv_confirm:
+                    if (dataBean.getJoin() == 1) {
+                        DialogManager.showPayDialog(ClubDetailActivity.this, "街舞艺术交流群·入团交费", "确认支付" + dataBean.getJoin_token() + "金币加入该社团?", new com.baselibrary.view.OnClickListener() {
+                            @Override
+                            public void onClick(View view, Object object) {
+                                switch (view.getId()) {
+                                    case R.id.tv_confirm:
 
-                                    break;
-                                case R.id.tv_cancel:
+                                        break;
+                                    case R.id.tv_cancel:
 
-                                    break;
-                                case R.id.tv_coin:
-
-                                    break;
+                                        break;
+                                    case R.id.tv_coin:
+                                        openActivity(MyWalletActivity.class);
+                                        break;
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onLongClick(View view, Object object) {
+                            @Override
+                            public void onLongClick(View view, Object object) {
 
-                        }
-                    });
+                            }
+                        });
+                    } else if (dataBean.getJoin() == 2) {
+                        channelJoinClub();
+                    }
                 }
                 break;
         }
@@ -232,5 +236,30 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
         });
     }
 
+    private void channelJoinClub() {
+        SendRequest.channelJoinClub(getUserInfo().getData().getId(), dataBean.getId(), new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            ToastUtils.showShort(ClubDetailActivity.this, "已申请加入社团");
+                        }
+                    } else {
+                        ToastUtils.showShort(ClubDetailActivity.this, "请求失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(ClubDetailActivity.this, "请求失败");
+                }
+            }
+        });
+    }
 
 }
