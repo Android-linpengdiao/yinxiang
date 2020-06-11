@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.StringCallback;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityReportBinding;
+
+import okhttp3.Call;
 
 public class ReportActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
@@ -20,6 +24,17 @@ public class ReportActivity extends BaseActivity implements View.OnClickListener
         binding.back.setOnClickListener(this);
         binding.radioGroupView.setOnCheckedChangeListener(this);
 
+//        SendRequest.url_homePageVideosReport(new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//
+//            }
+//        });
     }
 
     public void onClick(View v) {

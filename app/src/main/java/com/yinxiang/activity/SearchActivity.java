@@ -12,16 +12,23 @@ import android.widget.TextView;
 
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.callbacks.StringCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.SearchHistoryAdapter;
 import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivitySearchBinding;
 import com.yinxiang.db.DBManager;
+import com.yinxiang.model.WorkData;
 import com.yinxiang.view.FlowLayoutManager;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.SpaceItemDecoration;
 
 import java.util.List;
+
+import okhttp3.Call;
 
 public class SearchActivity extends BaseActivity implements View.OnClickListener {
 
@@ -89,7 +96,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private void initSearchView(String content) {
         binding.searchHistoryView.setVisibility(CommonUtil.isBlank(content) ? View.VISIBLE : View.GONE);
         binding.searchResultRecyclerView.setVisibility(CommonUtil.isBlank(content) ? View.GONE : View.VISIBLE);
-        searchWork(content);
+        if (!CommonUtil.isBlank(content)) {
+            searchWork(content);
+        }
     }
 
     public void onClick(View v) {
@@ -109,7 +118,21 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void searchWork(String content) {
-//        searchResultAdapter.refreshData(CommonUtil.getImageListString());
+        SendRequest.homePageVideosSearch(2,content,10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(WorkData response, int id) {
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    searchResultAdapter.refreshData(response.getData().getData());
+                } else {
+                    ToastUtils.showShort(SearchActivity.this, response.getMsg());
+                }
+            }
+
+        });
 
     }
 }

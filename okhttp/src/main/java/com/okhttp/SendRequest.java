@@ -301,7 +301,7 @@ public class SendRequest {
      * @param body
      * @param call
      */
-    public static void homePageVideosReport(int tourist_id, int video_id, int type, int body, Callback call) {
+    public static void url_homePageVideosReport(int tourist_id, int video_id, int type, int body, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("video_id", String.valueOf(video_id));
@@ -351,7 +351,7 @@ public class SendRequest {
      * @param perPage
      * @param call
      */
-    public static void homePageVideosSearch(int active_id, String keyword, String perPage, Callback call) {
+    public static void homePageVideosSearch(int active_id, String keyword, int perPage, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("active_id", String.valueOf(active_id));
         map.put("keyword", keyword);
