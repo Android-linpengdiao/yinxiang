@@ -142,7 +142,7 @@
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/right" />
+                        android:src="@drawable/more_right" />
 
 
                 </LinearLayout>
@@ -213,7 +213,7 @@
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/right" />
+                        android:src="@drawable/more_right" />
 
 
                 </LinearLayout>
@@ -283,7 +283,7 @@
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/right" />
+                        android:src="@drawable/more_right" />
 
 
                 </LinearLayout>

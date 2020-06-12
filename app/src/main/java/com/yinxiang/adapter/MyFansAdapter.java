@@ -49,9 +49,7 @@ public class MyFansAdapter extends BaseRecyclerAdapter<FansUserData.DataBeanX.Da
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-//                    intent.putExtra("uid", dataBean.getId());
-                    intent.putExtra("uid", 0);
-//                    intent.putExtra("isFollow", dataBean.isAttention());
+                    intent.putExtra("uid", dataBean.getId());
                     mContext.startActivity(intent);
                 }
             });

@@ -7,11 +7,8 @@ import android.view.View;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.activity.ClubMessageDetailActivity;
-import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.databinding.ItemClubMessageLayoutBinding;
-import com.yinxiang.databinding.ItemFriendsLayoutBinding;
 import com.yinxiang.model.ClubMessageData;
-import com.yinxiang.model.FollowUserData;
 import com.yinxiang.view.OnClickListener;
 
 

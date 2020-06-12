@@ -551,13 +551,13 @@ public class SendRequest {
     /**
      * 好友-消息-同意加群/拒绝加群
      *
-     * @param tourist_id
+     * @param club_message_id
      * @param status     状态 1同意/2拒绝
      * @param call
      */
-    public static void friendClubAction(int tourist_id, int status, Callback call) {
+    public static void friendClubAction(int club_message_id, int status, Callback call) {
         Map<String, String> map = new HashMap<>();
-        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("club_message_id", String.valueOf(club_message_id));
         map.put("status", String.valueOf(status));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendClubAction).build().execute(call);
 

@@ -42,9 +42,7 @@ public class CommentAdapter extends BaseRecyclerAdapter<MessageData.DataBeanX.Da
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-//                    intent.putExtra("uid", dataBean.getTourist().getId());
-                    intent.putExtra("uid", 0);
-                    intent.putExtra("isFollow", false);
+                    intent.putExtra("uid", dataBean.getTourist().getId());
                     mContext.startActivity(intent);
                 }
             });

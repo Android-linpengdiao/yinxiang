@@ -44,12 +44,12 @@ public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean
     protected void onBindItem(ItemWorksLayoutBinding binding, final WorkData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.workName.setText(dataBean.getActive_name());
-            binding.userName.setText(dataBean.getTourist_name());
+            binding.userName.setText(dataBean.getTourist().getName());
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
             binding.tvTime.setText(time);
             GlideLoader.LoderRoundedImage(mContext, dataBean.getImg(), binding.cover, 10);
-            GlideLoader.LoderCircleImage(mContext, dataBean.getImg(), binding.userIcon);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
             if (selection) {
                 binding.selectionView.setBackground(position != 0 ? mContext.getResources().getDrawable(R.drawable.button_white_t) : mContext.getResources().getDrawable(R.drawable.button_t));
                 binding.selectionView.setEnabled(position != 0 ? false : true);

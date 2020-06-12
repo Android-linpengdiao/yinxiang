@@ -1,6 +1,7 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -146,7 +147,12 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         openActivity(ReportActivity.class);
                         break;
                     case R.id.user_icon:
-                        openActivity(UserHomeActivity.class);
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            Intent intent = new Intent(getActivity(), UserHomeActivity.class);
+                            intent.putExtra("uid", dataBean.getTourist_id());
+                            startActivity(intent);
+                        }
                         break;
                 }
             }

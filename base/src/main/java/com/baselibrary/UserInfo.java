@@ -81,7 +81,7 @@ public class UserInfo implements Serializable {
         private String addr;
         private int like_notice;
         private int comment_notice;
-        private int is_vip;
+        private int is_vip; //1是vip 2不是vip
         private int vip_expire;
         private int wallet_token;
         private int fan_number;

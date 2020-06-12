@@ -49,9 +49,7 @@ public class MyFollowAdapter extends BaseRecyclerAdapter<FollowUserData.DataBean
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-//                    intent.putExtra("uid", dataBean.getId());
-                    intent.putExtra("uid", 0);
-//                    intent.putExtra("isFollow", dataBean.getAttention() != -1 ? true : false);
+                    intent.putExtra("uid", dataBean.getId());
                     mContext.startActivity(intent);
                 }
             });

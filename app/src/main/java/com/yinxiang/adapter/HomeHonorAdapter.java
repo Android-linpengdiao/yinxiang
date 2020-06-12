@@ -29,7 +29,7 @@ public class HomeHonorAdapter extends BaseRecyclerAdapter<HonourData.DataBeanX.D
     }
 
     @Override
-    protected void onBindItem(final ItemHomeHonorLayoutBinding binding, HonourData.DataBeanX.DataBean dataBean, final int position) {
+    protected void onBindItem(final ItemHomeHonorLayoutBinding binding, final HonourData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
 //            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
             binding.tvRank.setText("");
@@ -54,9 +54,7 @@ public class HomeHonorAdapter extends BaseRecyclerAdapter<HonourData.DataBeanX.D
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-//                    intent.putExtra("uid", dataBean.getId());
-                    intent.putExtra("uid", 0);
-                    intent.putExtra("isFollow", false);
+                    intent.putExtra("uid", dataBean.getId());
                     mContext.startActivity(intent);
                 }
             });

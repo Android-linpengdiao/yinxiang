@@ -21,6 +21,10 @@ import com.yinxiang.view.OnClickListener;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import okhttp3.Call;
 
 
@@ -52,6 +56,13 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
     protected void onBindItem(final ItemHomeVideoLayoutBinding binding, final HomeVideos.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.userName.setText(dataBean.getTourist_name() + "");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
+            binding.tvTime.setText("发布于" + time);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getVideo(), binding.userIcon);
+            GlideLoader.LoderVideoImage(mContext, dataBean.getVideo(), binding.imgThumb);
+            GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
+
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -120,9 +131,6 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     }
                 }
             });
-            GlideLoader.LoderCircleImage(mContext, dataBean.getVideo(), binding.userIcon);
-            GlideLoader.LoderVideoImage(mContext, dataBean.getVideo(), binding.imgThumb);
-            GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
         }
 
     }

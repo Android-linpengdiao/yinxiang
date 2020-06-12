@@ -61,14 +61,13 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 initData();
             }
         });
-//        binding.swipeRefreshLayout.setRefreshing(true);
-//        initData();
+        initData();
 
     }
 
     private void initData() {
-
-        SendRequest.baseInfo(uid, new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
+        binding.swipeRefreshLayout.setRefreshing(true);
+        SendRequest.personInformInfo(uid, new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
             }
@@ -132,10 +131,15 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.tvIsFollow.setOnClickListener(this);
 
         binding.userName.setText(userInfo.getData().getName());
+        binding.userAge.setText(String.valueOf(userInfo.getData().getAge()));
+        binding.userDesc.setText(userInfo.getData().getDesc());
         binding.touristId.setText("引享号：" + userInfo.getData().getTourist_id());
+        binding.userAddr.setText(userInfo.getData().getAddr());
+        binding.isVip.setVisibility(userInfo.getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
+        binding.userLevel.setText("Lv." + userInfo.getData().getLevel());
+        binding.fanNumber.setText(String.valueOf(userInfo.getData().getFan_number()));
+        binding.followNumber.setText(String.valueOf(userInfo.getData().getFollow_number()));
         GlideLoader.LoderCircleImage(UserHomeActivity.this, userInfo.getData().getAvatar(), binding.userIcon);
-//        binding.tvFollowers.setText(getUserInfo().getData().getFollowers() + "");
-//        binding.tvLiker.setText(getUserInfo().getData().getLiker() + "");
 
         binding.tvIsFollow.setSelected(isFollow);
         binding.tvIsFollow.setText(isFollow ? "已关注" : "关注");

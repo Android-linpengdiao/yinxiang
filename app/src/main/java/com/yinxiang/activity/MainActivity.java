@@ -67,6 +67,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         TextView userName = headerView.findViewById(R.id.user_name);
         TextView userTouristId = headerView.findViewById(R.id.user_tourist_id);
         TextView userAddr = headerView.findViewById(R.id.user_addr);
+        TextView userLevel = headerView.findViewById(R.id.user_level);
+        ImageView isVip = headerView.findViewById(R.id.is_vip);
+        TextView fanNumber = headerView.findViewById(R.id.fan_number);
+        TextView followNumber = headerView.findViewById(R.id.follow_number);
         View myFansView = headerView.findViewById(R.id.my_fans_view);
         View myFollowView = headerView.findViewById(R.id.my_follow_view);
         View myWorkView = headerView.findViewById(R.id.my_work_view);
@@ -79,8 +83,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         View tvSetting = headerView.findViewById(R.id.tv_setting);
 
         userName.setText(getUserInfo().getData().getName() + "");
-        userTouristId.setText("海博号：" + getUserInfo().getData().getTourist_id());
+        userTouristId.setText("引享号：" + getUserInfo().getData().getTourist_id());
         userAddr.setText(getUserInfo().getData().getAddr() + "");
+        userLevel.setText("Lv." + getUserInfo().getData().getLevel());
+        fanNumber.setText(String.valueOf(getUserInfo().getData().getFan_number()));
+        isVip.setVisibility(getUserInfo().getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
+        followNumber.setText(String.valueOf(getUserInfo().getData().getFollow_number()));
         GlideLoader.LoderCircleImage(this, getUserInfo().getData().getAvatar(), userIcon);
 
         myFansView.setOnClickListener(new View.OnClickListener() {

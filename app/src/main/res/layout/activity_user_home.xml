@@ -59,7 +59,7 @@
                         android:id="@+id/user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="舞林至尊Jhon"
+                        android:text=""
                         android:textColor="#ffffffff"
                         android:textSize="30sp" />
 
@@ -68,7 +68,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="引享号：64888863"
+                        android:text="引享号："
                         android:textColor="#ffffffff"
                         android:textSize="15sp" />
 
@@ -113,12 +113,13 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/user_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="20dp"
-                android:text="舞林至尊大赛第一季冠军，嘉禾工作室"
+                android:text=""
                 android:textColor="#ffffffff"
                 android:textSize="16sp" />
 
@@ -129,6 +130,7 @@
                 android:padding="20dp">
 
                 <TextView
+                    android:id="@+id/user_age"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:background="@drawable/button_radius_blue"
@@ -136,22 +138,24 @@
                     android:drawablePadding="3dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="26岁"
+                    android:text="0岁"
                     android:textColor="#ffffffff"
                     android:textSize="11sp" />
 
                 <TextView
+                    android:id="@+id/user_addr"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/button_radius_blue"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="北京"
+                    android:text=""
                     android:textColor="#ffffffff"
                     android:textSize="11sp" />
 
                 <TextView
+                    android:id="@+id/user_level"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:layout_marginLeft="10dp"
@@ -160,11 +164,12 @@
                     android:drawablePadding="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="Lv.10"
+                    android:text="Lv.1"
                     android:textColor="#ffffffff"
                     android:textSize="11sp" />
 
                 <ImageView
+                    android:id="@+id/is_vip"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginLeft="10dp"
@@ -190,7 +195,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_followers"
+                        android:id="@+id/follow_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -217,7 +222,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_liker"
+                        android:id="@+id/fan_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"

@@ -54,7 +54,7 @@ public class ClubMessageDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void friendClubAction(final int status) {
-        SendRequest.friendClubAction(getUserInfo().getData().getId(), status, new StringCallback() {
+        SendRequest.friendClubAction(dataBean.getId(), status, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
