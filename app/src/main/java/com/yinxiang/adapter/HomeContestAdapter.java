@@ -28,27 +28,43 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<WorkPKData.DataBeanX
     }
 
     @Override
-    protected void onBindItem(final ItemHomeContestLayoutBinding binding, WorkPKData.DataBeanX.DataBean dataBean, final int position) {
+    protected void onBindItem(final ItemHomeContestLayoutBinding binding, final WorkPKData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.activeName.setText(dataBean.getActive_name());
-            binding.compareActiveName.setText(dataBean.getCompare_active_name());
+            binding.workName.setText(dataBean.getActive_name());
+            binding.compareWorkName.setText(dataBean.getCompare_active_name());
             binding.voteNum.setText(dataBean.getVote_num() + "票");
-            binding.compareNum.setText(dataBean.getCompare_num() + "票");
-            GlideLoader.LoderCircleImage(mContext, dataBean.getContent_video(), binding.contentImg);
-            GlideLoader.LoderCircleImage(mContext, dataBean.getCompare_video(), binding.compareImg);
-            binding.rivalWorkView.setOnClickListener(new View.OnClickListener() {
+            binding.compareVoteNum.setText(dataBean.getCompare_num() + "票");
+            GlideLoader.LoderCircleImage(mContext, dataBean.getContent_video(), binding.workImg);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getCompare_video(), binding.compareWorkImg);
+            binding.workView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, position);
+                        onClickListener.onClick(v, dataBean);
                     }
                 }
             });
-            binding.myWorkView.setOnClickListener(new View.OnClickListener() {
+            binding.compareWorkView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, position);
+                        onClickListener.onClick(v, dataBean);
+                    }
+                }
+            });
+            binding.workVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean.getContent_id());
+                    }
+                }
+            });
+            binding.compareWorkVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, dataBean.getCompare_content_id());
                     }
                 }
             });

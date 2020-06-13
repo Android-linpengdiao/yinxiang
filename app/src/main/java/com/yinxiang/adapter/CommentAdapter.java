@@ -37,7 +37,7 @@ public class CommentAdapter extends BaseRecyclerAdapter<MessageData.DataBeanX.Da
             binding.tvDesc.setText("评论了你的作品: " + dataBean.getBody());
             binding.tvTime.setText(dataBean.getUpdated_at());
             GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
-            GlideLoader.LoderImageUrl(mContext, dataBean.getContent().getImg(), binding.cover, 2);
+//            GlideLoader.LoderImageUrl(mContext, dataBean.getContent().getImg(), binding.cover, 2);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

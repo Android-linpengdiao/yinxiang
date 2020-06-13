@@ -55,11 +55,15 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
     @Override
     protected void onBindItem(final ItemHomeVideoLayoutBinding binding, final HomeVideos.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.userName.setText(dataBean.getTourist_name() + "");
+            binding.userName.setText(dataBean.getTourist().getName());
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
             binding.tvTime.setText("发布于" + time);
-            GlideLoader.LoderCircleImage(mContext, dataBean.getVideo(), binding.userIcon);
+            binding.tvName.setText(dataBean.getName());
+            binding.tvFollow.setText(dataBean.isIs_person_follow()?"已关注":"关注");
+            binding.ivLike.setSelected(dataBean.isIs_assist());
+            binding.tvElection.setText(String.valueOf(dataBean.getPre_votes()));
+            GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
             GlideLoader.LoderVideoImage(mContext, dataBean.getVideo(), binding.imgThumb);
             GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
 

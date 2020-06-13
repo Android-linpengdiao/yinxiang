@@ -10,11 +10,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
+import com.yinxiang.activity.MyFansActivity;
+import com.yinxiang.activity.MyFollowActivity;
 import com.yinxiang.adapter.ContactsAdapter;
+import com.yinxiang.adapter.ContactsClubAdapter;
+import com.yinxiang.adapter.ContactsFansAdapter;
+import com.yinxiang.adapter.ContactsFollowAdapter;
 import com.yinxiang.adapter.MessageAdapter;
 import com.yinxiang.databinding.FragmentContactsBinding;
 import com.yinxiang.databinding.FragmentMessageBinding;
+import com.yinxiang.model.ClubData;
+import com.yinxiang.model.FansUserData;
+import com.yinxiang.model.FollowUserData;
+
+import okhttp3.Call;
 
 public class ContactsFragment extends BaseFragment implements View.OnClickListener {
 
@@ -23,16 +37,19 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
+    private ContactsAdapter adapterFriend;
+    private ContactsFansAdapter adapterFans;
+    private ContactsFollowAdapter adapterFollow;
+    private ContactsClubAdapter adapterClub;
+
     public ContactsFragment() {
 
     }
-
 
     public static ContactsFragment newInstance(String param1, String param2) {
         ContactsFragment fragment = new ContactsFragment();
@@ -62,36 +79,79 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
         binding.followView.setOnClickListener(this);
         binding.clubView.setOnClickListener(this);
 
-        ContactsAdapter adapterFriend = new ContactsAdapter(getActivity());
-        binding.friendRecyclerView.setNestedScrollingEnabled(false);
+        adapterFriend = new ContactsAdapter(getActivity());
         binding.friendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.friendRecyclerView.setNestedScrollingEnabled(false);
         binding.friendRecyclerView.setAdapter(adapterFriend);
-        adapterFriend.refreshData(CommonUtil.getImageListString());
 
-        ContactsAdapter adapterFans = new ContactsAdapter(getActivity());
-        binding.fansRecyclerView.setNestedScrollingEnabled(false);
+        adapterFans = new ContactsFansAdapter(getActivity());
         binding.fansRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.fansRecyclerView.setNestedScrollingEnabled(false);
         binding.fansRecyclerView.setAdapter(adapterFans);
-        adapterFans.refreshData(CommonUtil.getImageListString());
 
-        ContactsAdapter adapterFollow = new ContactsAdapter(getActivity());
-        binding.followRecyclerView.setNestedScrollingEnabled(false);
+        adapterFollow = new ContactsFollowAdapter(getActivity());
         binding.followRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.followRecyclerView.setNestedScrollingEnabled(false);
         binding.followRecyclerView.setAdapter(adapterFollow);
-        adapterFollow.refreshData(CommonUtil.getImageListString());
 
-        ContactsAdapter adapterClub = new ContactsAdapter(getActivity());
-        binding.clubRecyclerView.setNestedScrollingEnabled(false);
+        adapterClub = new ContactsClubAdapter(getActivity());
         binding.clubRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.clubRecyclerView.setNestedScrollingEnabled(false);
         binding.clubRecyclerView.setAdapter(adapterClub);
 
-        adapterClub.refreshData(CommonUtil.getImageListString());
+        initData();
 
         return binding.getRoot();
+    }
+
+    private void initData() {
+        SendRequest.personInformFans(getUserInfo().getData().getId(), 10, new GenericsCallback<FansUserData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(FansUserData response, int id) {
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    adapterFans.refreshData(response.getData().getData());
+                    binding.fansNumber.setText(String.valueOf(response.getData().getData().size()));
+                } else {
+                    ToastUtils.showShort(getActivity(), response.getMsg());
+                }
+            }
+
+        });
+        SendRequest.personInformFollows(getUserInfo().getData().getId(), 10, new GenericsCallback<FollowUserData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(FollowUserData response, int id) {
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    adapterFollow.refreshData(response.getData().getData());
+                    binding.followNumber.setText(String.valueOf(response.getData().getData().size()));
+                } else {
+                    ToastUtils.showShort(getContext(), response.getMsg());
+                }
+            }
+
+        });
+        SendRequest.channelClubStatus(1, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(ClubData response, int id) {
+                if (response != null && response.getCode() == 200 && response.getData() != null) {
+                    adapterClub.refreshData(response.getData());
+                    binding.clubNumber.setText(String.valueOf(response.getData().size()));
+                }
+            }
+
+        });
     }
 
     public void onButtonPressed(Uri uri) {

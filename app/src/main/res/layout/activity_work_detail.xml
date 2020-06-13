@@ -106,10 +106,11 @@
                         android:src="@drawable/circle_gray" />
 
                     <TextView
+                        android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="舞林霸主"
+                        android:text=""
                         android:textColor="#ffffffff"
                         android:textSize="15sp" />
 
@@ -142,18 +143,20 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="这就是街舞3比赛参赛作品参赛作品之爵士舞表演"
+                    android:text=""
                     android:textColor="#ffe6e6e6"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="发布于1天前"
+                    android:text=""
                     android:textColor="#ffe6e6e6"
                     android:textSize="13sp" />
 

@@ -4,12 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
+import com.yinxiang.activity.MyWorkActivity;
 import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.databinding.ItemUserHomeWorkLayoutBinding;
+import com.yinxiang.model.WorkData;
 
-public class UserHomeWorkAdapter extends BaseRecyclerAdapter<String, ItemUserHomeWorkLayoutBinding> {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class UserHomeWorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean, ItemUserHomeWorkLayoutBinding> {
 
     public UserHomeWorkAdapter(Context context) {
         super(context);
@@ -21,14 +28,17 @@ public class UserHomeWorkAdapter extends BaseRecyclerAdapter<String, ItemUserHom
     }
 
     @Override
-    protected void onBindItem(final ItemUserHomeWorkLayoutBinding binding, final String dataBean, final int position) {
+    protected void onBindItem(final ItemUserHomeWorkLayoutBinding binding, final WorkData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderLoadImage(mContext, dataBean, binding.cover, 10);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
+            binding.tvTime.setText(time);
+            GlideLoader.LoderLoadImage(mContext, dataBean.getImg(), binding.cover, 10);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, WorkDetailActivity.class);
-//                    intent.putExtra("id", dataBean.getId());
+                    intent.putExtra("workId", dataBean.getId());
                     mContext.startActivity(intent);
                 }
             });

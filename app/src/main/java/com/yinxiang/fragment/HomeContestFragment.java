@@ -1,6 +1,7 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
@@ -24,16 +26,18 @@ import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
+import com.yinxiang.activity.MyWalletActivity;
+import com.yinxiang.activity.MyWorkPKActivity;
 import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.adapter.HomeContestAdapter;
-import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeContestBinding;
-import com.yinxiang.databinding.FragmentHomeVideoBinding;
 import com.yinxiang.model.HomeActives;
-import com.yinxiang.model.HomeVideos;
 import com.yinxiang.model.WorkPKData;
+import com.yinxiang.view.ElectionPopupWindow;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.TypePopupWindow;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -95,7 +99,23 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                openActivity(WorkDetailActivity.class);
+                Intent intent;
+                switch (view.getId()) {
+                    case R.id.workView:
+                    case R.id.compareWorkView:
+                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            intent = new Intent(getActivity(), WorkDetailActivity.class);
+                            intent.putExtra("workId", dataBean.getId());
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.work_vote:
+                    case R.id.compare_work_vote:
+                        homePageVideosVoteSet((int) object);
+                        break;
+                }
+
             }
 
             @Override
@@ -160,8 +180,8 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void homePageVideosVote(int video_id, int free) {
-        SendRequest.homePageVideosVote(getUserInfo().getData().getId(), video_id, free, new StringCallback() {
+    private void homePageVideosVoteSet(final int workId) {
+        SendRequest.homePageVideosVoteSet(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -169,9 +189,92 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
 
             @Override
             public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"));
+                        } else {
+                            ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void homePageVideosVote(int videoId, int free) {
+        SendRequest.homePageVideosVote(getUserInfo().getData().getId(), videoId, free, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
+                                ToastUtils.showShort(getActivity(), "以为TA投一票");
+                            } else {
+                                ToastUtils.showShort(getActivity(), "今日以为TA投一票，明日再来为TA投一票");
+                            }
+                        } else {
+                            ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void Election(final int id, final String wallet_token) {
+        ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
+        electionPopupWindow.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                switch (view.getId()) {
+                    case R.id.tv_election:
+                        homePageVideosVote(id, 1);
+                        break;
+                    case R.id.tv_election_coin:
+                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                            @Override
+                            public void onClick(View view, Object object) {
+                                switch (view.getId()) {
+                                    case R.id.tv_confirm:
+                                        homePageVideosVote(id, 2);
+                                        break;
+                                    case R.id.tv_cancel:
+
+                                        break;
+                                    case R.id.tv_coin:
+                                        openActivity(MyWalletActivity.class);
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onLongClick(View view, Object object) {
+
+                            }
+                        });
+                        break;
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
 
             }
         });
+        electionPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
     private void typeView(HomeActives response) {

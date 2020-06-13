@@ -52,13 +52,11 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.recyclerView.addItemDecoration(new GridItemDecoration(builder));
         binding.recyclerView.setAdapter(adapter);
 
-        adapter.refreshData(CommonUtil.getImageListString());
-
         binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initData();
+                centerSelfWork();
             }
         });
         initData();
@@ -66,7 +64,6 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initData() {
-        binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.personInformInfo(uid, new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -106,8 +103,13 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 }
             }
         });
+        centerSelfWork();
 
-        SendRequest.centerSelfWork(uid, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+    }
+
+    private void centerSelfWork(){
+        binding.swipeRefreshLayout.setRefreshing(true);
+        SendRequest.personInformWorks(uid, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -117,7 +119,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
             public void onResponse(WorkData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-//                    adapter.refreshData(response.getData().getData());
+                    adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(UserHomeActivity.this, response.getMsg());
                 }

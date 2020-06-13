@@ -7,7 +7,6 @@ import android.view.View;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
-import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.databinding.ItemWorksLayoutBinding;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
@@ -43,7 +42,7 @@ public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean
     @Override
     protected void onBindItem(ItemWorksLayoutBinding binding, final WorkData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.workName.setText(dataBean.getActive_name());
+            binding.workName.setText(dataBean.getName());
             binding.userName.setText(dataBean.getTourist().getName());
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
@@ -58,7 +57,7 @@ public class WorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.DataBean
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, mList.get(position));
+                        onClickListener.onClick(v, dataBean);
                     }
                 }
             });

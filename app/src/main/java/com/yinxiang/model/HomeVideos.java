@@ -8,7 +8,7 @@ public class HomeVideos implements Serializable {
     /**
      * code : 200
      * msg : 成功
-     * data : {"current_page":1,"data":[{"id":8,"created_at":"2020-06-05T01:53:02.000000Z","updated_at":"2020-06-05T01:53:02.000000Z","is_deleted":2,"tourist_id":3,"tourist_name":"XMhKfU","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4","img":"http://www.udiandou.com/upload/20200603124338y2SST.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":0,"club_name":"","assist_num":0,"comment_num":0,"name":""}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active","per_page":"10","prev_page_url":null,"to":1,"total":1}
+     * data : {"current_page":1,"data":[{"id":9,"created_at":"2020-06-05 10:26:28","updated_at":"2020-06-05 10:26:28","is_deleted":2,"tourist_id":3,"tourist_name":"XMhKfU","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4","img":"http://www.udiandou.com/upload/20200603124338REaoe.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":0,"club_name":"","assist_num":0,"comment_num":0,"name":"","is_person_follow":false,"is_assist":false,"tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}},{"id":11,"created_at":"2020-06-06 15:38:36","updated_at":"2020-06-06 15:38:36","is_deleted":2,"tourist_id":3,"tourist_name":"信用度","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4","img":"http://www.udiandou.com/upload/20200603124338y2SST.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":6,"club_name":"这就是街舞","assist_num":0,"comment_num":0,"name":"","is_person_follow":false,"is_assist":false,"tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}},{"id":12,"created_at":"2020-06-06 17:36:08","updated_at":"2020-06-08 14:06:02","is_deleted":2,"tourist_id":6,"tourist_name":"183用户","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","img":"http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":8,"club_name":"青春有你","assist_num":0,"comment_num":1,"name":"","is_person_follow":false,"is_assist":false,"tourist":{"id":6,"name":"青春有你","avatar":"upload/20200606055631F8mzM.jpg"}}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/active","per_page":"10","prev_page_url":null,"to":3,"total":3}
      */
 
     private int code;
@@ -39,10 +39,10 @@ public class HomeVideos implements Serializable {
         this.data = data;
     }
 
-    public static class DataBeanX implements Serializable{
+    public static class DataBeanX {
         /**
          * current_page : 1
-         * data : [{"id":8,"created_at":"2020-06-05T01:53:02.000000Z","updated_at":"2020-06-05T01:53:02.000000Z","is_deleted":2,"tourist_id":3,"tourist_name":"XMhKfU","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4","img":"http://www.udiandou.com/upload/20200603124338y2SST.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":0,"club_name":"","assist_num":0,"comment_num":0,"name":""}]
+         * data : [{"id":9,"created_at":"2020-06-05 10:26:28","updated_at":"2020-06-05 10:26:28","is_deleted":2,"tourist_id":3,"tourist_name":"XMhKfU","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4","img":"http://www.udiandou.com/upload/20200603124338REaoe.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":0,"club_name":"","assist_num":0,"comment_num":0,"name":"","is_person_follow":false,"is_assist":false,"tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}},{"id":11,"created_at":"2020-06-06 15:38:36","updated_at":"2020-06-06 15:38:36","is_deleted":2,"tourist_id":3,"tourist_name":"信用度","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4","img":"http://www.udiandou.com/upload/20200603124338y2SST.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":6,"club_name":"这就是街舞","assist_num":0,"comment_num":0,"name":"","is_person_follow":false,"is_assist":false,"tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}},{"id":12,"created_at":"2020-06-06 17:36:08","updated_at":"2020-06-08 14:06:02","is_deleted":2,"tourist_id":6,"tourist_name":"183用户","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","img":"http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":8,"club_name":"青春有你","assist_num":0,"comment_num":1,"name":"","is_person_follow":false,"is_assist":false,"tourist":{"id":6,"name":"青春有你","avatar":"upload/20200606055631F8mzM.jpg"}}]
          * first_page_url : http://enjoy.fengyunguoyuan.com/api/homepageVideos/active?page=1
          * from : 1
          * last_page : 1
@@ -51,8 +51,8 @@ public class HomeVideos implements Serializable {
          * path : http://enjoy.fengyunguoyuan.com/api/homepageVideos/active
          * per_page : 10
          * prev_page_url : null
-         * to : 1
-         * total : 1
+         * to : 3
+         * total : 3
          */
 
         private int current_page;
@@ -60,10 +60,10 @@ public class HomeVideos implements Serializable {
         private int from;
         private int last_page;
         private String last_page_url;
-        private String next_page_url;
+        private Object next_page_url;
         private String path;
         private String per_page;
-        private String prev_page_url;
+        private Object prev_page_url;
         private int to;
         private int total;
         private List<DataBean> data;
@@ -108,11 +108,11 @@ public class HomeVideos implements Serializable {
             this.last_page_url = last_page_url;
         }
 
-        public String getNext_page_url() {
+        public Object getNext_page_url() {
             return next_page_url;
         }
 
-        public void setNext_page_url(String next_page_url) {
+        public void setNext_page_url(Object next_page_url) {
             this.next_page_url = next_page_url;
         }
 
@@ -132,11 +132,11 @@ public class HomeVideos implements Serializable {
             this.per_page = per_page;
         }
 
-        public String getPrev_page_url() {
+        public Object getPrev_page_url() {
             return prev_page_url;
         }
 
-        public void setPrev_page_url(String prev_page_url) {
+        public void setPrev_page_url(Object prev_page_url) {
             this.prev_page_url = prev_page_url;
         }
 
@@ -164,18 +164,18 @@ public class HomeVideos implements Serializable {
             this.data = data;
         }
 
-        public static class DataBean implements Serializable{
+        public static class DataBean {
             /**
-             * id : 8
-             * created_at : 2020-06-05T01:53:02.000000Z
-             * updated_at : 2020-06-05T01:53:02.000000Z
+             * id : 9
+             * created_at : 2020-06-05 10:26:28
+             * updated_at : 2020-06-05 10:26:28
              * is_deleted : 2
              * tourist_id : 3
              * tourist_name : XMhKfU
              * active_id : 2
              * active_name : 舞蹈大赛
-             * video : http://api.lgdama.com:10001/storage/video/cf08eebebbba4464abf3d05f9c85dd83.mp4
-             * img : http://www.udiandou.com/upload/20200603124338y2SST.jpg
+             * video : http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4
+             * img : http://www.udiandou.com/upload/20200603124338REaoe.jpg
              * recommend : 2
              * pre_votes : 0
              * final_votes : 0
@@ -185,6 +185,9 @@ public class HomeVideos implements Serializable {
              * assist_num : 0
              * comment_num : 0
              * name :
+             * is_person_follow : false
+             * is_assist : false
+             * tourist : {"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}
              */
 
             private int id;
@@ -206,6 +209,9 @@ public class HomeVideos implements Serializable {
             private int assist_num;
             private int comment_num;
             private String name;
+            private boolean is_person_follow;
+            private boolean is_assist;
+            private TouristBean tourist;
 
             public int getId() {
                 return id;
@@ -357,6 +363,66 @@ public class HomeVideos implements Serializable {
 
             public void setName(String name) {
                 this.name = name;
+            }
+
+            public boolean isIs_person_follow() {
+                return is_person_follow;
+            }
+
+            public void setIs_person_follow(boolean is_person_follow) {
+                this.is_person_follow = is_person_follow;
+            }
+
+            public boolean isIs_assist() {
+                return is_assist;
+            }
+
+            public void setIs_assist(boolean is_assist) {
+                this.is_assist = is_assist;
+            }
+
+            public TouristBean getTourist() {
+                return tourist;
+            }
+
+            public void setTourist(TouristBean tourist) {
+                this.tourist = tourist;
+            }
+
+            public static class TouristBean {
+                /**
+                 * id : 3
+                 * name : 信用度
+                 * avatar : upload/20200606024929Gkda2.jpg
+                 */
+
+                private int id;
+                private String name;
+                private String avatar;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getAvatar() {
+                    return avatar;
+                }
+
+                public void setAvatar(String avatar) {
+                    this.avatar = avatar;
+                }
             }
         }
     }

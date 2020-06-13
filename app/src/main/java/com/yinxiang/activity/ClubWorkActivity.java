@@ -1,5 +1,6 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -40,7 +41,12 @@ public class ClubWorkActivity extends BaseActivity implements View.OnClickListen
         workAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                openActivity(WorkDetailActivity.class);
+                if (object instanceof ClubWorkData.DataBean) {
+                    ClubWorkData.DataBean dataBean = (ClubWorkData.DataBean) object;
+                    Intent intent = new Intent(ClubWorkActivity.this, WorkDetailActivity.class);
+                    intent.putExtra("workId", dataBean.getId());
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -82,7 +88,7 @@ public class ClubWorkActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onResponse(ClubWorkData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                if (response.getCode() == 200 && response.getData() != null ) {
+                if (response.getCode() == 200 && response.getData() != null) {
                     workAdapter.refreshData(response.getData());
                 } else {
                     ToastUtils.showShort(ClubWorkActivity.this, response.getMsg());

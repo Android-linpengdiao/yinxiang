@@ -83,7 +83,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:text="舞蹈大赛Jazz参赛作品编舞系列作品之一"
+                            android:text=""
                             android:textColor="#ff333333"
                             android:textSize="14sp" />
 
@@ -106,7 +106,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="6dp"
                                 android:layout_weight="1"
-                                android:text="爵士舞神"
+                                android:text=""
                                 android:textColor="#ff666666"
                                 android:textSize="13sp" />
 
@@ -114,7 +114,7 @@
                                 android:id="@+id/tv_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="115天前"
+                                android:text=""
                                 android:textColor="#ffb3b3b3"
                                 android:textSize="13sp" />
                         </LinearLayout>

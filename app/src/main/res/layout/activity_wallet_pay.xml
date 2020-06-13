@@ -61,41 +61,57 @@
             android:textColor="#ff333333"
             android:textSize="16sp" />
 
-        <TextView
+        <RadioGroup
+            android:id="@+id/radio_group_view"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginLeft="@dimen/padding"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/padding"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/wchat"
-            android:drawableRight="@drawable/checkbox_blue"
-            android:drawablePadding="10dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/padding"
-            android:paddingRight="@dimen/padding"
-            android:text="微信支付"
-            android:textColor="#ff333333"
-            android:textSize="16sp" />
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_button_wchat"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="@dimen/padding"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/padding"
+                android:button="@null"
+                android:checked="true"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/wchat"
+                android:drawableRight="@drawable/checkbox_blue"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:text="微信支付"
+                android:textColor="#ff333333"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radio_button_alipay"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="@dimen/padding"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/padding"
+                android:background="@color/white"
+                android:button="@null"
+                android:drawableLeft="@drawable/alipay"
+                android:drawableRight="@drawable/checkbox_blue"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:text="支付宝支付"
+                android:textColor="#ff333333"
+                android:textSize="16sp" />
+
+
+        </RadioGroup>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginLeft="@dimen/padding"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/padding"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/alipay"
-            android:drawableRight="@drawable/checkbox_blue"
-            android:drawablePadding="10dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/padding"
-            android:paddingRight="@dimen/padding"
-            android:text="支付宝支付"
-            android:textColor="#ff333333"
-            android:textSize="16sp" />
-
-        <TextView
+            android:id="@+id/tv_confirm"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="@dimen/padding"

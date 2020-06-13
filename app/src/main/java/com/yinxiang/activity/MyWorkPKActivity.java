@@ -1,5 +1,6 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +18,7 @@ import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivityMyWorkBinding;
 import com.yinxiang.databinding.ActivityMyWorkPkBinding;
 import com.yinxiang.databinding.ActivitySelectionWorkPkBinding;
+import com.yinxiang.model.ClubWorkData;
 import com.yinxiang.model.WorkPKData;
 import com.yinxiang.model.WorkRelayData;
 import com.yinxiang.view.OnClickListener;
@@ -41,7 +43,12 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                openActivity(WorkDetailActivity.class);
+                if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                    WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                    Intent intent = new Intent(MyWorkPKActivity.this, WorkDetailActivity.class);
+                    intent.putExtra("workId", dataBean.getId());
+                    startActivity(intent);
+                }
             }
 
             @Override

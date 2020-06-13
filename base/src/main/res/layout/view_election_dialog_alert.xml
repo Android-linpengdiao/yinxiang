@@ -65,9 +65,10 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/my_wallet_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="账户余额：100金币"
+                android:text="账户余额：0金币"
                 android:textColor="#ff999999"
                 android:textSize="14sp" />
 

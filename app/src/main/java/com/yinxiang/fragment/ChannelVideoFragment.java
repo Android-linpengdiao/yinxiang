@@ -145,7 +145,7 @@ public class ChannelVideoFragment extends BaseFragment {
                         ToastUtils.showShort(getActivity(), "以为TA投一票");
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付10金币为TA投三票?", new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付10金币为TA投三票?",String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {

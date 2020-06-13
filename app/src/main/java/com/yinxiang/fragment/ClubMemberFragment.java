@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.activity.ClubDetailActivity;
 import com.yinxiang.activity.WorkDetailActivity;
@@ -19,8 +23,11 @@ import com.yinxiang.adapter.MemberAdapter;
 import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.FragmentClubMenberBinding;
 import com.yinxiang.databinding.FragmentClubWorkBinding;
+import com.yinxiang.model.ClubMember;
 import com.yinxiang.view.GridItemDecoration;
 import com.yinxiang.view.OnClickListener;
+
+import okhttp3.Call;
 
 public class ClubMemberFragment extends BaseFragment {
 
@@ -31,6 +38,7 @@ public class ClubMemberFragment extends BaseFragment {
     private int cid;
 
     private OnFragmentInteractionListener mListener;
+    private MemberAdapter adapter;
 
     public ClubMemberFragment() {
 
@@ -58,9 +66,9 @@ public class ClubMemberFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_club_menber, container, false);
 
-        MemberAdapter adapter = new MemberAdapter(getActivity());
+        adapter = new MemberAdapter(getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         binding.recyclerView.setLayoutManager(layoutManager);
         binding.recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(new OnClickListener() {
@@ -74,9 +82,28 @@ public class ClubMemberFragment extends BaseFragment {
 
             }
         });
-        adapter.refreshData(CommonUtil.getImageListString());
 
+        channelClubMember();
         return binding.getRoot();
+    }
+
+    private void channelClubMember() {
+        SendRequest.channelClubMember(cid, 10, new GenericsCallback<ClubMember>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(ClubMember response, int id) {
+                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    adapter.refreshData(response.getData().getData());
+                } else {
+                    ToastUtils.showShort(getActivity(), response.getMsg());
+                }
+            }
+
+        });
     }
 
     public void onButtonPressed(Uri uri) {

@@ -1,6 +1,7 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
@@ -75,7 +76,12 @@ public class ClubWorkFragment extends BaseFragment {
         workAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                openActivity(WorkDetailActivity.class);
+                if (object instanceof ClubWorkData.DataBean) {
+                    ClubWorkData.DataBean dataBean = (ClubWorkData.DataBean) object;
+                    Intent intent = new Intent(getActivity(), WorkDetailActivity.class);
+                    intent.putExtra("workId", dataBean.getId());
+                    startActivity(intent);
+                }
             }
 
             @Override

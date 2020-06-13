@@ -25,11 +25,12 @@
             android:src="@drawable/circle_gray" />
 
         <TextView
+            android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/padding"
             android:singleLine="true"
-            android:text="舞林至尊Tina"
+            android:text=""
             android:textColor="#ff323232"
             android:textSize="15sp" />
 

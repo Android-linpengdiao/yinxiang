@@ -30,6 +30,7 @@ import com.yinxiang.fragment.HomeContestFragment;
 import com.yinxiang.fragment.HomeHonorFragment;
 import com.yinxiang.fragment.HomeVideoFragment;
 import com.yinxiang.model.ClubData;
+import com.yinxiang.model.ClubMember;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
 
@@ -44,6 +45,7 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
     private ActivityClubDetailBinding binding;
     private static final int REQUEST_DESC = 100;
     private ClubData.DataBean dataBean;
+    private MemberAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +95,7 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
         binding.clubCreateView.setVisibility(View.VISIBLE);
         binding.tvConfirm.setText("解散该社团");
         binding.tvConfirm.setBackground(getResources().getDrawable(R.drawable.button_radius_red));
-        MemberAdapter adapter = new MemberAdapter(this);
+        adapter = new MemberAdapter(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         binding.recyclerView.setLayoutManager(layoutManager);
@@ -109,8 +111,6 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
 
             }
         });
-        adapter.refreshData(CommonUtil.getImageListString());
-
         channelClubMember();
     }
 
@@ -145,7 +145,7 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
                     startActivity(intent);
                 } else {
                     if (dataBean.getJoin() == 1) {
-                        DialogManager.showPayDialog(ClubDetailActivity.this, "街舞艺术交流群·入团交费", "确认支付" + dataBean.getJoin_token() + "金币加入该社团?", new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(ClubDetailActivity.this, "街舞艺术交流群·入团交费", "确认支付" + dataBean.getJoin_token() + "金币加入该社团?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
@@ -218,16 +218,16 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void channelClubMember() {
-        SendRequest.channelClubMember(dataBean.getId(), 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+        SendRequest.channelClubMember(dataBean.getId(), 10, new GenericsCallback<ClubMember>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
 
             }
 
             @Override
-            public void onResponse(WorkData response, int id) {
+            public void onResponse(ClubMember response, int id) {
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-//                    adapter.refreshData(response.getData().getData());
+                    adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(ClubDetailActivity.this, response.getMsg());
                 }

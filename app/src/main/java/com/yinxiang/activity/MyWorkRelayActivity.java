@@ -1,5 +1,6 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.WorkRelayAdapter;
 import com.yinxiang.databinding.ActivityMyWorkRelayBinding;
+import com.yinxiang.model.ClubWorkData;
 import com.yinxiang.model.WorkRelayData;
 import com.yinxiang.view.OnClickListener;
 
@@ -36,15 +38,15 @@ public class MyWorkRelayActivity extends BaseActivity implements View.OnClickLis
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                Bundle bundle = new Bundle();
+                Intent intent = new Intent(MyWorkRelayActivity.this, WorkDetailActivity.class);
                 if (object instanceof WorkRelayData.DataBeanX.DataBean.FollowerBean) {
                     WorkRelayData.DataBeanX.DataBean.FollowerBean followerBean = (WorkRelayData.DataBeanX.DataBean.FollowerBean) object;
-                    bundle.putInt("workId", followerBean.getId());
+                    intent.putExtra("workId", followerBean.getId());
                 } else if (object instanceof WorkRelayData.DataBeanX.DataBean.FollowableBean) {
                     WorkRelayData.DataBeanX.DataBean.FollowableBean followableBean = (WorkRelayData.DataBeanX.DataBean.FollowableBean) object;
-                    bundle.putInt("workId", followableBean.getId());
+                    intent.putExtra("workId", followableBean.getId());
                 }
-                openActivity(WorkDetailActivity.class, bundle);
+                startActivity(intent);
             }
 
             @Override

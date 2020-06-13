@@ -16,14 +16,17 @@ import com.alivc.player.MediaPlayer;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityWorkDetailBinding;
 import com.yinxiang.model.CommentData;
+import com.yinxiang.model.WorksDetail;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.OnClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import okhttp3.Call;
 
 public class WorkDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -39,16 +42,15 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding.ivLike.setOnClickListener(this);
         binding.ivShare.setOnClickListener(this);
         binding.userInfoView.setOnClickListener(this);
-        initView();
-        playVideo();
+        initData();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        initView();
-        playVideo();
+        initData();
+
     }
 
     @Override
@@ -82,6 +84,26 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    private void initData() {
+        if (getIntent().hasExtra("workId")) {
+            SendRequest.worksDetail(getIntent().getIntExtra("workId", 0), new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+
+                }
+
+                @Override
+                public void onResponse(WorksDetail response, int id) {
+                    if (response != null && response.getCode() == 200){
+                        initView(response);
+                    }
+                }
+            });
+        } else {
+            finish();
+        }
+    }
+
     private void CommentView() {
         CommentListPopupWindow commentListPopupWindow = new CommentListPopupWindow(WorkDetailActivity.this);
         commentListPopupWindow.setOnClickListener(new OnClickListener() {
@@ -102,7 +124,6 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onResume() {
-//        playVideo();
         super.onResume();
     }
 
@@ -121,8 +142,9 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         super.onDestroy();
     }
 
-    private void initView() {
-        GlideLoader.LoderVideoImage(this, CommonUtil.getVideoCoverListString().get(0), binding.thumbnails);
+    private void initView(WorksDetail response) {
+        binding.userName.setText(response.getData().getName());
+        GlideLoader.LoderVideoImage(this,response.getData().getImg(), binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -146,6 +168,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 }
             }
         });
+
+        playVideo(response.getData().getVideo());
     }
 
     private void showVideoProgressInfo() {
@@ -175,10 +199,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
             showVideoProgressInfo();
         }
     };
-    //    String url1 = "http://api.lgdama.com:10001/storage/video/db236d54a02442ae9ba0d8c4911dba17.mp4";
-    String url1 = CommonUtil.getVideoListString().get(0);
 
-    private void playVideo() {
+    private void playVideo(String videoUrl) {
         binding.surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
                 holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
@@ -264,7 +286,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         if (mPlayer != null) {
             mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         }
-        mPlayer.prepareToPlay(url1);
+        mPlayer.prepareToPlay(videoUrl);
         binding.loading.setVisibility(View.VISIBLE);
 
     }
@@ -275,9 +297,9 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
     private AliVcMediaPlayer mPlayer;
 
     private void start() {
-        if (mPlayer != null) {
-            mPlayer.prepareToPlay(url1);
-        }
+//        if (mPlayer != null) {
+//            mPlayer.prepareToPlay();
+//        }
     }
 
     private void pause() {

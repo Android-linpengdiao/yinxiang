@@ -6,218 +6,223 @@
 
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:overScrollMode="never">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/friend_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding"
-                android:paddingTop="13dp"
-                android:paddingRight="@dimen/padding"
-                android:paddingBottom="10dp">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_friend_more"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/more"/>
-
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/friend_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="我的好友"
-                    android:textStyle="bold"
-                    android:textColor="#ff333333"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="13dp"
+                    android:paddingRight="@dimen/padding"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_friend_more"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/more"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="我的好友"
+                        android:textStyle="bold"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
 
 
-                <TextView
-                    android:id="@+id/friend_number"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/friend_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#ff999999"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/friend_recyclerView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="#ff999999"
-                    android:textSize="16sp" />
-
+                    android:visibility="gone" />
 
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/friend_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/fans_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding"
-                android:paddingTop="13dp"
-                android:paddingRight="@dimen/padding"
-                android:paddingBottom="10dp">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_fans_more"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/more"/>
-
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/fans_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="我的粉丝"
-                    android:textStyle="bold"
-                    android:textColor="#ff333333"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="13dp"
+                    android:paddingRight="@dimen/padding"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_fans_more"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/more"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="我的粉丝"
+                        android:textStyle="bold"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
 
 
-                <TextView
-                    android:id="@+id/fans_number"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/fans_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#ff999999"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fans_recyclerView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="#ff999999"
-                    android:textSize="16sp" />
-
+                    android:visibility="gone" />
 
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/fans_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/follow_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding"
-                android:paddingTop="13dp"
-                android:paddingRight="@dimen/padding"
-                android:paddingBottom="10dp">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_follow_more"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/more"/>
-
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/follow_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="我的关注"
-                    android:textStyle="bold"
-                    android:textColor="#ff333333"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="13dp"
+                    android:paddingRight="@dimen/padding"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_follow_more"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/more"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="我的关注"
+                        android:textStyle="bold"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
 
 
-                <TextView
-                    android:id="@+id/follow_number"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/follow_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#ff999999"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/follow_recyclerView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="#ff999999"
-                    android:textSize="16sp" />
-
+                    android:visibility="gone" />
 
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/follow_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/club_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding"
-                android:paddingTop="13dp"
-                android:paddingRight="@dimen/padding"
-                android:paddingBottom="10dp">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_club_more"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/more"/>
-
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/club_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="我的社团"
-                    android:textStyle="bold"
-                    android:textColor="#ff333333"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="13dp"
+                    android:paddingRight="@dimen/padding"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_club_more"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/more"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="我的社团"
+                        android:textStyle="bold"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
 
 
-                <TextView
-                    android:id="@+id/club_number"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/club_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#ff999999"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/club__recyclerView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="#ff999999"
-                    android:textSize="16sp" />
-
+                    android:visibility="gone" />
 
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/club__recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 </layout>

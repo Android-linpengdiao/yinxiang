@@ -424,7 +424,6 @@ public class SendRequest {
     /**
      * 首页-视频-竞技PK
      *
-     * @param tourist_id
      * @param active_id
      * @param perPage
      * @param call
@@ -552,7 +551,7 @@ public class SendRequest {
      * 好友-消息-同意加群/拒绝加群
      *
      * @param club_message_id
-     * @param status     状态 1同意/2拒绝
+     * @param status          状态 1同意/2拒绝
      * @param call
      */
     public static void friendClubAction(int club_message_id, int status, Callback call) {
@@ -808,6 +807,19 @@ public class SendRequest {
     }
 
     /**
+     * 我的-我的作品详情
+     *
+     * @param video_id
+     * @param call
+     */
+    public static void worksDetail(int video_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("video_id", String.valueOf(video_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.worksDetail).build().execute(call);
+
+    }
+
+    /**
      * 我的-用户资料
      *
      * @param tourist_id
@@ -936,11 +948,12 @@ public class SendRequest {
      * @param wallet_token 钱包充值兑换的平台币数量
      * @param call
      */
-    public static void cashPay(int tourist_id, int money, int type, int purpose, int wallet_token, Callback call) {
+    public static void cashPay(int tourist_id, int money, String type, String purpose, int wallet_token, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("money", String.valueOf(money));
-        map.put("type", String.valueOf(type));
+        map.put("type", type);
+        map.put("purpose", purpose);
         map.put("wallet_token", String.valueOf(wallet_token));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashPay).build().execute(call);
 
@@ -989,15 +1002,17 @@ public class SendRequest {
      * 发布视频
      *
      * @param tourist_id
+     * @param name       视频描述
      * @param coverUrl   视频封面
      * @param videoUrl   视频连接
      * @param active_id  活动id 默认值0
      * @param club_id    社团id 默认值0
      */
 
-    public static void publishWork(int tourist_id, String coverUrl, String videoUrl, int active_id, int club_id, Callback call) {
+    public static void publishWork(int tourist_id, String name, String coverUrl, String videoUrl, int active_id, int club_id, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("name", name);
         map.put("img", coverUrl);
         map.put("video", videoUrl);
         map.put("active_id", String.valueOf(active_id));

@@ -31,8 +31,6 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
         binding.back.setOnClickListener(this);
         binding.walletPay.setOnClickListener(this);
 
-        binding.coin.setText(String.valueOf(getUserInfo().getData().getWallet_token()));
-
         adapter = new WalletAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
@@ -49,11 +47,12 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        binding.swipeRefreshLayout.setRefreshing(true);
         initData();
     }
 
     private void initData() {
+        binding.coin.setText(String.valueOf(getUserInfo().getData().getWallet_token()));
+        binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.personWalletRecord(getUserInfo().getData().getId(), 10, new GenericsCallback<WalletRecordData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

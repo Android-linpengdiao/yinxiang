@@ -349,7 +349,12 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void publishWork(String coverUrl, String videoUrl, int active_id, int club_id) {
-        SendRequest.publishWork(getUserInfo().getData().getId(), coverUrl, videoUrl, active_id, club_id, new StringCallback() {
+        String name = binding.etName.getText().toString().trim();
+        if (CommonUtil.isBlank(name)){
+            ToastUtils.showShort(ReleaseActivity.this, "请描述一下你的视频");
+            return;
+        }
+        SendRequest.publishWork(getUserInfo().getData().getId(),name, coverUrl, videoUrl, active_id, club_id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtils.showShort(ReleaseActivity.this, "发布失败");

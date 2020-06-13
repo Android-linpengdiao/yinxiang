@@ -1,5 +1,6 @@
 package com.yinxiang.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
@@ -39,7 +40,12 @@ public class MyWorkActivity extends BaseActivity implements View.OnClickListener
         workAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                openActivity(WorkDetailActivity.class);
+                if (object instanceof WorkData.DataBeanX.DataBean){
+                    WorkData.DataBeanX.DataBean dataBean = (WorkData.DataBeanX.DataBean) object;
+                    Intent intent = new Intent(MyWorkActivity.this,WorkDetailActivity.class);
+                    intent.putExtra("workId",dataBean.getId());
+                    startActivity(intent);
+                }
             }
 
             @Override
