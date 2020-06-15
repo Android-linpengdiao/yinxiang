@@ -60,6 +60,8 @@ public class APIUrls {
     public final static String url_homePageVideosVoteSet = url_domain + "api/homepageVideos/voteSet";
     //首页-视频-投票
     public final static String url_homePageVideosVote = url_domain + "api/homepageVideos/vote";
+    //首页-视频-PK投票
+    public final static String url_homePageVideosPKVote = url_domain + "api/homepageVideos/pkVote";
 
     //首页-视频-竞技PK
     public final static String url_homePageVideosPK = url_domain + "api/homepageVideos/pk";

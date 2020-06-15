@@ -29,6 +29,7 @@ import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityCreateClubBinding;
+import com.yinxiang.model.ClubData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +72,8 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
         binding.etPhone.setOnClickListener(this);
         binding.etCode.setOnClickListener(this);
         binding.tvConfirm.setOnClickListener(this);
+
+        initData(2);
     }
 
     @Override
@@ -134,7 +137,7 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
                     return;
                 }
 
-                initData(name, logo, license, idcard_front, idcard_back, phone, authCode, desc);
+                channelCreateClub(name, logo, license, idcard_front, idcard_back, phone, authCode, desc);
                 break;
             case R.id.back:
                 finish();
@@ -142,7 +145,39 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    private void initData(String name, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc) {
+    private void initView(int status, ClubData.DataBean dataBean) {
+        binding.etClubName.setText(dataBean.getName());
+        GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getLogo(), binding.ivClubLogo, 8);
+        GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getLicense(), binding.ivLicense, 8);
+        GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getIdcard_front(), binding.ivIdcardFront, 8);
+        GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getIdcard_back(), binding.ivIdcardBack, 8);
+
+    }
+
+    private void initData(final int status) {
+        SendRequest.channelClub(getUserInfo().getData().getId(), status, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(ClubData response, int id) {
+                if (response != null && response.getCode() == 200 && response.getData() != null) {
+                    if (response.getData().size() > 0) {
+                        initView(status, response.getData().get(0));
+                    } else {
+                        if (status == 2) {
+                            initData(3);
+                        }
+                    }
+                }
+            }
+
+        });
+    }
+
+    private void channelCreateClub(String name, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc) {
         SendRequest.channelCreateClub(getUserInfo().getData().getId(), name, logo, license, idcard_front, idcard_back, phone, authCode, desc, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -168,7 +203,6 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
             }
         });
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

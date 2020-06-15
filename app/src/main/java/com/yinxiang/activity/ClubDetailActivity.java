@@ -228,6 +228,7 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
             public void onResponse(ClubMember response, int id) {
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
                     adapter.refreshData(response.getData().getData());
+                    binding.clubMemberNum.setText("共" + response.getData().getData().size() + "人");
                 } else {
                     ToastUtils.showShort(ClubDetailActivity.this, response.getMsg());
                 }

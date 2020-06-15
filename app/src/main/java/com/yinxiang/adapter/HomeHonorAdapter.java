@@ -31,30 +31,32 @@ public class HomeHonorAdapter extends BaseRecyclerAdapter<HonourData.DataBeanX.D
     @Override
     protected void onBindItem(final ItemHomeHonorLayoutBinding binding, final HonourData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-//            GlideLoader.LoderCircleImage(mContext, dataBean, binding.userIcon);
-            binding.tvRank.setText("");
-            if (position == 0){
+            binding.tvTitle.setText(dataBean.getTourist_name());
+            binding.tvVotes.setText(String.valueOf(dataBean.getRematch_votes()));
+            binding.tvLevel.setText("Lv."+dataBean.getPre_votes());
+            GlideLoader.LoderLoadImage(mContext, dataBean.getImg(), binding.cover,100);
+            if (position == 0) {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num01));
-            }else if (position == 1){
+            } else if (position == 1) {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num02));
-            }else if (position == 2){
+            } else if (position == 2) {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num03));
-            }else {
+            } else {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.transparent));
-                binding.tvRank.setText("No."+(position+1));
+                binding.tvRank.setText("No." + (position + 1));
             }
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     binding.tvFollow.setSelected(!binding.tvFollow.isSelected());
-                    binding.tvFollow.setText(binding.tvFollow.isSelected()?"已关注":"关注");
+                    binding.tvFollow.setText(binding.tvFollow.isSelected() ? "已关注" : "关注");
                 }
             });
             binding.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-                    intent.putExtra("uid", dataBean.getId());
+                    intent.putExtra("uid", dataBean.getTourist_id());
                     mContext.startActivity(intent);
                 }
             });

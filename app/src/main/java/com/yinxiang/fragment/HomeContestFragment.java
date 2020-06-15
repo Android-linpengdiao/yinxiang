@@ -8,8 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +17,12 @@ import android.widget.RelativeLayout;
 import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
-import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
-import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.activity.MyWalletActivity;
-import com.yinxiang.activity.MyWorkPKActivity;
 import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.adapter.HomeContestAdapter;
 import com.yinxiang.databinding.FragmentHomeContestBinding;
@@ -111,8 +106,16 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                         }
                         break;
                     case R.id.work_vote:
+                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            homePageVideosVoteSet(dataBean.getContent_id(),dataBean.getCompare_content_id(),1);
+                        }
+                        break;
                     case R.id.compare_work_vote:
-                        homePageVideosVoteSet((int) object);
+                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            homePageVideosVoteSet(dataBean.getContent_id(),dataBean.getCompare_content_id(),2);
+                        }
                         break;
                 }
 
@@ -180,7 +183,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void homePageVideosVoteSet(final int workId) {
+    private void homePageVideosVoteSet(final int workId, final int compareId, final int self) {
         SendRequest.homePageVideosVoteSet(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -193,7 +196,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"));
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"),compareId,self);
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
                         }
@@ -205,8 +208,8 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void homePageVideosVote(int videoId, int free) {
-        SendRequest.homePageVideosVote(getUserInfo().getData().getId(), videoId, free, new StringCallback() {
+    private void homePageVideosPKVote(int videoId, int free,int compareId,int self) {
+        SendRequest.homePageVideosPKVote(getUserInfo().getData().getId(), videoId, free,compareId,self, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -234,14 +237,14 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void Election(final int id, final String wallet_token) {
+    private void Election(final int id, final String wallet_token, final int compareId, final int self) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
                 switch (view.getId()) {
                     case R.id.tv_election:
-                        homePageVideosVote(id, 1);
+                        homePageVideosPKVote(id, 1,compareId,self);
                         break;
                     case R.id.tv_election_coin:
                         DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
@@ -249,7 +252,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
                                     case R.id.tv_confirm:
-                                        homePageVideosVote(id, 2);
+                                        homePageVideosPKVote(id, 2,compareId,self);
                                         break;
                                     case R.id.tv_cancel:
 

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
@@ -16,10 +17,12 @@ import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.okhttp.utils.APIUrls;
+import com.yinxiang.MyApplication;
 import com.yinxiang.R;
 import com.yinxiang.adapter.UserHomeWorkAdapter;
 import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivityUserHomeBinding;
+import com.yinxiang.model.HomeVideos;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.GridItemDecoration;
 
@@ -33,7 +36,6 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
     private ActivityUserHomeBinding binding;
     private UserHomeWorkAdapter adapter;
     private int uid;
-    private boolean isFollow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,11 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_home);
 
         uid = getIntent().getIntExtra("uid", 0);
-        isFollow = getIntent().getBooleanExtra("isFollow", false);
         binding.back.setOnClickListener(this);
+        binding.tvIsFollow.setOnClickListener(this);
 
         adapter = new UserHomeWorkAdapter(this);
+        binding.recyclerView.setNestedScrollingEnabled(false);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         GridItemDecoration.Builder builder = new GridItemDecoration.Builder(this);
         builder.color(R.color.transparent);
@@ -52,13 +55,6 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.recyclerView.addItemDecoration(new GridItemDecoration(builder));
         binding.recyclerView.setAdapter(adapter);
 
-        binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                centerSelfWork();
-            }
-        });
         initData();
 
     }
@@ -77,8 +73,13 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
             }
 
         });
+        homePagePersonIsFollow();
+        centerSelfWork();
 
-        SendRequest.isFollow(getUserInfo().getData().getId(), uid, new StringCallback() {
+    }
+
+    private void homePagePersonIsFollow() {
+        SendRequest.homePagePersonIsFollow(MyApplication.getInstance().getUserInfo().getData().getId(), uid, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -89,35 +90,62 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 try {
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.optInt("code") == 200
-                                && !CommonUtil.isBlank(jsonObject.optJSONObject("data"))
-                                && !CommonUtil.isBlank(jsonObject.optJSONObject("data").optString("id"))) {
+                        if (jsonObject.optInt("code") == 200 &&
+                                !CommonUtil.isBlank(jsonObject.optJSONObject("data").optString("id"))) {
                             binding.tvIsFollow.setSelected(!binding.tvIsFollow.isSelected());
                             binding.tvIsFollow.setText(binding.tvIsFollow.isSelected() ? "已关注" : "关注");
-                        } else {
-
                         }
+                    } else {
+                        ToastUtils.showShort(UserHomeActivity.this, "请求失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    ToastUtils.showShort(UserHomeActivity.this, "请求失败");
                 }
+
             }
         });
-        centerSelfWork();
-
     }
 
-    private void centerSelfWork(){
-        binding.swipeRefreshLayout.setRefreshing(true);
+    private void homePagePersonFollow() {
+        String url = binding.tvIsFollow.isSelected() ? APIUrls.url_homePagePersonUnFollow : APIUrls.url_homePagePersonFollow;
+        SendRequest.homePagePersonFollow(MyApplication.getInstance().getUserInfo().getData().getId(), uid, url, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            binding.tvIsFollow.setSelected(!binding.tvIsFollow.isSelected());
+                            binding.tvIsFollow.setText(binding.tvIsFollow.isSelected() ? "已关注" : "关注");
+                        } else {
+                            ToastUtils.showShort(UserHomeActivity.this, jsonObject.optString("msg"));
+                        }
+                    } else {
+                        ToastUtils.showShort(UserHomeActivity.this, "请求失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(UserHomeActivity.this, "请求失败");
+                }
+
+            }
+        });
+    }
+
+    private void centerSelfWork() {
         SendRequest.personInformWorks(uid, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
-                binding.swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onResponse(WorkData response, int id) {
-                binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
                     adapter.refreshData(response.getData().getData());
                 } else {
@@ -143,9 +171,6 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.followNumber.setText(String.valueOf(userInfo.getData().getFollow_number()));
         GlideLoader.LoderCircleImage(UserHomeActivity.this, userInfo.getData().getAvatar(), binding.userIcon);
 
-        binding.tvIsFollow.setSelected(isFollow);
-        binding.tvIsFollow.setText(isFollow ? "已关注" : "关注");
-
     }
 
     @Override
@@ -155,40 +180,9 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.tv_is_follow:
-                if (CommonUtil.isBlank(uid)) {
-                    return;
+                if (!CommonUtil.isBlank(uid)) {
+                    homePagePersonFollow();
                 }
-                String url = binding.tvIsFollow.isSelected() ? APIUrls.url_centerUnFollow : APIUrls.url_centerFollow;
-                SendRequest.centerFollow(getUserInfo().getData().getId(), uid, url, new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        ToastUtils.showShort(UserHomeActivity.this, e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        try {
-                            if (!CommonUtil.isBlank(response)) {
-                                JSONObject jsonObject = new JSONObject(response);
-                                if (jsonObject.optInt("code") == 200) {
-                                    binding.tvIsFollow.setSelected(!binding.tvIsFollow.isSelected());
-                                    binding.tvIsFollow.setText(binding.tvIsFollow.isSelected() ? "已关注" : "关注");
-                                    if (binding.tvIsFollow.isSelected()) {
-                                        ToastUtils.showShort(UserHomeActivity.this, "已关注");
-                                    }
-                                } else {
-                                    ToastUtils.showShort(UserHomeActivity.this, jsonObject.optString("msg"));
-                                }
-                            } else {
-                                ToastUtils.showShort(UserHomeActivity.this, "请求失败");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            ToastUtils.showShort(UserHomeActivity.this, "请求失败");
-                        }
-
-                    }
-                });
                 break;
         }
     }

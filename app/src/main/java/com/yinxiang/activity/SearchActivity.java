@@ -1,6 +1,7 @@
 package com.yinxiang.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,6 +56,22 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         searchResultAdapter = new WorkAdapter(this);
         binding.searchResultRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.searchResultRecyclerView.setAdapter(searchResultAdapter);
+        searchResultAdapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                if (object instanceof WorkData.DataBeanX.DataBean) {
+                    WorkData.DataBeanX.DataBean dataBean = (WorkData.DataBeanX.DataBean) object;
+                    Intent intent = new Intent(SearchActivity.this, WorkDetailActivity.class);
+                    intent.putExtra("workId", dataBean.getId());
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
 
         searchHistoryAdapter.setOnClickListener(new OnClickListener() {
             @Override
@@ -118,7 +135,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void searchWork(String content) {
-        SendRequest.homePageVideosSearch(2,content,10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+        SendRequest.homePageVideosSearch(2, content, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
             }

@@ -56,7 +56,7 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<WorkPKData.DataBeanX
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, dataBean.getContent_id());
+                        onClickListener.onClick(v, dataBean);
                     }
                 }
             });
@@ -64,7 +64,7 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<WorkPKData.DataBeanX
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, dataBean.getCompare_content_id());
+                        onClickListener.onClick(v, dataBean);
                     }
                 }
             });

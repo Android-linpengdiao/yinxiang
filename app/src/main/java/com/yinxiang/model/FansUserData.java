@@ -7,7 +7,7 @@ public class FansUserData {
     /**
      * code : 200
      * msg : 成功
-     * data : {"current_page":1,"data":[{"id":3,"name":"信用度","phone":"13521614827","avatar":"upload/20200605033007B4Zn5.jpg","password":"$2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q","remember_token":null,"created_at":"2020-05-30T04:08:57.000000Z","updated_at":"2020-06-05T07:30:07.000000Z","tourist_id":"52185256","sex":2,"cancel":1,"reg":"","desc":"这个可以有","addr":"北京市 海淀区","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":0,"follow_number":0,"level":1,"age":0,"pivot":{"likeable_id":3,"liker_id":3,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T07:49:02.000000Z","updated_at":"2020-06-05T07:49:02.000000Z"}},{"id":6,"name":"oH0yyT","phone":"18303032844","avatar":"users/default.png","password":"$2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC","remember_token":null,"created_at":"2020-06-05T08:02:31.000000Z","updated_at":"2020-06-05T08:02:31.000000Z","tourist_id":"27915679","sex":1,"cancel":1,"reg":"","desc":"","addr":"","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":0,"follow_number":0,"level":1,"age":0,"pivot":{"likeable_id":3,"liker_id":6,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/personInform/fans?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/personInform/fans?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/personInform/fans","per_page":"10","prev_page_url":null,"to":2,"total":2}
+     * data : {"current_page":1,"data":[{"id":6,"name":"青春有你","phone":"18303032844","avatar":"upload/20200606055631F8mzM.jpg","password":"$2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC","remember_token":null,"created_at":"2020-06-05 16:02:31","updated_at":"2020-06-14 09:51:04","tourist_id":"27915679","sex":2,"cancel":1,"reg":"","desc":"","addr":"","like_notice":1,"comment_notice":2,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":6,"follow_number":0,"level":1,"age":0,"is_person_follow":false,"pivot":{"likeable_id":3,"liker_id":6,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}},{"id":3,"name":"信用度","phone":"13521614827","avatar":"upload/20200606024929Gkda2.jpg","password":"$2y$10$CGTViSVDrLGfX1NsOhiHSeLhXdZxdidRYCd3U/b1c3U78y31EBjt6","remember_token":null,"created_at":"2020-05-30 12:08:57","updated_at":"2020-06-14 09:51:04","tourist_id":"52185256","sex":1,"cancel":1,"reg":"","desc":"这个可以有","addr":"北京市 海淀区","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":17,"follow_number":23,"level":1,"age":0,"is_person_follow":false,"pivot":{"likeable_id":3,"liker_id":3,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-14T01:48:01.000000Z","updated_at":"2020-06-14T01:48:01.000000Z"}}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/personInform/fans?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/personInform/fans?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/personInform/fans","per_page":"10","prev_page_url":null,"to":2,"total":2}
      */
 
     private int code;
@@ -41,7 +41,7 @@ public class FansUserData {
     public static class DataBeanX {
         /**
          * current_page : 1
-         * data : [{"id":3,"name":"信用度","phone":"13521614827","avatar":"upload/20200605033007B4Zn5.jpg","password":"$2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q","remember_token":null,"created_at":"2020-05-30T04:08:57.000000Z","updated_at":"2020-06-05T07:30:07.000000Z","tourist_id":"52185256","sex":2,"cancel":1,"reg":"","desc":"这个可以有","addr":"北京市 海淀区","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":0,"follow_number":0,"level":1,"age":0,"pivot":{"likeable_id":3,"liker_id":3,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T07:49:02.000000Z","updated_at":"2020-06-05T07:49:02.000000Z"}},{"id":6,"name":"oH0yyT","phone":"18303032844","avatar":"users/default.png","password":"$2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC","remember_token":null,"created_at":"2020-06-05T08:02:31.000000Z","updated_at":"2020-06-05T08:02:31.000000Z","tourist_id":"27915679","sex":1,"cancel":1,"reg":"","desc":"","addr":"","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":0,"follow_number":0,"level":1,"age":0,"pivot":{"likeable_id":3,"liker_id":6,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}}]
+         * data : [{"id":6,"name":"青春有你","phone":"18303032844","avatar":"upload/20200606055631F8mzM.jpg","password":"$2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC","remember_token":null,"created_at":"2020-06-05 16:02:31","updated_at":"2020-06-14 09:51:04","tourist_id":"27915679","sex":2,"cancel":1,"reg":"","desc":"","addr":"","like_notice":1,"comment_notice":2,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":6,"follow_number":0,"level":1,"age":0,"is_person_follow":false,"pivot":{"likeable_id":3,"liker_id":6,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}},{"id":3,"name":"信用度","phone":"13521614827","avatar":"upload/20200606024929Gkda2.jpg","password":"$2y$10$CGTViSVDrLGfX1NsOhiHSeLhXdZxdidRYCd3U/b1c3U78y31EBjt6","remember_token":null,"created_at":"2020-05-30 12:08:57","updated_at":"2020-06-14 09:51:04","tourist_id":"52185256","sex":1,"cancel":1,"reg":"","desc":"这个可以有","addr":"北京市 海淀区","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":17,"follow_number":23,"level":1,"age":0,"is_person_follow":false,"pivot":{"likeable_id":3,"liker_id":3,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-14T01:48:01.000000Z","updated_at":"2020-06-14T01:48:01.000000Z"}}]
          * first_page_url : http://enjoy.fengyunguoyuan.com/api/personInform/fans?page=1
          * from : 1
          * last_page : 1
@@ -165,30 +165,31 @@ public class FansUserData {
 
         public static class DataBean {
             /**
-             * id : 3
-             * name : 信用度
-             * phone : 13521614827
-             * avatar : upload/20200605033007B4Zn5.jpg
-             * password : $2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q
+             * id : 6
+             * name : 青春有你
+             * phone : 18303032844
+             * avatar : upload/20200606055631F8mzM.jpg
+             * password : $2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC
              * remember_token : null
-             * created_at : 2020-05-30T04:08:57.000000Z
-             * updated_at : 2020-06-05T07:30:07.000000Z
-             * tourist_id : 52185256
+             * created_at : 2020-06-05 16:02:31
+             * updated_at : 2020-06-14 09:51:04
+             * tourist_id : 27915679
              * sex : 2
              * cancel : 1
              * reg :
-             * desc : 这个可以有
-             * addr : 北京市 海淀区
+             * desc :
+             * addr :
              * like_notice : 1
-             * comment_notice : 1
+             * comment_notice : 2
              * is_vip : 2
              * vip_expire : null
              * wallet_token : 0
-             * fan_number : 0
+             * fan_number : 6
              * follow_number : 0
              * level : 1
              * age : 0
-             * pivot : {"likeable_id":3,"liker_id":3,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T07:49:02.000000Z","updated_at":"2020-06-05T07:49:02.000000Z"}
+             * is_person_follow : false
+             * pivot : {"likeable_id":3,"liker_id":6,"likeable_type":"App\\Tourist","liker_type":"App\\Tourist","created_at":"2020-06-05T08:03:11.000000Z","updated_at":"2020-06-05T08:03:11.000000Z"}
              */
 
             private int id;
@@ -214,6 +215,7 @@ public class FansUserData {
             private int follow_number;
             private int level;
             private int age;
+            private boolean is_person_follow;
             private PivotBean pivot;
 
             public int getId() {
@@ -400,6 +402,14 @@ public class FansUserData {
                 this.age = age;
             }
 
+            public boolean isIs_person_follow() {
+                return is_person_follow;
+            }
+
+            public void setIs_person_follow(boolean is_person_follow) {
+                this.is_person_follow = is_person_follow;
+            }
+
             public PivotBean getPivot() {
                 return pivot;
             }
@@ -411,11 +421,11 @@ public class FansUserData {
             public static class PivotBean {
                 /**
                  * likeable_id : 3
-                 * liker_id : 3
+                 * liker_id : 6
                  * likeable_type : App\Tourist
                  * liker_type : App\Tourist
-                 * created_at : 2020-06-05T07:49:02.000000Z
-                 * updated_at : 2020-06-05T07:49:02.000000Z
+                 * created_at : 2020-06-05T08:03:11.000000Z
+                 * updated_at : 2020-06-05T08:03:11.000000Z
                  */
 
                 private int likeable_id;

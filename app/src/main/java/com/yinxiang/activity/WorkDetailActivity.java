@@ -26,6 +26,10 @@ import com.yinxiang.model.WorksDetail;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.OnClickListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import okhttp3.Call;
 
 public class WorkDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -143,7 +147,12 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initView(WorksDetail response) {
-        binding.userName.setText(response.getData().getName());
+        binding.userName.setText(response.getData().getTourist().getName());
+        binding.tvDesc.setText(response.getData().getName());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = CommonUtil.getDuration(getApplication(), response.getData().getCreated_at(), df.format(new Date()));
+        binding.tvTime.setText("发布于"+time);
+        GlideLoader.LoderCircleImage(this,response.getData().getTourist().getAvatar(), binding.userIcon);
         GlideLoader.LoderVideoImage(this,response.getData().getImg(), binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

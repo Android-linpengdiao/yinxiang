@@ -5,7 +5,7 @@ public class WorksDetail {
     /**
      * code : 200
      * msg : 成功
-     * data : {"id":15,"created_at":"2020-06-13 12:49:37","updated_at":"2020-06-13 12:49:37","is_deleted":2,"tourist_id":6,"tourist_name":"青春有你","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","img":"http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg","recommend":2,"pre_votes":0,"final_votes":0,"rematch_votes":0,"club_id":8,"club_name":"青春有你","assist_num":0,"comment_num":0,"name":""}
+     * data : {"id":16,"created_at":"2020-06-13 22:32:16","updated_at":"2020-06-14 09:06:24","is_deleted":2,"tourist_id":3,"tourist_name":"信用度","active_id":1,"active_name":"这就是街舞3","video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","img":"http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg","recommend":2,"pre_votes":1,"final_votes":0,"rematch_votes":0,"club_id":6,"club_name":"这就是街舞","assist_num":2,"comment_num":0,"name":"作品双击66","play_num":0,"tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}}
      */
 
     private int code;
@@ -38,25 +38,27 @@ public class WorksDetail {
 
     public static class DataBean {
         /**
-         * id : 15
-         * created_at : 2020-06-13 12:49:37
-         * updated_at : 2020-06-13 12:49:37
+         * id : 16
+         * created_at : 2020-06-13 22:32:16
+         * updated_at : 2020-06-14 09:06:24
          * is_deleted : 2
-         * tourist_id : 6
-         * tourist_name : 青春有你
-         * active_id : 2
-         * active_name : 舞蹈大赛
+         * tourist_id : 3
+         * tourist_name : 信用度
+         * active_id : 1
+         * active_name : 这就是街舞3
          * video : http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4
          * img : http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg
          * recommend : 2
-         * pre_votes : 0
+         * pre_votes : 1
          * final_votes : 0
          * rematch_votes : 0
-         * club_id : 8
-         * club_name : 青春有你
-         * assist_num : 0
+         * club_id : 6
+         * club_name : 这就是街舞
+         * assist_num : 2
          * comment_num : 0
-         * name :
+         * name : 作品双击66
+         * play_num : 0
+         * tourist : {"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}
          */
 
         private int id;
@@ -78,6 +80,8 @@ public class WorksDetail {
         private int assist_num;
         private int comment_num;
         private String name;
+        private int play_num;
+        private TouristBean tourist;
 
         public int getId() {
             return id;
@@ -229,6 +233,58 @@ public class WorksDetail {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public int getPlay_num() {
+            return play_num;
+        }
+
+        public void setPlay_num(int play_num) {
+            this.play_num = play_num;
+        }
+
+        public TouristBean getTourist() {
+            return tourist;
+        }
+
+        public void setTourist(TouristBean tourist) {
+            this.tourist = tourist;
+        }
+
+        public static class TouristBean {
+            /**
+             * id : 3
+             * name : 信用度
+             * avatar : upload/20200606024929Gkda2.jpg
+             */
+
+            private int id;
+            private String name;
+            private String avatar;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getAvatar() {
+                return avatar;
+            }
+
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
+            }
         }
     }
 }

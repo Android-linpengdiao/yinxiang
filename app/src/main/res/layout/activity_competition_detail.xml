@@ -175,18 +175,20 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="《这就是街舞3》海选比赛"
+                            android:text=""
                             android:textColor="#333333"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="2020.06.06-07.07"
+                            android:text=""
                             android:textColor="#ff999999"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -218,12 +220,12 @@
                     app:cardUseCompatPadding="true">
 
                     <TextView
+                        android:id="@+id/tv_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="5dp"
                         android:padding="@dimen/padding"
-                        android:text="《这！就是街舞》是优酷推出的街舞选拔类真人秀。节目通过“明星导师+专业舞者真人秀”的模式，采取个人选拔、团队作战的表演方式，在四位队长的带领下组成四支战队，进行团队间的群舞Battle，最终产生总冠军。
-《这！就是街舞》包括：《这！就是街舞第一季》、《这！就是街舞第二季》第一季由易烊千玺、罗志祥、韩庚、黄子韬担任明星队长，于2018年2月24日起每周六20:00在优酷首播，于2018年5月13日收官，易烊千玺战队成员韩宇获得总冠军。第二季由由易烊千玺、罗志祥、韩庚、吴建豪担任明星队长，于2019年5月18日起在优酷首播。"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="15sp" />
 

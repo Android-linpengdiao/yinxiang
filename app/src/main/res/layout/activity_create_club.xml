@@ -48,6 +48,34 @@
                 android:paddingLeft="@dimen/padding"
                 android:paddingRight="@dimen/padding">
 
+                <LinearLayout
+                    android:id="@+id/club_status_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:text="审核状态"
+                        android:textColor="#ff333333"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/club_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="43dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_white"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:singleLine="true"
+                        android:textColor="#333333"/>
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

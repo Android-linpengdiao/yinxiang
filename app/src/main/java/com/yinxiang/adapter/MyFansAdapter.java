@@ -35,7 +35,7 @@ public class MyFansAdapter extends BaseRecyclerAdapter<FansUserData.DataBeanX.Da
             binding.tvTitle.setText(dataBean.getName());
             binding.tvDesc.setText("粉丝：" + dataBean.getFan_number());
             binding.tvFollowers.setText("已关注");
-//            binding.tvFollowers.setText(dataBean.isAttention()?"已关注":"关注");
+            binding.tvFollowers.setText(dataBean.isIs_person_follow()?"已关注":"关注");
             GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
             binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
                 @Override

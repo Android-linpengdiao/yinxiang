@@ -33,11 +33,11 @@ public class LikeAdapter extends BaseRecyclerAdapter<MessageData.DataBeanX.DataB
     @Override
     protected void onBindItem(final ItemLikeLayoutBinding binding, final MessageData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.tvTitle.setText(dataBean.getTourist().getName());
             binding.tvDesc.setText("赞了你视频");
             binding.tvTime.setText(dataBean.getUpdated_at());
-            GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
-//            GlideLoader.LoderImageUrl(mContext, dataBean.getContent().getImg(), binding.cover, 2);
+            binding.tvTitle.setText(dataBean.getTourist().getName());
+            GlideLoader.LoderCircleImage(mContext, !CommonUtil.isBlank(dataBean.getTourist()) ? dataBean.getTourist().getAvatar() : "", binding.userIcon);
+            GlideLoader.LoderImageUrl(mContext, !CommonUtil.isBlank(dataBean.getContent()) ? dataBean.getContent().getImg() : "", binding.cover, 2);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

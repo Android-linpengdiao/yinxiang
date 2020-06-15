@@ -140,9 +140,9 @@
                             android:background="@drawable/button_radius_theme"
                             android:gravity="center"
                             android:paddingLeft="18dp"
+                            android:paddingTop="3dp"
                             android:paddingRight="18dp"
                             android:paddingBottom="3dp"
-                            android:paddingTop="3dp"
                             android:text="编辑"
                             android:textColor="#ffffffff"
                             android:textSize="14sp" />
@@ -156,7 +156,7 @@
                         android:background="@drawable/button_white"
                         android:lineSpacingExtra="5dp"
                         android:padding="@dimen/padding"
-                        android:text="街舞交流群，来源于北京SK街舞社。旨在广交街舞爱好者，共同交流，共同学习，弘扬街舞文化。"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="15sp" />
 
@@ -176,20 +176,37 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/club_member_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="共199人"
+                            android:text="共0人"
                             android:textColor="#ff999999"
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/button_white"
-                        android:padding="@dimen/padding" />
+                        android:layout_marginTop="10dp">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/moreView"
+                            android:padding="@dimen/padding" />
+
+                        <TextView
+                            android:id="@+id/moreView"
+                            android:layout_width="38dp"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"
+                            android:layout_height="50dp"
+                            android:layout_alignParentRight="true"
+                            android:textSize="16sp"
+                            android:text="..."/>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -204,15 +221,14 @@
                         android:id="@+id/tv_club_works"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding"
-                        android:gravity="center_vertical"
-                        android:drawableRight="@drawable/icon_more"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/button_white"
+                        android:drawableRight="@drawable/icon_more"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/padding"
                         android:text="社团作品"
                         android:textColor="#ff333333"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -227,15 +243,14 @@
                         android:id="@+id/tv_club_setting"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding"
-                        android:gravity="center_vertical"
-                        android:drawableRight="@drawable/icon_more"
                         android:layout_marginTop="10dp"
-                        android:text="免费加入"
                         android:background="@drawable/button_white"
+                        android:drawableRight="@drawable/icon_more"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/padding"
+                        android:text="免费加入"
                         android:textColor="#ff333333"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 

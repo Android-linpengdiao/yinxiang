@@ -39,12 +39,17 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#DCDCDC" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <View
             android:layout_width="match_parent"

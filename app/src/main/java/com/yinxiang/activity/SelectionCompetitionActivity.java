@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -60,14 +61,28 @@ public class SelectionCompetitionActivity extends BaseActivity implements View.O
 
             }
         });
+
+        binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
+        initData();
+    }
+
+    private void initData() {
+        binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.homePageActives(1, new GenericsCallback<HomeActives>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
-
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onResponse(HomeActives response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null) {
                     adapter.refreshData(response.getData());
                 } else {
@@ -77,8 +92,6 @@ public class SelectionCompetitionActivity extends BaseActivity implements View.O
 
         });
     }
-
-    private static final String TAG = "SelectionCompetitionAct";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

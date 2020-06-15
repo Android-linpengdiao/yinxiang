@@ -137,7 +137,7 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
             }
 
         });
-        SendRequest.channelClubStatus(1, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
+        SendRequest.channelClub(getUserInfo().getData().getId(),1, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
 

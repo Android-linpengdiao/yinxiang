@@ -193,7 +193,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void homePageVideosActive(HomeActives.DataBean dataBean) {
-        SendRequest.homePageVideosActive(dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+        SendRequest.homePageVideosActive(getUserInfo().getData().getId(),dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
 

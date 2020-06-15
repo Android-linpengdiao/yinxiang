@@ -189,6 +189,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 EventBus.getDefault().post(messageBus);
             }
         }, 100);
+        personInformInfo();
     }
 
     @Override

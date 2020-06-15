@@ -55,27 +55,6 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        playVideo();
-    }
-
-    @Override
-    public void onPause() {
-        pause();
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        stop();
-        destroy();
-        stopUpdateTimer();
-        progressUpdateTimer = null;
-        super.onDestroy();
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_join:
@@ -101,6 +80,8 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
 
     private void initView() {
         binding.title.setText(dataBean.getTitle());
+        binding.tvTitle.setText(dataBean.getTitle());
+        binding.tvDesc.setText(dataBean.getDesc());
         GlideLoader.LoderVideoImage(this, CommonUtil.getVideoCoverListString().get(1), binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -127,6 +108,27 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playVideo();
+    }
+
+    @Override
+    public void onPause() {
+        pause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        stop();
+        destroy();
+        stopUpdateTimer();
+        progressUpdateTimer = null;
+        super.onDestroy();
+    }
+
     private void showVideoProgressInfo() {
         if (mPlayer != null && !inSeek) {
             int curPosition = mPlayer.getCurrentPosition();
@@ -142,14 +144,14 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void startUpdateTimer() {
-        if (progressUpdateTimer!=null) {
+        if (progressUpdateTimer != null) {
             progressUpdateTimer.removeMessages(0);
             progressUpdateTimer.sendEmptyMessageDelayed(0, 1000);
         }
     }
 
     private void stopUpdateTimer() {
-        if (progressUpdateTimer!=null) {
+        if (progressUpdateTimer != null) {
             progressUpdateTimer.removeMessages(0);
         }
     }

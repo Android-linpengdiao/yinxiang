@@ -7,15 +7,46 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.WelcomeActivity">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="78dp"
+                    android:layout_height="78dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_app"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#ffd20000"
+                    android:textSize="43sp"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="引领生活，创享未来"
+                android:textColor="#ff333333"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="100dp"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 </layout>

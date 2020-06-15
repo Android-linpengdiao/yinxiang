@@ -67,11 +67,11 @@ public class MyFansActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        binding.swipeRefreshLayout.setRefreshing(true);
         initData();
     }
 
     private void initData() {
+        binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.personInformFans(getUserInfo().getData().getId(), 10, new GenericsCallback<FansUserData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

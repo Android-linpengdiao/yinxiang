@@ -60,7 +60,7 @@ public class HomeActives  implements Serializable {
         private String created_at;
         private String updated_at;
         private String title;
-        private Object desc;
+        private String desc;
         private String video;
         private String pre_start_time;
         private String rematch_start_time;
@@ -103,11 +103,11 @@ public class HomeActives  implements Serializable {
             this.title = title;
         }
 
-        public Object getDesc() {
+        public String getDesc() {
             return desc;
         }
 
-        public void setDesc(Object desc) {
+        public void setDesc(String desc) {
             this.desc = desc;
         }
 

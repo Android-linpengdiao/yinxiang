@@ -27,23 +27,13 @@ public class SharedPreferencesUtils {
         sharedPreferences = BaseApplication.getInstance().getSharedPreferences(SP_DATA, Context.MODE_PRIVATE);
     }
 
-    public String getAdvertising() {
-        return sharedPreferences.getString("Advertising", "");
+    public int getActivityId() {
+        return sharedPreferences.getInt("ActivityId", 0);
     }
 
-    public void setAdvertising(String value) {
+    public void setActivityId(int value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Advertising", value);
-        editor.commit();
-    }
-
-    public String getDownloadWidget() {
-        return sharedPreferences.getString("widget", "");
-    }
-
-    public void setDownloadWidget(String widget) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("widget", widget);
+        editor.putInt("ActivityId", value);
         editor.commit();
     }
 

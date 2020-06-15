@@ -33,7 +33,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/userIcon"
+                android:id="@+id/cover"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/circle_gray" />
@@ -52,20 +52,22 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="舞林霸主"
+                        android:text="="
                         android:textColor="#ff333333"
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/tv_votes"
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginLeft="5dp"
                         android:background="@drawable/button_radius_blue"
                         android:paddingLeft="6dp"
                         android:paddingRight="6dp"
-                        android:text="1100w"
+                        android:text="0"
                         android:textColor="#ffffffff"
                         android:textSize="11sp" />
 
@@ -91,10 +93,11 @@
                         android:tint="#666666" />
 
                     <TextView
+                        android:id="@+id/tv_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Lv.10"
+                        android:text="Lv.1"
                         android:textColor="#666666"
                         android:textSize="13sp" />
 

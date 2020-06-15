@@ -139,8 +139,9 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
 
     }
 
-    private void homePagePersonFollow(TextView tvFollow, final HomeVideos.DataBeanX.DataBean dataBean) {
-        SendRequest.homePagePersonFollow(MyApplication.getInstance().getUserInfo().getData().getId(), dataBean.getTourist_id(), APIUrls.url_homePagePersonFollow, new StringCallback() {
+    private void homePagePersonFollow(final TextView tvFollow, final HomeVideos.DataBeanX.DataBean dataBean) {
+        String url = tvFollow.isSelected() ? APIUrls.url_homePagePersonUnFollow : APIUrls.url_homePagePersonFollow;
+        SendRequest.homePagePersonFollow(MyApplication.getInstance().getUserInfo().getData().getId(), dataBean.getTourist_id(), url, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -152,11 +153,12 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-//                            dataBean.setAttention(dataBean.getAttention() != -1 ? -1 : 0);
-//                            if (dataBean.getAttention() != -1) {
-//                                ToastUtils.showShort(MyFollowActivity.this, "已关注");
-//                            }
-//                            adapter.notifyItemChanged(followUserData.getData().getData().indexOf(dataBean));
+                            if (jsonObject.optInt("code") == 200) {
+                                tvFollow.setSelected(!tvFollow.isSelected());
+                                tvFollow.setText(tvFollow.isSelected()?"已关注":"关注");
+                            } else {
+                                ToastUtils.showShort(mContext, jsonObject.optString("msg"));
+                            }
                         } else {
                             ToastUtils.showShort(mContext, jsonObject.optString("msg"));
                         }

@@ -79,7 +79,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-                publishWork(CommonUtil.getVideoCoverListString().get(0), CommonUtil.getVideoListString().get(0), homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
+                publishWork(CommonUtil.getVideoCoverListString().get(1), CommonUtil.getVideoListString().get(1), homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
                 break;
             case R.id.release_video_view:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ReleaseActivity.this);

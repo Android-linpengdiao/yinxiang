@@ -68,7 +68,7 @@ public class ClubMemberFragment extends BaseFragment {
 
         adapter = new MemberAdapter(getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         binding.recyclerView.setLayoutManager(layoutManager);
         binding.recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(new OnClickListener() {
@@ -98,6 +98,7 @@ public class ClubMemberFragment extends BaseFragment {
             public void onResponse(ClubMember response, int id) {
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
                     adapter.refreshData(response.getData().getData());
+                    binding.clubMemberNum.setText("...  共"+response.getData().getData().size()+"人");
                 } else {
                     ToastUtils.showShort(getActivity(), response.getMsg());
                 }

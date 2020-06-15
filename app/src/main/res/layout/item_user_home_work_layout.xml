@@ -38,6 +38,7 @@
                 android:src="@drawable/usefull" />
 
             <TextView
+                android:id="@+id/play_num"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
