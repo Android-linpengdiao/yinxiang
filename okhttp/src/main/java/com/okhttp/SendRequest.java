@@ -222,7 +222,7 @@ public class SendRequest {
      * @param perPage
      * @param call
      */
-    public static void homePageVideosActive(int tourist_id,int active_id, int perPage, Callback call) {
+    public static void homePageVideosActive(int tourist_id, int active_id, int perPage, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("active_id", String.valueOf(active_id));
@@ -422,15 +422,14 @@ public class SendRequest {
     }
 
     /**
-     *
      * @param tourist_id
      * @param video_id
-     * @param free 是否免费 1是 2收费
+     * @param free       是否免费 1是 2收费
      * @param compare_id pk唯一id
-     * @param self 是否正方 1是 2否
+     * @param self       是否正方 1是 2否
      * @param call
      */
-    public static void homePageVideosPKVote(int tourist_id, int video_id, int free,int compare_id,int self, Callback call) {
+    public static void homePageVideosPKVote(int tourist_id, int video_id, int free, int compare_id, int self, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("video_id", String.valueOf(video_id));
@@ -586,6 +585,23 @@ public class SendRequest {
     /**
      * ======================================频道===================================
      */
+
+    /**
+     * 频道-视频-热门优选
+     *
+     * @param tourist_id
+     * @param active_id
+     * @param perPage
+     * @param call
+     */
+    public static void homepageVideosHot(int tourist_id, int active_id, int perPage, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("active_id", String.valueOf(active_id));
+        map.put("perPage", String.valueOf(perPage));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.homepageVideosHot).build().execute(call);
+
+    }
 
     /**
      * 频道-社团-获取社团

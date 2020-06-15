@@ -7,7 +7,7 @@ public class WorkPKData {
     /**
      * code : 200
      * msg : 成功
-     * data : {"current_page":1,"data":[{"id":1,"created_at":"2020-06-07T15:11:45.000000Z","updated_at":"2020-06-07T15:11:45.000000Z","tourist_id":3,"content_id":9,"compare_content_id":12,"vote_num":0,"compare_num":0,"content_video":"http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4","compare_video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","status":1,"active_id":2,"active_name":"舞蹈大赛","compare_active_id":2,"compare_active_name":"舞蹈大赛"}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/selfPk?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/selfPk?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/selfPk","per_page":"10","prev_page_url":null,"to":1,"total":1}
+     * data : {"current_page":1,"data":[{"id":9,"created_at":"2020-06-15 22:27:35","updated_at":"2020-06-15 22:27:35","tourist_id":3,"content_id":16,"compare_content_id":17,"vote_num":0,"compare_num":0,"content_video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","compare_video":"http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4","status":1,"active_id":1,"active_name":"这就是街舞3","compare_active_id":2,"compare_active_name":"舞蹈大赛","ended_at":"2020-06-15 22:47:35","content_name":"","content_img":"","compare_name":"","compare_img":""}],"first_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/selfPk?page=1","from":1,"last_page":1,"last_page_url":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/selfPk?page=1","next_page_url":null,"path":"http://enjoy.fengyunguoyuan.com/api/homepageVideos/selfPk","per_page":"10","prev_page_url":null,"to":1,"total":1}
      */
 
     private int code;
@@ -41,7 +41,7 @@ public class WorkPKData {
     public static class DataBeanX {
         /**
          * current_page : 1
-         * data : [{"id":1,"created_at":"2020-06-07T15:11:45.000000Z","updated_at":"2020-06-07T15:11:45.000000Z","tourist_id":3,"content_id":9,"compare_content_id":12,"vote_num":0,"compare_num":0,"content_video":"http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4","compare_video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","status":1,"active_id":2,"active_name":"舞蹈大赛","compare_active_id":2,"compare_active_name":"舞蹈大赛"}]
+         * data : [{"id":9,"created_at":"2020-06-15 22:27:35","updated_at":"2020-06-15 22:27:35","tourist_id":3,"content_id":16,"compare_content_id":17,"vote_num":0,"compare_num":0,"content_video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","compare_video":"http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4","status":1,"active_id":1,"active_name":"这就是街舞3","compare_active_id":2,"compare_active_name":"舞蹈大赛","ended_at":"2020-06-15 22:47:35","content_name":"","content_img":"","compare_name":"","compare_img":""}]
          * first_page_url : http://enjoy.fengyunguoyuan.com/api/homepageVideos/selfPk?page=1
          * from : 1
          * last_page : 1
@@ -165,21 +165,26 @@ public class WorkPKData {
 
         public static class DataBean {
             /**
-             * id : 1
-             * created_at : 2020-06-07T15:11:45.000000Z
-             * updated_at : 2020-06-07T15:11:45.000000Z
+             * id : 9
+             * created_at : 2020-06-15 22:27:35
+             * updated_at : 2020-06-15 22:27:35
              * tourist_id : 3
-             * content_id : 9
-             * compare_content_id : 12
+             * content_id : 16
+             * compare_content_id : 17
              * vote_num : 0
              * compare_num : 0
-             * content_video : http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4
-             * compare_video : http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4
+             * content_video : http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4
+             * compare_video : http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4
              * status : 1
-             * active_id : 2
-             * active_name : 舞蹈大赛
+             * active_id : 1
+             * active_name : 这就是街舞3
              * compare_active_id : 2
              * compare_active_name : 舞蹈大赛
+             * ended_at : 2020-06-15 22:47:35
+             * content_name :
+             * content_img :
+             * compare_name :
+             * compare_img :
              */
 
             private int id;
@@ -197,6 +202,11 @@ public class WorkPKData {
             private String active_name;
             private int compare_active_id;
             private String compare_active_name;
+            private String ended_at;
+            private String content_name;
+            private String content_img;
+            private String compare_name;
+            private String compare_img;
 
             public int getId() {
                 return id;
@@ -316,6 +326,46 @@ public class WorkPKData {
 
             public void setCompare_active_name(String compare_active_name) {
                 this.compare_active_name = compare_active_name;
+            }
+
+            public String getEnded_at() {
+                return ended_at;
+            }
+
+            public void setEnded_at(String ended_at) {
+                this.ended_at = ended_at;
+            }
+
+            public String getContent_name() {
+                return content_name;
+            }
+
+            public void setContent_name(String content_name) {
+                this.content_name = content_name;
+            }
+
+            public String getContent_img() {
+                return content_img;
+            }
+
+            public void setContent_img(String content_img) {
+                this.content_img = content_img;
+            }
+
+            public String getCompare_name() {
+                return compare_name;
+            }
+
+            public void setCompare_name(String compare_name) {
+                this.compare_name = compare_name;
+            }
+
+            public String getCompare_img() {
+                return compare_img;
+            }
+
+            public void setCompare_img(String compare_img) {
+                this.compare_img = compare_img;
             }
         }
     }

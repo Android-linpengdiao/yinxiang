@@ -81,14 +81,14 @@ public class CommonUtil {
         return new ArrayList<String>(Arrays.asList("这里是话题标题这里是话题标题这里是话题标题", "事做不做得到", "说了不一定有机会，但不说一定没机会", "让你的员工为共同的目标工作"));
     }
 
-    public static String getStringToDate(String time) {
-        String timeStamp = null;
+    public static long getStringToDate(String time) {
+        long timeStamp = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d;
         try {
             d = sdf.parse(time);
             long l = d.getTime();
-            timeStamp = String.valueOf(l);
+            timeStamp = l;
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -99,6 +99,13 @@ public class CommonUtil {
         long lcc = Long.valueOf(time);
         Date d = new Date(lcc);
         SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdr.format(d);
+    }
+
+    public static String getPKTime(String time) {
+        long lcc = Long.valueOf(time);
+        Date d = new Date(lcc);
+        SimpleDateFormat sdr = new SimpleDateFormat("HH:mm:ss");
         return sdr.format(d);
     }
 

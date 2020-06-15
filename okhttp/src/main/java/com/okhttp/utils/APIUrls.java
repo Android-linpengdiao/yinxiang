@@ -97,7 +97,8 @@ public class APIUrls {
     /**
      * 频道
      */
-
+    //频道-视频-热门优选
+    public final static String homepageVideosHot = url_domain + "api/homepageVideos/hot";
     //频道-社团-获取社团
     public final static String url_channelClub = url_domain + "api/channel/club";
     //频道-社团-创建社团

@@ -17,9 +17,9 @@
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
+            app:cardPreventCornerOverlap="true"
             app:cardShadowColorEnd="@color/app_selector_shadow_end"
             app:cardShadowColorStart="@color/app_selector_shadow_start"
-            app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -134,10 +134,10 @@
                         android:id="@+id/vote_num"
                         android:layout_width="0dp"
                         android:layout_height="20dp"
+                        android:layout_marginRight="-10dp"
                         android:layout_weight="1"
                         android:background="@drawable/left"
                         android:gravity="center_vertical|left"
-                        android:layout_marginRight="-10dp"
                         android:paddingLeft="15dp"
                         android:text="0票"
                         android:textColor="#FFFFFF"
@@ -147,9 +147,9 @@
                         android:id="@+id/compare_vote_num"
                         android:layout_width="0dp"
                         android:layout_height="20dp"
+                        android:layout_marginLeft="-10dp"
                         android:layout_weight="1"
                         android:background="@drawable/right"
-                        android:layout_marginLeft="-10dp"
                         android:gravity="center_vertical|right"
                         android:paddingRight="15dp"
                         android:text="0票"
@@ -177,16 +177,33 @@
                         android:textColor="#fff7f7f7"
                         android:textSize="13sp" />
 
-                    <TextView
-                        android:id="@+id/pk_time"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="45dp"
                         android:layout_marginRight="45dp"
                         android:gravity="center"
-                        android:text="02:04:29\n结束"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:orientation="vertical">
+
+                        <com.yinxiang.view.Anticlockwise
+                            android:id="@+id/pk_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginRight="45dp"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="#ff333333"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="结束"
+                            android:textColor="#ff333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/compare_work_vote"
