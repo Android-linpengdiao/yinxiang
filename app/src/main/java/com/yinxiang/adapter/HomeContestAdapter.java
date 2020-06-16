@@ -44,7 +44,7 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<WorkPKData.DataBeanX
             binding.compareVoteNum.setText(dataBean.getCompare_num() + "票");
 
             long time = CommonUtil.getStringToDate(dataBean.getEnded_at()) - System.currentTimeMillis();
-            binding.pkTime.initTime(60);
+            binding.pkTime.initTime(time);
 //            binding.pkTime.setText(CommonUtil.getPKTime(String.valueOf(time)));
             binding.pkTime.reStart();
             GlideLoader.LoderCircleImage(mContext, dataBean.getContent_img(), binding.workImg);

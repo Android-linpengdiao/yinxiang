@@ -40,7 +40,7 @@ import java.io.File;
 import okhttp3.Call;
 
 public class CreateClubActivity extends BaseActivity implements View.OnClickListener {
-
+    private static final String TAG = "CreateClubActivity";
     private ActivityCreateClubBinding binding;
 
     private static final int REQUEST_DESC = 100;
@@ -57,6 +57,8 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
     private String authCode;
     private String desc;
     private String name;
+
+    private ClubData clubData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +110,8 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
                 phone = binding.etPhone.getText().toString().trim();
                 authCode = binding.etCode.getText().toString().trim();
                 desc = name;
-                if (CommonUtil.isBlank(desc)) {
+
+                if (CommonUtil.isBlank(name)) {
                     ToastUtils.showShort(CreateClubActivity.this, "请输入社团名称");
                     return;
                 }
@@ -132,12 +135,15 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
                     ToastUtils.showShort(CreateClubActivity.this, "请输入手机号码");
                     return;
                 }
-                if (CommonUtil.isBlank(authCode)) {
+                if (clubData == null && CommonUtil.isBlank(authCode)) {
                     ToastUtils.showShort(CreateClubActivity.this, "请输入短信验证码");
                     return;
                 }
-
-                channelCreateClub(name, logo, license, idcard_front, idcard_back, phone, authCode, desc);
+                if (clubData != null && clubData.getData().get(0) != null) {
+                    channelEditClub(clubData.getData().get(0).getId(),name, logo, license, idcard_front, idcard_back, phone, authCode, desc);
+                } else {
+                    channelCreateClub(name, logo, license, idcard_front, idcard_back, phone, authCode, desc);
+                }
                 break;
             case R.id.back:
                 finish();
@@ -146,11 +152,37 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initView(int status, ClubData.DataBean dataBean) {
+        if (dataBean.getStatus() == 2) {
+            binding.codeView.setVisibility(View.GONE);
+            binding.clubStatusView.setVisibility(View.VISIBLE);
+            binding.clubStatus.setText(dataBean.getRefuse());
+            binding.tvConfirm.setText("立即修改");
+            binding.etPhone.setEnabled(false);
+        } else if (dataBean.getStatus() == 3) {
+            binding.codeView.setVisibility(View.GONE);
+            binding.bottomView.setVisibility(View.GONE);
+            binding.clubStatusView.setVisibility(View.VISIBLE);
+            binding.clubStatus.setText("正在审核中，请您耐心等候");
+            binding.etClubName.setEnabled(false);
+            binding.etPhone.setEnabled(false);
+            binding.ivClubLogo.setEnabled(false);
+            binding.ivIdcardBack.setEnabled(false);
+            binding.ivIdcardFront.setEnabled(false);
+            binding.ivLicense.setEnabled(false);
+        }
         binding.etClubName.setText(dataBean.getName());
+        binding.etPhone.setText(dataBean.getPhone());
         GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getLogo(), binding.ivClubLogo, 8);
         GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getLicense(), binding.ivLicense, 8);
         GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getIdcard_front(), binding.ivIdcardFront, 8);
         GlideLoader.LoderImage(CreateClubActivity.this, dataBean.getIdcard_back(), binding.ivIdcardBack, 8);
+
+        if (clubData != null) {
+            logo = dataBean.getLogo();
+            license = dataBean.getLicense();
+            idcard_front = dataBean.getIdcard_front();
+            idcard_back = dataBean.getIdcard_back();
+        }
 
     }
 
@@ -165,6 +197,7 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
             public void onResponse(ClubData response, int id) {
                 if (response != null && response.getCode() == 200 && response.getData() != null) {
                     if (response.getData().size() > 0) {
+                        clubData = response;
                         initView(status, response.getData().get(0));
                     } else {
                         if (status == 2) {
@@ -179,6 +212,33 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
 
     private void channelCreateClub(String name, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc) {
         SendRequest.channelCreateClub(getUserInfo().getData().getId(), name, logo, license, idcard_front, idcard_back, phone, authCode, desc, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (!CommonUtil.isBlank(response)) {
+                        if (jsonObject.optInt("code") == 200) {
+                            ToastUtils.showShort(CreateClubActivity.this, "已提交审核");
+                            finish();
+                        } else {
+                            ToastUtils.showShort(CreateClubActivity.this, jsonObject.optString("msg"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(CreateClubActivity.this, "请求失败");
+                }
+            }
+        });
+    }
+
+    private void channelEditClub(int clubId,String name, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc) {
+        SendRequest.channelEditClub(getUserInfo().getData().getId(),clubId, name, logo, license, idcard_front, idcard_back, phone, authCode, desc, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 

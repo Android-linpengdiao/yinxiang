@@ -693,6 +693,7 @@ public class SendRequest {
      * 频道-社团-编辑社团
      *
      * @param tourist_id
+     * @param clubId        社团id
      * @param logo         社团logo
      * @param license      营业执照
      * @param idcard_front 身份证正面
@@ -702,15 +703,17 @@ public class SendRequest {
      * @param desc         社团简介
      * @param call
      */
-    public static void channelEditClub(int tourist_id, String logo, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
+    public static void channelEditClub(int tourist_id,int clubId, String logo, String name,String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("club_id", String.valueOf(clubId));
+        map.put("name", name);
         map.put("logo", logo);
         map.put("license", license);
         map.put("idcard_front", idcard_front);
         map.put("idcard_back", idcard_back);
         map.put("phone", phone);
-        map.put("authCode", authCode);
+//        map.put("authCode", authCode);
         map.put("desc", desc);
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_channelEditClub).build().execute(call);
 

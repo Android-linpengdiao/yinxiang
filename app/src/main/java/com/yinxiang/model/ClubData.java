@@ -8,7 +8,7 @@ public class ClubData implements Serializable {
     /**
      * code : 200
      * msg : 成功
-     * data : [{"id":2,"created_at":"2020-05-25T08:07:11.000000Z","updated_at":"2020-05-25T08:49:11.000000Z","name":"街舞社团","logo":"upload/20200525120121QkKOt.jpg","license":"upload/20200525120121QkKOt.jpg","idcard_front":"upload/20200525120121QkKOt.jpg","idcard_back":"upload/20200525120121QkKOt.jpg","phone":"18322233491","tourist_id":1,"tourist_name":"测试","desc":"街舞社团","status":1,"refuse":null,"join":1,"join_token":10,"dissolve":null,"dissolve_time":null},{"id":4,"created_at":"2020-05-25T08:34:24.000000Z","updated_at":"2020-05-25T08:34:24.000000Z","name":"街舞社团","logo":"upload/20200525120121QkKOt.jpg","license":"upload/20200525120121QkKOt.jpg","idcard_front":"upload/20200525120121QkKOt.jpg","idcard_back":"upload/20200525120121QkKOt.jpg","phone":"18322233491","tourist_id":1,"tourist_name":"测试","desc":"","status":3,"refuse":null,"join":2,"join_token":0,"dissolve":null,"dissolve_time":null},{"id":5,"created_at":"2020-06-05T15:37:00.000000Z","updated_at":"2020-06-05T15:44:29.000000Z","name":"新社团","logo":"upload/20200605111858YtmZU.jpg","license":"upload/20200605111858YtmZU.jpg","idcard_front":"upload/20200605111858YtmZU.jpg","idcard_back":"upload/20200605111858YtmZU.jpg","phone":"13521614827","tourist_id":3,"tourist_name":"信用度","desc":"街舞社团","status":1,"refuse":null,"join":2,"join_token":0,"dissolve":null,"dissolve_time":null}]
+     * data : [{"id":11,"created_at":"2020-06-14 00:17:00","updated_at":"2020-06-14 12:30:50","name":"创建社团测试","logo":"upload/20200614121731JXdDl.jpg","license":"upload/20200614121737cErPt.jpg","idcard_front":"upload/20200614121741axFHa.jpg","idcard_back":"upload/20200614121745Pxq09.jpg","phone":"13521614827","tourist_id":3,"tourist_name":"信用度","desc":"创建社团测试","status":2,"refuse":"审核拒绝。您的社团名称涉及敏感词汇不合规。","join":2,"join_token":0,"dissolve":null,"dissolve_time":null}]
      */
 
     private int code;
@@ -39,24 +39,24 @@ public class ClubData implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable {
+    public static class DataBean implements Serializable{
         /**
-         * id : 2
-         * created_at : 2020-05-25T08:07:11.000000Z
-         * updated_at : 2020-05-25T08:49:11.000000Z
-         * name : 街舞社团
-         * logo : upload/20200525120121QkKOt.jpg
-         * license : upload/20200525120121QkKOt.jpg
-         * idcard_front : upload/20200525120121QkKOt.jpg
-         * idcard_back : upload/20200525120121QkKOt.jpg
-         * phone : 18322233491
-         * tourist_id : 1
-         * tourist_name : 测试
-         * desc : 街舞社团
-         * status : 1
-         * refuse : null
-         * join : 1
-         * join_token : 10
+         * id : 11
+         * created_at : 2020-06-14 00:17:00
+         * updated_at : 2020-06-14 12:30:50
+         * name : 创建社团测试
+         * logo : upload/20200614121731JXdDl.jpg
+         * license : upload/20200614121737cErPt.jpg
+         * idcard_front : upload/20200614121741axFHa.jpg
+         * idcard_back : upload/20200614121745Pxq09.jpg
+         * phone : 13521614827
+         * tourist_id : 3
+         * tourist_name : 信用度
+         * desc : 创建社团测试
+         * status : 2
+         * refuse : 审核拒绝。您的社团名称涉及敏感词汇不合规。
+         * join : 2
+         * join_token : 0
          * dissolve : null
          * dissolve_time : null
          */
@@ -74,12 +74,12 @@ public class ClubData implements Serializable {
         private String tourist_name;
         private String desc;
         private int status;
-        private int selected;
         private String refuse;
-        private int join;  // 1收费入团 2免费入团
+        private int join;
         private int join_token;
-        private String dissolve;
-        private String dissolve_time;
+        private Object dissolve;
+        private Object dissolve_time;
+        private int selected;
 
         public int getId() {
             return id;
@@ -185,14 +185,6 @@ public class ClubData implements Serializable {
             this.status = status;
         }
 
-        public int getSelected() {
-            return selected;
-        }
-
-        public void setSelected(int selected) {
-            this.selected = selected;
-        }
-
         public String getRefuse() {
             return refuse;
         }
@@ -217,20 +209,28 @@ public class ClubData implements Serializable {
             this.join_token = join_token;
         }
 
-        public String getDissolve() {
+        public Object getDissolve() {
             return dissolve;
         }
 
-        public void setDissolve(String dissolve) {
+        public void setDissolve(Object dissolve) {
             this.dissolve = dissolve;
         }
 
-        public String getDissolve_time() {
+        public Object getDissolve_time() {
             return dissolve_time;
         }
 
-        public void setDissolve_time(String dissolve_time) {
+        public void setDissolve_time(Object dissolve_time) {
             this.dissolve_time = dissolve_time;
+        }
+
+        public int getSelected() {
+            return selected;
+        }
+
+        public void setSelected(int selected) {
+            this.selected = selected;
         }
     }
 }
