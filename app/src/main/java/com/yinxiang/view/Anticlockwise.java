@@ -12,6 +12,8 @@ import android.widget.Chronometer;
 @SuppressLint({"ViewConstructor", "SimpleDateFormat"})
 public class Anticlockwise extends Chronometer {
 
+    private static final String TAG = "Anticlockwise";
+    
     public Anticlockwise(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO 自动生成的构造函数存根
