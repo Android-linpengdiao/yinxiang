@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,12 +15,17 @@
         <SurfaceView
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/img_thumb"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/img_play"
@@ -33,23 +39,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:gravity="bottom">
+            android:gravity="bottom"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/player_cover_bottom"
                 android:layout_weight="1"
+                android:background="@drawable/player_cover_bottom"
                 android:orientation="vertical"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="90dp">
+                android:paddingTop="15dp"
+                android:paddingRight="75dp"
+                android:paddingBottom="15dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -61,10 +67,12 @@
                         android:src="@drawable/circle_gray" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/user_name"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="舞林霸主"
+                        android:text=""
                         android:textColor="#ffffffff"
                         android:textSize="15sp" />
 
@@ -96,18 +104,22 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="这就是街舞3比赛参赛作品参赛作品之爵士舞表演"
+                    android:text=""
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:textColor="#ffe6e6e6"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="发布于1天前"
+                    android:text=""
                     android:textColor="#ffe6e6e6"
                     android:textSize="13sp" />
 
@@ -118,11 +130,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:paddingRight="15dp"
-                android:paddingLeft="15dp"
-                android:paddingBottom="15dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp">
 
                 <ImageView
                     android:id="@+id/iv_works_pk"
@@ -169,20 +181,22 @@
                     android:drawableTop="@drawable/toupiao"
                     android:drawablePadding="8dp"
                     android:gravity="center"
-                    android:text="100w"
+                    android:text="0"
                     android:textColor="#ffffffff"
                     android:textSize="14sp"
                     android:visibility="gone"/>
             </LinearLayout>
 
-        </RelativeLayout>
+            <com.yinxiang.view.LoadingView
+                android:id="@+id/loadingView"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_alignParentBottom="true"
+                app:minHeight="5dp"
+                app:minProgressWidth="20dp"
+                app:progressColor="#ffffff" />
 
-        <ProgressBar
-            android:id="@+id/loading"
-            style="@android:style/Widget.Holo.ProgressBar.Large"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"/>
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

@@ -14,18 +14,19 @@
         <cn.wj.android.colorcardview.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="4dp"
-            app:cardPreventCornerOverlap="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="5dp"
             app:cardShadowColorEnd="@color/app_selector_shadow_end"
             app:cardShadowColorStart="@color/app_selector_shadow_start"
+            app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="93dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/button_white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,6 +62,7 @@
                         android:paddingBottom="5dp">
 
                         <TextView
+                            android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
@@ -71,6 +73,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="初赛进行中"
@@ -78,6 +81,7 @@
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/tv_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2020.06.06-07.07"
@@ -90,23 +94,25 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:paddingTop="5dp"
-                        android:paddingRight="5dp"
+                        android:paddingRight="10dp"
                         android:paddingBottom="5dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:text="No.10"
+                            android:text="No.0"
+                            android:gravity="right"
                             android:textColor="#ff525de7"
                             android:textSize="20sp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_votes"
+                            android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:gravity="bottom"
-                            android:text="1000w票"
+                            android:gravity="bottom|right"
+                            android:text="0票"
                             android:textColor="#ff000000"
                             android:textSize="13sp" />
                     </LinearLayout>

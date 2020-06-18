@@ -1,6 +1,7 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -25,33 +26,47 @@ import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.callbacks.StringCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
+import com.yinxiang.activity.MyWalletActivity;
 import com.yinxiang.activity.ReportActivity;
 import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.activity.SelectionWorkRelayActivity;
+import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.adapter.ChannelVideoAdapter;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentChannelVideoBinding;
 import com.yinxiang.model.CommentData;
+import com.yinxiang.model.HomeActives;
+import com.yinxiang.model.HomeVideos;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.ElectionPopupWindow;
+import com.yinxiang.view.LoadingView;
 import com.yinxiang.view.OnClickListener;
+import com.yinxiang.view.TypePopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChannelVideoFragment extends BaseFragment {
+import okhttp3.Call;
+
+public class ChannelVideoFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String TAG = "ChannelVideoFragment";
     private FragmentChannelVideoBinding binding;
+    private ChannelVideoAdapter adapter;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
 
     private String mParam1;
     private String mParam2;
@@ -82,23 +97,38 @@ public class ChannelVideoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_channel_video, container, false);
-        ChannelVideoAdapter adapter = new ChannelVideoAdapter(getActivity());
+        adapter = new ChannelVideoAdapter(getActivity());
         mLayoutManager = new ViewPagerLayoutManager(getActivity(), OrientationHelper.VERTICAL);
         binding.recyclerView.setLayoutManager(mLayoutManager);
         binding.recyclerView.setAdapter(adapter);
-        adapter.refreshData(CommonUtil.getVideoCoverListString());
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
+                HomeVideos.DataBeanX.DataBean dataBean;
+                Bundle bundle;
                 switch (view.getId()) {
                     case R.id.iv_works_pk:
-                        openActivity(SelectionWorkPKActivity.class);
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            bundle = new Bundle();
+                            bundle.putInt("videoId", dataBean.getId());
+                            openActivity(SelectionWorkPKActivity.class, bundle);
+                        }
                         break;
                     case R.id.iv_relay:
-                        openActivity(SelectionWorkRelayActivity.class);
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            bundle = new Bundle();
+                            bundle.putInt("videoId", dataBean.getId());
+                            openActivity(SelectionWorkRelayActivity.class, bundle);
+                        }
                         break;
                     case R.id.iv_comment:
-                        CommentView();
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            commentListPopupWindow = null;
+                            homePageVideosComment(dataBean.getId());
+                        }
                         break;
                     case R.id.iv_share:
                         shareView(getActivity(), new OnClickListener() {
@@ -114,10 +144,21 @@ public class ChannelVideoFragment extends BaseFragment {
                         });
                         break;
                     case R.id.tv_election:
-                        Election();
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            homePageVideosVoteSet(dataBean.getId());
+                        }
                         break;
                     case R.id.tv_report:
                         openActivity(ReportActivity.class);
+                        break;
+                    case R.id.user_icon:
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            Intent intent = new Intent(getActivity(), UserHomeActivity.class);
+                            intent.putExtra("uid", dataBean.getTourist_id());
+                            startActivity(intent);
+                        }
                         break;
                 }
             }
@@ -132,31 +173,162 @@ public class ChannelVideoFragment extends BaseFragment {
 
         EventBus.getDefault().register(this);
 
+        homepageVideosHot();
+
         return binding.getRoot();
     }
 
-    private void Election() {
+    private void homepageVideosHot() {
+        SendRequest.homepageVideosHot(getUserInfo().getData().getId(), 0, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                binding.recyclerView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onResponse(HomeVideos response, int id) {
+                if (response != null && response.getCode() == 200) {
+                    if (response.getData() != null && response.getData().getData() != null && response.getData().getData().size() > 0) {
+                        binding.recyclerView.setVisibility(View.VISIBLE);
+                        adapter.refreshData(response.getData().getData());
+                        binding.recyclerView.setVisibility(View.VISIBLE);
+                    } else {
+                        adapter.refreshData(new ArrayList<HomeVideos.DataBeanX.DataBean>());
+                        binding.recyclerView.setVisibility(View.GONE);
+                    }
+                } else {
+                    ToastUtils.showShort(getActivity(), response.getMsg());
+                    binding.recyclerView.setVisibility(View.GONE);
+                }
+            }
+
+        });
+    }
+
+    private void homePageVideosComment(final int video_id) {
+        SendRequest.homePageVideosComment(100, video_id, new GenericsCallback<CommentData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(CommentData response, int id) {
+                if (response != null && response.getCode() == 200 && response.getData() != null) {
+                    if (commentListPopupWindow != null) {
+                        commentListPopupWindow.setCommentData(response);
+                    } else {
+                        CommentView(response, video_id);
+                    }
+                } else {
+                    ToastUtils.showShort(getActivity(), response.getMsg());
+                }
+            }
+
+        });
+
+    }
+
+    private void homePageVideosCreateComment(final int video_id, String content) {
+        SendRequest.homePageVideosCreateComment(getUserInfo().getData().getId(), video_id, content, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optInt("code") == 200) {
+                        homePageVideosComment(video_id);
+                    } else {
+                        ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    private void homePageVideosVoteSet(final int workId) {
+        SendRequest.homePageVideosVoteSet(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"));
+                        } else {
+                            ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void homePageVideosVote(int workId, int free) {
+        SendRequest.homePageVideosVote(getUserInfo().getData().getId(), workId, free, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
+                                ToastUtils.showShort(getActivity(), "以为TA投一票");
+                            } else {
+                                ToastUtils.showShort(getActivity(), "今日以为TA投一票，明日再来为TA投一票");
+                            }
+                        } else {
+                            ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void Election(final int workId, final String wallet_token) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
                 switch (view.getId()) {
                     case R.id.tv_election:
-                        ToastUtils.showShort(getActivity(), "以为TA投一票");
+                        homePageVideosVote(workId, 1);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付10金币为TA投三票?",String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
                                     case R.id.tv_confirm:
-
+                                        homePageVideosVote(workId, 2);
                                         break;
                                     case R.id.tv_cancel:
 
                                         break;
                                     case R.id.tv_coin:
-
+                                        openActivity(MyWalletActivity.class);
                                         break;
                                 }
                             }
@@ -178,12 +350,14 @@ public class ChannelVideoFragment extends BaseFragment {
         electionPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
-    private void CommentView() {
-        CommentListPopupWindow commentListPopupWindow = new CommentListPopupWindow(getActivity());
+    private CommentListPopupWindow commentListPopupWindow;
+
+    private void CommentView(CommentData commentData, final int video_id) {
+        commentListPopupWindow = new CommentListPopupWindow(getActivity());
         commentListPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-
+                homePageVideosCreateComment(video_id, (String) object);
             }
 
             @Override
@@ -192,8 +366,14 @@ public class ChannelVideoFragment extends BaseFragment {
             }
         });
         commentListPopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-        CommentData commentData = new CommentData();
         commentListPopupWindow.setCommentData(commentData);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+        }
     }
 
     public void onHiddenSurfaceViewChanged(boolean hidden) {
@@ -239,19 +419,19 @@ public class ChannelVideoFragment extends BaseFragment {
         super.onDestroyView();
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMainMessage(MessageBus messageBus) {
         if (messageBus.getCodeType().equals(messageBus.msgId_hiddenChanged)) {
             int index = (int) messageBus.getParam1();
-            Log.i(TAG, "onResume getMainMessage: "+index);
+            Log.i(TAG, "onResume getMainMessage: " + index);
             if (mSurfaceView != null) {
-                mSurfaceView.setVisibility(index == 1 ? View.VISIBLE : View.GONE);
-                Log.i(TAG, "onResume getMainMessage: "+mSurfaceView.isShown());
+                mSurfaceView.setVisibility(index == 0 ? View.VISIBLE : View.GONE);
+                Log.i(TAG, "onResume getMainMessage: " + mSurfaceView.isShown());
             }
         }
 
     }
-
 
     private void initListener() {
         mLayoutManager.setOnViewPagerListener(new OnViewPagerListener() {
@@ -259,7 +439,7 @@ public class ChannelVideoFragment extends BaseFragment {
             @Override
             public void onInitComplete() {
                 Log.e(TAG, "onInitComplete");
-                playVideo(0);
+                playVideo(0, false);
             }
 
             @Override
@@ -277,7 +457,7 @@ public class ChannelVideoFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position, boolean isBottom) {
                 Log.e(TAG, "选中位置:" + position + "  是否是滑动到底部:" + isBottom);
-                playVideo(position);
+                playVideo(position, isBottom);
             }
 
 
@@ -287,7 +467,10 @@ public class ChannelVideoFragment extends BaseFragment {
     private SurfaceView mSurfaceView;
     private ImageView imgPlay;
 
-    private void playVideo(int position) {
+    private void playVideo(int position, boolean isBottom) {
+        if (isBottom && mPlayer != null) {
+
+        }
         View itemView = binding.recyclerView.getChildAt(0);
         mSurfaceView = itemView.findViewById(R.id.surfaceView);
         mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -312,7 +495,8 @@ public class ChannelVideoFragment extends BaseFragment {
         });
         imgPlay = itemView.findViewById(R.id.img_play);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
-        final ProgressBar loading = itemView.findViewById(R.id.loading);
+        final ImageView background = itemView.findViewById(R.id.background);
+        final LoadingView loading = itemView.findViewById(R.id.loadingView);
         mSurfaceView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -327,6 +511,7 @@ public class ChannelVideoFragment extends BaseFragment {
             }
         });
 
+
         destroy();
         mPlayer = new AliVcMediaPlayer(getContext(), mSurfaceView);
         mPlayer.setCirclePlay(true);
@@ -339,37 +524,42 @@ public class ChannelVideoFragment extends BaseFragment {
                 mPlayer.play();
             }
         });
-//        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
-//        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
         mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
             @Override
             public void onFrameInfoListener() {
+                background.setVisibility(View.GONE);
                 imgThumb.animate().alpha(0).setDuration(200).start();
             }
         });
-//        mPlayer.setErrorListener(new MyErrorListener(this));
-//        mPlayer.setCompletedListener(new MyCompletedListener(this));
-//        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
         mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
             @Override
             public void onStopped() {
                 imgPlay.animate().alpha(1f).start();
             }
         });
+//        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
+//        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
+//        mPlayer.setErrorListener(new MyErrorListener(this));
+//        mPlayer.setCompletedListener(new MyCompletedListener(this));
+//        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
         mPlayer.enableNativeLog();
         if (mPlayer != null) {
-            mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
         }
-        mPlayer.prepareToPlay(CommonUtil.getVideoListString().get(position));
+        if (adapter.getItem(position) != null) {
+            mPlayer.prepareToPlay(adapter.getItem(position).getVideo());
+        }
 
     }
 
     private void releaseVideo(int index) {
         View itemView = binding.recyclerView.getChildAt(index);
-        ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
-        ImageView imgPlay = itemView.findViewById(R.id.img_play);
-        imgThumb.animate().alpha(1).start();
-        imgPlay.animate().alpha(0f).start();
+        if (itemView != null) {
+            ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+            ImageView imgPlay = itemView.findViewById(R.id.img_play);
+            imgThumb.animate().alpha(1).start();
+            imgPlay.animate().alpha(0f).start();
+        }
         stop();
     }
 
@@ -377,7 +567,7 @@ public class ChannelVideoFragment extends BaseFragment {
 
     private void start() {
 //        if (mPlayer != null) {
-//            mPlayer.prepareToPlay(url1);
+//            mPlayer.prepareToPlay(url);
 //        }
     }
 
@@ -415,9 +605,7 @@ public class ChannelVideoFragment extends BaseFragment {
     }
 
     public void onButtonPressed(Uri uri) {
-//        if (videoView != null) {
-//            videoView.pause();
-//        }
+
     }
 
     @Override

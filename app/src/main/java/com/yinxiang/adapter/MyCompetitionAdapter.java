@@ -3,13 +3,15 @@ package com.yinxiang.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ItemMyCompetitionLayoutBinding;
+import com.yinxiang.model.ActivityData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class MyCompetitionAdapter extends BaseRecyclerAdapter<String, ItemMyCompetitionLayoutBinding> {
+public class MyCompetitionAdapter extends BaseRecyclerAdapter<ActivityData.DataBeanX.DataBean, ItemMyCompetitionLayoutBinding> {
 
     private OnClickListener onClickListener;
 
@@ -27,9 +29,12 @@ public class MyCompetitionAdapter extends BaseRecyclerAdapter<String, ItemMyComp
     }
 
     @Override
-    protected void onBindItem(ItemMyCompetitionLayoutBinding binding, final String str, final int position) {
+    protected void onBindItem(ItemMyCompetitionLayoutBinding binding, final ActivityData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderRoundedImage(mContext, str, binding.cover, 10);
+            binding.tvName.setText(dataBean.getName());
+            binding.tvTime.setText(dataBean.getUpdated_at());
+            binding.tvVotes.setText(dataBean.getPre_votes() + "票");
+            GlideLoader.LoderRoundedImage(mContext, dataBean.getImg(), binding.cover, 10);
             binding.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

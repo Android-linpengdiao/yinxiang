@@ -39,26 +39,35 @@
                         android:textColor="#ff333333"
                         android:textSize="16sp" />
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/friend_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="3dp"
-                        android:text="全国"
-                        android:textColor="#ff70eddc"
-                        android:textSize="13sp" />
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="31dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/open_b"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="3dp"
+                            android:text="全国"
+                            android:textColor="#ff70eddc"
+                            android:textSize="13sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="好友"
-                        android:textColor="#ffcccccc"
-                        android:textSize="13sp" />
+                        <ImageView
+                            android:id="@+id/iv_friend"
+                            android:layout_width="31dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/open_b" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:text="好友"
+                            android:textColor="#ffcccccc"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <cn.wj.android.colorcardview.CardView
@@ -69,9 +78,9 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="10dp"
+                    app:cardPreventCornerOverlap="true"
                     app:cardShadowColorEnd="@color/app_selector_shadow_end"
                     app:cardShadowColorStart="@color/app_selector_shadow_start"
-                    app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
 
                     <android.support.v4.widget.SwipeRefreshLayout
@@ -83,7 +92,7 @@
                             android:id="@+id/recyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/white"/>
+                            android:background="@color/white" />
 
                     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -102,7 +111,7 @@
                     android:layout_height="54dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/button_right_theme"
-                    android:drawableRight="@drawable/icon_more"
+                    android:drawableRight="@drawable/ic_next"
                     android:padding="4dp" />
             </RelativeLayout>
 

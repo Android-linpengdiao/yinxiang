@@ -467,7 +467,9 @@ public class SendRequest {
      */
     public static void homePageVideosHonour(int tourist_id, int active_id, int perPage, Callback call) {
         Map<String, String> map = new HashMap<>();
-        map.put("tourist_id", String.valueOf(tourist_id));
+        if (tourist_id != 0) {
+            map.put("tourist_id", String.valueOf(tourist_id));
+        }
         map.put("active_id", String.valueOf(active_id));
         map.put("perPage", String.valueOf(perPage));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosHonour).build().execute(call);
@@ -597,7 +599,7 @@ public class SendRequest {
     public static void homepageVideosHot(int tourist_id, int active_id, int perPage, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
-        map.put("active_id", String.valueOf(active_id));
+//        map.put("active_id", String.valueOf(active_id));
         map.put("perPage", String.valueOf(perPage));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.homepageVideosHot).build().execute(call);
 
@@ -693,7 +695,7 @@ public class SendRequest {
      * 频道-社团-编辑社团
      *
      * @param tourist_id
-     * @param clubId        社团id
+     * @param clubId       社团id
      * @param logo         社团logo
      * @param license      营业执照
      * @param idcard_front 身份证正面
@@ -703,7 +705,7 @@ public class SendRequest {
      * @param desc         社团简介
      * @param call
      */
-    public static void channelEditClub(int tourist_id,int clubId, String logo, String name,String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
+    public static void channelEditClub(int tourist_id, int clubId, String logo, String name, String license, String idcard_front, String idcard_back, String phone, String authCode, String desc, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("club_id", String.valueOf(clubId));
@@ -856,6 +858,32 @@ public class SendRequest {
         Map<String, String> map = new HashMap<>();
         map.put("video_id", String.valueOf(video_id));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.worksDetail).build().execute(call);
+
+    }
+
+    /**
+     * 我的-我的活动
+     *
+     * @param tourist_id
+     * @param call
+     */
+    public static void personInformActive(int tourist_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.personInformActive).build().execute(call);
+
+    }
+
+    /**
+     * 我的-我的活动-详情
+     *
+     * @param video_id
+     * @param call
+     */
+    public static void personInformActiveDetail(int video_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("video_id", String.valueOf(video_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.personInformActiveDetail).build().execute(call);
 
     }
 

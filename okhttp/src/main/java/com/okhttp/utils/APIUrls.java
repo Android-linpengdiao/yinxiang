@@ -131,6 +131,10 @@ public class APIUrls {
     public final static String url_personInformWorks = url_domain + "api/personInform/works";
     //我的-我的作品详情
     public final static String worksDetail = url_domain + "api/personInform/worksDetail";
+    //我的-我的活动
+    public final static String personInformActive = url_domain + "api/personInform/active";
+    //我的-我的活动-详情
+    public final static String personInformActiveDetail = url_domain + "api/personInform/activeDetail";
     // 我的-用户资料
     public final static String url_personInformEditBase = url_domain + "api/personInform/editBase";
     //我的-获取用户资料

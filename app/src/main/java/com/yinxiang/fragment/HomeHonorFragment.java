@@ -84,6 +84,7 @@ public class HomeHonorFragment extends BaseFragment implements View.OnClickListe
         }
 
         binding.type.setOnClickListener(this);
+        binding.friendView.setOnClickListener(this);
 
         adapter = new HomeHonorAdapter(getActivity());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -120,7 +121,7 @@ public class HomeHonorFragment extends BaseFragment implements View.OnClickListe
     private void homePageVideosHonour(HomeActives.DataBean dataBean) {
         this.dataBean = dataBean;
         binding.swipeRefreshLayout.setRefreshing(true);
-        SendRequest.homePageVideosHonour(getUserInfo().getData().getId(), dataBean.getId(), 10, new GenericsCallback<HonourData>(new JsonGenericsSerializator()) {
+        SendRequest.homePageVideosHonour(binding.ivFriend.isSelected() ? getUserInfo().getData().getId() : 0, dataBean.getId(), 10, new GenericsCallback<HonourData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -168,6 +169,10 @@ public class HomeHonorFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.friend_view:
+                binding.ivFriend.setSelected(!binding.ivFriend.isSelected());
+                homePageVideosHonour(dataBean);
+                break;
             case R.id.type:
                 typeView(homeActives);
                 break;
