@@ -2,6 +2,8 @@ package com.yinxiang.activity;
 
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,14 @@ import com.baselibrary.MessageBus;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.AuthService;
+import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.nim.MD5;
+import com.okhttp.callbacks.StringCallback;
+import com.okhttp.utils.APIUrls;
+import com.okhttp.utils.OkHttpUtils;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityMainBinding;
 import com.yinxiang.fragment.ChannelFragment;
@@ -34,9 +44,16 @@ import com.yinxiang.utils.ViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
         NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
-
+    private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
 
     private ActionBarDrawerToggle mDrawerToggle;
@@ -58,6 +75,141 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         intHeaderView();
 
+        initNim();
+
+    }
+
+    private void initNim() {
+        register("13521614827","13521614827","123456");
+//        doLogin();
+    }
+
+    // api
+    private static final String API_NAME_REGISTER = "createDemoUser";
+
+    // header
+    private static final String HEADER_KEY_APP_KEY = "appkey";
+    private static final String HEADER_CONTENT_TYPE = "Content-Type";
+    private static final String HEADER_USER_AGENT = "User-Agent";
+
+    // request
+    private static final String REQUEST_USER_NAME = "username";
+    private static final String REQUEST_NICK_NAME = "nickname";
+    private static final String REQUEST_PASSWORD = "password";
+    /**
+     * 向应用服务器创建账号（注册账号）
+     * 由应用服务器调用WEB SDK接口将新注册的用户数据同步到云信服务器
+     */
+    public void register(String account, String nickName, String password) {
+        String url = "https://app.netease.im/api/createDemoUser";
+        password = MD5.getStringMD5(password);
+        try {
+            nickName = URLEncoder.encode(nickName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        Map<String, String> headers = new HashMap<>(1);
+        String appKey = readAppKey();
+        headers.put(HEADER_CONTENT_TYPE, "application/x-www-form-urlencoded; charset=utf-8");
+        headers.put(HEADER_USER_AGENT, "nim_demo_android");
+        headers.put(HEADER_KEY_APP_KEY, appKey);
+
+        StringBuilder body = new StringBuilder();
+        body.append(REQUEST_USER_NAME).append("=").append(account.toLowerCase()).append("&")
+                .append(REQUEST_NICK_NAME).append("=").append(nickName).append("&")
+                .append(REQUEST_PASSWORD).append("=").append(password);
+        String bodyString = body.toString();
+        Log.i(TAG, "register: appKey = "+appKey);
+        Log.i(TAG, "register: bodyString = "+bodyString);
+        Map<String, String> map = new HashMap<>();
+        map.put(REQUEST_USER_NAME, account.toLowerCase());
+        map.put(REQUEST_NICK_NAME, nickName);
+        map.put(REQUEST_PASSWORD, password);
+
+        OkHttpUtils.getInstance()
+                .post()
+                .headers(headers)
+                .params(map)
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                    }
+                });
+
+//        NimHttpClient.getInstance().execute(url, headers, bodyString, new NimHttpClient.NimHttpCallback() {
+//            @Override
+//            public void onResponse(String response, int code, Throwable exception) {
+//                if (code != 200 || exception != null) {
+//                    String errMsg = exception != null ? exception.getMessage() : "null";
+//                    LogUtil.e(TAG, "register failed : code = " + code + ", errorMsg = " + errMsg);
+//                    if (callback != null) {
+//                        callback.onFailed(code, errMsg);
+//                    }
+//                    return;
+//                }
+//
+//                try {
+//                    JSONObject resObj = JSONObject.parseObject(response);
+//                    int resCode = resObj.getIntValue(RESULT_KEY_RES);
+//                    if (resCode == RESULT_CODE_SUCCESS) {
+//                        callback.onSuccess(null);
+//                    } else {
+//                        String error = resObj.getString(RESULT_KEY_ERROR_MSG);
+//                        callback.onFailed(resCode, error);
+//                    }
+//                } catch (JSONException e) {
+//                    callback.onFailed(-1, e.getMessage());
+//                }
+//            }
+//        });
+    }
+
+    private String readAppKey() {
+        try {
+            ApplicationInfo appInfo = getPackageManager().
+                    getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            if (appInfo != null) {
+                return appInfo.metaData.getString("com.netease.nim.appKey");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void doLogin() {
+        LoginInfo info = new LoginInfo("13521614827", MD5.getStringMD5("123456"));
+        RequestCallback<LoginInfo> callback =
+                new RequestCallback<LoginInfo>() {
+                    @Override
+                    public void onSuccess(LoginInfo param) {
+                        Log.i(TAG, "onSuccess: "+param.getToken());
+                        Log.i(TAG, "onSuccess: "+param.getAppKey());
+                        Log.i(TAG, "onSuccess: "+param.getAccount());
+                    }
+
+                    @Override
+                    public void onFailed(int code) {
+                        Log.i(TAG, "onFailed: "+code);
+                    }
+
+                    @Override
+                    public void onException(Throwable exception) {
+                        Log.i(TAG, "onException: "+exception.getMessage());
+                    }
+                    // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
+                };
+        NIMClient.getService(AuthService.class).login(info)
+                .setCallback(callback);
     }
 
     private void intHeaderView() {
@@ -170,8 +322,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             }
         });
     }
-
-    private static final String TAG = "MainActivity";
 
 
     @Override

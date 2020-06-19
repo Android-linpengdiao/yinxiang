@@ -2,6 +2,7 @@ package com.yinxiang;
 
 import com.baselibrary.BaseApplication;
 import com.baselibrary.utils.LogUtil;
+import com.nim.NimApplication;
 import com.okhttp.utils.HttpsUtils;
 import com.okhttp.utils.OkHttpUtils;
 
@@ -13,7 +14,7 @@ import javax.net.ssl.SSLSession;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-public class MyApplication extends BaseApplication {
+public class MyApplication extends NimApplication {
 
     @Override
     public void onCreate() {

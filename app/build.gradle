@@ -15,12 +15,28 @@ android {
             abiFilters "armeabi-v7a"
         }
     }
+    signingConfigs {
+        signConfig {
+            storeFile file('../yinxiang.jks')
+            storePassword "yinxiang"
+            keyAlias "yinxiang"
+            keyPassword "yinxiang"
+        }
+    }
+
     buildTypes {
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signConfig // 配置release包的签名
+        }
+
+        debug {
+            signingConfig signingConfigs.signConfig // 配置debug包的签名
         }
     }
+
     android {
         dataBinding {
             enabled = true
@@ -28,6 +44,10 @@ android {
     }
     repositories {
         flatDir { dirs 'libs' }
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
 }
 
@@ -51,6 +71,7 @@ dependencies {
     implementation project(':cardview')
     implementation project(':videocompressor')
     implementation project(':LayoutManagerGroup')
+    implementation project(':nim')
     // 阿里视频播放器
     api files('libs/AlivcReporter-1.2.aar')
     api files('libs/AlivcPlayer-3.4.6.aar')
