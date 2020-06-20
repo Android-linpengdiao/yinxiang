@@ -18,13 +18,20 @@ import com.alivc.player.MediaPlayer;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityJoinCompetitionDetailBinding;
+import com.yinxiang.model.ActiveDetail;
+import com.yinxiang.model.ActivityData;
+
+import okhttp3.Call;
 
 public class JoinCompetitionDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityJoinCompetitionDetailBinding binding;
-    private int type = 0;
+    private int workId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +39,32 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
         binding = DataBindingUtil.setContentView(this, R.layout.activity_join_competition_detail);
 
         if (getIntent().getExtras() != null) {
-            type = getIntent().getExtras().getInt("type");
+            workId = getIntent().getExtras().getInt("workId");
         }
 
         binding.back.setOnClickListener(this);
         binding.playerBack.setOnClickListener(this);
         binding.fullscreen.setOnClickListener(this);
-        initView();
+        initData();
 
+    }
+
+    private void initData() {
+        SendRequest.personInformActiveDetail(getUserInfo().getData().getId(), workId, new GenericsCallback<ActiveDetail>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(ActiveDetail response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+                    initView(response.getData().getStatus());
+                } else {
+                    ToastUtils.showShort(JoinCompetitionDetailActivity.this, response.getMsg());
+                }
+            }
+
+        });
     }
 
     @Override
@@ -86,16 +111,16 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
      */
 
 
-    private void initView() {
-        if (type < 2) {
-            initChusaiView();
-        } else if (type < 4) {
-            initChusaiView();
-            initFusaiView();
-        } else if (type < 6) {
-            initChusaiView();
-            initFusaiView();
-            initJuesaiView();
+    private void initView(int status) {
+        if (status == 1) {
+            initChusaiView(status);
+        } else if (status == 2) {
+            initChusaiView(status);
+            initFusaiView(status);
+        } else if (status == 3) {
+            initChusaiView(status);
+            initFusaiView(status);
+            initJuesaiView(status);
         }
 
         GlideLoader.LoderVideoImage(this, CommonUtil.getVideoCoverListString().get(1), binding.thumbnails);
@@ -124,29 +149,29 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
         });
     }
 
-    private void initChusaiView() {
+    private void initChusaiView(int status) {
         GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, CommonUtil.getImageListString().get(0), binding.ivCover1, 10);
         binding.tvTitle1.setText("初赛-已晋级");
         binding.tvRank1.setText("排名No.1");
         binding.tvPoll1.setText("票数1000w");
         binding.ivPoint1.setSelected(true);
-        if (type == 0) {
+        if (status == 1) {
             binding.tvTitle1.setText("初赛-已晋级");
             binding.tvCompetitionTitle.setText("初赛-已晋级");
-        } else if (type >= 0) {
+        } else if (status > 1) {
             binding.tvTitle1.setText("初赛-已结束");
             binding.tvCompetitionTitle.setText("初赛-已结束");
         }
     }
 
-    private void initFusaiView() {
+    private void initFusaiView(int status) {
         binding.ivPoint2.setSelected(true);
-        if (type == 2) {
+        if (status == 2) {
             binding.tvTitle2.setText("复赛-已晋级");
             binding.tvCompetitionTitle.setText("复赛-已晋级");
             binding.tvUpload2.setVisibility(View.VISIBLE);
 
-        } else if (type >= 2) {
+        } else if (status > 2) {
 
             binding.tvRank2.setVisibility(View.VISIBLE);
             binding.tvPoll2.setVisibility(View.VISIBLE);
@@ -160,14 +185,14 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
         }
     }
 
-    private void initJuesaiView() {
+    private void initJuesaiView(int status) {
         binding.ivPoint3.setSelected(true);
-        if (type == 4) {
+        if (status == 3) {
             binding.tvTitle3.setText("决赛-已晋级");
             binding.tvCompetitionTitle.setText("决赛-已晋级");
             binding.tvUpload3.setVisibility(View.VISIBLE);
 
-        } else if (type >= 4) {
+        } else if (status > 3) {
 
             binding.tvRank3.setVisibility(View.VISIBLE);
             binding.tvPoll3.setVisibility(View.VISIBLE);

@@ -68,7 +68,7 @@
                             android:layout_weight="1"
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:text="这就是街舞3海选比赛选比赛这就是街舞3海选比赛选比赛这就是街舞3海选比赛选比赛"
+                            android:text=""
                             android:textColor="#ff333333"
                             android:textSize="15sp" />
 
@@ -76,7 +76,7 @@
                             android:id="@+id/tv_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="初赛进行中"
+                            android:text=""
                             android:textColor="#ff999999"
                             android:textSize="13sp" />
 
@@ -84,7 +84,7 @@
                             android:id="@+id/tv_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2020.06.06-07.07"
+                            android:text=""
                             android:textColor="#ff999999"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -98,10 +98,11 @@
                         android:paddingBottom="5dp">
 
                         <TextView
+                            android:id="@+id/tv_Level"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:text="No.0"
+                            android:text="No.1"
                             android:gravity="right"
                             android:textColor="#ff525de7"
                             android:textSize="20sp" />

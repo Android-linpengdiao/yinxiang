@@ -302,12 +302,12 @@ public class SendRequest {
      * @param body
      * @param call
      */
-    public static void url_homePageVideosReport(int tourist_id, int video_id, int type, int body, Callback call) {
+    public static void homePageVideosReport(int tourist_id, int video_id, int type, String body, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("video_id", String.valueOf(video_id));
         map.put("type", String.valueOf(type));
-        map.put("body", String.valueOf(body));
+        map.put("body", body);
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosReport).build().execute(call);
 
     }
@@ -880,8 +880,9 @@ public class SendRequest {
      * @param video_id
      * @param call
      */
-    public static void personInformActiveDetail(int video_id, Callback call) {
+    public static void personInformActiveDetail(int tourist_id, int video_id, Callback call) {
         Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
         map.put("video_id", String.valueOf(video_id));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.personInformActiveDetail).build().execute(call);
 

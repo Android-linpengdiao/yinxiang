@@ -38,9 +38,12 @@ public class MyCompetitionActivity extends BaseActivity implements View.OnClickL
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("type", (int) object);
-                openActivity(JoinCompetitionDetailActivity.class, bundle);
+                if (object instanceof ActivityData.DataBeanX.DataBean) {
+                    ActivityData.DataBeanX.DataBean dataBean = (ActivityData.DataBeanX.DataBean) object;
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("workId", dataBean.getId());
+                    openActivity(JoinCompetitionDetailActivity.class, bundle);
+                }
             }
 
             @Override

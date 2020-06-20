@@ -47,8 +47,8 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<WorkPKData.DataBeanX
             binding.pkTime.initTime(time/1000);
 //            binding.pkTime.setText(CommonUtil.getPKTime(String.valueOf(time)));
             binding.pkTime.reStart();
-            GlideLoader.LoderCircleImage(mContext, dataBean.getContent_img(), binding.workImg);
-            GlideLoader.LoderCircleImage(mContext, dataBean.getCompare_img(), binding.compareWorkImg);
+            GlideLoader.LoderLoadImage(mContext, dataBean.getContent_img(), binding.workImg,100);
+            GlideLoader.LoderLoadImage(mContext, dataBean.getCompare_img(), binding.compareWorkImg,100);
             binding.workView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

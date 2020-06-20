@@ -148,7 +148,12 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         }
                         break;
                     case R.id.tv_report:
-                        openActivity(ReportActivity.class);
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            bundle = new Bundle();
+                            bundle.putInt("videoId", dataBean.getId());
+                            openActivity(ReportActivity.class, bundle);
+                        }
                         break;
                     case R.id.user_icon:
                         if (object instanceof HomeVideos.DataBeanX.DataBean) {
@@ -193,7 +198,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void homePageVideosActive(HomeActives.DataBean dataBean) {
-        SendRequest.homePageVideosActive(getUserInfo().getData().getId(),dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+        SendRequest.homePageVideosActive(getUserInfo().getData().getId(), dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.recyclerView.setVisibility(View.GONE);
@@ -305,9 +310,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
-                                ToastUtils.showShort(getActivity(), "以为TA投一票");
+                                ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "一" : "三") + "票");
                             } else {
-                                ToastUtils.showShort(getActivity(), "今日以为TA投一票，明日再来为TA投一票");
+                                ToastUtils.showShort(getActivity(), "今日以为TA投" + (free == 1 ? "一" : "三") + "票，明日再来为TA投" + (free == 1 ? "一" : "三") + "票");
                             }
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
@@ -350,7 +355,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         homePageVideosVote(workId, 1);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?",String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {

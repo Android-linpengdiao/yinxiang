@@ -178,7 +178,7 @@ public class LoadingView extends View {
         //mProgressWidth/mWidth 计算当前进度条宽度占总宽度的比例
         //255*mProgressWidth/mWidth 计算当前比例下对应的透明度值
         //由于是由不透明变成全透明，所以使用255减去其值
-        int currentColorValue = 255 - 155 * mProgressWidth / mWidth;
+        int currentColorValue = 255 - 100 * mProgressWidth / mWidth;
 
         if (currentColorValue > 255) {
             //由于mProgressWidth有可能大于view的宽度，要保证颜色值不能大于255

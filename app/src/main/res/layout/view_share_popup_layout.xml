@@ -52,7 +52,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
                         android:text="朋友圈"
                         android:textColor="@color/textColor"
@@ -76,7 +76,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
                         android:text="微信好友"
                         android:textColor="#ff343434"
@@ -101,7 +101,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
                         android:text="QQ好友"
                         android:textColor="@color/textColor"
@@ -125,7 +125,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
                         android:text="下载到手机"
                         android:textColor="@color/textColor"

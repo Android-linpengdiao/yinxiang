@@ -9,22 +9,33 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
+import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
+import com.okhttp.utils.APIUrls;
+import com.yinxiang.MyApplication;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityWorkDetailBinding;
 import com.yinxiang.model.CommentData;
+import com.yinxiang.model.HomeVideos;
 import com.yinxiang.model.WorksDetail;
 import com.yinxiang.view.CommentListPopupWindow;
+import com.yinxiang.view.ElectionPopupWindow;
 import com.yinxiang.view.OnClickListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +46,8 @@ import okhttp3.Call;
 public class WorkDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityWorkDetailBinding binding;
+    private int workId;
+    private WorksDetail worksDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +55,15 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding = DataBindingUtil.setContentView(this, R.layout.activity_work_detail);
         setStatusBarHeight();
         binding.playerBack.setOnClickListener(this);
-        binding.ivComment.setOnClickListener(this);
+        binding.ivWorksPk.setOnClickListener(this);
+        binding.ivRelay.setOnClickListener(this);
         binding.ivLike.setOnClickListener(this);
+        binding.ivComment.setOnClickListener(this);
         binding.ivShare.setOnClickListener(this);
-        binding.userInfoView.setOnClickListener(this);
+        binding.tvElection.setOnClickListener(this);
+        binding.userIcon.setOnClickListener(this);
+        binding.tvFollow.setOnClickListener(this);
+        binding.tvReport.setOnClickListener(this);
         initData();
     }
 
@@ -59,18 +77,25 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        Bundle bundle;
         switch (v.getId()) {
-            case R.id.iv_comment:
-                CommentView();
+            case R.id.iv_works_pk:
+                bundle = new Bundle();
+                bundle.putInt("videoId", workId);
+                openActivity(SelectionWorkPKActivity.class, bundle);
+                break;
+            case R.id.iv_relay:
+                bundle = new Bundle();
+                bundle.putInt("videoId", workId);
+                openActivity(SelectionWorkRelayActivity.class, bundle);
                 break;
             case R.id.iv_like:
-                binding.ivLike.setSelected(!binding.ivLike.isSelected());
+                if (worksDetail != null) {
+                    videosAssist(binding.ivLike, workId);
+                }
                 break;
-            case R.id.player_back:
-                finish();
-                break;
-            case R.id.user_info_view:
-                openActivity(UserHomeActivity.class);
+            case R.id.iv_comment:
+                videosComment(workId);
                 break;
             case R.id.iv_share:
                 shareView(WorkDetailActivity.this, new OnClickListener() {
@@ -85,12 +110,32 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                     }
                 });
                 break;
+            case R.id.tv_election:
+                videosVoteSet(workId);
+                break;
+            case R.id.user_icon:
+                openActivity(UserHomeActivity.class);
+                break;
+            case R.id.tv_follow:
+                if (worksDetail != null) {
+                    personFollow(binding.tvFollow, worksDetail.getData().getTourist().getId());
+                }
+                break;
+            case R.id.tv_report:
+                bundle = new Bundle();
+                bundle.putInt("videoId", workId);
+                openActivity(ReportActivity.class,bundle);
+                break;
+            case R.id.player_back:
+                finish();
+                break;
         }
     }
 
     private void initData() {
         if (getIntent().hasExtra("workId")) {
-            SendRequest.worksDetail(getIntent().getIntExtra("workId", 0), new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
+            workId = getIntent().getIntExtra("workId", 0);
+            SendRequest.worksDetail(workId, new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
                 @Override
                 public void onError(Call call, Exception e, int id) {
 
@@ -98,7 +143,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
                 @Override
                 public void onResponse(WorksDetail response, int id) {
-                    if (response != null && response.getCode() == 200){
+                    if (response != null && response.getCode() == 200) {
+                        worksDetail = response;
                         initView(response);
                     }
                 }
@@ -108,12 +154,66 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    private void CommentView() {
-        CommentListPopupWindow commentListPopupWindow = new CommentListPopupWindow(WorkDetailActivity.this);
+    /**
+     * ================================ 投票 ===========================================
+     */
+
+    private void videosComment(final int video_id) {
+        SendRequest.homePageVideosComment(100, video_id, new GenericsCallback<CommentData>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(CommentData response, int id) {
+                if (response != null && response.getCode() == 200 && response.getData() != null) {
+                    if (commentListPopupWindow != null) {
+                        commentListPopupWindow.setCommentData(response);
+                    } else {
+                        CommentView(response, video_id);
+                    }
+                } else {
+                    ToastUtils.showShort(WorkDetailActivity.this, response.getMsg());
+                }
+            }
+
+        });
+
+    }
+
+    private void videosCreateComment(final int video_id, String content) {
+        SendRequest.homePageVideosCreateComment(getUserInfo().getData().getId(), video_id, content, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optInt("code") == 200) {
+                        videosComment(video_id);
+                    } else {
+                        ToastUtils.showShort(WorkDetailActivity.this, jsonObject.optString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    private CommentListPopupWindow commentListPopupWindow;
+
+    private void CommentView(CommentData commentData, final int video_id) {
+        commentListPopupWindow = new CommentListPopupWindow(WorkDetailActivity.this);
         commentListPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-
+                videosCreateComment(video_id, (String) object);
             }
 
             @Override
@@ -122,8 +222,108 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
             }
         });
         commentListPopupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-        CommentData commentData = new CommentData();
         commentListPopupWindow.setCommentData(commentData);
+    }
+
+    /**
+     * ================================ 投票 ===========================================
+     */
+
+    private void videosVoteSet(final int workId) {
+        SendRequest.homePageVideosVoteSet(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"));
+                        } else {
+                            ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void Election(final int workId, final String wallet_token) {
+        ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getApplication());
+        electionPopupWindow.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                switch (view.getId()) {
+                    case R.id.tv_election:
+                        homePageVideosVote(workId, 1);
+                        break;
+                    case R.id.tv_election_coin:
+                        DialogManager.showPayDialog(WorkDetailActivity.this, "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                            @Override
+                            public void onClick(View view, Object object) {
+                                switch (view.getId()) {
+                                    case R.id.tv_confirm:
+                                        homePageVideosVote(workId, 2);
+                                        break;
+                                    case R.id.tv_cancel:
+
+                                        break;
+                                    case R.id.tv_coin:
+                                        openActivity(MyWalletActivity.class);
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onLongClick(View view, Object object) {
+
+                            }
+                        });
+                        break;
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
+        electionPopupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+    private void homePageVideosVote(int workId, int free) {
+        SendRequest.homePageVideosVote(getUserInfo().getData().getId(), workId, free, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
+                                ToastUtils.showShort(getApplication(), "以为TA投一票");
+                            } else {
+                                ToastUtils.showShort(getApplication(), "今日以为TA投一票，明日再来为TA投一票");
+                            }
+                        } else {
+                            ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -146,14 +346,20 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         super.onDestroy();
     }
 
-    private void initView(WorksDetail response) {
-        binding.userName.setText(response.getData().getTourist().getName());
-        binding.tvDesc.setText(response.getData().getName());
+    private void initView(WorksDetail dataBean) {
+
+        binding.userName.setText(dataBean.getData().getTourist().getName());
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time = CommonUtil.getDuration(getApplication(), response.getData().getCreated_at(), df.format(new Date()));
-        binding.tvTime.setText("发布于"+time);
-        GlideLoader.LoderCircleImage(this,response.getData().getTourist().getAvatar(), binding.userIcon);
-        GlideLoader.LoderVideoImage(this,response.getData().getImg(), binding.thumbnails);
+        String time = CommonUtil.getDuration(getApplication(), dataBean.getData().getCreated_at(), df.format(new Date()));
+        binding.tvTime.setText("发布于" + time);
+        binding.tvName.setText(dataBean.getData().getName());
+//        binding.tvFollow.setText(dataBean.getData().isIs_person_follow() ? "已关注" : "关注");
+//        binding.ivLike.setSelected(dataBean.getData().isIs_assist());
+        binding.tvElection.setText(String.valueOf(dataBean.getData().getPre_votes()));
+        GlideLoader.LoderCircleImage(this, dataBean.getData().getTourist().getAvatar(), binding.userIcon);
+        GlideLoader.LoderVideoImage(this, dataBean.getData().getImg(), binding.thumbnails);
+
+
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -177,9 +383,78 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 }
             }
         });
-
-        playVideo(response.getData().getVideo());
+        playVideo(dataBean.getData().getVideo());
     }
+
+    private void personFollow(TextView tvFollow, int follow_id) {
+        String url = tvFollow.isSelected() ? APIUrls.url_homePagePersonUnFollow : APIUrls.url_homePagePersonFollow;
+        SendRequest.homePagePersonFollow(MyApplication.getInstance().getUserInfo().getData().getId(), follow_id, url, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            if (jsonObject.optInt("code") == 200) {
+                                tvFollow.setSelected(!tvFollow.isSelected());
+                                tvFollow.setText(tvFollow.isSelected() ? "已关注" : "关注");
+                            } else {
+                                ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));
+                            }
+                        } else {
+                            ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));
+                        }
+                    } else {
+                        ToastUtils.showShort(getApplication(), "请求失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(getApplication(), "请求失败");
+                }
+
+            }
+        });
+    }
+
+    private void videosAssist(ImageView ivLike, int video_id) {
+        String url = ivLike.isSelected() ? APIUrls.url_homePageVideosCancelAssist : APIUrls.url_homePageVideosAssist;
+        SendRequest.homePageVideosAssist(MyApplication.getInstance().getUserInfo().getData().getId(), video_id, url, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            ivLike.setSelected(!ivLike.isSelected());
+                        } else {
+                            ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));
+                        }
+                    } else {
+                        ToastUtils.showShort(getApplication(), "请求失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(getApplication(), "请求失败");
+                }
+
+            }
+        });
+    }
+
+
+    /**
+     * ================================ 播放器 ================================================
+     */
 
     private void showVideoProgressInfo() {
         if (mPlayer != null && !inSeek) {
@@ -252,7 +527,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onPrepared() {
                 binding.surfaceView.setBackgroundColor(Color.TRANSPARENT);
-                binding.loading.setVisibility(View.GONE);
+                binding.loadingView.setVisibility(View.GONE);
                 mPlayer.play();
             }
         });
@@ -296,7 +571,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
             mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         }
         mPlayer.prepareToPlay(videoUrl);
-        binding.loading.setVisibility(View.VISIBLE);
+        binding.loadingView.setVisibility(View.VISIBLE);
 
     }
 

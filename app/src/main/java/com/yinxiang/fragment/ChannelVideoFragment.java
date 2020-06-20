@@ -150,7 +150,12 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                         }
                         break;
                     case R.id.tv_report:
-                        openActivity(ReportActivity.class);
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            bundle = new Bundle();
+                            bundle.putInt("videoId", dataBean.getId());
+                            openActivity(ReportActivity.class, bundle);
+                        }
                         break;
                     case R.id.user_icon:
                         if (object instanceof HomeVideos.DataBeanX.DataBean) {

@@ -18,8 +18,10 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +63,15 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private FragmentManager mFragmentManager;
     public static Fragment mCurrentFragment;
 
+    private ImageView userIcon;
+    private TextView userName;
+    private TextView userTouristId;
+    private TextView userAddr;
+    private TextView userLevel;
+    private ImageView isVip;
+    private TextView fanNumber;
+    private TextView followNumber;
+
     private int index = 0;
 
     @Override
@@ -80,7 +91,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     private void initNim() {
-        register("13521614827","13521614827","123456");
+        register("13521614827", "13521614827", "123456");
 //        doLogin();
     }
 
@@ -96,6 +107,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private static final String REQUEST_USER_NAME = "username";
     private static final String REQUEST_NICK_NAME = "nickname";
     private static final String REQUEST_PASSWORD = "password";
+
     /**
      * 向应用服务器创建账号（注册账号）
      * 由应用服务器调用WEB SDK接口将新注册的用户数据同步到云信服务器
@@ -120,8 +132,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 .append(REQUEST_NICK_NAME).append("=").append(nickName).append("&")
                 .append(REQUEST_PASSWORD).append("=").append(password);
         String bodyString = body.toString();
-        Log.i(TAG, "register: appKey = "+appKey);
-        Log.i(TAG, "register: bodyString = "+bodyString);
+        Log.i(TAG, "register: appKey = " + appKey);
+        Log.i(TAG, "register: bodyString = " + bodyString);
         Map<String, String> map = new HashMap<>();
         map.put(REQUEST_USER_NAME, account.toLowerCase());
         map.put(REQUEST_NICK_NAME, nickName);
@@ -192,19 +204,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 new RequestCallback<LoginInfo>() {
                     @Override
                     public void onSuccess(LoginInfo param) {
-                        Log.i(TAG, "onSuccess: "+param.getToken());
-                        Log.i(TAG, "onSuccess: "+param.getAppKey());
-                        Log.i(TAG, "onSuccess: "+param.getAccount());
+                        Log.i(TAG, "onSuccess: " + param.getToken());
+                        Log.i(TAG, "onSuccess: " + param.getAppKey());
+                        Log.i(TAG, "onSuccess: " + param.getAccount());
                     }
 
                     @Override
                     public void onFailed(int code) {
-                        Log.i(TAG, "onFailed: "+code);
+                        Log.i(TAG, "onFailed: " + code);
                     }
 
                     @Override
                     public void onException(Throwable exception) {
-                        Log.i(TAG, "onException: "+exception.getMessage());
+                        Log.i(TAG, "onException: " + exception.getMessage());
                     }
                     // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
                 };
@@ -215,14 +227,14 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void intHeaderView() {
         binding.navView.setNavigationItemSelectedListener(this);
         View headerView = binding.navView.getHeaderView(0);
-        ImageView userIcon = headerView.findViewById(R.id.user_icon);
-        TextView userName = headerView.findViewById(R.id.user_name);
-        TextView userTouristId = headerView.findViewById(R.id.user_tourist_id);
-        TextView userAddr = headerView.findViewById(R.id.user_addr);
-        TextView userLevel = headerView.findViewById(R.id.user_level);
-        ImageView isVip = headerView.findViewById(R.id.is_vip);
-        TextView fanNumber = headerView.findViewById(R.id.fan_number);
-        TextView followNumber = headerView.findViewById(R.id.follow_number);
+        userIcon = headerView.findViewById(R.id.user_icon);
+        userName = headerView.findViewById(R.id.user_name);
+        userTouristId = headerView.findViewById(R.id.user_tourist_id);
+        userAddr = headerView.findViewById(R.id.user_addr);
+        userLevel = headerView.findViewById(R.id.user_level);
+        isVip = headerView.findViewById(R.id.is_vip);
+        fanNumber = headerView.findViewById(R.id.fan_number);
+        followNumber = headerView.findViewById(R.id.follow_number);
         View myFansView = headerView.findViewById(R.id.my_fans_view);
         View myFollowView = headerView.findViewById(R.id.my_follow_view);
         View myWorkView = headerView.findViewById(R.id.my_work_view);
@@ -233,15 +245,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         View myVIPView = headerView.findViewById(R.id.my_vip_view);
         View tvEditor = headerView.findViewById(R.id.tv_editor);
         View tvSetting = headerView.findViewById(R.id.tv_setting);
+        View bottomView = headerView.findViewById(R.id.bottomView);
 
-        userName.setText(getUserInfo().getData().getName() + "");
-        userTouristId.setText("引享号：" + getUserInfo().getData().getTourist_id());
-        userAddr.setText(getUserInfo().getData().getAddr() + "");
-        userLevel.setText("Lv." + getUserInfo().getData().getLevel());
-        fanNumber.setText(String.valueOf(getUserInfo().getData().getFan_number()));
-        isVip.setVisibility(getUserInfo().getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
-        followNumber.setText(String.valueOf(getUserInfo().getData().getFollow_number()));
-        GlideLoader.LoderCircleImage(this, getUserInfo().getData().getAvatar(), userIcon);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) bottomView.getLayoutParams();
+        layoutParams.height = CommonUtil.getScreenHeight(getApplication());
+        bottomView.setLayoutParams(layoutParams);
 
         myFansView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,10 +331,21 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         });
     }
 
+    private void intHeaderData() {
+        userName.setText(getUserInfo().getData().getName() + "");
+        userTouristId.setText("引享号：" + getUserInfo().getData().getTourist_id());
+        userAddr.setText(getUserInfo().getData().getAddr() + "");
+        userLevel.setText("Lv." + getUserInfo().getData().getLevel());
+        fanNumber.setText(String.valueOf(getUserInfo().getData().getFan_number()));
+        isVip.setVisibility(getUserInfo().getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
+        followNumber.setText(String.valueOf(getUserInfo().getData().getFollow_number()));
+        GlideLoader.LoderCircleImage(this, getUserInfo().getData().getAvatar(), userIcon);
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        intHeaderData();
         Log.i(TAG, "onResume: ");
         new Handler().postDelayed(new Runnable() {
             @Override

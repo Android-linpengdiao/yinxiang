@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -31,14 +32,6 @@
             android:layout_centerInParent="true"
             android:alpha="0"
             android:src="@drawable/ic_video_play" />
-
-        <ProgressBar
-            android:id="@+id/loading"
-            style="@android:style/Widget.Holo.ProgressBar.Large"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -89,12 +82,11 @@
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
                 android:paddingTop="15dp"
-                android:paddingRight="80dp"
+                android:paddingRight="90dp"
                 android:paddingBottom="15dp">
 
                 <LinearLayout
-                    android:id="@+id/user_info_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -115,6 +107,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/tv_follow"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_marginLeft="10dp"
@@ -124,8 +117,7 @@
                         android:paddingRight="17dp"
                         android:text="关注"
                         android:textColor="#ffffffff"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_report"
@@ -138,16 +130,17 @@
                         android:paddingRight="17dp"
                         android:text="举报"
                         android:textColor="#ffffffff"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_desc"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text=""
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:textColor="#ffe6e6e6"
                     android:textSize="15sp" />
 
@@ -169,8 +162,8 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:paddingBottom="15dp">
 
                 <ImageView
@@ -178,16 +171,14 @@
                     android:layout_width="37dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/pk"
-                    android:visibility="gone" />
+                    android:src="@drawable/pk" />
 
                 <ImageView
                     android:id="@+id/iv_relay"
                     android:layout_width="37dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/icon_jieli"
-                    android:tint="@color/white" />
+                    android:src="@drawable/jieli" />
 
                 <ImageView
                     android:id="@+id/iv_like"
@@ -218,26 +209,34 @@
                     android:drawableTop="@drawable/toupiao"
                     android:drawablePadding="8dp"
                     android:gravity="center"
-                    android:text="100w"
+                    android:text="0"
                     android:textColor="#ffffffff"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
-            <SeekBar
-                android:id="@+id/progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
+            <com.yinxiang.view.LoadingView
+                android:id="@+id/loadingView"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
                 android:layout_alignParentBottom="true"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:maxHeight="3dp"
-                android:minHeight="3dp"
-                android:progressDrawable="@drawable/seek_bar_progress"
-                android:thumb="@drawable/seek_bar_thumb" />
+                app:minHeight="5dp"
+                app:minProgressWidth="20dp"
+                app:progressColor="#ffffff" />
 
         </RelativeLayout>
+
+        <SeekBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progressDrawable="@drawable/seek_bar_progress"
+            android:thumb="@drawable/seek_bar_thumb" />
 
     </RelativeLayout>
 </layout>

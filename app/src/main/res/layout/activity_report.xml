@@ -66,39 +66,40 @@
 
                     <RadioButton
                         android:id="@+id/radio_button_0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:button="@null"
+                        android:background="@null"
                         android:checked="true"
                         android:drawableLeft="@drawable/check"
                         android:drawablePadding="10dp"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="涉黄"
                         android:textColor="#666666"
                         android:textSize="15sp" />
 
                     <RadioButton
                         android:id="@+id/radio_button_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:button="@null"
+                        android:background="@null"
                         android:drawableLeft="@drawable/check"
                         android:drawablePadding="10dp"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="涉爆"
                         android:textColor="#666666"
                         android:textSize="15sp" />
 
                     <RadioButton
                         android:id="@+id/radio_button_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:button="@null"
+                        android:background="@null"
                         android:drawableLeft="@drawable/check"
                         android:drawablePadding="10dp"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="涉及反动言论"
                         android:textColor="#666666"
                         android:textSize="15sp" />
@@ -106,13 +107,13 @@
 
                     <RadioButton
                         android:id="@+id/radio_button_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:button="@null"
+                        android:background="@null"
                         android:drawableLeft="@drawable/check"
                         android:drawablePadding="10dp"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="其他"
                         android:textColor="#666666"
                         android:textSize="15sp" />
@@ -141,6 +142,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -166,7 +168,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="@dimen/padding"
             android:background="@drawable/button_radius_theme"
-            android:enabled="false"
             android:gravity="center"
             android:text="提交"
             android:textColor="@android:color/white"

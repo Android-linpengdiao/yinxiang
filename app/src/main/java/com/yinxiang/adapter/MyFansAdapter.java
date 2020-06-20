@@ -37,14 +37,14 @@ public class MyFansAdapter extends BaseRecyclerAdapter<FansUserData.DataBeanX.Da
             binding.tvFollowers.setText("已关注");
             binding.tvFollowers.setText(dataBean.isIs_person_follow()?"已关注":"关注");
             GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
-            binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onClickListener != null) {
-                        onClickListener.onClick(v, dataBean);
-                    }
-                }
-            });
+//            binding.tvFollowers.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (onClickListener != null) {
+//                        onClickListener.onClick(v, dataBean);
+//                    }
+//                }
+//            });
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
