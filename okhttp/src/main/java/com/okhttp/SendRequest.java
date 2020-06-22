@@ -877,13 +877,13 @@ public class SendRequest {
     /**
      * 我的-我的活动-详情
      *
-     * @param video_id
+     * @param active_id
      * @param call
      */
-    public static void personInformActiveDetail(int tourist_id, int video_id, Callback call) {
+    public static void personInformActiveDetail(int tourist_id, int active_id, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
-        map.put("video_id", String.valueOf(video_id));
+        map.put("active_id", String.valueOf(active_id));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.personInformActiveDetail).build().execute(call);
 
     }

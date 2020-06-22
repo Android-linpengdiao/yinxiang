@@ -33,9 +33,9 @@ public class MyCompetitionAdapter extends BaseRecyclerAdapter<ActivityData.DataB
         if (mList != null && mList.size() > 0) {
             binding.tvName.setText(dataBean.getName());
             binding.tvTime.setText(dataBean.getUpdated_at());
-            binding.tvLevel.setText("No." + (position + 1));
-            binding.tvStatus.setText(dataBean.getStatus() == 1 ? "初赛进行中" : dataBean.getStatus() == 2 ? "复赛进行中" : "决赛进行中");
-            binding.tvVotes.setText((dataBean.getStatus() == 1 ? dataBean.getPre_votes() : dataBean.getStatus() == 2 ? dataBean.getFinal_votes() : dataBean.getRematch_votes()) + "票");
+            binding.tvLevel.setText("No." + dataBean.getRank());
+            binding.tvStatus.setText(CommonUtil.getStatus(dataBean.getStatus()));
+            binding.tvVotes.setText(dataBean.getRank_vote() + "票");
             GlideLoader.LoderRoundedImage(mContext, dataBean.getImg(), binding.cover, 10);
             binding.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override

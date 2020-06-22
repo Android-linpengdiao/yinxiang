@@ -33,9 +33,100 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommonUtil {
+
+    /**
+     * 用户参与活动视频的状态表： 票数取（rank_vote） 排名取（rank）
+     *     //比赛状态 初赛未开始
+     *     public const PRE_STARTED = 1;
+     *     //比赛状态 初赛进行中
+     *     public const PRE_UN_PROCESS = 2;
+     *     //比赛状态 初赛已淘汰
+     *     public const PRE_ELIMINATE = 3;
+     *     //比赛状态 初赛已晋级
+     *     public const PRE_ADVANCED = 4;
+     *     //比赛状态 初赛已结束
+     *     public const PRE_FINISHED = 5;
+     */
+     /**
+      * //比赛状态 复赛未开始
+     *     public const FINAL_UN_STARTED = 6;
+     *     //比赛状态 复赛进行中
+     *     public const FINAL_PROCESS = 7;
+     *     //比赛状态 复赛已淘汰
+     *     public const FINAL_ELIMINATE = 8;
+     *     //比赛状态 复赛已晋级
+     *     public const FINAL_ADVANCED = 9;
+     *     //比赛状态 复赛已结束
+     *     public const FINAL_FINISHED = 10;
+     */
+     /**
+     *     //比赛状态 绝赛未开始
+     *     public const REMATCH_UN_STARTED = 11;
+     *     //比赛状态 绝赛进行中
+     *     public const REMATCH_PROCESS = 7;
+     *     //比赛状态 绝赛已淘汰
+     *     public const REMATCH_ELIMINATE = 8;
+     *     //比赛状态 绝赛已晋级
+     *     public const REMATCH_ADVANCED = 9;
+     *     //比赛状态 绝赛已结束
+     *     public const REMATCH_FINISHED = 10;
+     */
+
+     /**
+      * 活动状态表：
+     *
+     *
+     *     //活动初赛未开始
+     *     public const PRE_UN_STARTED = 1;
+     *     //活动初赛进行中
+     *     public const PRE_PROCESS = 3;
+     *     //活动初赛已结束
+     *     public const PRE_FINISHED = 5;
+     *
+     *     //活动复赛未开始
+     *     public const FINAL_UN_STARTED = 7;
+     *     //活动复赛进行中
+     *     public const FINAL_PROCESS = 9;
+     *     //活动复赛已结束
+     *     public const FINAL_FINISHED = 11;
+     *
+     *     //活动绝赛未开始
+     *     public const REMATCH_UN_STARTED = 13;
+     *     //活动绝赛进行中
+     *     public const REMATCH_PROCESS = 15;
+     *     //活动绝赛已结束
+     *     public const REMATCH_FINISHED = 17;
+     */
+    public static String getStatus(int key) {
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(1,"初赛未开始");
+        map.put(2,"初赛进行中");
+        map.put(3,"初赛已淘汰");
+        map.put(4,"初赛已晋级");
+        map.put(5,"初赛已结束");
+
+        map.put(6,"复赛未开始");
+        map.put(7,"复赛进行中");
+        map.put(8,"复赛已淘汰");
+        map.put(9,"复赛已晋级");
+        map.put(10,"复赛已结束");
+
+        map.put(11,"绝赛未开始");
+        map.put(12,"绝赛进行中");
+        map.put(13,"绝赛已淘汰");
+        map.put(14,"绝赛已晋级");
+        map.put(15,"绝赛已结束");
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }else {
+            return "活动未开始";
+        }
+    }
 
     public static List<String> getVideoListString() {
         String url1 = "http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4";
