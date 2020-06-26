@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -30,8 +31,10 @@ import okhttp3.Call;
 
 public class JoinCompetitionDetailActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = "JoinCompetitionDetailAc";
     private ActivityJoinCompetitionDetailBinding binding;
     private int workId = 0;
+    private ActiveDetail activeDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,9 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
             @Override
             public void onResponse(ActiveDetail response, int id) {
                 if (response.getCode() == 200 && response.getData() != null) {
-                    initView(response.getData().getStatus());
+                    activeDetail = response;
+                    initView(response);
+                    playVideo(activeDetail.getData().get(0).getVideo());
                 } else {
                     ToastUtils.showShort(JoinCompetitionDetailActivity.this, response.getMsg());
                 }
@@ -70,7 +75,6 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
     @Override
     protected void onResume() {
         super.onResume();
-        playVideo();
     }
 
     @Override
@@ -108,19 +112,21 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
 
     /**
      * 比赛进程
+     *
+     * @param activeDetail
      */
 
 
-    private void initView(int status) {
-        if (status == 1) {
-            initChusaiView(status);
-        } else if (status == 2) {
-            initChusaiView(status);
-            initFusaiView(status);
-        } else if (status == 3) {
-            initChusaiView(status);
-            initFusaiView(status);
-            initJuesaiView(status);
+    private void initView(ActiveDetail activeDetail) {
+
+        if (activeDetail.getData().size() > 0) {
+            initChusaiView(activeDetail.getData().get(0));
+        }
+        if (activeDetail.getData().size() > 1) {
+            initFusaiView(activeDetail.getData().get(1));
+        }
+        if (activeDetail.getData().size() > 2) {
+            initJuesaiView(activeDetail.getData().get(2));
         }
 
         GlideLoader.LoderVideoImage(this, CommonUtil.getVideoCoverListString().get(1), binding.thumbnails);
@@ -149,60 +155,46 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
         });
     }
 
-    private void initChusaiView(int status) {
-        GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, CommonUtil.getImageListString().get(0), binding.ivCover1, 10);
-        binding.tvTitle1.setText("初赛-已晋级");
-        binding.tvRank1.setText("排名No.1");
-        binding.tvPoll1.setText("票数1000w");
+    private void initChusaiView(ActiveDetail.DataBean dataBean) {
+        binding.tvCompetitionTitle.setText(CommonUtil.getStatus(dataBean.getStatus()));
+        binding.tvTitle1.setText(CommonUtil.getStatus(dataBean.getStatus()));
+        binding.tvRank1.setText("排名No." + dataBean.getRank());
+        binding.tvPoll1.setText("票数" + dataBean.getRank_vote());
         binding.ivPoint1.setSelected(true);
-        if (status == 1) {
-            binding.tvTitle1.setText("初赛-已晋级");
-            binding.tvCompetitionTitle.setText("初赛-已晋级");
-        } else if (status > 1) {
-            binding.tvTitle1.setText("初赛-已结束");
-            binding.tvCompetitionTitle.setText("初赛-已结束");
-        }
+        GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, dataBean.getImg(), binding.ivCover1, 10);
     }
 
-    private void initFusaiView(int status) {
+    private void initFusaiView(ActiveDetail.DataBean dataBean) {
+        binding.tvCompetitionTitle.setText(CommonUtil.getStatus(dataBean.getStatus()));
+        binding.tvTitle2.setText(CommonUtil.getStatus(dataBean.getStatus()));
+        binding.tvRank2.setText("排名No." + dataBean.getRank());
+        binding.tvPoll2.setText("票数" + dataBean.getRank_vote());
+
         binding.ivPoint2.setSelected(true);
-        if (status == 2) {
-            binding.tvTitle2.setText("复赛-已晋级");
-            binding.tvCompetitionTitle.setText("复赛-已晋级");
+        if (dataBean.getStatus() == 6) {
             binding.tvUpload2.setVisibility(View.VISIBLE);
-
-        } else if (status > 2) {
-
+        } else {
             binding.tvRank2.setVisibility(View.VISIBLE);
             binding.tvPoll2.setVisibility(View.VISIBLE);
             binding.ivCover2.setVisibility(View.VISIBLE);
-
-            binding.tvTitle2.setText("复赛-已结束");
-            binding.tvCompetitionTitle.setText("复赛-已结束");
-            binding.tvRank2.setText("排名No.1");
-            binding.tvPoll2.setText("票数1000w");
-            GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, CommonUtil.getImageListString().get(1), binding.ivCover2, 10);
+            GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, dataBean.getImg(), binding.ivCover2, 10);
         }
     }
 
-    private void initJuesaiView(int status) {
+    private void initJuesaiView(ActiveDetail.DataBean dataBean) {
+        binding.tvCompetitionTitle.setText(CommonUtil.getStatus(dataBean.getStatus()));
+        binding.tvTitle3.setText(CommonUtil.getStatus(dataBean.getStatus()));
+        binding.tvRank3.setText("排名No." + dataBean.getRank());
+        binding.tvPoll3.setText("票数" + dataBean.getRank_vote());
+
         binding.ivPoint3.setSelected(true);
-        if (status == 3) {
-            binding.tvTitle3.setText("决赛-已晋级");
-            binding.tvCompetitionTitle.setText("决赛-已晋级");
+        if (dataBean.getStatus() == 6) {
             binding.tvUpload3.setVisibility(View.VISIBLE);
-
-        } else if (status > 3) {
-
+        } else {
             binding.tvRank3.setVisibility(View.VISIBLE);
             binding.tvPoll3.setVisibility(View.VISIBLE);
             binding.ivCover3.setVisibility(View.VISIBLE);
-
-            binding.tvTitle3.setText("决赛-已结束");
-            binding.tvCompetitionTitle.setText("决赛-已结束");
-            binding.tvRank3.setText("排名No.1");
-            binding.tvPoll3.setText("票数1000w");
-            GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, CommonUtil.getImageListString().get(2), binding.ivCover3, 10);
+            GlideLoader.LoderLoadImage(JoinCompetitionDetailActivity.this, dataBean.getImg(), binding.ivCover3, 10);
         }
     }
 
@@ -241,9 +233,8 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
             showVideoProgressInfo();
         }
     };
-    String url1 = CommonUtil.getVideoListString().get(1);
 
-    private void playVideo() {
+    private void playVideo(String videoUrl) {
         binding.surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
                 holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
@@ -330,7 +321,8 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
         if (mPlayer != null) {
             mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
         }
-        mPlayer.prepareToPlay(url1);
+        Log.i(TAG, "playVideo: " + videoUrl);
+        mPlayer.prepareToPlay(videoUrl);
         binding.loading.setVisibility(View.VISIBLE);
 
     }
@@ -341,8 +333,8 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
     private AliVcMediaPlayer mPlayer;
 
     private void start() {
-        if (mPlayer != null) {
-            mPlayer.prepareToPlay(url1);
+        if (mPlayer != null && activeDetail != null) {
+            mPlayer.prepareToPlay("");
         }
     }
 

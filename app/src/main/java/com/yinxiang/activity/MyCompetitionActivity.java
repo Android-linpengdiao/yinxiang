@@ -41,7 +41,7 @@ public class MyCompetitionActivity extends BaseActivity implements View.OnClickL
                 if (object instanceof ActivityData.DataBeanX.DataBean) {
                     ActivityData.DataBeanX.DataBean dataBean = (ActivityData.DataBeanX.DataBean) object;
                     Bundle bundle = new Bundle();
-                    bundle.putInt("workId", dataBean.getId());
+                    bundle.putInt("workId", dataBean.getActive_id());
                     openActivity(JoinCompetitionDetailActivity.class, bundle);
                 }
             }

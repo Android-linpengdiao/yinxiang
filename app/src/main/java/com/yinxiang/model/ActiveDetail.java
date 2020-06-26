@@ -1,16 +1,18 @@
 package com.yinxiang.model;
 
+import java.util.List;
+
 public class ActiveDetail {
 
     /**
      * code : 200
      * msg : 成功
-     * data : {"id":17,"created_at":"2020-06-13 22:42:14","updated_at":"2020-06-14 23:39:29","is_deleted":2,"tourist_id":6,"tourist_name":"青春有你","active_id":2,"active_name":"舞蹈大赛","video":"http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4","img":"http://www.udiandou.com/upload/20200603124338REaoe.jpg","recommend":2,"pre_votes":11,"final_votes":0,"rematch_votes":0,"club_id":8,"club_name":"青春有你","assist_num":1,"comment_num":0,"name":"青春有你！","play_num":0,"status":1,"active_detail":{"id":2,"created_at":"2020-05-31 12:58:00","updated_at":"2020-06-14 11:24:54","title":"舞蹈大赛","desc":"<p>《这！就是街舞》是优酷推出的街舞选拔类真人秀。节目通过&ldquo;明星导师+专业舞者真人秀&rdquo;的模式，采取个人选拔、团队作战的表演方式，在四位队长的带领下组成四支战队，进行团队间的群舞Battle，最终产生总冠军。<\/p>\r\n<p>《这！就是街舞》包括：《这！就是街舞第一季》、《这！就是街舞第二季》第一季由易烊千玺、罗志祥、韩庚、黄子韬担任明星队长，于2018年2月24日起每周六20:00在优酷首播，于2018年5月13日收官，易烊千玺战队成员韩宇获得总冠军。第二季由由易烊千玺、罗志祥、韩庚、吴建豪担任明星队长，于2019年5月18日起在优酷首播。<\/p>","video":"[{\"download_link\":\"active-categories\\/May2020\\/faBWzSrVaQwb59DlsTrs.mp4\",\"original_name\":\"test.mp4\"}]","pre_start_time":"2020-05-31 00:00:00","rematch_start_time":"2020-06-01 00:00:00","final_start_time":"2020-07-01 00:00:00","status":1,"pre_end_time":"2020-05-31 00:00:00","rematch_end_time":"2020-07-01 00:00:00","final_end_time":"2020-07-04 00:00:00","img":null},"tourist":{"id":6,"name":"青春有你","avatar":"upload/20200606055631F8mzM.jpg"}}
+     * data : [{"id":16,"created_at":"2020-06-13 22:32:16","updated_at":"2020-06-20 10:04:02","is_deleted":2,"tourist_id":3,"tourist_name":"信用度","active_id":1,"active_name":"这就是街舞3","video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","img":"http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg","recommend":2,"pre_votes":31,"final_votes":0,"rematch_votes":0,"club_id":6,"club_name":"这就是街舞","assist_num":2,"comment_num":3,"name":"作品双击66","play_num":0,"status":1,"rank":1,"rank_vote":0,"active_detail":{"id":1,"created_at":"2020-05-25 15:21:00","updated_at":"2020-06-14 10:25:58","title":"这就是街舞3","desc":"<p>《这！就是街舞》是优酷推出的街舞选拔类真人秀。节目通过&ldquo;明星导师+专业舞者真人秀&rdquo;的模式，采取个人选拔、团队作战的表演方式，在四位队长的带领下组成四支战队，进行团队间的群舞Battle，最终产生总冠军。<\/p>\r\n<p>《这！就是街舞》包括：《这！就是街舞第一季》、《这！就是街舞第二季》第一季由易烊千玺、罗志祥、韩庚、黄子韬担任明星队长，于2018年2月24日起每周六20:00在优酷首播，于2018年5月13日收官，易烊千玺战队成员韩宇获得总冠军。第二季由由易烊千玺、罗志祥、韩庚、吴建豪担任明星队长，于2019年5月18日起在优酷首播。<\/p>\r\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<\/p>","video":"[]","pre_start_time":null,"rematch_start_time":null,"final_start_time":null,"status":2,"pre_end_time":null,"rematch_end_time":null,"final_end_time":null,"img":null},"tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}}]
      */
 
     private int code;
     private String msg;
-    private DataBean data;
+    private List<DataBean> data;
 
     public int getCode() {
         return code;
@@ -28,39 +30,41 @@ public class ActiveDetail {
         this.msg = msg;
     }
 
-    public DataBean getData() {
+    public List<DataBean> getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(List<DataBean> data) {
         this.data = data;
     }
 
     public static class DataBean {
         /**
-         * id : 17
-         * created_at : 2020-06-13 22:42:14
-         * updated_at : 2020-06-14 23:39:29
+         * id : 16
+         * created_at : 2020-06-13 22:32:16
+         * updated_at : 2020-06-20 10:04:02
          * is_deleted : 2
-         * tourist_id : 6
-         * tourist_name : 青春有你
-         * active_id : 2
-         * active_name : 舞蹈大赛
-         * video : http://api.lgdama.com:10001/storage/video/f274e63c595449aea8b0da7c03e55fbf.mp4
-         * img : http://www.udiandou.com/upload/20200603124338REaoe.jpg
+         * tourist_id : 3
+         * tourist_name : 信用度
+         * active_id : 1
+         * active_name : 这就是街舞3
+         * video : http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4
+         * img : http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg
          * recommend : 2
-         * pre_votes : 11
+         * pre_votes : 31
          * final_votes : 0
          * rematch_votes : 0
-         * club_id : 8
-         * club_name : 青春有你
-         * assist_num : 1
-         * comment_num : 0
-         * name : 青春有你！
+         * club_id : 6
+         * club_name : 这就是街舞
+         * assist_num : 2
+         * comment_num : 3
+         * name : 作品双击66
          * play_num : 0
          * status : 1
-         * active_detail : {"id":2,"created_at":"2020-05-31 12:58:00","updated_at":"2020-06-14 11:24:54","title":"舞蹈大赛","desc":"<p>《这！就是街舞》是优酷推出的街舞选拔类真人秀。节目通过&ldquo;明星导师+专业舞者真人秀&rdquo;的模式，采取个人选拔、团队作战的表演方式，在四位队长的带领下组成四支战队，进行团队间的群舞Battle，最终产生总冠军。<\/p>\r\n<p>《这！就是街舞》包括：《这！就是街舞第一季》、《这！就是街舞第二季》第一季由易烊千玺、罗志祥、韩庚、黄子韬担任明星队长，于2018年2月24日起每周六20:00在优酷首播，于2018年5月13日收官，易烊千玺战队成员韩宇获得总冠军。第二季由由易烊千玺、罗志祥、韩庚、吴建豪担任明星队长，于2019年5月18日起在优酷首播。<\/p>","video":"[{\"download_link\":\"active-categories\\/May2020\\/faBWzSrVaQwb59DlsTrs.mp4\",\"original_name\":\"test.mp4\"}]","pre_start_time":"2020-05-31 00:00:00","rematch_start_time":"2020-06-01 00:00:00","final_start_time":"2020-07-01 00:00:00","status":1,"pre_end_time":"2020-05-31 00:00:00","rematch_end_time":"2020-07-01 00:00:00","final_end_time":"2020-07-04 00:00:00","img":null}
-         * tourist : {"id":6,"name":"青春有你","avatar":"upload/20200606055631F8mzM.jpg"}
+         * rank : 1
+         * rank_vote : 0
+         * active_detail : {"id":1,"created_at":"2020-05-25 15:21:00","updated_at":"2020-06-14 10:25:58","title":"这就是街舞3","desc":"<p>《这！就是街舞》是优酷推出的街舞选拔类真人秀。节目通过&ldquo;明星导师+专业舞者真人秀&rdquo;的模式，采取个人选拔、团队作战的表演方式，在四位队长的带领下组成四支战队，进行团队间的群舞Battle，最终产生总冠军。<\/p>\r\n<p>《这！就是街舞》包括：《这！就是街舞第一季》、《这！就是街舞第二季》第一季由易烊千玺、罗志祥、韩庚、黄子韬担任明星队长，于2018年2月24日起每周六20:00在优酷首播，于2018年5月13日收官，易烊千玺战队成员韩宇获得总冠军。第二季由由易烊千玺、罗志祥、韩庚、吴建豪担任明星队长，于2019年5月18日起在优酷首播。<\/p>\r\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<\/p>","video":"[]","pre_start_time":null,"rematch_start_time":null,"final_start_time":null,"status":2,"pre_end_time":null,"rematch_end_time":null,"final_end_time":null,"img":null}
+         * tourist : {"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}
          */
 
         private int id;
@@ -84,6 +88,8 @@ public class ActiveDetail {
         private String name;
         private int play_num;
         private int status;
+        private int rank;
+        private int rank_vote;
         private ActiveDetailBean active_detail;
         private TouristBean tourist;
 
@@ -255,6 +261,22 @@ public class ActiveDetail {
             this.status = status;
         }
 
+        public int getRank() {
+            return rank;
+        }
+
+        public void setRank(int rank) {
+            this.rank = rank;
+        }
+
+        public int getRank_vote() {
+            return rank_vote;
+        }
+
+        public void setRank_vote(int rank_vote) {
+            this.rank_vote = rank_vote;
+        }
+
         public ActiveDetailBean getActive_detail() {
             return active_detail;
         }
@@ -273,20 +295,21 @@ public class ActiveDetail {
 
         public static class ActiveDetailBean {
             /**
-             * id : 2
-             * created_at : 2020-05-31 12:58:00
-             * updated_at : 2020-06-14 11:24:54
-             * title : 舞蹈大赛
+             * id : 1
+             * created_at : 2020-05-25 15:21:00
+             * updated_at : 2020-06-14 10:25:58
+             * title : 这就是街舞3
              * desc : <p>《这！就是街舞》是优酷推出的街舞选拔类真人秀。节目通过&ldquo;明星导师+专业舞者真人秀&rdquo;的模式，采取个人选拔、团队作战的表演方式，在四位队长的带领下组成四支战队，进行团队间的群舞Battle，最终产生总冠军。</p>
              <p>《这！就是街舞》包括：《这！就是街舞第一季》、《这！就是街舞第二季》第一季由易烊千玺、罗志祥、韩庚、黄子韬担任明星队长，于2018年2月24日起每周六20:00在优酷首播，于2018年5月13日收官，易烊千玺战队成员韩宇获得总冠军。第二季由由易烊千玺、罗志祥、韩庚、吴建豪担任明星队长，于2019年5月18日起在优酷首播。</p>
-             * video : [{"download_link":"active-categories\/May2020\/faBWzSrVaQwb59DlsTrs.mp4","original_name":"test.mp4"}]
-             * pre_start_time : 2020-05-31 00:00:00
-             * rematch_start_time : 2020-06-01 00:00:00
-             * final_start_time : 2020-07-01 00:00:00
-             * status : 1
-             * pre_end_time : 2020-05-31 00:00:00
-             * rematch_end_time : 2020-07-01 00:00:00
-             * final_end_time : 2020-07-04 00:00:00
+             <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+             * video : []
+             * pre_start_time : null
+             * rematch_start_time : null
+             * final_start_time : null
+             * status : 2
+             * pre_end_time : null
+             * rematch_end_time : null
+             * final_end_time : null
              * img : null
              */
 
@@ -296,13 +319,13 @@ public class ActiveDetail {
             private String title;
             private String desc;
             private String video;
-            private String pre_start_time;
-            private String rematch_start_time;
-            private String final_start_time;
+            private Object pre_start_time;
+            private Object rematch_start_time;
+            private Object final_start_time;
             private int status;
-            private String pre_end_time;
-            private String rematch_end_time;
-            private String final_end_time;
+            private Object pre_end_time;
+            private Object rematch_end_time;
+            private Object final_end_time;
             private Object img;
 
             public int getId() {
@@ -353,27 +376,27 @@ public class ActiveDetail {
                 this.video = video;
             }
 
-            public String getPre_start_time() {
+            public Object getPre_start_time() {
                 return pre_start_time;
             }
 
-            public void setPre_start_time(String pre_start_time) {
+            public void setPre_start_time(Object pre_start_time) {
                 this.pre_start_time = pre_start_time;
             }
 
-            public String getRematch_start_time() {
+            public Object getRematch_start_time() {
                 return rematch_start_time;
             }
 
-            public void setRematch_start_time(String rematch_start_time) {
+            public void setRematch_start_time(Object rematch_start_time) {
                 this.rematch_start_time = rematch_start_time;
             }
 
-            public String getFinal_start_time() {
+            public Object getFinal_start_time() {
                 return final_start_time;
             }
 
-            public void setFinal_start_time(String final_start_time) {
+            public void setFinal_start_time(Object final_start_time) {
                 this.final_start_time = final_start_time;
             }
 
@@ -385,27 +408,27 @@ public class ActiveDetail {
                 this.status = status;
             }
 
-            public String getPre_end_time() {
+            public Object getPre_end_time() {
                 return pre_end_time;
             }
 
-            public void setPre_end_time(String pre_end_time) {
+            public void setPre_end_time(Object pre_end_time) {
                 this.pre_end_time = pre_end_time;
             }
 
-            public String getRematch_end_time() {
+            public Object getRematch_end_time() {
                 return rematch_end_time;
             }
 
-            public void setRematch_end_time(String rematch_end_time) {
+            public void setRematch_end_time(Object rematch_end_time) {
                 this.rematch_end_time = rematch_end_time;
             }
 
-            public String getFinal_end_time() {
+            public Object getFinal_end_time() {
                 return final_end_time;
             }
 
-            public void setFinal_end_time(String final_end_time) {
+            public void setFinal_end_time(Object final_end_time) {
                 this.final_end_time = final_end_time;
             }
 
@@ -420,9 +443,9 @@ public class ActiveDetail {
 
         public static class TouristBean {
             /**
-             * id : 6
-             * name : 青春有你
-             * avatar : upload/20200606055631F8mzM.jpg
+             * id : 3
+             * name : 信用度
+             * avatar : upload/20200606024929Gkda2.jpg
              */
 
             private int id;
