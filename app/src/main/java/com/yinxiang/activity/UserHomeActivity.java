@@ -196,7 +196,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                     // SessionTypeEnum.P2P 为单聊类型
                     //null也可以填自定义SessionCustomization
 
-                    NimUIKit.startChatting(this, userInfo.getData().getPhone(), SessionTypeEnum.P2P, getRobotCustomization(), null);
+                    NimUIKit.startChatting(this, userInfo.getData().getYunxin_accid(), SessionTypeEnum.P2P, getRobotCustomization(), null);
                 }
                 break;
             case R.id.tv_is_follow:

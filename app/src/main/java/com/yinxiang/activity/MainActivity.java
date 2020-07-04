@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     private void initNim() {
-        register(getUserInfo().getData().getPhone(), getUserInfo().getData().getPhone(), "123456");
+//        register(getUserInfo().getData().getPhone(), getUserInfo().getData().getPhone(), "123456");
         doLogin();
 
     }
@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     public void doLogin() {
         Log.i(TAG, "doLogin: ");
-        LoginInfo info = new LoginInfo(getUserInfo().getData().getPhone(), "123456");
+        LoginInfo info = new LoginInfo(getUserInfo().getData().getYunxin_accid(), getUserInfo().getData().getYunxin_token());
         RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
 
             @Override

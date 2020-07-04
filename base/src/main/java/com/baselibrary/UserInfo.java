@@ -6,8 +6,8 @@ public class UserInfo implements Serializable {
 
     /**
      * code : 200
-     * msg : 成功
-     * data : {"id":3,"name":"信用度","phone":"13521614827","avatar":"users/default.png","password":"$2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q","remember_token":null,"created_at":"2020-05-30T04:08:57.000000Z","updated_at":"2020-06-05T05:49:12.000000Z","tourist_id":"52185256","sex":2,"cancel":1,"reg":"","desc":"可以的","addr":"","like_notice":1,"comment_notice":1,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":0,"follow_number":0,"level":1,"age":0}
+     * msg : 登录成功
+     * data : {"id":6,"name":"青春有你制作人","phone":"18303032844","avatar":"upload/20200606055631F8mzM.jpg","password":"$2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC","remember_token":null,"created_at":"2020-06-05 16:02:31","updated_at":"2020-07-04 21:59:54","tourist_id":"27915679","sex":1,"cancel":1,"reg":"","desc":"这条街最亮的星","addr":"北京市 朝阳区","like_notice":1,"comment_notice":2,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":17,"follow_number":2,"level":1,"age":0,"yunxin_token":"a7a89edf135d83a0ea51355e7383f08a","yunxin_accid":"27915679"}
      */
 
     private int code;
@@ -40,29 +40,31 @@ public class UserInfo implements Serializable {
 
     public static class DataBean implements Serializable{
         /**
-         * id : 3
-         * name : 信用度
-         * phone : 13521614827
-         * avatar : users/default.png
-         * password : $2y$10$f9DWtaqMkrOuYkutlZgYUO3Df3LRngLlY2MT7.guig51I6lhid/4q
+         * id : 6
+         * name : 青春有你制作人
+         * phone : 18303032844
+         * avatar : upload/20200606055631F8mzM.jpg
+         * password : $2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC
          * remember_token : null
-         * created_at : 2020-05-30T04:08:57.000000Z
-         * updated_at : 2020-06-05T05:49:12.000000Z
-         * tourist_id : 52185256
-         * sex : 2
+         * created_at : 2020-06-05 16:02:31
+         * updated_at : 2020-07-04 21:59:54
+         * tourist_id : 27915679
+         * sex : 1
          * cancel : 1
          * reg :
-         * desc : 可以的
-         * addr :
+         * desc : 这条街最亮的星
+         * addr : 北京市 朝阳区
          * like_notice : 1
-         * comment_notice : 1
-         * is_vip : 2              1是vip 2不是vip
+         * comment_notice : 2
+         * is_vip : 2
          * vip_expire : null
          * wallet_token : 0
-         * fan_number : 0
-         * follow_number : 0
+         * fan_number : 17
+         * follow_number : 2
          * level : 1
          * age : 0
+         * yunxin_token : a7a89edf135d83a0ea51355e7383f08a
+         * yunxin_accid : 27915679
          */
 
         private int id;
@@ -70,7 +72,7 @@ public class UserInfo implements Serializable {
         private String phone;
         private String avatar;
         private String password;
-        private String remember_token;
+        private Object remember_token;
         private String created_at;
         private String updated_at;
         private String tourist_id;
@@ -81,13 +83,15 @@ public class UserInfo implements Serializable {
         private String addr;
         private int like_notice;
         private int comment_notice;
-        private int is_vip; //1是vip 2不是vip
+        private int is_vip;
         private int vip_expire;
         private int wallet_token;
         private int fan_number;
         private int follow_number;
         private int level;
         private int age;
+        private String yunxin_token;
+        private String yunxin_accid;
 
         public int getId() {
             return id;
@@ -129,11 +133,11 @@ public class UserInfo implements Serializable {
             this.password = password;
         }
 
-        public String getRemember_token() {
+        public Object getRemember_token() {
             return remember_token;
         }
 
-        public void setRemember_token(String remember_token) {
+        public void setRemember_token(Object remember_token) {
             this.remember_token = remember_token;
         }
 
@@ -271,6 +275,22 @@ public class UserInfo implements Serializable {
 
         public void setAge(int age) {
             this.age = age;
+        }
+
+        public String getYunxin_token() {
+            return yunxin_token;
+        }
+
+        public void setYunxin_token(String yunxin_token) {
+            this.yunxin_token = yunxin_token;
+        }
+
+        public String getYunxin_accid() {
+            return yunxin_accid;
+        }
+
+        public void setYunxin_accid(String yunxin_accid) {
+            this.yunxin_accid = yunxin_accid;
         }
     }
 }
