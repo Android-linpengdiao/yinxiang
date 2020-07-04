@@ -1,7 +1,7 @@
 package com.media.utils;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatDialog;
+import androidx.appcompat.app.AppCompatDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;

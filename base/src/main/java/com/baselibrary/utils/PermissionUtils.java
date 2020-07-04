@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by Administrator on 2017/9/1.
@@ -53,8 +53,7 @@ public class PermissionUtils {
     };
 
     public static String[] contacts = new String[]{
-            Manifest.permission.READ_CONTACTS,
-            Manifest.permission.WRITE_CONTACTS
+            Manifest.permission.READ_CONTACTS
     };
 
     public static String[] location = new String[]{

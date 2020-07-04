@@ -1,19 +1,12 @@
 package com.yinxiang.view;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.baselibrary.utils.BasePopupWindow;
 import com.baselibrary.utils.CommonUtil;
 import com.yinxiang.R;
-import com.yinxiang.adapter.TypeAdapter;
-import com.yinxiang.model.NavData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElectionPopupWindow extends BasePopupWindow {
 

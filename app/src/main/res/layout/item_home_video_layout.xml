@@ -55,7 +55,7 @@
                 android:paddingBottom="15dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -68,9 +68,11 @@
 
                     <TextView
                         android:id="@+id/user_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
                         android:text=""
                         android:textColor="#ffffffff"
                         android:textSize="15sp" />
@@ -79,7 +81,7 @@
                         android:id="@+id/tv_follow"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="8dp"
                         android:background="@drawable/button_radius_theme"
                         android:gravity="center"
                         android:paddingLeft="17dp"
@@ -107,9 +109,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text=""
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text=""
                     android:textColor="#ffe6e6e6"
                     android:textSize="15sp" />
 

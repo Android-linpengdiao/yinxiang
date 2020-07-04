@@ -1,9 +1,12 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.View;
 
 import com.baselibrary.utils.CommonUtil;
@@ -13,7 +16,7 @@ import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
-import com.yinxiang.adapter.WorkAdapter;
+import com.yinxiang.adapter.SelectionWorkPKAdapter;
 import com.yinxiang.databinding.ActivitySelectionWorkPkBinding;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
@@ -25,8 +28,10 @@ import okhttp3.Call;
 public class SelectionWorkPKActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivitySelectionWorkPkBinding binding;
-    private WorkAdapter workAdapter;
+    private SelectionWorkPKAdapter workAdapter;
     private int videoId;
+    private int activeId;
+    private WorkData.DataBeanX.DataBean dataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +40,26 @@ public class SelectionWorkPKActivity extends BaseActivity implements View.OnClic
 
         if (getIntent().getExtras() != null) {
             videoId = getIntent().getExtras().getInt("videoId");
-        }else {
+            activeId = getIntent().getExtras().getInt("activeId");
+        } else {
             finish();
         }
 
         binding.back.setOnClickListener(this);
         binding.tvConfirm.setOnClickListener(this);
+        binding.tvRelease.setOnClickListener(this);
+        binding.workPKView.setOnClickListener(this);
+        binding.workReleaseWorkView.setOnClickListener(this);
 
-        workAdapter = new WorkAdapter(this);
-        workAdapter.setSelection(true);
+        workAdapter = new SelectionWorkPKAdapter(this);
+        workAdapter.setActiveId(activeId);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(workAdapter);
         workAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                if (object instanceof WorkData.DataBeanX.DataBean){
-                    WorkData.DataBeanX.DataBean dataBean = (WorkData.DataBeanX.DataBean) object;
-                    homePageVideosCreatePk(dataBean.getId(),videoId);
+                if (object instanceof WorkData.DataBeanX.DataBean) {
+                    dataBean = (WorkData.DataBeanX.DataBean) object;
                 }
             }
 
@@ -68,8 +76,13 @@ public class SelectionWorkPKActivity extends BaseActivity implements View.OnClic
                 initData();
             }
         });
-        initData();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
     }
 
     public void onClick(View v) {
@@ -77,15 +90,21 @@ public class SelectionWorkPKActivity extends BaseActivity implements View.OnClic
             case R.id.back:
                 finish();
                 break;
+            case R.id.tv_release:
+                openActivity(ReleaseActivity.class);
+                break;
             case R.id.tv_confirm:
-//                openActivity(MyWorkPKActivity.class);
-//                finish();
+                if (dataBean != null) {
+                    homePageVideosCreatePk(dataBean.getId(), videoId);
+                } else {
+                    ToastUtils.showShort(SelectionWorkPKActivity.this, "请选择你的作品");
+                }
                 break;
         }
     }
 
     private void initData() {
-        SendRequest.personInformWorks(getUserInfo().getData().getId(), 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+        SendRequest.personInformWorks(getUserInfo().getData().getId(), 100, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -96,6 +115,14 @@ public class SelectionWorkPKActivity extends BaseActivity implements View.OnClic
                 binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
                     workAdapter.refreshData(response.getData().getData());
+                    if (response.getData().getData().size() > 0) {
+                        for (int i = 0; i < response.getData().getData().size(); i++) {
+                            if (response.getData().getData().get(i).getActive_id() == activeId) {
+                                binding.workPKView.setVisibility(View.VISIBLE);
+                                binding.workReleaseWorkView.setVisibility(View.GONE);
+                            }
+                        }
+                    }
                 } else {
                     ToastUtils.showShort(SelectionWorkPKActivity.this, response.getMsg());
                 }
@@ -105,7 +132,7 @@ public class SelectionWorkPKActivity extends BaseActivity implements View.OnClic
     }
 
     private void homePageVideosCreatePk(int touristVideoId, int relaytVideoId) {
-        SendRequest.homePageVideosCreatePk(getUserInfo().getData().getId(),touristVideoId, relaytVideoId, new StringCallback() {
+        SendRequest.homePageVideosCreatePk(getUserInfo().getData().getId(), touristVideoId, relaytVideoId, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 

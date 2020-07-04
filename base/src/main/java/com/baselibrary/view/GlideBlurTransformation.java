@@ -2,7 +2,7 @@ package com.baselibrary.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.baselibrary.utils.BlurBitmapUtil;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;

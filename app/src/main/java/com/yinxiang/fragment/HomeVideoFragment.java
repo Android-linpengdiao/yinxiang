@@ -2,12 +2,15 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
+
+import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.OrientationHelper;
+
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +19,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
@@ -31,13 +33,11 @@ import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
-import com.yinxiang.activity.ClubDetailActivity;
 import com.yinxiang.activity.MyWalletActivity;
 import com.yinxiang.activity.ReportActivity;
 import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.activity.SelectionWorkRelayActivity;
 import com.yinxiang.activity.UserHomeActivity;
-import com.yinxiang.activity.WalletPayActivity;
 import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentHomeVideoBinding;
 import com.yinxiang.model.CommentData;
@@ -70,10 +70,13 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 
     private HomeVideoAdapter adapter;
     private HomeActives homeActives;
+    private HomeActives.DataBean HomeActivesDataBean;
 
     private ViewPagerLayoutManager mLayoutManager;
 
     private OnFragmentInteractionListener mListener;
+
+    private boolean isShow = false;
 
     public static HomeVideoFragment newInstance(String param1, String param2) {
         HomeVideoFragment fragment = new HomeVideoFragment();
@@ -110,6 +113,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                             dataBean = (HomeVideos.DataBeanX.DataBean) object;
                             bundle = new Bundle();
                             bundle.putInt("videoId", dataBean.getId());
+                            bundle.putInt("activeId", dataBean.getActive_id());
                             openActivity(SelectionWorkPKActivity.class, bundle);
                         }
                         break;
@@ -194,18 +198,32 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 
         });
 
+        binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (HomeActivesDataBean != null) {
+                    homePageVideosActive(HomeActivesDataBean);
+                }
+            }
+        });
+
         return binding.getRoot();
     }
 
     private void homePageVideosActive(HomeActives.DataBean dataBean) {
+        binding.swipeRefreshLayout.setRefreshing(true);
+        HomeActivesDataBean = dataBean;
         SendRequest.homePageVideosActive(getUserInfo().getData().getId(), dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
                 binding.recyclerView.setVisibility(View.GONE);
             }
 
             @Override
             public void onResponse(HomeVideos response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
                 if (response != null && response.getCode() == 200) {
                     if (response.getData() != null && response.getData().getData() != null && response.getData().getData().size() > 0) {
                         binding.recyclerView.setVisibility(View.VISIBLE);
@@ -436,6 +454,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         Log.i(TAG, "onHiddenChanged: ");
         if (hidden) {
             pause();
+            isShow = false;
+        } else {
+            isShow = true;
         }
         super.onHiddenChanged(hidden);
     }
@@ -443,6 +464,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onResume() {
         Log.i(TAG, "onResume: ");
+        isShow = true;
         super.onResume();
     }
 
@@ -450,6 +472,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     public void onPause() {
         Log.i(TAG, "onPause: ");
         pause();
+        isShow = false;
         super.onPause();
     }
 
@@ -561,7 +584,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
             public void onPrepared() {
 //                mSurfaceView.setBackgroundColor(Color.TRANSPARENT);
                 loading.setVisibility(View.GONE);
-                mPlayer.play();
+                if (isShow) {
+                    mPlayer.play();
+                }
             }
         });
         mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {

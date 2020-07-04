@@ -1,7 +1,7 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,7 +10,6 @@ import com.okhttp.SendRequest;
 import com.okhttp.callbacks.StringCallback;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityConsultBinding;
-import com.yinxiang.databinding.ActivityNoticeManageBinding;
 
 import org.json.JSONObject;
 

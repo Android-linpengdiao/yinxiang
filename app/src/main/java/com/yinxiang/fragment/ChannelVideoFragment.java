@@ -2,12 +2,13 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
+import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.OrientationHelper;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
@@ -37,16 +37,13 @@ import com.yinxiang.activity.SelectionWorkPKActivity;
 import com.yinxiang.activity.SelectionWorkRelayActivity;
 import com.yinxiang.activity.UserHomeActivity;
 import com.yinxiang.adapter.ChannelVideoAdapter;
-import com.yinxiang.adapter.HomeVideoAdapter;
 import com.yinxiang.databinding.FragmentChannelVideoBinding;
 import com.yinxiang.model.CommentData;
-import com.yinxiang.model.HomeActives;
 import com.yinxiang.model.HomeVideos;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.ElectionPopupWindow;
 import com.yinxiang.view.LoadingView;
 import com.yinxiang.view.OnClickListener;
-import com.yinxiang.view.TypePopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -55,7 +52,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Call;
 
@@ -74,6 +70,8 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     private ViewPagerLayoutManager mLayoutManager;
 
     private OnFragmentInteractionListener mListener;
+
+    private boolean isShow = false;
 
     public static ChannelVideoFragment newInstance(String param1, String param2) {
         ChannelVideoFragment fragment = new ChannelVideoFragment();
@@ -112,6 +110,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                             dataBean = (HomeVideos.DataBeanX.DataBean) object;
                             bundle = new Bundle();
                             bundle.putInt("videoId", dataBean.getId());
+                            bundle.putInt("activeId", dataBean.getActive_id());
                             openActivity(SelectionWorkPKActivity.class, bundle);
                         }
                         break;
@@ -178,20 +177,30 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
 
         EventBus.getDefault().register(this);
 
+        binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                homepageVideosHot();
+            }
+        });
         homepageVideosHot();
 
         return binding.getRoot();
     }
 
     private void homepageVideosHot() {
+        binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.homepageVideosHot(getUserInfo().getData().getId(), 0, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
                 binding.recyclerView.setVisibility(View.GONE);
             }
 
             @Override
             public void onResponse(HomeVideos response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
                 if (response != null && response.getCode() == 200) {
                     if (response.getData() != null && response.getData().getData() != null && response.getData().getData().size() > 0) {
                         binding.recyclerView.setVisibility(View.VISIBLE);
@@ -401,6 +410,9 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         Log.i(TAG, "onHiddenChanged: ");
         if (hidden) {
             pause();
+            isShow = false;
+        }else {
+            isShow = true;
         }
         super.onHiddenChanged(hidden);
     }
@@ -408,6 +420,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onResume() {
         Log.i(TAG, "onResume: ");
+        isShow = true;
         super.onResume();
     }
 
@@ -415,6 +428,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     public void onPause() {
         Log.i(TAG, "onPause: ");
         pause();
+        isShow = false;
         super.onPause();
     }
 
@@ -526,7 +540,9 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
             public void onPrepared() {
 //                mSurfaceView.setBackgroundColor(Color.TRANSPARENT);
                 loading.setVisibility(View.GONE);
-                mPlayer.play();
+                if (isShow) {
+                    mPlayer.play();
+                }
             }
         });
         mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {

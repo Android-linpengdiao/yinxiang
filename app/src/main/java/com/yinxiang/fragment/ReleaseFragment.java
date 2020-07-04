@@ -1,7 +1,7 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yinxiang.R;
-import com.yinxiang.databinding.FragmentFriendBinding;
 import com.yinxiang.databinding.FragmentReleaseBinding;
 
 public class ReleaseFragment extends BaseFragment {

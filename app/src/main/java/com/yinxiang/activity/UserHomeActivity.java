@@ -1,17 +1,25 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import android.view.View;
-import android.widget.TextView;
 
 import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
+import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.api.model.session.SessionCustomization;
+import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
@@ -20,15 +28,13 @@ import com.okhttp.utils.APIUrls;
 import com.yinxiang.MyApplication;
 import com.yinxiang.R;
 import com.yinxiang.adapter.UserHomeWorkAdapter;
-import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.ActivityUserHomeBinding;
-import com.yinxiang.model.HomeVideos;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.GridItemDecoration;
 
 import org.json.JSONObject;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 
@@ -36,6 +42,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
     private ActivityUserHomeBinding binding;
     private UserHomeWorkAdapter adapter;
     private int uid;
+    private UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onResponse(UserInfo response, int id) {
                 if (response.getCode() == 200 && response.getData() != null) {
+                    userInfo = response;
                     initView(response);
                 }
             }
@@ -139,7 +147,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void centerSelfWork() {
-        SendRequest.personInformWorks(uid, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+        SendRequest.personInformWorks(uid, 100, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
             }
@@ -159,6 +167,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
     private void initView(UserInfo userInfo) {
 
         binding.tvIsFollow.setOnClickListener(this);
+        binding.tvStartChat.setOnClickListener(this);
 
         binding.userName.setText(userInfo.getData().getName());
         binding.userAge.setText(String.valueOf(userInfo.getData().getAge()));
@@ -179,11 +188,66 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
             case R.id.back:
                 finish();
                 break;
+            case R.id.tv_startChat:
+                if (userInfo.getCode() == 200 && userInfo.getData() != null) {
+
+                    // this 为当前activity
+                    // receiverid 为聊天对象account
+                    // SessionTypeEnum.P2P 为单聊类型
+                    //null也可以填自定义SessionCustomization
+
+                    NimUIKit.startChatting(this, userInfo.getData().getPhone(), SessionTypeEnum.P2P, getRobotCustomization(), null);
+                }
+                break;
             case R.id.tv_is_follow:
                 if (!CommonUtil.isBlank(uid)) {
                     homePagePersonFollow();
                 }
                 break;
         }
+    }
+
+    private static SessionCustomization robotCustomization;
+
+    private static SessionCustomization getRobotCustomization() {
+        if (robotCustomization == null) {
+            robotCustomization = new SessionCustomization() {
+
+                // 由于需要Activity Result， 所以重载该函数。
+                @Override
+                public void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
+                    super.onActivityResult(activity, requestCode, resultCode, data);
+
+                }
+
+                @Override
+                public MsgAttachment createStickerAttachment(String category, String item) {
+                    return null;
+                }
+            };
+//            // 定制ActionBar右边的按钮，可以加多个
+//            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
+//            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
+//
+//                @Override
+//                public void onClick(Context context, View view, String sessionId) {
+////                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
+//                }
+//            };
+////            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
+//            SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
+//
+//                @Override
+//                public void onClick(Context context, View view, String sessionId) {
+////                    RobotProfileActivity.start(context, sessionId); //打开聊天信息
+//                }
+//            };
+//            infoButton.iconId = R.drawable.ic_camera;
+//            infoButton.iconId = R.drawable.ic_camera;
+////            buttons.add(cloudMsgButton);
+//            buttons.add(infoButton);
+//            robotCustomization.buttons = buttons;
+        }
+        return robotCustomization;
     }
 }

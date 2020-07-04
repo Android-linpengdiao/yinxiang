@@ -2,33 +2,26 @@ package com.yinxiang.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.MediaPlayer;
-import com.baselibrary.MessageBus;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityCompetitionDetailBinding;
 import com.yinxiang.model.HomeActives;
-
-import java.util.Date;
 
 public class CompetitionDetailActivity extends BaseActivity implements View.OnClickListener {
 

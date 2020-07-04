@@ -32,8 +32,8 @@ public class WorkRelayAdapter extends BaseRecyclerAdapter<WorkRelayData.DataBean
         if (mList != null && mList.size() > 0) {
             binding.followerName.setText(dataBean.getFollower().getName());
             binding.followableName.setText(dataBean.getFollowable().getName());
-            GlideLoader.LoderCircleImageUrl(mContext, dataBean.getFollower().getImg(), binding.followerImg);
-            GlideLoader.LoderCircleImageUrl(mContext, dataBean.getFollowable().getImg(), binding.followableImg);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getFollower().getImg(), binding.followerImg);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getFollowable().getImg(), binding.followableImg);
             binding.followerView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -1,0 +1,429 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+	package
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:3:5-36
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:1-228:12
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:7:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:8:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:9:5-76
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:9:22-73
+uses-permission#android.permission.FLASHLIGHT
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:11:5-69
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:11:22-66
+uses-permission#android.permission.VIBRATE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:12:5-66
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:12:22-63
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:14:5-79
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:14:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:15:5-80
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:15:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:18:5-77
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:18:22-74
+uses-permission#android.permission.CAMERA
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:21:5-64
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:21:22-62
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:22:5-70
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:22:22-68
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:23:5-74
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:23:22-72
+application
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:25:5-226:19
+service#com.netease.nimlib.service.NimService
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:28:9-30:38
+	android:process
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:30:13-36
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:29:13-65
+service#com.netease.nimlib.service.NimService$Aux
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:33:9-35:38
+	android:process
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:35:13-36
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:34:13-69
+service#com.netease.nimlib.job.NIMJobService
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:38:9-42:38
+	android:process
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:42:13-36
+	android:exported
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:40:13-36
+	android:permission
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:41:13-69
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:39:13-64
+receiver#com.netease.nimlib.service.NimReceiver
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:45:9-53:20
+	android:process
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:48:13-36
+	android:exported
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:47:13-37
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:46:13-66
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:49:13-52:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:50:17-78
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:50:25-76
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:51:17-78
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:51:25-76
+receiver#com.netease.nimlib.service.ResponseReceiver
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:56:9-79
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:56:19-77
+service#com.netease.nimlib.service.ResponseService
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:59:9-77
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:59:18-75
+provider#com.netease.nimlib.ipc.NIMContentProvider
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:63:9-67:38
+	android:process
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:67:13-36
+	android:authorities
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:65:13-68
+	android:exported
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:66:13-37
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:64:13-69
+activity#com.netease.nim.uikit.business.session.activity.WatchMultiRetweetPictureActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:72:9-105
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:72:19-93
+meta-data#com.netease.nim.uikit.support.glide.NIMGlideModule
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:74:9-76:43
+	android:value
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:76:13-40
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:75:13-78
+activity#com.netease.nim.uikit.business.session.activity.P2PMessageActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:81:9-86:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:84:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:86:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:83:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:85:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:82:13-73
+activity#com.netease.nim.uikit.business.session.activity.TeamMessageActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:87:9-92:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:90:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:92:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:89:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:91:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:88:13-74
+activity#com.netease.nim.uikit.business.team.activity.NormalTeamInfoActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:93:9-98:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:96:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:98:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:95:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:97:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:94:13-74
+activity#com.netease.nim.uikit.business.team.activity.AdvancedTeamInfoActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:99:9-104:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:102:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:104:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:101:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:103:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:100:13-76
+activity#com.netease.nim.uikit.business.team.activity.AdvancedTeamMemberActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:105:9-110:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:108:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:110:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:107:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:109:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:106:13-78
+activity#com.netease.nim.uikit.business.team.activity.AdvancedTeamAnnounceActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:111:9-116:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:114:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:116:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:113:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:115:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:112:13-80
+activity#com.netease.nim.uikit.business.team.activity.AdvancedTeamMemberInfoActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:117:9-122:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:120:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:122:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:119:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:121:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:118:13-82
+activity#com.netease.nim.uikit.business.team.activity.AdvancedTeamNicknameActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:123:9-128:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:126:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:128:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:125:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:127:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:124:13-80
+activity#com.netease.nim.uikit.business.team.activity.AdvancedTeamCreateAnnounceActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:129:9-134:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:132:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:134:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:131:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:133:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:130:13-86
+activity#com.netease.nim.uikit.business.team.activity.TeamPropertySettingActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:135:9-140:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:138:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:140:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:137:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:139:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:136:13-79
+activity#com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:141:9-147:67
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:145:13-49
+	android:label
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:144:13-53
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:147:13-64
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:143:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:146:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:142:13-85
+activity#com.netease.nim.uikit.business.ait.selector.AitContactSelectorActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:148:9-151:59
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:150:13-49
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:151:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:149:13-77
+activity#com.netease.nim.uikit.business.session.activity.CaptureVideoActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:152:9-157:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:155:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:157:13-67
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:154:13-63
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:156:13-56
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:153:13-75
+activity#com.netease.nim.uikit.business.session.activity.WatchVideoActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:158:9-162:48
+	android:label
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:161:13-47
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:160:13-74
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:162:13-45
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:159:13-73
+activity#com.netease.nim.uikit.business.session.activity.WatchMessagePictureActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:165:9-168:48
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:167:13-51
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:168:13-45
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:166:13-82
+activity#com.netease.nim.uikit.business.session.activity.WatchPicAndVideoMenuActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:170:9-173:48
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:172:13-51
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:173:13-45
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:171:13-83
+activity#com.netease.nim.uikit.business.session.activity.MsgSelectActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:175:9-177:15
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:176:13-51
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:175:19-78
+provider#com.netease.nim.uikit.common.media.model.GenericFileProvider
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:178:9-186:20
+	android:grantUriPermissions
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:182:13-47
+	android:authorities
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:180:13-73
+	android:exported
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:181:13-37
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:179:13-67
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:183:13-185:58
+	android:resource
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:185:17-55
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:184:17-67
+activity#com.netease.nim.uikit.common.media.imagepicker.ui.ImageGridActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:188:9-192:53
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:191:13-49
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:190:13-59
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:192:13-50
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:189:13-74
+activity#com.netease.nim.uikit.common.media.imagepicker.ui.ImageCropActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:193:9-198:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:197:13-49
+	android:hardwareAccelerated
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:196:13-48
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:195:13-59
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:198:13-67
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:194:13-74
+activity#com.netease.nim.uikit.common.media.imagepicker.ui.ImagePreviewActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:199:9-202:70
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:201:13-59
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:202:13-67
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:200:13-77
+activity#com.netease.nim.uikit.common.media.imagepicker.ui.ImagePreviewRetakeActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:203:9-206:70
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:205:13-59
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:206:13-67
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:204:13-83
+activity#com.netease.nim.uikit.common.media.imagepicker.ui.ImageTakeActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:207:9-211:70
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:210:13-49
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:209:13-59
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:211:13-67
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:208:13-74
+activity#com.netease.nim.uikit.common.media.imagepicker.video.GLVideoActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:212:9-216:49
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:215:13-49
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:214:13-59
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:216:13-46
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:213:13-75
+activity#com.netease.nim.uikit.common.media.imagepicker.video.GLVideoConfirmActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:217:9-221:49
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:220:13-49
+	android:configChanges
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:219:13-59
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:221:13-46
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:218:13-82
+activity#com.netease.nim.uikit.common.media.imagepicker.camera.CaptureActivity
+ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:222:9-225:72
+	android:screenOrientation
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:224:13-49
+	android:theme
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:225:13-69
+	android:name
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml:223:13-76
+uses-sdk
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+		ADDED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml
+		INJECTED from D:\Android\xiangmu\android-yinxiang\yinxiang\uikit\AndroidManifest.xml

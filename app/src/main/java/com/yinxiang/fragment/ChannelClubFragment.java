@@ -1,23 +1,20 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
-import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
-import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.activity.ClubDetailActivity;
@@ -26,8 +23,6 @@ import com.yinxiang.adapter.ClubAdapter;
 import com.yinxiang.databinding.FragmentChannelClubBinding;
 import com.yinxiang.model.ClubData;
 import com.yinxiang.view.OnClickListener;
-
-import org.json.JSONObject;
 
 import okhttp3.Call;
 

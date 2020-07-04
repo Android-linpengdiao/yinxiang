@@ -59,7 +59,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="2020-06-20 17:34"
+                            android:text=""
                             android:textColor="#ff999999"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -70,7 +70,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:text="尊敬的用户您好，平台即将在今晚完成重大更新.."
+                        android:text=""
                         android:textColor="#ff999999"
                         android:textSize="13sp" />
 
@@ -273,7 +273,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:singleLine="true"
-                            android:text="月魂殇 申请加入街舞交流群"
+                            android:text=""
                             android:textColor="#ff999999"
                             android:textSize="13sp" />
 
@@ -301,7 +301,7 @@
                 android:layout_height="match_parent"
                 android:descendantFocusability="blocksDescendants">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

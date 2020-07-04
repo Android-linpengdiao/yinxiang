@@ -1,29 +1,18 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
-import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
-import com.yinxiang.adapter.WorkRelayAdapter;
 import com.yinxiang.databinding.ActivityMyVipBinding;
-import com.yinxiang.databinding.ActivityMyWorkRelayBinding;
 import com.yinxiang.model.VipSetData;
-import com.yinxiang.model.WalletSetData;
-
-import org.json.JSONObject;
-
-import java.util.Random;
 
 import okhttp3.Call;
 

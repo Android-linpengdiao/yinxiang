@@ -2,33 +2,24 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
-import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
-import com.yinxiang.activity.ClubWorkActivity;
-import com.yinxiang.activity.MyWorkActivity;
 import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.adapter.ClubWorkAdapter;
-import com.yinxiang.adapter.HomeContestAdapter;
-import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.FragmentClubWorkBinding;
-import com.yinxiang.databinding.FragmentHomeContestBinding;
 import com.yinxiang.model.ClubWorkData;
-import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
 
 import okhttp3.Call;

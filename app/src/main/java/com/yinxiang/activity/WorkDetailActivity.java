@@ -1,7 +1,9 @@
 package com.yinxiang.activity;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+
+import androidx.databinding.DataBindingUtil;
+
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
@@ -28,7 +30,6 @@ import com.yinxiang.MyApplication;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityWorkDetailBinding;
 import com.yinxiang.model.CommentData;
-import com.yinxiang.model.HomeVideos;
 import com.yinxiang.model.WorksDetail;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.ElectionPopupWindow;
@@ -80,9 +81,12 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         Bundle bundle;
         switch (v.getId()) {
             case R.id.iv_works_pk:
-                bundle = new Bundle();
-                bundle.putInt("videoId", workId);
-                openActivity(SelectionWorkPKActivity.class, bundle);
+                if (worksDetail != null) {
+                    bundle = new Bundle();
+                    bundle.putInt("videoId", workId);
+                    bundle.putInt("activeId", worksDetail.getData().getActive_id());
+                    openActivity(SelectionWorkPKActivity.class, bundle);
+                }
                 break;
             case R.id.iv_relay:
                 bundle = new Bundle();
@@ -114,7 +118,9 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 videosVoteSet(workId);
                 break;
             case R.id.user_icon:
-                openActivity(UserHomeActivity.class);
+                Intent intent = new Intent(WorkDetailActivity.this, UserHomeActivity.class);
+                intent.putExtra("uid", worksDetail.getData().getTourist_id());
+                startActivity(intent);
                 break;
             case R.id.tv_follow:
                 if (worksDetail != null) {
@@ -124,7 +130,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
             case R.id.tv_report:
                 bundle = new Bundle();
                 bundle.putInt("videoId", workId);
-                openActivity(ReportActivity.class,bundle);
+                openActivity(ReportActivity.class, bundle);
                 break;
             case R.id.player_back:
                 finish();
@@ -356,6 +362,12 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 //        binding.tvFollow.setText(dataBean.getData().isIs_person_follow() ? "已关注" : "关注");
 //        binding.ivLike.setSelected(dataBean.getData().isIs_assist());
         binding.tvElection.setText(String.valueOf(dataBean.getData().getPre_votes()));
+
+        binding.deleteView.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
+        binding.deleteView.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
+        binding.ivWorksPk.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.GONE : View.VISIBLE);
+        binding.ivRelay.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.GONE : View.VISIBLE);
+
         GlideLoader.LoderCircleImage(this, dataBean.getData().getTourist().getAvatar(), binding.userIcon);
         GlideLoader.LoderVideoImage(this, dataBean.getData().getImg(), binding.thumbnails);
 

@@ -1,52 +1,45 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
+
+import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.baselibrary.utils.CommonUtil;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallbackWrapper;
+import com.netease.nimlib.sdk.msg.MsgService;
+import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.yinxiang.R;
 import com.yinxiang.activity.ClubMessageActivity;
 import com.yinxiang.activity.CommentActivity;
 import com.yinxiang.activity.LikeActivity;
 import com.yinxiang.activity.NoticeActivity;
-import com.yinxiang.activity.UserHomeActivity;
-import com.yinxiang.activity.WorkDetailActivity;
+import com.yinxiang.adapter.ChatMessageAdapter;
 import com.yinxiang.adapter.MessageAdapter;
-import com.yinxiang.adapter.WorkAdapter;
-import com.yinxiang.databinding.FragmentClubWorkBinding;
 import com.yinxiang.databinding.FragmentMessageBinding;
 import com.yinxiang.view.OnClickListener;
+
+import java.util.List;
 
 public class MessageFragment extends BaseFragment implements View.OnClickListener {
 
     private FragmentMessageBinding binding;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    public MessageFragment() {
-
-    }
+    private ChatMessageAdapter adapter;
 
 
     public static MessageFragment newInstance(String param1, String param2) {
         MessageFragment fragment = new MessageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,8 +48,7 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -71,16 +63,12 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
         binding.groupMessageView.setOnClickListener(this);
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        MessageAdapter adapter = new MessageAdapter(getActivity());
+        adapter = new ChatMessageAdapter(getActivity());
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setNestedScrollingEnabled(false);
-        adapter.refreshData(CommonUtil.getImageListString());
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-//                Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-//                intent.putExtra("uid", 0);
-//                getActivity().startActivity(intent);
             }
 
             @Override
@@ -92,24 +80,32 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
         return binding.getRoot();
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getChatMessage();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            getChatMessage();
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    private void getChatMessage() {
+        NIMClient.getService(MsgService.class).queryRecentContacts()
+                .setCallback(new RequestCallbackWrapper<List<RecentContact>>() {
+                    @Override
+                    public void onResult(int code, List<RecentContact> recents, Throwable e) {
+                        // recents参数即为最近联系人列表（最近会话列表）
+                        if (code == 200) {
+                            adapter.refreshData(recents);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -128,9 +124,5 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
                 openActivity(ClubMessageActivity.class);
                 break;
         }
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }

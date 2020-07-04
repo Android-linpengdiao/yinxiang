@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
-import android.support.v4.util.LruCache;
+import androidx.collection.LruCache;
 
 import java.lang.ref.SoftReference;
 import java.util.Collections;

@@ -2,7 +2,7 @@ package com.media.utils;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatDialog;
+import androidx.appcompat.app.AppCompatDialog;
 
 import com.media.ProgressView;
 import com.media.R;

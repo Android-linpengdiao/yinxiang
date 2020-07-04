@@ -69,9 +69,10 @@
                     <TextView
                         android:id="@+id/user_name"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
                         android:text=""
                         android:textColor="#ffffffff"
                         android:textSize="15sp" />
@@ -80,7 +81,7 @@
                         android:id="@+id/tv_follow"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="8dp"
                         android:background="@drawable/button_radius_theme"
                         android:gravity="center"
                         android:paddingLeft="17dp"
@@ -108,9 +109,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text=""
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text=""
                     android:textColor="#ffe6e6e6"
                     android:textSize="15sp" />
 
@@ -142,7 +143,7 @@
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/pk"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_relay"
@@ -150,7 +151,7 @@
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/jieli"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_like"
@@ -184,7 +185,7 @@
                     android:text="0"
                     android:textColor="#ffffffff"
                     android:textSize="14sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
             <com.yinxiang.view.LoadingView

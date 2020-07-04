@@ -1,10 +1,13 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.View;
 
 import com.baselibrary.utils.CommonUtil;
@@ -14,8 +17,8 @@ import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
+import com.yinxiang.adapter.SelectionWorkRelayAdapter;
 import com.yinxiang.adapter.WorkAdapter;
-import com.yinxiang.databinding.ActivitySelectionWorkPkBinding;
 import com.yinxiang.databinding.ActivitySelectionWorkRelayBinding;
 import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
@@ -27,8 +30,9 @@ import okhttp3.Call;
 public class SelectionWorkRelayActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivitySelectionWorkRelayBinding binding;
-    private WorkAdapter workAdapter;
+    private SelectionWorkRelayAdapter workAdapter;
     private int videoId;
+    private WorkData.DataBeanX.DataBean dataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +41,21 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
 
         if (getIntent().getExtras() != null) {
             videoId = getIntent().getExtras().getInt("videoId");
-        }else {
+        } else {
             finish();
         }
 
         binding.back.setOnClickListener(this);
         binding.tvConfirm.setOnClickListener(this);
 
-        workAdapter = new WorkAdapter(this);
+        workAdapter = new SelectionWorkRelayAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(workAdapter);
         workAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                if (object instanceof WorkData.DataBeanX.DataBean){
-                    WorkData.DataBeanX.DataBean dataBean = (WorkData.DataBeanX.DataBean) object;
-                    homePageVideosRelay(dataBean.getId(),videoId);
+                if (object instanceof WorkData.DataBeanX.DataBean) {
+                    dataBean = (WorkData.DataBeanX.DataBean) object;
                 }
 
             }
@@ -80,7 +83,11 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
                 finish();
                 break;
             case R.id.tv_confirm:
-
+                if (dataBean != null) {
+                    homePageVideosRelay(dataBean.getId(), videoId);
+                } else {
+                    ToastUtils.showShort(SelectionWorkRelayActivity.this, "请选择你的作品");
+                }
                 break;
         }
     }

@@ -1,10 +1,10 @@
 package com.yinxiang.activity;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.baselibrary.utils.ToastUtils;
@@ -14,7 +14,6 @@ import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.WorkRelayAdapter;
 import com.yinxiang.databinding.ActivityMyWorkRelayBinding;
-import com.yinxiang.model.ClubWorkData;
 import com.yinxiang.model.WorkRelayData;
 import com.yinxiang.view.OnClickListener;
 
@@ -85,8 +84,10 @@ public class MyWorkRelayActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onResponse(WorkRelayData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-                    adapter.refreshData(response.getData().getData());
+                if (response.getCode() == 200 ) {
+                    if(response.getData() != null && response.getData().getData() != null){
+                        adapter.refreshData(response.getData().getData());
+                    }
                 } else {
                     ToastUtils.showShort(MyWorkRelayActivity.this, response.getMsg());
                 }

@@ -35,7 +35,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="数学小咖咖"
+                android:text=""
                 android:textColor="#ff333333"
                 android:textSize="16sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="粉丝：1024"
+                android:text=""
                 android:textColor="#ff999999"
                 android:textSize="13sp" />
 

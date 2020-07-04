@@ -1,7 +1,9 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
+import androidx.viewpager.widget.ViewPager;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yinxiang.R;
+import com.yinxiang.activity.SearchFriendActivity;
 import com.yinxiang.adapter.PagerAdapter;
 import com.yinxiang.databinding.FragmentFriendBinding;
-import com.yinxiang.databinding.FragmentHomeBinding;
 
-public class FriendFragment extends BaseFragment {
+public class FriendFragment extends BaseFragment implements ViewPager.OnPageChangeListener{
 
 
     private FragmentFriendBinding binding;
@@ -63,6 +65,13 @@ public class FriendFragment extends BaseFragment {
         binding.viewPager.setOffscreenPageLimit(2);
         binding.viewPager.setCurrentItem(0);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
+        binding.viewPager.setOnPageChangeListener(this);
+        binding.addFriendView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(SearchFriendActivity.class);
+            }
+        });
 
         return binding.getRoot();
     }
@@ -85,6 +94,21 @@ public class FriendFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        binding.addFriendView.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     public interface OnFragmentInteractionListener {

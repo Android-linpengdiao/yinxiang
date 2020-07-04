@@ -2,8 +2,10 @@ package com.yinxiang.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.LinearLayout;
 
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
@@ -34,6 +36,8 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<WorkPKData.DataBeanX
         return R.layout.item_home_contest_layout;
     }
 
+    private static final String TAG = "HomeContestAdapter";
+
     @Override
     protected void onBindItem(final ItemHomeContestLayoutBinding binding, final WorkPKData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
@@ -41,14 +45,23 @@ public class HomeContestAdapter extends BaseRecyclerAdapter<WorkPKData.DataBeanX
             binding.compareWorkName.setText(dataBean.getCompare_name());
             binding.voteNum.setText(dataBean.getVote_num() + "票");
             binding.compareVoteNum.setText(dataBean.getCompare_num() + "票");
-            binding.compareVoteNum.setText(dataBean.getCompare_num() + "票");
+
+            LinearLayout.LayoutParams voteNumLayoutParams = new LinearLayout.LayoutParams(0, CommonUtil.dip2px(mContext,20), dataBean.getVote_num() + 1);
+            voteNumLayoutParams.rightMargin = CommonUtil.dip2px(mContext,-10);
+            binding.voteNum.setLayoutParams(voteNumLayoutParams);
+
+            LinearLayout.LayoutParams compareVoteNumLayoutParams = new LinearLayout.LayoutParams(0, CommonUtil.dip2px(mContext,20), dataBean.getCompare_num() + 1);
+            compareVoteNumLayoutParams.leftMargin = CommonUtil.dip2px(mContext,-10);
+            binding.compareVoteNum.setLayoutParams(compareVoteNumLayoutParams);
 
             long time = CommonUtil.getStringToDate(dataBean.getEnded_at()) - System.currentTimeMillis();
-            binding.pkTime.initTime(time/1000);
-//            binding.pkTime.setText(CommonUtil.getPKTime(String.valueOf(time)));
+            binding.pkTime.setTimeFormat(time > 1000 * 60 * 60 ? "HH:mm:ss" : time > 1000 * 60 ? "mm:ss" : "ss");
+            binding.pkTime.setVisibility(time > 0 ? View.VISIBLE : View.GONE);
+            binding.pkTime.initTime(time / 1000);
             binding.pkTime.reStart();
-            GlideLoader.LoderLoadImage(mContext, dataBean.getContent_img(), binding.workImg,100);
-            GlideLoader.LoderLoadImage(mContext, dataBean.getCompare_img(), binding.compareWorkImg,100);
+            binding.tvHint.setText(time > 0 ? "结束" : "已结束");
+            GlideLoader.LoderCircleImage(mContext, dataBean.getContent_img(), binding.workImg);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getCompare_img(), binding.compareWorkImg);
             binding.workView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

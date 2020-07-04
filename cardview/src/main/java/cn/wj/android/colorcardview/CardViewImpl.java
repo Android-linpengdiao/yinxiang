@@ -17,7 +17,7 @@ package cn.wj.android.colorcardview;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Interface for platform specific CardView implementations.

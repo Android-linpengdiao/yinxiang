@@ -1,19 +1,17 @@
 package com.yinxiang.activity;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.View;
 
-import com.baselibrary.UserInfo;
 import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
-import com.media.image.ImageModel;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
@@ -22,20 +20,13 @@ import com.yinxiang.R;
 import com.yinxiang.adapter.MemberAdapter;
 import com.yinxiang.adapter.PagerAdapter;
 import com.yinxiang.databinding.ActivityClubDetailBinding;
-import com.yinxiang.databinding.ActivityCreateClubBinding;
 import com.yinxiang.fragment.ClubDescFragment;
 import com.yinxiang.fragment.ClubMemberFragment;
 import com.yinxiang.fragment.ClubWorkFragment;
-import com.yinxiang.fragment.HomeContestFragment;
-import com.yinxiang.fragment.HomeHonorFragment;
-import com.yinxiang.fragment.HomeVideoFragment;
 import com.yinxiang.model.ClubData;
 import com.yinxiang.model.ClubMember;
-import com.yinxiang.model.WorkData;
 import com.yinxiang.view.OnClickListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import okhttp3.Call;

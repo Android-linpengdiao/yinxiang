@@ -1,5 +1,6 @@
+include ':uikit'
 include ':app',
-        ':nim',
+//        ':nim',
         ':base',
         ':LayoutManagerGroup',
         ':okhttp',

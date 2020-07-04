@@ -4,21 +4,26 @@ package com.yinxiang.activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
+
+import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarDrawerToggle;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -29,19 +34,21 @@ import com.baselibrary.MessageBus;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.baselibrary.utils.ToastUtils;
+import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.impl.cache.DataCacheManager;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
-import com.nim.MD5;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.okhttp.callbacks.StringCallback;
-import com.okhttp.utils.APIUrls;
 import com.okhttp.utils.OkHttpUtils;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityMainBinding;
 import com.yinxiang.fragment.ChannelFragment;
 import com.yinxiang.fragment.FriendFragment;
 import com.yinxiang.fragment.HomeFragment;
+import com.yinxiang.utils.MD5;
 import com.yinxiang.utils.ViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -91,8 +98,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     private void initNim() {
-        register("13521614827", "13521614827", "123456");
-//        doLogin();
+        register(getUserInfo().getData().getPhone(), getUserInfo().getData().getPhone(), "123456");
+        doLogin();
+
     }
 
     // api
@@ -114,7 +122,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      */
     public void register(String account, String nickName, String password) {
         String url = "https://app.netease.im/api/createDemoUser";
-        password = MD5.getStringMD5(password);
+//        password = MD5.getStringMD5(password);
         try {
             nickName = URLEncoder.encode(nickName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -199,27 +207,31 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     public void doLogin() {
-        LoginInfo info = new LoginInfo("13521614827", MD5.getStringMD5("123456"));
-        RequestCallback<LoginInfo> callback =
-                new RequestCallback<LoginInfo>() {
-                    @Override
-                    public void onSuccess(LoginInfo param) {
-                        Log.i(TAG, "onSuccess: " + param.getToken());
-                        Log.i(TAG, "onSuccess: " + param.getAppKey());
-                        Log.i(TAG, "onSuccess: " + param.getAccount());
-                    }
+        Log.i(TAG, "doLogin: ");
+        LoginInfo info = new LoginInfo(getUserInfo().getData().getPhone(), "123456");
+        RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
 
-                    @Override
-                    public void onFailed(int code) {
-                        Log.i(TAG, "onFailed: " + code);
-                    }
+            @Override
+            public void onSuccess(LoginInfo param) {
+                Log.i(TAG, "onSuccess: " + param.getToken());
+                Log.i(TAG, "onSuccess: " + param.getAppKey());
+                Log.i(TAG, "onSuccess: " + param.getAccount());
+                NimUIKit.setAccount(param.getAccount());
+                // 构建缓存
+                DataCacheManager.buildDataCacheAsync();
+            }
 
-                    @Override
-                    public void onException(Throwable exception) {
-                        Log.i(TAG, "onException: " + exception.getMessage());
-                    }
-                    // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
-                };
+            @Override
+            public void onFailed(int code) {
+                Log.i(TAG, "onFailed: " + code);
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                Log.i(TAG, "onException: " + exception.getMessage());
+            }
+            // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
+        };
         NIMClient.getService(AuthService.class).login(info)
                 .setCallback(callback);
     }

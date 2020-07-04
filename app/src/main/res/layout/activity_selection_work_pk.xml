@@ -42,13 +42,13 @@
             android:textColor="#ff333333"
             android:textSize="16sp" />
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,35 +56,81 @@
                 android:overScrollMode="never"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/padding">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/button_radius_theme"
-                android:gravity="center"
-                android:text="开始PK"
-                android:textColor="#ffffffff"
-                android:textSize="16sp" />
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/workPKView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding"
-                android:gravity="center"
-                android:text="已报名参加比赛活动的作品，方可参加PK"
-                android:textColor="#ff999999"
-                android:textSize="15sp" />
-        </LinearLayout>
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_radius_theme"
+                    android:gravity="center"
+                    android:text="开始PK"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding"
+                    android:gravity="center"
+                    android:text="已报名参加比赛活动的作品，方可参加PK"
+                    android:textColor="#ff999999"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/workReleaseWorkView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="暂无已报名比赛活动的作品，请您先去报名比赛活动，报名成功后，再来参加排位赛。"
+                    android:textColor="#ff999999"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_release"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_radius_theme"
+                    android:gravity="center"
+                    android:text="报名比赛活动"
+                    android:layout_marginTop="@dimen/padding"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/padding"
+                    android:background="@drawable/button_radius_gray_dark"
+                    android:gravity="center"
+                    android:text="开始PK"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

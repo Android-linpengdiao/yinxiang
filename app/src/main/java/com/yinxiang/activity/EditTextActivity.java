@@ -1,21 +1,15 @@
 package com.yinxiang.activity;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
-import com.okhttp.SendRequest;
-import com.okhttp.callbacks.StringCallback;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityEditTextBinding;
-
-import org.json.JSONObject;
-
-import okhttp3.Call;
 
 public class EditTextActivity extends BaseActivity implements View.OnClickListener {
 

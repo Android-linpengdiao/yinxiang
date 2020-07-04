@@ -34,7 +34,7 @@ public class UserHomeWorkAdapter extends BaseRecyclerAdapter<WorkData.DataBeanX.
             String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
             binding.tvTime.setText(time);
             binding.playNum.setText(String.valueOf(dataBean.getPlay_num()));
-            GlideLoader.LoderLoadImage(mContext, dataBean.getImg(), binding.cover, 10);
+            GlideLoader.LoderImage(mContext, dataBean.getImg(), binding.cover, 10);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

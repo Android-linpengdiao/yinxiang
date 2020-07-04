@@ -34,7 +34,7 @@ public class HomeHonorAdapter extends BaseRecyclerAdapter<HonourData.DataBeanX.D
             binding.tvTitle.setText(dataBean.getTourist_name());
             binding.tvVotes.setText(String.valueOf(dataBean.getPre_votes()));
             binding.tvLevel.setText("Lv." + dataBean.getPre_votes());
-            GlideLoader.LoderLoadImage(mContext, dataBean.getImg(), binding.cover, 100);
+            GlideLoader.LoderCircleImage(mContext, dataBean.getImg(), binding.cover);
             if (position == 0) {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num01));
             } else if (position == 1) {

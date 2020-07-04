@@ -63,7 +63,7 @@ public class ChannelVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBean
             binding.ivLike.setSelected(dataBean.isIs_assist());
             binding.tvElection.setText(String.valueOf(dataBean.getPre_votes()));
             GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
-            GlideLoader.LoderVideoImage(mContext, dataBean.getVideo(), binding.imgThumb);
+            GlideLoader.LoderVideoImage(mContext, dataBean.getImg(), binding.imgThumb);
             GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
 
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {

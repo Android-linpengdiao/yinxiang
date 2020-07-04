@@ -2,7 +2,7 @@ package com.cjt2325.cameralibrary;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatDialog;
+import androidx.appcompat.app.AppCompatDialog;
 
 import com.cjt2325.cameralibrary.view.ProgressView;
 

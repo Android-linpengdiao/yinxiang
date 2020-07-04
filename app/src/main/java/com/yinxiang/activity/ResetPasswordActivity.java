@@ -1,8 +1,8 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +13,6 @@ import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.StringCallback;
 import com.yinxiang.R;
-import com.yinxiang.databinding.ActivityForgotPasswordBinding;
 import com.yinxiang.databinding.ActivityResetPasswordBinding;
 
 import org.json.JSONException;

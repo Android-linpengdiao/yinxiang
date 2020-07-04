@@ -45,7 +45,7 @@ public class GlideLoader {
 
     public static void LoderVideoImage(Context context, String url, ImageView view) {
         Glide.with(context)
-                .load(url)
+                .load(domain + url)
                 .centerInside()
                 .placeholder(R.drawable.cover)
                 .error(R.drawable.cover)
@@ -55,7 +55,7 @@ public class GlideLoader {
 
     public static void LoderVideoCenterCropImage(Context context, String url, ImageView view) {
         Glide.with(context)
-                .load(url)
+                .load(domain + url)
                 .centerCrop()
                 .placeholder(R.drawable.cover)
                 .error(R.drawable.cover)
@@ -97,7 +97,7 @@ public class GlideLoader {
         RoundedCornersTransform transform = new RoundedCornersTransform(context, CommonUtil.dip2px(context, round));
         transform.setNeedCorner(true, false, true, false);
         Glide.with(context)
-                .load(url)
+                .load(domain + url)
                 .placeholder(R.drawable.button_left_gray)
                 .error(R.drawable.button_left_gray)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

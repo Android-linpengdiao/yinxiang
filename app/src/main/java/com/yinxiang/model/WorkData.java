@@ -209,6 +209,15 @@ public class WorkData {
             private String name;
             private int play_num;
             private TouristBean tourist;
+            private boolean selection = false;
+
+            public boolean isSelection() {
+                return selection;
+            }
+
+            public void setSelection(boolean selection) {
+                this.selection = selection;
+            }
 
             public int getId() {
                 return id;

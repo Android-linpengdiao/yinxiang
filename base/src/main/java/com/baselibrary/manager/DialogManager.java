@@ -2,7 +2,7 @@ package com.baselibrary.manager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.support.v7.app.AppCompatDialog;
+import androidx.appcompat.app.AppCompatDialog;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;

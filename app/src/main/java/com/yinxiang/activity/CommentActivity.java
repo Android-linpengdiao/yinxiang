@@ -1,9 +1,9 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.baselibrary.utils.ToastUtils;
@@ -13,11 +13,7 @@ import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.CommentAdapter;
 import com.yinxiang.databinding.ActivityCommentBinding;
-import com.yinxiang.model.LikeData;
 import com.yinxiang.model.MessageData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Call;
 

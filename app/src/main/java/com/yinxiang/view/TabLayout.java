@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.yinxiang.R;
 
-public class TabLayout extends android.support.design.widget.TabLayout implements android.support.design.widget.TabLayout.OnTabSelectedListener {
+public class TabLayout extends com.google.android.material.tabs.TabLayout implements com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
     private Context mContext;
 
     public TabLayout(Context context) {

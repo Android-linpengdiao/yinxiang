@@ -36,7 +36,7 @@ public class MessageAdapter extends BaseRecyclerAdapter<String, ItemMessageLayou
     @Override
     protected void onBindItem(ItemMessageLayoutBinding binding, final String str, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderLoadImage(mContext, str, binding.userIcon,100);
+            GlideLoader.LoderCircleImage(mContext, str, binding.ivIcon);
             binding.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

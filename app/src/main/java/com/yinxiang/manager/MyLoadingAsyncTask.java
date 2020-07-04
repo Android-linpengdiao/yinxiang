@@ -3,7 +3,7 @@ package com.yinxiang.manager;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatDialog;
+import androidx.appcompat.app.AppCompatDialog;
 import android.util.Log;
 
 import com.baselibrary.manager.DialogManager;

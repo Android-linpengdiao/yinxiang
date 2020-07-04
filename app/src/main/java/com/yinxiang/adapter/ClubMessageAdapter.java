@@ -32,11 +32,15 @@ public class ClubMessageAdapter extends BaseRecyclerAdapter<ClubMessageData.Data
     @Override
     protected void onBindItem(final ItemClubMessageLayoutBinding binding, final ClubMessageData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            binding.tvTitle.setText(dataBean.getTourist().getName());
-            binding.tvDesc.setText("申请加入" + dataBean.getClub().getName());
+            if (dataBean.getClub()!=null) {
+                binding.tvDesc.setText("申请加入" + dataBean.getClub().getName());
+            }
             binding.tvAgree.setText("同意");
             binding.tvAgree.setText(dataBean.getStatus() == 1 ? "已同意" : dataBean.getStatus() == 1 ? "已拒绝" : "同意");
-            GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
+            if (dataBean.getTourist()!=null) {
+                binding.tvTitle.setText(dataBean.getTourist().getName());
+                GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
+            }
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

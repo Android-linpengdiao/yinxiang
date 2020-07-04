@@ -4,9 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
 import android.util.Log;
 import android.view.View;
 
@@ -79,7 +81,18 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-                publishWork(CommonUtil.getVideoCoverListString().get(1), CommonUtil.getVideoListString().get(1), homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
+                Log.i(TAG, "onClick: coverPath = "+coverPath);
+                Log.i(TAG, "onClick: videoPath = "+videoPath);
+                String name = binding.etName.getText().toString().trim();
+                if (CommonUtil.isBlank(name)) {
+                    ToastUtils.showShort(ReleaseActivity.this, "请描述一下你的视频");
+                    return;
+                }
+                if (!CommonUtil.isBlank(videoPath) && !CommonUtil.isBlank(coverPath)) {
+                    uploadFile(coverPath);
+                }
+
+//                publishWork(CommonUtil.getVideoCoverListString().get(1), CommonUtil.getVideoListString().get(1), homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
                 break;
             case R.id.release_video_view:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ReleaseActivity.this);
@@ -174,7 +187,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                 case REQUEST_CTYPE:
                     if (data != null) {
                         homeDataBean = (HomeActives.DataBean) data.getSerializableExtra("homeActives");
-                        if (homeDataBean!=null) {
+                        if (homeDataBean != null) {
                             binding.tvCompetition.setText(homeDataBean.getTitle() + "");
                         }
                     }
@@ -292,7 +305,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider, conf);
 
         // Construct an upload request
-        PutObjectRequest put = new PutObjectRequest("diandou-test", videoPath.substring(videoPath.lastIndexOf("/") + 1), videoPath);
+        PutObjectRequest put = new PutObjectRequest("enjoy-money", videoPath.substring(videoPath.lastIndexOf("/") + 1), videoPath);
 
         // You can set progress callback during asynchronous upload
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
@@ -311,7 +324,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                 LoadingManager.hideProgress(ReleaseActivity.this);
                 String videoUrl = "http://" + request.getBucketName() + ".oss-cn-beijing.aliyuncs.com/" + request.getObjectKey();
                 Log.i(TAG, "onSuccess: " + videoUrl);
-//                publishWork(coverUrl, videoUrl);
+                publishWork(coverUrl, videoUrl,homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
             }
 
             @Override
@@ -350,11 +363,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
 
     private void publishWork(String coverUrl, String videoUrl, int active_id, int club_id) {
         String name = binding.etName.getText().toString().trim();
-        if (CommonUtil.isBlank(name)){
-            ToastUtils.showShort(ReleaseActivity.this, "请描述一下你的视频");
-            return;
-        }
-        SendRequest.publishWork(getUserInfo().getData().getId(),name, coverUrl, videoUrl, active_id, club_id, new StringCallback() {
+        SendRequest.publishWork(getUserInfo().getData().getId(), name, coverUrl, videoUrl, active_id, club_id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtils.showShort(ReleaseActivity.this, "发布失败");

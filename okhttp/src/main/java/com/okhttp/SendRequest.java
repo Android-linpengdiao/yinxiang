@@ -585,6 +585,33 @@ public class SendRequest {
     }
 
     /**
+     * 好友-通讯录-我的好友
+     *
+     * @param tourist_id
+     * @param call
+     */
+    public static void myFriends(int tourist_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_myFriend).build().execute(call);
+
+    }
+
+    /**
+     * 好友-通讯录-搜索
+     * @param tourist_id
+     * @param name
+     * @param call
+     */
+    public static void friendSearch(int tourist_id, String name, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("name", name);
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendSearch).build().execute(call);
+
+    }
+
+    /**
      * ======================================频道===================================
      */
 

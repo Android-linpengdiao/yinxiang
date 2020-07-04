@@ -2,7 +2,7 @@ package com.baselibrary.manager;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatDialog;
+import androidx.appcompat.app.AppCompatDialog;
 
 import com.baselibrary.R;
 import com.baselibrary.view.ProgressView;

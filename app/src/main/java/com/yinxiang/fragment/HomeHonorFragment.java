@@ -1,12 +1,12 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +17,12 @@ import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
-import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
-import com.yinxiang.adapter.HomeContestAdapter;
 import com.yinxiang.adapter.HomeHonorAdapter;
-import com.yinxiang.databinding.FragmentHomeContestBinding;
 import com.yinxiang.databinding.FragmentHomeHonorBinding;
 import com.yinxiang.model.HomeActives;
 import com.yinxiang.model.HonourData;
-import com.yinxiang.model.WorkPKData;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.TypePopupWindow;
 

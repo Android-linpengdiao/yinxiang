@@ -7,7 +7,7 @@ public class APIUrls {
 //    public final static String url_domain = "http://www.udiandou.com/";
 
     public final static String url_fileUpload = url_domain + "api/common/fileUpload";
-    public final static String url_createSecurityToken = url_domain + "api/common/stsToken";
+    public final static String url_createSecurityToken = url_domain + "api/common/ossToken";
 
 
     //用户信息
@@ -92,6 +92,10 @@ public class APIUrls {
     public final static String url_friendClub = url_domain + "api/friend/club";
     //好友-消息-同意加群/拒绝加群
     public final static String url_friendClubAction = url_domain + "api/friend/clubAction";
+    //
+    public final static String url_myFriend = url_domain + "api/friend/my";
+    //
+    public final static String url_friendSearch = url_domain + "api/friend/search";
 
 
     /**

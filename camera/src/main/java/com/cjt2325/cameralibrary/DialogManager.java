@@ -1,8 +1,8 @@
 package com.cjt2325.cameralibrary;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.support.v7.app.AppCompatDialog;
+
+import androidx.appcompat.app.AppCompatDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;

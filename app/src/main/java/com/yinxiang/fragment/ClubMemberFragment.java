@@ -1,30 +1,23 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
-import com.yinxiang.activity.ClubDetailActivity;
-import com.yinxiang.activity.WorkDetailActivity;
-import com.yinxiang.adapter.ClubAdapter;
 import com.yinxiang.adapter.MemberAdapter;
-import com.yinxiang.adapter.WorkAdapter;
 import com.yinxiang.databinding.FragmentClubMenberBinding;
-import com.yinxiang.databinding.FragmentClubWorkBinding;
 import com.yinxiang.model.ClubMember;
-import com.yinxiang.view.GridItemDecoration;
 import com.yinxiang.view.OnClickListener;
 
 import okhttp3.Call;

@@ -7,10 +7,12 @@ import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ItemContactsLayoutBinding;
 import com.yinxiang.databinding.ItemMessageLayoutBinding;
+import com.yinxiang.fragment.FriendFragment;
+import com.yinxiang.model.FriendsData;
 import com.yinxiang.view.OnClickListener;
 
 
-public class ContactsAdapter extends BaseRecyclerAdapter<String, ItemContactsLayoutBinding> {
+public class ContactsAdapter extends BaseRecyclerAdapter<FriendsData.DataBean, ItemContactsLayoutBinding> {
 
     private boolean selection = false;
 
@@ -34,14 +36,15 @@ public class ContactsAdapter extends BaseRecyclerAdapter<String, ItemContactsLay
     }
 
     @Override
-    protected void onBindItem(ItemContactsLayoutBinding binding, final String str, final int position) {
+    protected void onBindItem(ItemContactsLayoutBinding binding, final FriendsData.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
-            GlideLoader.LoderLoadImage(mContext, str, binding.userIcon,100);
+            binding.userName.setText(dataBean.getName());
+            GlideLoader.LoderCircleImage(mContext, dataBean.getAvatar(), binding.userIcon);
             binding.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
-                        onClickListener.onClick(v, mList.get(position));
+                        onClickListener.onClick(v, dataBean);
                     }
                 }
             });

@@ -2,9 +2,12 @@ package com.yinxiang.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -15,7 +18,6 @@ import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
-import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.SearchHistoryAdapter;
@@ -85,7 +87,22 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (CommonUtil.isBlank(charSequence.toString())) {
+                    initSearchView(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId,
@@ -113,6 +130,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private void initSearchView(String content) {
         binding.searchHistoryView.setVisibility(CommonUtil.isBlank(content) ? View.VISIBLE : View.GONE);
         binding.searchResultRecyclerView.setVisibility(CommonUtil.isBlank(content) ? View.GONE : View.VISIBLE);
+        binding.emptyView.setVisibility(CommonUtil.isBlank(content) ? View.GONE : View.VISIBLE);
         if (!CommonUtil.isBlank(content)) {
             searchWork(content);
         }
@@ -144,6 +162,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             public void onResponse(WorkData response, int id) {
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
                     searchResultAdapter.refreshData(response.getData().getData());
+                    binding.emptyView.setVisibility(response.getData().getData().size() > 0 ? View.GONE : View.VISIBLE);
                 } else {
                     ToastUtils.showShort(SearchActivity.this, response.getMsg());
                 }

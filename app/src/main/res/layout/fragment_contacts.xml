@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,16 +37,16 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/more"/>
+                        android:src="@drawable/more" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="我的好友"
-                        android:textStyle="bold"
                         android:textColor="#ff333333"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -59,7 +60,7 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/friend_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,16 +89,16 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/more"/>
+                        android:src="@drawable/more" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="我的粉丝"
-                        android:textStyle="bold"
                         android:textColor="#ff333333"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -111,7 +112,7 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fans_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -140,16 +141,16 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/more"/>
+                        android:src="@drawable/more" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="我的关注"
-                        android:textStyle="bold"
                         android:textColor="#ff333333"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -163,7 +164,7 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/follow_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -192,16 +193,16 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/more"/>
+                        android:src="@drawable/more" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="我的社团"
-                        android:textStyle="bold"
                         android:textColor="#ff333333"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -215,11 +216,17 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/club__recyclerView"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                    android:descendantFocusability="blocksDescendants">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/club__recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
             </LinearLayout>
 

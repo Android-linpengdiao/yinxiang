@@ -3,23 +3,20 @@ package com.yinxiang.activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
+
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.FileUtils;
 import com.baselibrary.utils.GlideLoader;
-import com.baselibrary.utils.PermissionUtils;
 import com.baselibrary.utils.ToastUtils;
 import com.media.MediaActivity;
 import com.media.image.ImageModel;

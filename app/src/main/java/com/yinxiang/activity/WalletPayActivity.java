@@ -1,10 +1,10 @@
 package com.yinxiang.activity;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -17,9 +17,7 @@ import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.adapter.CoinAdapter;
 import com.yinxiang.databinding.ActivityWalletPayBinding;
-import com.yinxiang.model.WalletRecordData;
 import com.yinxiang.model.WalletSetData;
-import com.yinxiang.view.GridItemDecoration;
 
 import org.json.JSONObject;
 

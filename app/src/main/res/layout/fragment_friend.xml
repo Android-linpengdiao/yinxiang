@@ -15,24 +15,45 @@
 
         <include layout="@layout/status_bar" />
 
-        <com.yinxiang.view.TabLayout
-            android:id="@+id/tabLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingTop="30dp"
-            android:paddingBottom="25dp"
-            app:tabGravity="center"
-            app:tabIndicatorColor="#333333"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="4dp"
-            app:tabMode="fixed"
-            app:tabRippleColor="@android:color/transparent"
-            app:tabSelectedTextColor="#333333"
-            app:tabTextAppearance="@style/TabLayoutTextSize20"
-            app:tabTextColor="#333333" />
+            android:layout_height="wrap_content">
 
-        <android.support.v4.view.ViewPager
+            <com.yinxiang.view.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingTop="30dp"
+                android:paddingBottom="25dp"
+                app:tabGravity="center"
+                app:tabIndicatorColor="#333333"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="4dp"
+                app:tabMode="fixed"
+                app:tabRippleColor="@android:color/transparent"
+                app:tabSelectedTextColor="#333333"
+                app:tabTextAppearance="@style/TabLayoutTextSize20"
+                app:tabTextColor="#333333" />
+
+            <TextView
+                android:id="@+id/addFriendView"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding"
+                android:background="@drawable/button_radius_theme"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="加好友"
+                android:textColor="#fffafafa"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
