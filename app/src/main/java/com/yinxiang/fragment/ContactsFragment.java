@@ -10,11 +10,13 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.session.SessionCustomization;
@@ -96,7 +98,9 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
             public void onClick(View view, Object object) {
                 if (object instanceof FriendsData.DataBean) {
                     FriendsData.DataBean dataBean = (FriendsData.DataBean) object;
-                    NimUIKit.startChatting(getActivity(), dataBean.getPhone(), SessionTypeEnum.P2P, getRobotCustomization(), null);
+                    NimUIKit.startChatting(getActivity(),
+                            !CommonUtil.isBlank(dataBean.getYunxin_accid())?dataBean.getYunxin_accid():dataBean.getPhone(),
+                            SessionTypeEnum.P2P, getRobotCustomization(), null);
 
                 }
             }
@@ -116,7 +120,9 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
             public void onClick(View view, Object object) {
                 if (object instanceof FansUserData.DataBeanX.DataBean) {
                     FansUserData.DataBeanX.DataBean dataBean = (FansUserData.DataBeanX.DataBean) object;
-                    NimUIKit.startChatting(getActivity(), dataBean.getPhone(), SessionTypeEnum.P2P, getRobotCustomization(), null);
+                    NimUIKit.startChatting(getActivity(),
+                            !CommonUtil.isBlank(dataBean.getYunxin_accid())?dataBean.getYunxin_accid():dataBean.getPhone(),
+                            SessionTypeEnum.P2P, getRobotCustomization(), null);
 
                 }
             }
@@ -136,7 +142,9 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
             public void onClick(View view, Object object) {
                 if (object instanceof FollowUserData.DataBeanX.DataBean) {
                     FollowUserData.DataBeanX.DataBean dataBean = (FollowUserData.DataBeanX.DataBean) object;
-                    NimUIKit.startChatting(getActivity(), dataBean.getPhone(), SessionTypeEnum.P2P, getRobotCustomization(), null);
+                    NimUIKit.startChatting(getActivity(),
+                            !CommonUtil.isBlank(dataBean.getYunxin_accid())?dataBean.getYunxin_accid():dataBean.getPhone(),
+                            SessionTypeEnum.P2P, getRobotCustomization(), null);
 
                 }
             }
@@ -167,6 +175,14 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
             }
         });
 
+        binding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
+
         initData();
 
         return binding.getRoot();
@@ -180,6 +196,7 @@ public class ContactsFragment extends BaseFragment implements View.OnClickListen
 
             @Override
             public void onResponse(FriendsData response, int id) {
+                binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData() != null) {
                     adapterFriend.refreshData(response.getData());
                     binding.friendNumber.setText(String.valueOf(response.getData().size()));

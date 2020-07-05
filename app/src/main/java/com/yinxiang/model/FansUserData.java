@@ -217,6 +217,24 @@ public class FansUserData {
             private int age;
             private boolean is_person_follow;
             private PivotBean pivot;
+            private String yunxin_token;
+            private String yunxin_accid;
+
+            public String getYunxin_token() {
+                return yunxin_token;
+            }
+
+            public void setYunxin_token(String yunxin_token) {
+                this.yunxin_token = yunxin_token;
+            }
+
+            public String getYunxin_accid() {
+                return yunxin_accid;
+            }
+
+            public void setYunxin_accid(String yunxin_accid) {
+                this.yunxin_accid = yunxin_accid;
+            }
 
             public int getId() {
                 return id;

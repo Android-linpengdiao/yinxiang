@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/nim_message_button_bottom_audio_selector"
             android:contentDescription="@string/empty"
-            android:scaleType="center" />
+            android:scaleType="center"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/buttonTextMessage"
@@ -30,7 +31,8 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/nim_message_button_bottom_text_selector"
             android:contentDescription="@string/empty"
-            android:scaleType="center" />
+            android:scaleType="center"
+            android:visibility="gone"/>
     </FrameLayout>
 
     <FrameLayout
@@ -54,17 +56,20 @@
             android:visibility="gone" />
     </FrameLayout>
 
+    <!--android:background="@drawable/nim_message_input_edittext_box"-->
     <EditText
         android:id="@+id/editTextMessage"
         android:textCursorDrawable="@null"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:layout_marginRight="@dimen/bottom_component_margin_horizontal"
         android:layout_toLeftOf="@+id/emoji_button"
         android:layout_toRightOf="@+id/switchLayout"
         android:autoLink="web|email|phone"
-        android:background="@drawable/nim_message_input_edittext_box"
+        android:hint="输入消息"
+        android:background="@null"
         android:maxHeight="72dip"
         android:maxLines="4"
         android:textSize="16sp" />
@@ -78,7 +83,8 @@
         android:layout_toLeftOf="@+id/sendLayout"
         android:background="@drawable/nim_message_button_bottom_emoji_selector"
         android:contentDescription="@string/empty"
-        android:scaleType="center" />
+        android:scaleType="center"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/sendLayout"
@@ -97,17 +103,13 @@
             android:contentDescription="@string/empty"
             android:scaleType="center" />
 
-        <TextView
+        <ImageView
             android:id="@+id/buttonSendMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:padding="10dp"
             android:layout_gravity="center"
-            android:background="@drawable/nim_message_button_bottom_send_selector"
-            android:contentDescription="@string/empty"
-            android:gravity="center"
-            android:text="@string/send"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:src="@drawable/icon_send"/>
     </FrameLayout>
 
 </RelativeLayout>

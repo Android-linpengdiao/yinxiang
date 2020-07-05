@@ -50,7 +50,9 @@ public class ChatMessageAdapter extends BaseRecyclerAdapter<RecentContact, ItemM
             binding.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NimUIKit.startChatting(mContext, recentContact.getContactId(), SessionTypeEnum.P2P, getRobotCustomization(), null);
+                    NimUIKit.startChatting(mContext,
+                            recentContact.getContactId(),
+                            SessionTypeEnum.P2P, getRobotCustomization(), null);
 
                 }
             });

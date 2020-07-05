@@ -199,7 +199,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
 
         // 显示录音按钮
         switchToTextButtonInInputBar.setVisibility(View.GONE);
-        switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
+//        switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
 
         // 文本录音按钮切换布局
         textAudioSwitchLayout = view.findViewById(R.id.switchLayout);
@@ -343,7 +343,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         audioRecordBtn.setVisibility(View.GONE);
         messageEditText.setVisibility(View.VISIBLE);
         switchToTextButtonInInputBar.setVisibility(View.GONE);
-        switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
+//        switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
 
         messageInputBar.setVisibility(View.VISIBLE);
 
@@ -823,7 +823,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
             moreFuntionButtonInInputBar.setVisibility(View.GONE);
         } else {
             textAudioSwitchLayout.setVisibility(View.VISIBLE);
-            emojiButtonInInputBar.setVisibility(View.VISIBLE);
+//            emojiButtonInInputBar.setVisibility(View.VISIBLE);
             sendMessageButtonInInputBar.setVisibility(View.GONE);
             moreFuntionButtonInInputBar.setVisibility(View.VISIBLE);
         }

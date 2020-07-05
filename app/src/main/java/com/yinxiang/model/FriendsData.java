@@ -7,7 +7,7 @@ public class FriendsData {
     /**
      * code : 200
      * msg : 成功
-     * data : [{"id":6,"name":"青春有你制作人","phone":"18303032844","avatar":"upload/20200606055631F8mzM.jpg","password":"$2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC","remember_token":null,"created_at":"2020-06-05 16:02:31","updated_at":"2020-07-02 13:26:16","tourist_id":"27915679","sex":1,"cancel":1,"reg":"","desc":"这条街最亮的星","addr":"北京市 朝阳区","like_notice":1,"comment_notice":2,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":15,"follow_number":2,"level":1,"age":0}]
+     * data : [{"id":6,"name":"青春有你制作人","phone":"18303032844","avatar":"upload/20200606055631F8mzM.jpg","password":"$2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC","remember_token":null,"created_at":"2020-06-05 16:02:31","updated_at":"2020-07-04 21:59:54","tourist_id":"27915679","sex":1,"cancel":1,"reg":"","desc":"这条街最亮的星","addr":"北京市 朝阳区","like_notice":1,"comment_notice":2,"is_vip":2,"vip_expire":null,"wallet_token":0,"fan_number":17,"follow_number":2,"level":1,"age":0,"yunxin_token":"a7a89edf135d83a0ea51355e7383f08a","yunxin_accid":"27915679"}]
      */
 
     private int code;
@@ -47,7 +47,7 @@ public class FriendsData {
          * password : $2y$10$Bl9QrPD7oLzkCXSb9ZwcLOzIoW4NxGxOHqQLRckkZ.XYaWv0Aq2PC
          * remember_token : null
          * created_at : 2020-06-05 16:02:31
-         * updated_at : 2020-07-02 13:26:16
+         * updated_at : 2020-07-04 21:59:54
          * tourist_id : 27915679
          * sex : 1
          * cancel : 1
@@ -59,10 +59,12 @@ public class FriendsData {
          * is_vip : 2
          * vip_expire : null
          * wallet_token : 0
-         * fan_number : 15
+         * fan_number : 17
          * follow_number : 2
          * level : 1
          * age : 0
+         * yunxin_token : a7a89edf135d83a0ea51355e7383f08a
+         * yunxin_accid : 27915679
          */
 
         private int id;
@@ -88,6 +90,8 @@ public class FriendsData {
         private int follow_number;
         private int level;
         private int age;
+        private String yunxin_token;
+        private String yunxin_accid;
 
         public int getId() {
             return id;
@@ -271,6 +275,22 @@ public class FriendsData {
 
         public void setAge(int age) {
             this.age = age;
+        }
+
+        public String getYunxin_token() {
+            return yunxin_token;
+        }
+
+        public void setYunxin_token(String yunxin_token) {
+            this.yunxin_token = yunxin_token;
+        }
+
+        public String getYunxin_accid() {
+            return yunxin_accid;
+        }
+
+        public void setYunxin_accid(String yunxin_accid) {
+            this.yunxin_accid = yunxin_accid;
         }
     }
 }

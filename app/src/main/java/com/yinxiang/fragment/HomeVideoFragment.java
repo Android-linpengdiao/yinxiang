@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.alivc.player.MediaPlayer;
 import com.baselibrary.MessageBus;
 import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.FileUtils;
 import com.baselibrary.utils.ToastUtils;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
@@ -577,6 +579,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 
         destroy();
         mPlayer = new AliVcMediaPlayer(getContext(), mSurfaceView);
+        //开启缓存
+        String sdDir = FileUtils.getMediaPath() + "save_cache";
+        mPlayer.setPlayingCache(true, sdDir, 60 * 60 /*时长, s */, 300 /*大小，MB*/);
         mPlayer.setCirclePlay(true);
 
         mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {

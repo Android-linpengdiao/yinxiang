@@ -326,6 +326,7 @@ dimen text_size_9
 dimen text_small_size_ten_sp
 dimen thick_line_size
 dimen very_samll_text_size
+drawable back
 drawable blue_round_box_4
 drawable blue_stroke_box_4
 drawable capture_preview_back
@@ -341,6 +342,7 @@ drawable ic_capture_switch
 drawable icon_full
 drawable icon_loading
 drawable icon_photo_normal
+drawable icon_send
 drawable icon_video
 drawable image_choose_normal
 drawable image_choose_selected

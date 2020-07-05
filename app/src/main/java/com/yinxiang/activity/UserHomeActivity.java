@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Log;
 import android.view.View;
 
 import com.baselibrary.UserInfo;
@@ -190,13 +191,9 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.tv_startChat:
                 if (userInfo.getCode() == 200 && userInfo.getData() != null) {
-
-                    // this 为当前activity
-                    // receiverid 为聊天对象account
-                    // SessionTypeEnum.P2P 为单聊类型
-                    //null也可以填自定义SessionCustomization
-
-                    NimUIKit.startChatting(this, userInfo.getData().getYunxin_accid(), SessionTypeEnum.P2P, getRobotCustomization(), null);
+                    NimUIKit.startChatting(this,
+                            !CommonUtil.isBlank(userInfo.getData().getYunxin_accid())?userInfo.getData().getYunxin_accid():userInfo.getData().getPhone(),
+                            SessionTypeEnum.P2P, getRobotCustomization(), null);
                 }
                 break;
             case R.id.tv_is_follow:
@@ -207,6 +204,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    private static final String TAG = "UserHomeActivity";
     private static SessionCustomization robotCustomization;
 
     private static SessionCustomization getRobotCustomization() {
@@ -217,11 +215,12 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
                     super.onActivityResult(activity, requestCode, resultCode, data);
-
+                    Log.i(TAG, "onActivityResult: ");
                 }
 
                 @Override
                 public MsgAttachment createStickerAttachment(String category, String item) {
+                    Log.i(TAG, "createStickerAttachment: ");
                     return null;
                 }
             };

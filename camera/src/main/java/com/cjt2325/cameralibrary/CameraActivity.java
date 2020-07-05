@@ -55,7 +55,7 @@ public class CameraActivity extends Activity {
         //设置视频保存路径
         jCameraView.setSaveVideoPath(getExternalFilesDir(null) + File.separator + "JCamera");
         jCameraView.setFeatures(getIntent().getIntExtra(STATE_TYPE, JCameraView.BUTTON_STATE_BOTH));
-        jCameraView.setTip("拍摄时间90s-180s");
+        jCameraView.setTip("拍摄时间" + getIntent().getIntExtra(MIN_TIME, 3 * 1000)/1000 + "s-180s");
         jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE);
         jCameraView.setDuration(getIntent().getIntExtra(MAX_TIME, 60 * 1000));
         jCameraView.setMinDuration(getIntent().getIntExtra(MIN_TIME, 3 * 1000));
@@ -121,7 +121,7 @@ public class CameraActivity extends Activity {
 
                     @Override
                     public void onProgress(float percent) {
-                        Log.i(TAG, "onProgress: "+String.valueOf(percent) + "%");
+                        Log.i(TAG, "onProgress: " + String.valueOf(percent) + "%");
                         DecimalFormat decimalFormat = new DecimalFormat("0.00");
                         String strPercent = decimalFormat.format(percent);
                         LoadingManager.updateProgress(CameraActivity.this, String.format(getResources().getString(R.string.str_updata_wait), strPercent + "%"));

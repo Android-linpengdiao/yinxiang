@@ -107,6 +107,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
     private int iconLeft = 0;       //左图标
     private int iconRight = 0;      //右图标
     private int duration = 0;       //录制时间
+    private int minDuration = 0;       //最小录制时间
 
     //缩放梯度
     private int zoomGradient = 0;
@@ -198,7 +199,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
             @Override
             public void recordShort(final long time) {
 //                mCaptureLayout.setTextWithAnimation("录制时间过短");
-                mCaptureLayout.setTextWithAnimation("拍摄时间不能小于90s");
+                mCaptureLayout.setTextWithAnimation("拍摄时间不能小于"+minDuration/1000+"s");
                 mSwitchCamera.setVisibility(VISIBLE);
                 mFlashLamp.setVisibility(VISIBLE);
                 foucsView();
@@ -441,6 +442,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
 
     //设置录制时间
     public void setMinDuration(int duration) {
+        minDuration = duration;
         mCaptureLayout.setMinDuration(duration);
     }
 

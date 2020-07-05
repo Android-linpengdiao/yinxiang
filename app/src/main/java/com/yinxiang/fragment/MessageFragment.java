@@ -25,7 +25,6 @@ import com.yinxiang.activity.CommentActivity;
 import com.yinxiang.activity.LikeActivity;
 import com.yinxiang.activity.NoticeActivity;
 import com.yinxiang.adapter.ChatMessageAdapter;
-import com.yinxiang.adapter.MessageAdapter;
 import com.yinxiang.databinding.FragmentMessageBinding;
 import com.yinxiang.view.OnClickListener;
 
