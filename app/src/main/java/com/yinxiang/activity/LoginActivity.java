@@ -1,7 +1,10 @@
 package com.yinxiang.activity;
 
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -30,6 +33,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginBinding.login.setOnClickListener(this);
         loginBinding.register.setOnClickListener(this);
         loginBinding.forgotPassword.setOnClickListener(this);
+        loginBinding.ivDeletePhone.setOnClickListener(this);
+
+        loginBinding.etPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if (null != charSequence) {
+                    loginBinding.ivDeletePhone.setVisibility(charSequence.length() > 0 ? View.VISIBLE : View.GONE);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         loginBinding.ivShowPassword.setOnClickListener(new View.OnClickListener() {
 
@@ -60,6 +84,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_delete_phone:
+                loginBinding.etPhone.setText("");
+                break;
             case R.id.login:
                 passwordLogin();
                 break;
