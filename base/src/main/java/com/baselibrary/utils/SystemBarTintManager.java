@@ -447,7 +447,7 @@ public static class SystemBarConfig {
 
     /**
      * Should a navigation bar appear at the bottom of the screen in the current
-     * device configuration? A navigation bar may appear on the right side of
+     * device configuration? A navigation bar may appear on the ic_vote_right side of
      * the screen in certain configurations.
      *
      * @return True if navigation should appear at the bottom of the screen, False otherwise.
@@ -527,7 +527,7 @@ public static class SystemBarConfig {
     }
 
     /**
-     * Get the layout inset for any system UI that appears at the right of the screen.
+     * Get the layout inset for any system UI that appears at the ic_vote_right of the screen.
      *
      * @return The layout inset (in pixels).
      */

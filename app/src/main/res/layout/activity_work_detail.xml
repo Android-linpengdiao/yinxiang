@@ -68,7 +68,8 @@
                         android:layout_marginRight="3dp"
                         android:padding="10dp"
                         android:src="@drawable/delete"
-                        android:tint="@color/white" />
+                        android:tint="@color/white"
+                        android:visibility="gone"/>
 
                 </RelativeLayout>
             </LinearLayout>
@@ -86,7 +87,7 @@
                 android:paddingBottom="15dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -170,18 +171,28 @@
                 android:paddingBottom="15dp">
 
                 <ImageView
+                    android:id="@+id/iv_works_tuiguan"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/icon_tuiguan"
+                    android:visibility="gone"/>
+
+                <ImageView
                     android:id="@+id/iv_works_pk"
                     android:layout_width="37dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/pk" />
+                    android:src="@drawable/pk"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/iv_relay"
                     android:layout_width="37dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/jieli" />
+                    android:src="@drawable/jieli"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/iv_like"
@@ -214,7 +225,8 @@
                     android:gravity="center"
                     android:text="0"
                     android:textColor="#ffffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <com.yinxiang.view.LoadingView

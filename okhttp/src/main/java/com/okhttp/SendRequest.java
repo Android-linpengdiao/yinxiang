@@ -1075,16 +1075,16 @@ public class SendRequest {
     /**
      * 充值-用户作品推广
      *
-     * @param club_id
+     * @param tourist_id
      * @param video_id
-     * @param wallet_token
+     * @param wallet_record
      * @param call
      */
-    public static void cashSpread(int club_id, int video_id, int wallet_token, Callback call) {
+    public static void cashSpread(int tourist_id, int video_id, int wallet_record, Callback call) {
         Map<String, String> map = new HashMap<>();
-        map.put("club_id", String.valueOf(club_id));
+        map.put("tourist_id", String.valueOf(tourist_id));
         map.put("video_id", String.valueOf(video_id));
-        map.put("wallet_token", String.valueOf(wallet_token));
+        map.put("wallet_record", String.valueOf(wallet_record));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashSpread).build().execute(call);
 
     }

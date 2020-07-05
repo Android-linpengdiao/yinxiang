@@ -148,7 +148,7 @@ public class ItemDragAndSwipeCallback extends ItemTouchHelper.Callback {
     /**
      * <p>Set the swipe movement direction.</p>
      * <p>The value should be ItemTouchHelper.START, ItemTouchHelper.END or their combination.</p>
-     * You can combine them like ItemTouchHelper.START | ItemTouchHelper.END, it means that the item could swipe to both left or right.
+     * You can combine them like ItemTouchHelper.START | ItemTouchHelper.END, it means that the item could swipe to both ic_vote_left or ic_vote_right.
      *
      * @param swipeMoveFlags the swipe movement direction. Default value is ItemTouchHelper.END.
      */

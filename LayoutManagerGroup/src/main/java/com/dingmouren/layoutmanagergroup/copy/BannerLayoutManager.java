@@ -335,7 +335,7 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 /**
      * Calculates the view layout order. (e.g. from end to start or start to end)
      * RTL layout support is applied automatically. So if layout is RTL and
-     * {@link #getReverseLayout()} is {@code true}, elements will be laid out starting from left.
+     * {@link #getReverseLayout()} is {@code true}, elements will be laid out starting from ic_vote_left.
      *//*
 
     private void resolveShouldLayoutReverse() {
@@ -579,14 +579,14 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 
     private void layoutScrap(View scrap, float targetOffset) {
 
-        final int left = calItemLeft(scrap, targetOffset);
+        final int ic_vote_left = calItemLeft(scrap, targetOffset);
         final int top = calItemTop(scrap, targetOffset);
         if (mOrientation == VERTICAL) {
-            layoutDecorated(scrap, mSpaceInOther + left, mSpaceMain + top,
-                    mSpaceInOther + left + mDecoratedMeasurementInOther, mSpaceMain + top + mDecoratedMeasurement);
+            layoutDecorated(scrap, mSpaceInOther + ic_vote_left, mSpaceMain + top,
+                    mSpaceInOther + ic_vote_left + mDecoratedMeasurementInOther, mSpaceMain + top + mDecoratedMeasurement);
         } else {
-            layoutDecorated(scrap, mSpaceMain + left, mSpaceInOther + top,
-                    mSpaceMain + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
+            layoutDecorated(scrap, mSpaceMain + ic_vote_left, mSpaceInOther + top,
+                    mSpaceMain + ic_vote_left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
         }
         setItemViewProperty(scrap, targetOffset);
     }
@@ -692,7 +692,7 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 
     */
 /**
-     * Sometimes we need to get the right offset of matching adapter position
+     * Sometimes we need to get the ic_vote_right offset of matching adapter position
      * cause when {@link #mInfinite} is set true, there will be no limitation of {@link #mOffset}
      *//*
 

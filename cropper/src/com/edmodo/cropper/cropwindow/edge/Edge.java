@@ -350,14 +350,14 @@ public enum Edge {
     // Private Methods /////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Get the resulting x-position of the left edge of the crop window given the handle's position
+     * Get the resulting x-position of the ic_vote_left edge of the crop window given the handle's position
      * and the image's bounding box and snap radius.
      *
-     * @param x               the x-position that the left edge is dragged to
+     * @param x               the x-position that the ic_vote_left edge is dragged to
      * @param imageRect       the bounding box of the image that is being cropped
      * @param imageSnapRadius the snap distance to the image edge (in pixels)
      *
-     * @return the actual x-position of the left edge
+     * @return the actual x-position of the ic_vote_left edge
      */
     private static float adjustLeft(float x, @NonNull RectF imageRect, float imageSnapRadius, float aspectRatio) {
 
@@ -387,14 +387,14 @@ public enum Edge {
     }
 
     /**
-     * Get the resulting x-position of the right edge of the crop window given the handle's position
+     * Get the resulting x-position of the ic_vote_right edge of the crop window given the handle's position
      * and the image's bounding box and snap radius.
      *
-     * @param x               the x-position that the right edge is dragged to
+     * @param x               the x-position that the ic_vote_right edge is dragged to
      * @param imageRect       the bounding box of the image that is being cropped
      * @param imageSnapRadius the snap distance to the image edge (in pixels)
      *
-     * @return the actual x-position of the right edge
+     * @return the actual x-position of the ic_vote_right edge
      */
     private static float adjustRight(float x, @NonNull RectF imageRect, float imageSnapRadius, float aspectRatio) {
 

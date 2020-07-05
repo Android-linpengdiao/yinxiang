@@ -38,7 +38,7 @@ public class AspectRatioUtil {
     }
 
     /**
-     * Calculates the x-coordinate of the left edge given the other sides of the rectangle and an
+     * Calculates the x-coordinate of the ic_vote_left edge given the other sides of the rectangle and an
      * aspect ratio.
      */
     public static float calculateLeft(float top, float right, float bottom, float targetAspectRatio) {
@@ -46,7 +46,7 @@ public class AspectRatioUtil {
         final float height = bottom - top;
         // targetAspectRatio = width / height
         // width = targetAspectRatio * height
-        // right - left = targetAspectRatio * height
+        // ic_vote_right - ic_vote_left = targetAspectRatio * height
         return right - (targetAspectRatio * height);
     }
 
@@ -65,7 +65,7 @@ public class AspectRatioUtil {
     }
 
     /**
-     * Calculates the x-coordinate of the right edge given the other sides of the rectangle and an
+     * Calculates the x-coordinate of the ic_vote_right edge given the other sides of the rectangle and an
      * aspect ratio.
      */
     public static float calculateRight(float left, float top, float bottom, float targetAspectRatio) {
@@ -73,7 +73,7 @@ public class AspectRatioUtil {
         final float height = bottom - top;
         // targetAspectRatio = width / height
         // width = targetAspectRatio * height
-        // right - left = targetAspectRatio * height
+        // ic_vote_right - ic_vote_left = targetAspectRatio * height
         return (targetAspectRatio * height) + left;
     }
 
@@ -99,7 +99,7 @@ public class AspectRatioUtil {
     }
 
     /**
-     * Calculates the height of a rectangle given the left and right edges and an aspect ratio.
+     * Calculates the height of a rectangle given the ic_vote_left and ic_vote_right edges and an aspect ratio.
      */
     public static float calculateHeight(float width, float targetAspectRatio) {
         return width / targetAspectRatio;

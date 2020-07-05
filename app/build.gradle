@@ -80,4 +80,7 @@ dependencies {
     implementation files('libs/open_sdk_r6019_lite.jar')
     implementation files('libs/wechat-sdk-android-with-mta-5.3.1.jar')
     implementation 'com.aliyun.video.android:upload:1.6.0'
+
+//    implementation 'com.aliyun.sdk.android:AliyunPlayer:4.5.0-full'
+//    implementation 'com.alivc.conan:AlivcConan:0.9.5'
 }

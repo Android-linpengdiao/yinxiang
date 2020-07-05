@@ -20,7 +20,7 @@ import com.edmodo.cropper.cropwindow.edge.Edge;
 import com.edmodo.cropper.util.AspectRatioUtil;
 
 /**
- * HandleHelper class to handle vertical handles (i.e. left and right handles).
+ * HandleHelper class to handle vertical handles (i.e. ic_vote_left and ic_vote_right handles).
  */
 class VerticalHandleHelper extends HandleHelper {
 

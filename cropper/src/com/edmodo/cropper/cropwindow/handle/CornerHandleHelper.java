@@ -20,8 +20,8 @@ import com.edmodo.cropper.cropwindow.edge.Edge;
 import com.edmodo.cropper.cropwindow.edge.EdgePair;
 
 /**
- * HandleHelper class to handle corner Handles (i.e. top-left, top-right, bottom-left, and
- * bottom-right handles).
+ * HandleHelper class to handle corner Handles (i.e. top-ic_vote_left, top-ic_vote_right, bottom-ic_vote_left, and
+ * bottom-ic_vote_right handles).
  */
 class CornerHandleHelper extends HandleHelper {
 

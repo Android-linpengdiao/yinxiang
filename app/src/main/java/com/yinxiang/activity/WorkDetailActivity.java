@@ -56,6 +56,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding = DataBindingUtil.setContentView(this, R.layout.activity_work_detail);
         setStatusBarHeight();
         binding.playerBack.setOnClickListener(this);
+        binding.deleteView.setOnClickListener(this);
+        binding.ivWorksTuiguan.setOnClickListener(this);
         binding.ivWorksPk.setOnClickListener(this);
         binding.ivRelay.setOnClickListener(this);
         binding.ivLike.setOnClickListener(this);
@@ -80,6 +82,13 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         Bundle bundle;
         switch (v.getId()) {
+            case R.id.delete_view:
+                break;
+            case R.id.iv_works_tuiguan:
+                bundle = new Bundle();
+                bundle.putInt("videoId", workId);
+                openActivity(MyWorkTuiguangActivity.class, bundle);
+                break;
             case R.id.iv_works_pk:
                 if (worksDetail != null) {
                     bundle = new Bundle();
@@ -364,9 +373,12 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding.tvElection.setText(String.valueOf(dataBean.getData().getPre_votes()));
 
         binding.deleteView.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
-        binding.deleteView.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
-        binding.ivWorksPk.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.GONE : View.VISIBLE);
+        binding.ivWorksTuiguan.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
+        if (dataBean.getData().getActive_id() > 0) {
+            binding.ivWorksPk.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.GONE : View.VISIBLE);
+        }
         binding.ivRelay.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.GONE : View.VISIBLE);
+        binding.tvElection.setVisibility(dataBean.getData().getActive_id() > 0 ? View.VISIBLE : View.GONE);
 
         GlideLoader.LoderCircleImage(this, dataBean.getData().getTourist().getAvatar(), binding.userIcon);
         GlideLoader.LoderVideoImage(this, dataBean.getData().getImg(), binding.thumbnails);

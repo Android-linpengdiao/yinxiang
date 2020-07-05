@@ -273,19 +273,19 @@ public class CropImageView extends ImageView {
         final float transX = matrixValues[Matrix.MTRANS_X];
         final float transY = matrixValues[Matrix.MTRANS_Y];
 
-        // Ensure that the left and top edges are not outside of the ImageView bounds.
+        // Ensure that the ic_vote_left and top edges are not outside of the ImageView bounds.
         final float bitmapLeft = (transX < 0) ? Math.abs(transX) : 0;
         final float bitmapTop = (transY < 0) ? Math.abs(transY) : 0;
 
         // Get the original bitmap object.
         final Bitmap originalBitmap = ((BitmapDrawable) drawable).getBitmap();
 
-        // Calculate the top-left corner of the crop window relative to the ~original~ bitmap size.
+        // Calculate the top-ic_vote_left corner of the crop window relative to the ~original~ bitmap size.
         final float cropX = (bitmapLeft + Edge.LEFT.getCoordinate()) / scaleX;
         final float cropY = (bitmapTop + Edge.TOP.getCoordinate()) / scaleY;
 
         // Calculate the crop window size relative to the ~original~ bitmap size.
-        // Make sure the right and bottom edges are not outside the ImageView bounds (this is just to address rounding discrepancies).
+        // Make sure the ic_vote_right and bottom edges are not outside the ImageView bounds (this is just to address rounding discrepancies).
         final float cropWidth = Math.min(Edge.getWidth() / scaleX, originalBitmap.getWidth() - cropX);
         final float cropHeight = Math.min(Edge.getHeight() / scaleY, originalBitmap.getHeight() - cropY);
 
@@ -402,7 +402,7 @@ public class CropImageView extends ImageView {
           -------------------------------------
           |      |                    |       |
           |      |                    |       |
-          | left |                    | right |
+          | ic_vote_left |                    | ic_vote_right |
           |      |                    |       |
           |      |                    |       |
           -------------------------------------
@@ -410,7 +410,7 @@ public class CropImageView extends ImageView {
           -------------------------------------
          */
 
-        // Draw "top", "bottom", "left", then "right" quadrants according to diagram above.
+        // Draw "top", "bottom", "ic_vote_left", then "ic_vote_right" quadrants according to diagram above.
         canvas.drawRect(bitmapRect.left, bitmapRect.top, bitmapRect.right, top, mSurroundingAreaOverlayPaint);
         canvas.drawRect(bitmapRect.left, bottom, bitmapRect.right, bitmapRect.bottom, mSurroundingAreaOverlayPaint);
         canvas.drawRect(bitmapRect.left, top, left, bottom, mSurroundingAreaOverlayPaint);
@@ -467,24 +467,24 @@ public class CropImageView extends ImageView {
         // Absolute value of the offset by which to start the corner line such that the line is drawn all the way to form a corner edge with the adjacent side.
         final float startOffset = mCornerThickness - (mBorderThickness / 2f);
 
-        // Top-left corner: left side
+        // Top-ic_vote_left corner: ic_vote_left side
         canvas.drawLine(left - lateralOffset, top - startOffset, left - lateralOffset, top + mCornerLength, mCornerPaint);
-        // Top-left corner: top side
+        // Top-ic_vote_left corner: top side
         canvas.drawLine(left - startOffset, top - lateralOffset, left + mCornerLength, top - lateralOffset, mCornerPaint);
 
-        // Top-right corner: right side
+        // Top-ic_vote_right corner: ic_vote_right side
         canvas.drawLine(right + lateralOffset, top - startOffset, right + lateralOffset, top + mCornerLength, mCornerPaint);
-        // Top-right corner: top side
+        // Top-ic_vote_right corner: top side
         canvas.drawLine(right + startOffset, top - lateralOffset, right - mCornerLength, top - lateralOffset, mCornerPaint);
 
-        // Bottom-left corner: left side
+        // Bottom-ic_vote_left corner: ic_vote_left side
         canvas.drawLine(left - lateralOffset, bottom + startOffset, left - lateralOffset, bottom - mCornerLength, mCornerPaint);
-        // Bottom-left corner: bottom side
+        // Bottom-ic_vote_left corner: bottom side
         canvas.drawLine(left - startOffset, bottom + lateralOffset, left + mCornerLength, bottom + lateralOffset, mCornerPaint);
 
-        // Bottom-right corner: right side
+        // Bottom-ic_vote_right corner: ic_vote_right side
         canvas.drawLine(right + lateralOffset, bottom + startOffset, right + lateralOffset, bottom - mCornerLength, mCornerPaint);
-        // Bottom-right corner: bottom side
+        // Bottom-ic_vote_right corner: bottom side
         canvas.drawLine(right + startOffset, bottom + lateralOffset, right - mCornerLength, bottom + lateralOffset, mCornerPaint);
     }
 

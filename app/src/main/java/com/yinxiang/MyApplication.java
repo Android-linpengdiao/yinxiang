@@ -47,7 +47,7 @@ public class MyApplication extends BaseApplication {
                 .addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                     @Override
                     public void log(String message) {
-                        LogUtil.e("message", message);
+                        LogUtil.i("message", message);
                     }
                 }).setLevel(HttpLoggingInterceptor.Level.BODY))
                 .hostnameVerifier(new HostnameVerifier() {

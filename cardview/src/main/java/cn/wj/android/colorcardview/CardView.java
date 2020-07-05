@@ -250,9 +250,9 @@ public class CardView extends FrameLayout {
      * Depending on platform version or {@link #getUseCompatPadding()} settings, CardView may update these values before
      * calling {@link android.view.View#setPadding(int, int, int, int)}.
      *
-     * @param left   The left padding in pixels
+     * @param left   The ic_vote_left padding in pixels
      * @param top    The top padding in pixels
-     * @param right  The right padding in pixels
+     * @param right  The ic_vote_right padding in pixels
      * @param bottom The bottom padding in pixels
      *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPadding
@@ -349,18 +349,18 @@ public class CardView extends FrameLayout {
     }
 
     /**
-     * Returns the inner padding after the Card's left edge
+     * Returns the inner padding after the Card's ic_vote_left edge
      *
-     * @return the inner padding after the Card's left edge
+     * @return the inner padding after the Card's ic_vote_left edge
      */
     public int getContentPaddingLeft() {
         return mContentPadding.left;
     }
 
     /**
-     * Returns the inner padding before the Card's right edge
+     * Returns the inner padding before the Card's ic_vote_right edge
      *
-     * @return the inner padding before the Card's right edge
+     * @return the inner padding before the Card's ic_vote_right edge
      */
     public int getContentPaddingRight() {
         return mContentPadding.right;

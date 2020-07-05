@@ -22,7 +22,7 @@ public class SkidRightLayoutManager extends RecyclerView.LayoutManager {
     private final SkidRightSnapHelper mSkidRightSnapHelper;
 
     /**
-     * Sets true to scroll layout in left direction.
+     * Sets true to scroll layout in ic_vote_left direction.
      */
     public boolean isReverseDirection = false;
 

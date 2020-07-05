@@ -23,9 +23,9 @@
         android:roundIcon="@mipmap/icon_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".activity.SearchFriendActivity"></activity>
-        <activity android:name=".activity.ClubWorkActivity"/>
+        <activity android:name=".activity.MyWorkTuiguangActivity"></activity>
+        <activity android:name=".activity.SearchFriendActivity" />
+        <activity android:name=".activity.ClubWorkActivity" />
         <activity android:name=".activity.CitySelectionActivity" />
         <activity android:name=".activity.ConsultActivity" />
         <activity android:name=".activity.ResetPasswordActivity" />
@@ -117,9 +117,10 @@
                 <data android:scheme="tencent_qq_scheme" />
             </intent-filter>
         </activity>
-
-        <!-- APP key, 可以在这里设置，也可以在 SDKOptions 中提供。
-            如果 SDKOptions 中提供了，取 SDKOptions 中的值。 -->
+        <!--
+ APP key, 可以在这里设置，也可以在 SDKOptions 中提供。
+            如果 SDKOptions 中提供了，取 SDKOptions 中的值。
+        -->
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="42a6a3e47150ed9a694db39790b2c315" />

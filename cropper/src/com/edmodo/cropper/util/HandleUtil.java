@@ -31,9 +31,9 @@ public class HandleUtil {
      *
      * @param x            the x-coordinate of the touch point
      * @param y            the y-coordinate of the touch point
-     * @param left         the x-coordinate of the left bound
+     * @param left         the x-coordinate of the ic_vote_left bound
      * @param top          the y-coordinate of the top bound
-     * @param right        the x-coordinate of the right bound
+     * @param right        the x-coordinate of the ic_vote_right bound
      * @param bottom       the y-coordinate of the bottom bound
      * @param targetRadius the target radius in pixels
      *
@@ -176,8 +176,8 @@ public class HandleUtil {
      *
      * @param x            the x-coordinate of the touch point
      * @param y            the y-coordinate of the touch point
-     * @param handleXStart the left x-coordinate of the horizontal bar handle
-     * @param handleXEnd   the right x-coordinate of the horizontal bar handle
+     * @param handleXStart the ic_vote_left x-coordinate of the horizontal bar handle
+     * @param handleXEnd   the ic_vote_right x-coordinate of the horizontal bar handle
      * @param handleY      the y-coordinate of the horizontal bar handle
      * @param targetRadius the target radius in pixels
      *
