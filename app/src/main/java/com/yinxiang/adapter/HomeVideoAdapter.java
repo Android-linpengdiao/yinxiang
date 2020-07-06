@@ -1,9 +1,15 @@
 package com.yinxiang.adapter;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baselibrary.utils.CommonUtil;
@@ -17,6 +23,7 @@ import com.yinxiang.R;
 import com.yinxiang.activity.MyFollowActivity;
 import com.yinxiang.databinding.ItemHomeVideoLayoutBinding;
 import com.yinxiang.model.HomeVideos;
+import com.yinxiang.view.LiveClickListener;
 import com.yinxiang.view.OnClickListener;
 
 import org.json.JSONObject;
@@ -60,8 +67,9 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
             String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
             binding.tvTime.setText("发布于" + time);
             binding.tvName.setText(dataBean.getName());
-            binding.tvFollow.setText(dataBean.isIs_person_follow()?"已关注":"关注");
-            binding.ivLike.setSelected(dataBean.isIs_assist());
+            binding.tvFollow.setText(dataBean.isIs_person_follow() ? "已关注" : "关注");
+            binding.tvLike.setSelected(dataBean.isIs_assist());
+            binding.tvLike.setText(dataBean.getAssist_num() > 0 ? String.valueOf(dataBean.getAssist_num()) : "赞");
             binding.tvElection.setText(String.valueOf(dataBean.getPre_votes()));
             GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
             GlideLoader.LoderVideoImage(mContext, dataBean.getImg(), binding.imgThumb);
@@ -73,10 +81,10 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     homePagePersonFollow(binding.tvFollow, dataBean);
                 }
             });
-            binding.ivLike.setOnClickListener(new View.OnClickListener() {
+            binding.tvLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    homePageVideosAssist(binding.ivLike, dataBean);
+                    homePageVideosAssist(binding.tvLike, dataBean);
                 }
             });
             binding.userIcon.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +95,7 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     }
                 }
             });
-            binding.ivComment.setOnClickListener(new View.OnClickListener() {
+            binding.tvComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
@@ -135,6 +143,31 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     }
                 }
             });
+            binding.surfaceView.setOnTouchListener(new LiveClickListener(new LiveClickListener.ClickCallBack() {
+                @Override
+                public void oneClick() {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(binding.surfaceView, dataBean);
+                    }
+                }
+
+                @Override
+                public void doubleClick(int w, int y) {
+                    if (!binding.tvLike.isSelected()) {
+                        homePageVideosAssist(binding.tvLike, dataBean);
+                    }
+                    int liveAnimateImgWidth = 180;
+                    ImageView likeImg = new ImageView(mContext);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtil.dip2px(mContext, liveAnimateImgWidth), CommonUtil.dip2px(mContext, liveAnimateImgWidth));
+                    params.leftMargin = w - CommonUtil.dip2px(mContext, liveAnimateImgWidth) * 2 / 3;
+                    params.topMargin = y - CommonUtil.dip2px(mContext, liveAnimateImgWidth) * 2 / 3;
+                    likeImg.setPadding(10, 10, 10, 10);
+                    likeImg.setLayoutParams(params);
+                    likeImg.setImageResource(R.drawable.likefill_pre);
+                    binding.liveAnimateView.addView(likeImg);
+                    startAnimatorStyleOne(likeImg);
+                }
+            }));
         }
 
     }
@@ -155,7 +188,7 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                         if (jsonObject.optInt("code") == 200) {
                             if (jsonObject.optInt("code") == 200) {
                                 tvFollow.setSelected(!tvFollow.isSelected());
-                                tvFollow.setText(tvFollow.isSelected()?"已关注":"关注");
+                                tvFollow.setText(tvFollow.isSelected() ? "已关注" : "关注");
                             } else {
                                 ToastUtils.showShort(mContext, jsonObject.optString("msg"));
                             }
@@ -175,8 +208,8 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
     }
 
 
-    private void homePageVideosAssist(final ImageView ivLike, final HomeVideos.DataBeanX.DataBean dataBean) {
-        String url = ivLike.isSelected() ? APIUrls.url_homePageVideosCancelAssist : APIUrls.url_homePageVideosAssist;
+    private void homePageVideosAssist(final TextView tvLike, final HomeVideos.DataBeanX.DataBean dataBean) {
+        String url = tvLike.isSelected() ? APIUrls.url_homePageVideosCancelAssist : APIUrls.url_homePageVideosAssist;
         SendRequest.homePageVideosAssist(MyApplication.getInstance().getUserInfo().getData().getId(), dataBean.getId(), url, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -189,7 +222,9 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-                            ivLike.setSelected(!ivLike.isSelected());
+                            dataBean.setAssist_num(tvLike.isSelected() ? dataBean.getAssist_num() - 1 : dataBean.getAssist_num() + 1);
+                            tvLike.setText(dataBean.getAssist_num() > 0 ? String.valueOf(dataBean.getAssist_num()) : "赞");
+                            tvLike.setSelected(!tvLike.isSelected());
                         } else {
                             ToastUtils.showShort(mContext, jsonObject.optString("msg"));
                         }
@@ -201,6 +236,68 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     ToastUtils.showShort(mContext, "请求失败");
                 }
 
+            }
+        });
+    }
+
+
+    /**
+     * AnimatorSet实现组合动画
+     * AnimatorSet可以指定动画同时或按顺序执行
+     */
+    private void startAnimatorStyleOne(final ImageView liveAnimateImg) {
+        //实现旋转动画
+        ObjectAnimator rotationAnimaotr = ObjectAnimator.ofFloat(liveAnimateImg, "rotation", 60f, 0f, 0f);
+        //缩放动画
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleY", 1f, 0.5f);
+        //透明度动画
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "alpha", 0.1f, 1f);
+        //然后通过AnimatorSet把几种动画组合起来
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(scaleXAnimator).with(scaleYAnimator)
+                .with(alphaAnimator);
+        //设置动画时间
+        animatorSet.setDuration(100);
+        //开始动画
+        animatorSet.start();
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                liveAnimateImg.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopAnimatorStyleOne(liveAnimateImg);
+                    }
+                }, 500);
+            }
+        });
+    }
+
+    private void stopAnimatorStyleOne(final ImageView liveAnimateImg) {
+        //缩放动画
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleY", 0.5f, 1f);
+        //透明度动画
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "alpha", 1f, 0.1f);
+        //然后通过AnimatorSet把几种动画组合起来
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(scaleXAnimator).with(scaleYAnimator)
+                .with(alphaAnimator);
+        //设置动画时间
+        animatorSet.setDuration(300);
+        //开始动画
+        animatorSet.start();
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                liveAnimateImg.setVisibility(View.GONE);
             }
         });
     }

@@ -151,19 +151,29 @@
                     android:layout_marginTop="20dp"
                     android:src="@drawable/jieli" />
 
-                <ImageView
-                    android:id="@+id/iv_like"
+                <TextView
+                    android:id="@+id/tv_like"
                     android:layout_width="37dp"
-                    android:layout_height="37dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/like" />
+                    android:drawableTop="@drawable/like"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:text="赞"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
 
-                <ImageView
-                    android:id="@+id/iv_comment"
+                <TextView
+                    android:id="@+id/tv_comment"
                     android:layout_width="37dp"
-                    android:layout_height="37dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/xiaoxi" />
+                    android:drawableTop="@drawable/xiaoxi"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:text="评论"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/iv_share"
@@ -195,6 +205,11 @@
                 app:progressColor="#ffffff" />
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/live_animate_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 </layout>

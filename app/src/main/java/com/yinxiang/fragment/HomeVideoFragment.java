@@ -127,7 +127,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                             openActivity(SelectionWorkRelayActivity.class, bundle);
                         }
                         break;
-                    case R.id.iv_comment:
+                    case R.id.tv_comment:
                         if (object instanceof HomeVideos.DataBeanX.DataBean) {
                             dataBean = (HomeVideos.DataBeanX.DataBean) object;
                             commentListPopupWindow = null;
@@ -169,6 +169,18 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                             startActivity(intent);
                         }
                         break;
+                    case R.id.surfaceView:
+                        if (mPlayer.isPlaying()) {
+                            mPlayer.pause();
+                            if (imgPlay != null) {
+                                imgPlay.animate().alpha(1f).start();
+                            }
+                        } else {
+                            mPlayer.play();
+                            if (imgPlay != null) {
+                                imgPlay.animate().alpha(0f).start();
+                            }
+                        }
                 }
             }
 
@@ -562,19 +574,19 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
         final ImageView background = itemView.findViewById(R.id.background);
         final LoadingView loading = itemView.findViewById(R.id.loadingView);
-        mSurfaceView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mPlayer.isPlaying()) {
-                    imgPlay.animate().alpha(1f).start();
-                    mPlayer.pause();
-                } else {
-                    imgPlay.animate().alpha(0f).start();
-                    mPlayer.play();
-                }
-            }
-        });
+//        mSurfaceView.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (mPlayer.isPlaying()) {
+//                    imgPlay.animate().alpha(1f).start();
+//                    mPlayer.pause();
+//                } else {
+//                    imgPlay.animate().alpha(0f).start();
+//                    mPlayer.play();
+//                }
+//            }
+//        });
 
 
         destroy();
