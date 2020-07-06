@@ -879,10 +879,12 @@ public class SendRequest {
      * 我的-我的作品详情
      *
      * @param video_id
+     * @param browse_tourist_id
      * @param call
      */
-    public static void worksDetail(int video_id, Callback call) {
+    public static void worksDetail(int browse_tourist_id, int video_id, Callback call) {
         Map<String, String> map = new HashMap<>();
+        map.put("browse_tourist_id", String.valueOf(browse_tourist_id));
         map.put("video_id", String.valueOf(video_id));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.worksDetail).build().execute(call);
 

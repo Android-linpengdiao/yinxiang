@@ -97,11 +97,18 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                 Intent intent;
                 switch (view.getId()) {
                     case R.id.workView:
+                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            intent = new Intent(getActivity(), WorkDetailActivity.class);
+                            intent.putExtra("workId", dataBean.getContent_id());
+                            startActivity(intent);
+                        }
+                        break;
                     case R.id.compareWorkView:
                         if (object instanceof WorkPKData.DataBeanX.DataBean) {
                             WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
                             intent = new Intent(getActivity(), WorkDetailActivity.class);
-                            intent.putExtra("workId", dataBean.getId());
+                            intent.putExtra("workId", dataBean.getCompare_content_id());
                             startActivity(intent);
                         }
                         break;

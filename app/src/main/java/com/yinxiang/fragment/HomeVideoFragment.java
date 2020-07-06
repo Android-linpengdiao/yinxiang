@@ -173,7 +173,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         if (mPlayer.isPlaying()) {
                             mPlayer.pause();
                             if (imgPlay != null) {
-                                imgPlay.animate().alpha(1f).start();
+                                imgPlay.animate().alpha(0.6f).start();
                             }
                         } else {
                             mPlayer.play();
@@ -541,6 +541,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         });
     }
 
+    private AliVcMediaPlayer mPlayer;
     private SurfaceView mSurfaceView;
     private ImageView imgPlay;
 
@@ -616,7 +617,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
             @Override
             public void onStopped() {
-                imgPlay.animate().alpha(1f).start();
+                imgPlay.animate().alpha(0.6f).start();
             }
         });
 //        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
@@ -626,7 +627,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 //        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
         mPlayer.enableNativeLog();
         if (mPlayer != null) {
-            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+            mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         }
         if (adapter.getItem(position) != null) {
             mPlayer.prepareToPlay(adapter.getItem(position).getVideo());
@@ -639,13 +640,11 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         if (itemView != null) {
             ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
             ImageView imgPlay = itemView.findViewById(R.id.img_play);
-            imgThumb.animate().alpha(1).start();
+            imgThumb.animate().alpha(1.0f).start();
             imgPlay.animate().alpha(0f).start();
         }
         stop();
     }
-
-    private AliVcMediaPlayer mPlayer;
 
     private void start() {
 //        if (mPlayer != null) {
@@ -658,7 +657,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
             mPlayer.pause();
         }
         if (imgPlay != null) {
-            imgPlay.animate().alpha(1f).start();
+            imgPlay.animate().alpha(0.6f).start();
         }
     }
 

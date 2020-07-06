@@ -72,7 +72,7 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
             binding.tvLike.setText(dataBean.getAssist_num() > 0 ? String.valueOf(dataBean.getAssist_num()) : "赞");
             binding.tvElection.setText(String.valueOf(dataBean.getPre_votes()));
             GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
-            GlideLoader.LoderVideoImage(mContext, dataBean.getImg(), binding.imgThumb);
+            GlideLoader.LoderVideoCenterCropImage(mContext, dataBean.getImg(), binding.imgThumb);
             GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
 
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
@@ -159,8 +159,8 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
                     int liveAnimateImgWidth = 180;
                     ImageView likeImg = new ImageView(mContext);
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtil.dip2px(mContext, liveAnimateImgWidth), CommonUtil.dip2px(mContext, liveAnimateImgWidth));
-                    params.leftMargin = w - CommonUtil.dip2px(mContext, liveAnimateImgWidth) * 2 / 3;
-                    params.topMargin = y - CommonUtil.dip2px(mContext, liveAnimateImgWidth) * 2 / 3;
+                    params.leftMargin = w - CommonUtil.dip2px(mContext, liveAnimateImgWidth) * 1 / 2;
+                    params.topMargin = y - CommonUtil.dip2px(mContext, liveAnimateImgWidth) * 5 / 6;
                     likeImg.setPadding(10, 10, 10, 10);
                     likeImg.setLayoutParams(params);
                     likeImg.setImageResource(R.drawable.likefill_pre);

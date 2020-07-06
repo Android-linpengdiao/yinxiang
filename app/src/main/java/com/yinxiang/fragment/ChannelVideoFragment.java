@@ -565,7 +565,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
 //        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
         mPlayer.enableNativeLog();
         if (mPlayer != null) {
-            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         }
         if (adapter.getItem(position) != null) {
             mPlayer.prepareToPlay(adapter.getItem(position).getVideo());

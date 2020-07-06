@@ -11,6 +11,7 @@ public class LiveClickListener implements View.OnTouchListener {
     private int clickCount = 0;//记录连续点击次数
     private Handler handler;
     private ClickCallBack clickCallBack;
+    private long lastTime = 0;
 
     public interface ClickCallBack {
 
@@ -26,6 +27,7 @@ public class LiveClickListener implements View.OnTouchListener {
         handler = new Handler();
     }
 
+
     @Override
     public boolean onTouch(View v, final MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -35,11 +37,17 @@ public class LiveClickListener implements View.OnTouchListener {
                 public void run() {
                     if (clickCount == 1) {
                         clickCallBack.oneClick();
+                        clickCount = 0;//计数清零
+                        lastTime = 0;
                     } else if (clickCount >= 2) {
                         clickCallBack.doubleClick((int) event.getRawX(), (int) event.getRawY());
+                        if (System.currentTimeMillis() - lastTime <timeout){
+                            lastTime = System.currentTimeMillis();
+                        }else {
+                            clickCount = 0;//计数清零
+                        }
                     }
                     handler.removeCallbacksAndMessages(null);//清空handler延时，并防内存泄漏
-                    clickCount = 0;//计数清零
                 }
             }, timeout);//延时timeout后执行run方法中的代码
         }

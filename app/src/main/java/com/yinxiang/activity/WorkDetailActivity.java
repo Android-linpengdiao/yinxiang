@@ -150,7 +150,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
     private void initData() {
         if (getIntent().hasExtra("workId")) {
             workId = getIntent().getIntExtra("workId", 0);
-            SendRequest.worksDetail(workId, new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
+            SendRequest.worksDetail(getUserInfo().getData().getId(),workId, new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
                 @Override
                 public void onError(Call call, Exception e, int id) {
 

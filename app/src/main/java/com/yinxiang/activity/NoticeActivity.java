@@ -3,8 +3,10 @@ package com.yinxiang.activity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.View;
 
 import com.baselibrary.utils.ToastUtils;
@@ -54,8 +56,10 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onResponse(NoticeData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-                if (response.getCode() == 200 && response.getData() != null) {
-                    adapter.refreshData(response.getData());
+                if (response.getCode() == 200) {
+                    if (response.getData() != null && response.getData().getData() != null) {
+                        adapter.refreshData(response.getData().getData());
+                    }
                 } else {
                     ToastUtils.showShort(NoticeActivity.this, response.getMsg());
                 }
