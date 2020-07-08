@@ -181,6 +181,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                                 imgPlay.animate().alpha(0f).start();
                             }
                         }
+                        break;
                 }
             }
 

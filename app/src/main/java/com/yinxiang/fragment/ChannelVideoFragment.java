@@ -122,7 +122,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                             openActivity(SelectionWorkRelayActivity.class, bundle);
                         }
                         break;
-                    case R.id.iv_comment:
+                    case R.id.tv_comment:
                         if (object instanceof HomeVideos.DataBeanX.DataBean) {
                             dataBean = (HomeVideos.DataBeanX.DataBean) object;
                             commentListPopupWindow = null;
@@ -162,6 +162,19 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                             Intent intent = new Intent(getActivity(), UserHomeActivity.class);
                             intent.putExtra("uid", dataBean.getTourist_id());
                             startActivity(intent);
+                        }
+                        break;
+                    case R.id.surfaceView:
+                        if (mPlayer.isPlaying()) {
+                            mPlayer.pause();
+                            if (imgPlay != null) {
+                                imgPlay.animate().alpha(0.6f).start();
+                            }
+                        } else {
+                            mPlayer.play();
+                            if (imgPlay != null) {
+                                imgPlay.animate().alpha(0f).start();
+                            }
                         }
                         break;
                 }
@@ -516,19 +529,19 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
         final ImageView background = itemView.findViewById(R.id.background);
         final LoadingView loading = itemView.findViewById(R.id.loadingView);
-        mSurfaceView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mPlayer.isPlaying()) {
-                    imgPlay.animate().alpha(1f).start();
-                    mPlayer.pause();
-                } else {
-                    imgPlay.animate().alpha(0f).start();
-                    mPlayer.play();
-                }
-            }
-        });
+//        mSurfaceView.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (mPlayer.isPlaying()) {
+//                    imgPlay.animate().alpha(1f).start();
+//                    mPlayer.pause();
+//                } else {
+//                    imgPlay.animate().alpha(0f).start();
+//                    mPlayer.play();
+//                }
+//            }
+//        });
 
 
         destroy();
@@ -555,7 +568,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
             @Override
             public void onStopped() {
-                imgPlay.animate().alpha(1f).start();
+                imgPlay.animate().alpha(0.6f).start();
             }
         });
 //        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
@@ -597,7 +610,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
             mPlayer.pause();
         }
         if (imgPlay != null) {
-            imgPlay.animate().alpha(1f).start();
+            imgPlay.animate().alpha(0.6f).start();
         }
     }
 

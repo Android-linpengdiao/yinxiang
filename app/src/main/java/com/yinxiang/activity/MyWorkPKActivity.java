@@ -62,13 +62,13 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
                     case R.id.work_vote:
                         if (object instanceof WorkPKData.DataBeanX.DataBean) {
                             WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
-                            homePageVideosVoteSet(dataBean.getContent_id(), dataBean.getCompare_content_id(), 1);
+                            homePageVideosVoteSet(dataBean.getContent_id(), dataBean.getId(), 1);
                         }
                         break;
                     case R.id.compare_work_vote:
                         if (object instanceof WorkPKData.DataBeanX.DataBean) {
                             WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
-                            homePageVideosVoteSet(dataBean.getContent_id(), dataBean.getCompare_content_id(), 2);
+                            homePageVideosVoteSet(dataBean.getCompare_content_id(), dataBean.getId(), 2);
                         }
                         break;
                 }

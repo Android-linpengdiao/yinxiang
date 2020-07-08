@@ -1,5 +1,9 @@
 package com.yinxiang.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
@@ -12,6 +16,7 @@ import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -33,6 +38,7 @@ import com.yinxiang.model.CommentData;
 import com.yinxiang.model.WorksDetail;
 import com.yinxiang.view.CommentListPopupWindow;
 import com.yinxiang.view.ElectionPopupWindow;
+import com.yinxiang.view.LiveClickListener;
 import com.yinxiang.view.OnClickListener;
 
 import org.json.JSONException;
@@ -60,8 +66,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding.ivWorksTuiguan.setOnClickListener(this);
         binding.ivWorksPk.setOnClickListener(this);
         binding.ivRelay.setOnClickListener(this);
-        binding.ivLike.setOnClickListener(this);
-        binding.ivComment.setOnClickListener(this);
+        binding.tvLike.setOnClickListener(this);
+        binding.tvComment.setOnClickListener(this);
         binding.ivShare.setOnClickListener(this);
         binding.tvElection.setOnClickListener(this);
         binding.userIcon.setOnClickListener(this);
@@ -102,12 +108,12 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 bundle.putInt("videoId", workId);
                 openActivity(SelectionWorkRelayActivity.class, bundle);
                 break;
-            case R.id.iv_like:
+            case R.id.tv_like:
                 if (worksDetail != null) {
-                    videosAssist(binding.ivLike, workId);
+                    videosAssist(binding.tvLike, workId);
                 }
                 break;
-            case R.id.iv_comment:
+            case R.id.tv_comment:
                 videosComment(workId);
                 break;
             case R.id.iv_share:
@@ -445,7 +451,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         });
     }
 
-    private void videosAssist(ImageView ivLike, int video_id) {
+    private void videosAssist(TextView ivLike, int video_id) {
         String url = ivLike.isSelected() ? APIUrls.url_homePageVideosCancelAssist : APIUrls.url_homePageVideosAssist;
         SendRequest.homePageVideosAssist(MyApplication.getInstance().getUserInfo().getData().getId(), video_id, url, new StringCallback() {
             @Override
@@ -529,10 +535,23 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
             public void surfaceDestroyed(SurfaceHolder holder) {
             }
         });
-        binding.surfaceView.setOnClickListener(new View.OnClickListener() {
+//        binding.surfaceView.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (mPlayer.isPlaying()) {
+//                    binding.videoPlay.animate().alpha(1).start();
+//                    mPlayer.pause();
+//                } else {
+//                    binding.videoPlay.animate().alpha(0).setDuration(200).start();
+//                    mPlayer.play();
+//                }
+//            }
+//        });
 
+        binding.surfaceView.setOnTouchListener(new LiveClickListener(new LiveClickListener.ClickCallBack() {
             @Override
-            public void onClick(View v) {
+            public void oneClick() {
                 if (mPlayer.isPlaying()) {
                     binding.videoPlay.animate().alpha(1).start();
                     mPlayer.pause();
@@ -541,7 +560,24 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                     mPlayer.play();
                 }
             }
-        });
+
+            @Override
+            public void doubleClick(int w, int y) {
+                if (!binding.tvLike.isSelected()&&worksDetail != null) {
+                    videosAssist(binding.tvLike, workId);
+                }
+                int liveAnimateImgWidth = 180;
+                ImageView likeImg = new ImageView(getApplication());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtil.dip2px(getApplication(), liveAnimateImgWidth), CommonUtil.dip2px(getApplication(), liveAnimateImgWidth));
+                params.leftMargin = w - CommonUtil.dip2px(getApplication(), liveAnimateImgWidth) * 1 / 2;
+                params.topMargin = y - CommonUtil.dip2px(getApplication(), liveAnimateImgWidth) * 5 / 6;
+                likeImg.setPadding(10, 10, 10, 10);
+                likeImg.setLayoutParams(params);
+                likeImg.setImageResource(R.drawable.likefill_pre);
+                binding.liveAnimateView.addView(likeImg);
+                startAnimatorStyleOne(likeImg);
+            }
+        }));
 
 
         mPlayer = new AliVcMediaPlayer(WorkDetailActivity.this, binding.surfaceView);
@@ -638,5 +674,68 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
     private void replay() {
         stop();
         start();
+    }
+
+
+
+    /**
+     * AnimatorSet实现组合动画
+     * AnimatorSet可以指定动画同时或按顺序执行
+     */
+    private void startAnimatorStyleOne(final ImageView liveAnimateImg) {
+        //实现旋转动画
+        ObjectAnimator rotationAnimaotr = ObjectAnimator.ofFloat(liveAnimateImg, "rotation", 60f, 0f, 0f);
+        //缩放动画
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleY", 1f, 0.5f);
+        //透明度动画
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "alpha", 0.1f, 1f);
+        //然后通过AnimatorSet把几种动画组合起来
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(scaleXAnimator).with(scaleYAnimator)
+                .with(alphaAnimator);
+        //设置动画时间
+        animatorSet.setDuration(100);
+        //开始动画
+        animatorSet.start();
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                liveAnimateImg.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopAnimatorStyleOne(liveAnimateImg);
+                    }
+                }, 500);
+            }
+        });
+    }
+
+    private void stopAnimatorStyleOne(final ImageView liveAnimateImg) {
+        //缩放动画
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "scaleY", 0.5f, 1f);
+        //透明度动画
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(liveAnimateImg, "alpha", 1f, 0.1f);
+        //然后通过AnimatorSet把几种动画组合起来
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(scaleXAnimator).with(scaleYAnimator)
+                .with(alphaAnimator);
+        //设置动画时间
+        animatorSet.setDuration(300);
+        //开始动画
+        animatorSet.start();
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                liveAnimateImg.setVisibility(View.GONE);
+            }
+        });
     }
 }
