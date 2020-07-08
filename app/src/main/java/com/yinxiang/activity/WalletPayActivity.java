@@ -18,7 +18,9 @@ import com.yinxiang.R;
 import com.yinxiang.adapter.CoinAdapter;
 import com.yinxiang.databinding.ActivityWalletPayBinding;
 import com.yinxiang.model.WalletSetData;
+import com.yinxiang.utils.PayManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import okhttp3.Call;
@@ -97,22 +99,52 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onResponse(String response, int id) {
                 try {
-                    if (!CommonUtil.isBlank(response)) {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.optInt("code") == 200) {
-                            personInformInfo();
-                            ToastUtils.showShort(WalletPayActivity.this, "充值成功");
-                        } else {
-                            ToastUtils.showShort(WalletPayActivity.this, jsonObject.optString("msg"));
-                        }
-                    } else {
-                        ToastUtils.showShort(WalletPayActivity.this, "请求失败");
+                    JSONObject object = new JSONObject(response);
+                    if (object.optInt("code") == 200){
+                        JSONObject data = object.optJSONObject("data");
+                        String msg = object.optString("content");
+                        PayManager.aliPay(WalletPayActivity.this, msg, new PayManager.PayListener() {
+                            @Override
+                            public void onSuccess() {
+                                paySuccess();
+                            }
+
+                            @Override
+                            public void onFail() {
+                                payFail();
+
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                ToastUtils.showShort(WalletPayActivity.this, "取消支付");
+                            }
+                        });
                     }
-                } catch (Exception e) {
+
+                } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.showShort(WalletPayActivity.this, "请求失败");
                 }
             }
         });
+    }
+
+    /**
+     * 支付成功
+     */
+    private void paySuccess() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("flag", true);
+//        openActivity(PayResultActivity.class, bundle);
+        finish();
+    }
+
+    //支付失败
+    private void payFail() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("flag", false);
+//        openActivity(PayResultActivity.class, bundle);
+        finish();
+
     }
 }

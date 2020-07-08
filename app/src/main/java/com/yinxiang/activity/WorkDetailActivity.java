@@ -89,6 +89,19 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         Bundle bundle;
         switch (v.getId()) {
             case R.id.delete_view:
+                if (worksDetail != null) {
+                    DialogManager.showConfirmDialog(WorkDetailActivity.this, "确定删除该作品", new DialogManager.Listener() {
+                        @Override
+                        public void onItemLeft() {
+
+                        }
+
+                        @Override
+                        public void onItemRight() {
+                            delWorks();
+                        }
+                    });
+                }
                 break;
             case R.id.iv_works_tuiguan:
                 bundle = new Bundle();
@@ -153,10 +166,42 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    private void delWorks() {
+        SendRequest.delWorks(getUserInfo().getData().getId(), workId, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    if (!CommonUtil.isBlank(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.optInt("code") == 200) {
+                            ToastUtils.showShort(WorkDetailActivity.this, "删除成功");
+                            Intent intent = new Intent();
+                            intent.putExtra("workId", workId);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        } else {
+                            ToastUtils.showShort(WorkDetailActivity.this, jsonObject.optString("msg"));
+                        }
+                    } else {
+                        ToastUtils.showShort(WorkDetailActivity.this, "请求失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtils.showShort(WorkDetailActivity.this, "请求失败");
+                }
+            }
+        });
+    }
+
     private void initData() {
         if (getIntent().hasExtra("workId")) {
             workId = getIntent().getIntExtra("workId", 0);
-            SendRequest.worksDetail(getUserInfo().getData().getId(),workId, new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
+            SendRequest.worksDetail(getUserInfo().getData().getId(), workId, new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
                 @Override
                 public void onError(Call call, Exception e, int id) {
 
@@ -563,7 +608,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void doubleClick(int w, int y) {
-                if (!binding.tvLike.isSelected()&&worksDetail != null) {
+                if (!binding.tvLike.isSelected() && worksDetail != null) {
                     videosAssist(binding.tvLike, workId);
                 }
                 int liveAnimateImgWidth = 180;
@@ -675,7 +720,6 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         stop();
         start();
     }
-
 
 
     /**

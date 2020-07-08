@@ -7,7 +7,6 @@ import android.view.View;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
 import com.yinxiang.R;
-import com.yinxiang.activity.MyWorkActivity;
 import com.yinxiang.activity.WorkDetailActivity;
 import com.yinxiang.databinding.ItemUserHomeWorkLayoutBinding;
 import com.yinxiang.model.WorkData;

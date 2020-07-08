@@ -599,6 +599,7 @@ public class SendRequest {
 
     /**
      * 好友-通讯录-搜索
+     *
      * @param tourist_id
      * @param name
      * @param call
@@ -946,6 +947,14 @@ public class SendRequest {
 
     }
 
+    public static void delWorks(int tourist_id, int video_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("video_id", String.valueOf(video_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_delWorks).build().execute(call);
+
+    }
+
     /***
      * 我的-设置-关于我们
      * @param call
@@ -1088,6 +1097,12 @@ public class SendRequest {
         map.put("video_id", String.valueOf(video_id));
         map.put("wallet_record", String.valueOf(wallet_record));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashSpread).build().execute(call);
+
+    }
+
+    public static void cashSpreadSet(Callback call) {
+        Map<String, String> map = new HashMap<>();
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashSpreadSet).build().execute(call);
 
     }
 

@@ -83,15 +83,25 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        getChatMessage();
+        initData();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            getChatMessage();
+            initData();
         }
+    }
+
+    private void initData() {
+        getChatMessage();
+        getWorkMessage();
+
+    }
+
+    private void getWorkMessage() {
+
     }
 
     private void getChatMessage() {

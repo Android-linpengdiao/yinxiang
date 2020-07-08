@@ -143,6 +143,8 @@ public class APIUrls {
     public final static String url_personInformEditBase = url_domain + "api/personInform/editBase";
     //我的-获取用户资料
     public final static String url_personInformInfo = url_domain + "api/personInform/info";
+    //我的-删除我的作品
+    public final static String url_delWorks = url_domain + "api/personInform/delWorks";
 
     //我的-设置-关于我们
     public final static String url_personSettingsAbout = url_domain + "api/personSettings/about";
@@ -169,6 +171,8 @@ public class APIUrls {
     public final static String url_cashJoinClub = url_domain + "api/cash/joinClub";
     //充值-用户作品推广
     public final static String url_cashSpread = url_domain + "api/cash/spread";
+    //充值-用户作品推广设置
+    public final static String url_cashSpreadSet = url_domain + "api/cash/spreadSet";
 
 
     public final static String url_commonStartUp = url_domain + "api/common/startUp";
