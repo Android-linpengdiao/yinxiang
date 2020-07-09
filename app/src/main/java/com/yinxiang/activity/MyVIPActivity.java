@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import okhttp3.Call;
 
 public class MyVIPActivity extends BaseActivity implements View.OnClickListener {
+    
     private ActivityMyVipBinding binding;
     private String type = "wechat";
     private VipSetData vipSetData;
