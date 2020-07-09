@@ -24,33 +24,37 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="消费作品推广"
+                android:text=""
                 android:textColor="#ff333333"
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-100"
+                android:text=""
                 android:textColor="#ff9a979b"
                 android:textSize="24sp" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="作品推广"
+            android:text=""
             android:textColor="#999999"
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="12-30 12:50"
+            android:text=""
             android:textColor="#ff999999"
             android:textSize="12sp" />
 

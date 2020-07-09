@@ -1,9 +1,12 @@
 package com.yinxiang.activity;
 
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.View;
 
 import com.baselibrary.utils.ToastUtils;
@@ -52,7 +55,7 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     private void initData() {
         binding.coin.setText(String.valueOf(getUserInfo().getData().getWallet_token()));
         binding.swipeRefreshLayout.setRefreshing(true);
-        SendRequest.personWalletRecord(getUserInfo().getData().getId(), 10, new GenericsCallback<WalletRecordData>(new JsonGenericsSerializator()) {
+        SendRequest.personWalletRecord(getUserInfo().getData().getId(), 100, new GenericsCallback<WalletRecordData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -62,11 +65,11 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onResponse(WalletRecordData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
-//                if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
-////                    adapter.refreshData(response.getData().getData());
-//                } else {
-//                    ToastUtils.showShort(MyWalletActivity.this, response.getMsg());
-//                }
+                if (response.getCode() == 200 && response.getData() != null) {
+                    adapter.refreshData(response.getData().getRecord().getData());
+                } else {
+                    ToastUtils.showShort(MyWalletActivity.this, response.getMsg());
+                }
             }
 
         });

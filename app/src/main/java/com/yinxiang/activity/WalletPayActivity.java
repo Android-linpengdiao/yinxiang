@@ -1,6 +1,7 @@
 package com.yinxiang.activity;
 
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,6 +20,7 @@ import com.yinxiang.adapter.CoinAdapter;
 import com.yinxiang.databinding.ActivityWalletPayBinding;
 import com.yinxiang.model.WalletSetData;
 import com.yinxiang.utils.PayManager;
+import com.yinxiang.view.OnClickListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +32,7 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
     private ActivityWalletPayBinding binding;
     private CoinAdapter adapter;
     private String type = "wechat";
+    private WalletSetData.DataBean dataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,19 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
         adapter = new CoinAdapter(this);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         binding.recyclerView.setAdapter(adapter);
+        adapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view, Object object) {
+                if (object instanceof WalletSetData.DataBean) {
+                    dataBean = (WalletSetData.DataBean) object;
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, Object object) {
+
+            }
+        });
         binding.radioGroupView.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -63,7 +79,11 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-                cashPay();
+                if (dataBean != null && dataBean.getSelected() == 1) {
+                    cashPay();
+                } else {
+                    ToastUtils.showShort(WalletPayActivity.this, "请选择充值金额");
+                }
                 break;
             case R.id.back:
                 finish();
@@ -90,7 +110,7 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void cashPay() {
-        SendRequest.cashPay(getUserInfo().getData().getId(), 100, type, "wallet", 100, new StringCallback() {
+        SendRequest.cashPay(getUserInfo().getData().getId(), type, "wallet", dataBean.getMoney(), dataBean.getWallet_token(), new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -100,26 +120,31 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
             public void onResponse(String response, int id) {
                 try {
                     JSONObject object = new JSONObject(response);
-                    if (object.optInt("code") == 200){
+                    if (object.optInt("code") == 200) {
                         JSONObject data = object.optJSONObject("data");
-                        String msg = object.optString("content");
-                        PayManager.aliPay(WalletPayActivity.this, msg, new PayManager.PayListener() {
-                            @Override
-                            public void onSuccess() {
-                                paySuccess();
-                            }
+                        String msg = data.optString("content");
+                        if (type.equals("wechat")) {
+                            ToastUtils.showShort(WalletPayActivity.this, "微信支付暂未开通");
+                        } else if (type.equals("alipay")) {
+                            PayManager.aliPay(WalletPayActivity.this, msg, new PayManager.PayListener() {
+                                @Override
+                                public void onSuccess() {
+                                    personInformInfo();
+                                    paySuccess();
+                                }
 
-                            @Override
-                            public void onFail() {
-                                payFail();
+                                @Override
+                                public void onFail() {
+                                    payFail();
 
-                            }
+                                }
 
-                            @Override
-                            public void onCancel() {
-                                ToastUtils.showShort(WalletPayActivity.this, "取消支付");
-                            }
-                        });
+                                @Override
+                                public void onCancel() {
+                                    ToastUtils.showShort(WalletPayActivity.this, "取消支付");
+                                }
+                            });
+                        }
                     }
 
                 } catch (JSONException e) {

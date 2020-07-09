@@ -145,6 +145,8 @@ public class APIUrls {
     public final static String url_personInformInfo = url_domain + "api/personInform/info";
     //我的-删除我的作品
     public final static String url_delWorks = url_domain + "api/personInform/delWorks";
+    //消息提示
+    public final static String url_friendRead = url_domain + "api/friend/read";
 
     //我的-设置-关于我们
     public final static String url_personSettingsAbout = url_domain + "api/personSettings/about";

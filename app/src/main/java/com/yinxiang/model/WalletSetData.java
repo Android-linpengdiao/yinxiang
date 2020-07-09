@@ -54,6 +54,15 @@ public class WalletSetData {
         private String title;
         private String money;
         private int wallet_token;
+        private int selected;
+
+        public int getSelected() {
+            return selected;
+        }
+
+        public void setSelected(int selected) {
+            this.selected = selected;
+        }
 
         public int getId() {
             return id;

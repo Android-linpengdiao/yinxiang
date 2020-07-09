@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import okhttp3.Call;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,9 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.yinxiang.R;
 import com.yinxiang.activity.ClubMessageActivity;
 import com.yinxiang.activity.CommentActivity;
@@ -26,6 +30,7 @@ import com.yinxiang.activity.LikeActivity;
 import com.yinxiang.activity.NoticeActivity;
 import com.yinxiang.adapter.ChatMessageAdapter;
 import com.yinxiang.databinding.FragmentMessageBinding;
+import com.yinxiang.model.FriendRead;
 import com.yinxiang.view.OnClickListener;
 
 import java.util.List;
@@ -101,7 +106,30 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void getWorkMessage() {
+        SendRequest.friendRead(getUserInfo().getData().getId(), new GenericsCallback<FriendRead>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
 
+            }
+
+            @Override
+            public void onResponse(FriendRead response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+                    binding.systemNoticeNews.setVisibility(response.getData().getSystem().getNum() > 0 ? View.VISIBLE : View.GONE);
+                    binding.systemNoticeNews.setText(String.valueOf(response.getData().getSystem().getNum()));
+
+                    binding.likeNews.setVisibility(response.getData().getAssist().getNum() > 0 ? View.VISIBLE : View.GONE);
+                    binding.likeNews.setText(String.valueOf(response.getData().getAssist().getNum()));
+
+                    binding.commentNews.setVisibility(response.getData().getComment().getNum() > 0 ? View.VISIBLE : View.GONE);
+                    binding.commentNews.setText(String.valueOf(response.getData().getComment().getNum()));
+
+                    binding.groupMessageNews.setVisibility(response.getData().getClub().getNum() > 0 ? View.VISIBLE : View.GONE);
+                    binding.groupMessageNews.setText(String.valueOf(response.getData().getClub().getNum()));
+                }
+
+            }
+        });
     }
 
     private void getChatMessage() {

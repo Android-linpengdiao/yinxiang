@@ -7,7 +7,6 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/view_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -22,10 +21,12 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
+                android:id="@+id/view_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/selection_radius">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

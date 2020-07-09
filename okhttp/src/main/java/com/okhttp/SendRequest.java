@@ -955,6 +955,13 @@ public class SendRequest {
 
     }
 
+    public static void friendRead(int tourist_id, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_friendRead).build().execute(call);
+
+    }
+
     /***
      * 我的-设置-关于我们
      * @param call
@@ -1055,12 +1062,12 @@ public class SendRequest {
      * @param wallet_token 钱包充值兑换的平台币数量
      * @param call
      */
-    public static void cashPay(int tourist_id, int money, String type, String purpose, int wallet_token, Callback call) {
+    public static void cashPay(int tourist_id, String type, String purpose, String money, int wallet_token, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
-        map.put("money", String.valueOf(money));
         map.put("type", type);
         map.put("purpose", purpose);
+        map.put("money", "0.01");
         map.put("wallet_token", String.valueOf(wallet_token));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashPay).build().execute(call);
 

@@ -1,6 +1,7 @@
 package com.yinxiang.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.yinxiang.R;
 import com.yinxiang.databinding.ItemCoinLayoutBinding;
@@ -29,7 +30,24 @@ public class CoinAdapter extends BaseRecyclerAdapter<WalletSetData.DataBean, Ite
     protected void onBindItem(final ItemCoinLayoutBinding binding, final WalletSetData.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.tvMoney.setText(dataBean.getMoney());
-            binding.tvCoin.setText(dataBean.getWallet_token()+"金币");
+            binding.tvCoin.setText(dataBean.getWallet_token() + "金币");
+            binding.viewLayout.setSelected(dataBean.getSelected() == 0 ? false : true);
+            binding.viewLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        dataBean.setSelected(dataBean.getSelected() == 0 ? 1 : 0);
+                        binding.viewLayout.setSelected(dataBean.getSelected() == 0 ? false : true);
+                        for (int i = 0; i < mList.size(); i++) {
+                            if (dataBean != mList.get(i)) {
+                                mList.get(i).setSelected(0);
+                            }
+                        }
+                        onClickListener.onClick(v, dataBean);
+                        notifyDataSetChanged();
+                    }
+                }
+            });
         }
 
     }

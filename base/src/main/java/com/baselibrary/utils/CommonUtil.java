@@ -39,6 +39,21 @@ import java.util.Map;
 
 public class CommonUtil {
 
+    public static String getWalletRecordType(int key) {
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(1,"投票");
+        map.put(2,"推广");
+        map.put(3,"加付费群");
+        map.put(4,"钱包充值");
+        map.put(5,"开通vip");
+
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }else {
+            return "";
+        }
+    }
+
     /**
      * 用户参与活动视频的状态表： 票数取（rank_vote） 排名取（rank）
      *     //比赛状态 初赛未开始
