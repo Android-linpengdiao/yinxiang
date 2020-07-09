@@ -3,13 +3,17 @@ package com.yinxiang.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.Gravity;
 import android.view.View;
 
@@ -138,6 +142,20 @@ public class BaseActivity extends AppCompatActivity {
                 if (response.getCode() == 200 && response.getData() != null) {
                     setUserInfo(response);
                 }
+            }
+
+        });
+    }
+
+    public void completeRead(int type) {
+        SendRequest.completeRead(getUserInfo().getData().getId(),type, new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(UserInfo response, int id) {
+
             }
 
         });

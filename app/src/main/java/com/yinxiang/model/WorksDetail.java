@@ -2,10 +2,11 @@ package com.yinxiang.model;
 
 public class WorksDetail {
 
+
     /**
      * code : 200
      * msg : 成功
-     * data : {"id":16,"created_at":"2020-06-13 22:32:16","updated_at":"2020-06-14 09:06:24","is_deleted":2,"tourist_id":3,"tourist_name":"信用度","active_id":1,"active_name":"这就是街舞3","video":"http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4","img":"http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg","recommend":2,"pre_votes":1,"final_votes":0,"rematch_votes":0,"club_id":6,"club_name":"这就是街舞","assist_num":2,"comment_num":0,"name":"作品双击66","play_num":0,"tourist":{"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}}
+     * data : {"id":21,"created_at":"2020-07-03 22:12:13","updated_at":"2020-07-09 00:27:56","is_deleted":2,"tourist_id":6,"tourist_name":"青春有你制作人","active_id":1,"active_name":"这就是街舞3","video":"http://enjoy-money.oss-cn-beijing.aliyuncs.com/TXVideo_20200703_134008.mp4","img":"upload/20200703101207p4M40.jpg","recommend":2,"pre_votes":13,"final_votes":0,"rematch_votes":0,"club_id":8,"club_name":"青春有你","assist_num":3,"comment_num":2,"name":"来来回回","play_num":0,"status":1,"rank":1,"rank_vote":0,"is_person_follow":false,"is_assist":true,"tourist":{"id":6,"name":"青春有你制作人","avatar":"upload/20200606055631F8mzM.jpg","yunxin_token":"a7a89edf135d83a0ea51355e7383f08a","yunxin_accid":"27915679"}}
      */
 
     private int code;
@@ -38,27 +39,32 @@ public class WorksDetail {
 
     public static class DataBean {
         /**
-         * id : 16
-         * created_at : 2020-06-13 22:32:16
-         * updated_at : 2020-06-14 09:06:24
+         * id : 21
+         * created_at : 2020-07-03 22:12:13
+         * updated_at : 2020-07-09 00:27:56
          * is_deleted : 2
-         * tourist_id : 3
-         * tourist_name : 信用度
+         * tourist_id : 6
+         * tourist_name : 青春有你制作人
          * active_id : 1
          * active_name : 这就是街舞3
-         * video : http://api.lgdama.com:10001/storage/video/ff8545ed50474b0ea68cc2d1622e8a08.mp4
-         * img : http://enjoy.fengyunguoyuan.com/upload/20200606052833CLfTm.jpg
+         * video : http://enjoy-money.oss-cn-beijing.aliyuncs.com/TXVideo_20200703_134008.mp4
+         * img : upload/20200703101207p4M40.jpg
          * recommend : 2
-         * pre_votes : 1
+         * pre_votes : 13
          * final_votes : 0
          * rematch_votes : 0
-         * club_id : 6
-         * club_name : 这就是街舞
-         * assist_num : 2
-         * comment_num : 0
-         * name : 作品双击66
+         * club_id : 8
+         * club_name : 青春有你
+         * assist_num : 3
+         * comment_num : 2
+         * name : 来来回回
          * play_num : 0
-         * tourist : {"id":3,"name":"信用度","avatar":"upload/20200606024929Gkda2.jpg"}
+         * status : 1
+         * rank : 1
+         * rank_vote : 0
+         * is_person_follow : false
+         * is_assist : true
+         * tourist : {"id":6,"name":"青春有你制作人","avatar":"upload/20200606055631F8mzM.jpg","yunxin_token":"a7a89edf135d83a0ea51355e7383f08a","yunxin_accid":"27915679"}
          */
 
         private int id;
@@ -81,6 +87,11 @@ public class WorksDetail {
         private int comment_num;
         private String name;
         private int play_num;
+        private int status;
+        private int rank;
+        private int rank_vote;
+        private boolean is_person_follow;
+        private boolean is_assist;
         private TouristBean tourist;
 
         public int getId() {
@@ -243,6 +254,46 @@ public class WorksDetail {
             this.play_num = play_num;
         }
 
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public int getRank() {
+            return rank;
+        }
+
+        public void setRank(int rank) {
+            this.rank = rank;
+        }
+
+        public int getRank_vote() {
+            return rank_vote;
+        }
+
+        public void setRank_vote(int rank_vote) {
+            this.rank_vote = rank_vote;
+        }
+
+        public boolean isIs_person_follow() {
+            return is_person_follow;
+        }
+
+        public void setIs_person_follow(boolean is_person_follow) {
+            this.is_person_follow = is_person_follow;
+        }
+
+        public boolean isIs_assist() {
+            return is_assist;
+        }
+
+        public void setIs_assist(boolean is_assist) {
+            this.is_assist = is_assist;
+        }
+
         public TouristBean getTourist() {
             return tourist;
         }
@@ -253,14 +304,18 @@ public class WorksDetail {
 
         public static class TouristBean {
             /**
-             * id : 3
-             * name : 信用度
-             * avatar : upload/20200606024929Gkda2.jpg
+             * id : 6
+             * name : 青春有你制作人
+             * avatar : upload/20200606055631F8mzM.jpg
+             * yunxin_token : a7a89edf135d83a0ea51355e7383f08a
+             * yunxin_accid : 27915679
              */
 
             private int id;
             private String name;
             private String avatar;
+            private String yunxin_token;
+            private String yunxin_accid;
 
             public int getId() {
                 return id;
@@ -284,6 +339,22 @@ public class WorksDetail {
 
             public void setAvatar(String avatar) {
                 this.avatar = avatar;
+            }
+
+            public String getYunxin_token() {
+                return yunxin_token;
+            }
+
+            public void setYunxin_token(String yunxin_token) {
+                this.yunxin_token = yunxin_token;
+            }
+
+            public String getYunxin_accid() {
+                return yunxin_accid;
+            }
+
+            public void setYunxin_accid(String yunxin_accid) {
+                this.yunxin_accid = yunxin_accid;
             }
         }
     }

@@ -46,6 +46,7 @@ public class LikeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
+        completeRead(2);
         SendRequest.friendAssist(getUserInfo().getData().getId(), 100, new GenericsCallback<MessageData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

@@ -63,6 +63,7 @@ public class ClubMessageActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initData() {
+        completeRead(4);
         binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.friendClub(getUserInfo().getData().getId(), 10, new GenericsCallback<ClubMessageData>(new JsonGenericsSerializator()) {
             @Override

@@ -962,6 +962,14 @@ public class SendRequest {
 
     }
 
+    public static void completeRead(int tourist_id, int type, Callback call) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tourist_id", String.valueOf(tourist_id));
+        map.put("type", String.valueOf(type));
+        OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_completeRead).build().execute(call);
+
+    }
+
     /***
      * 我的-设置-关于我们
      * @param call

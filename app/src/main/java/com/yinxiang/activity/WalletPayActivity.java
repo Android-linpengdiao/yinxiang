@@ -110,7 +110,7 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void cashPay() {
-        SendRequest.cashPay(getUserInfo().getData().getId(), type, "wallet", dataBean.getMoney(), dataBean.getWallet_token(), new StringCallback() {
+        SendRequest.cashPay(getUserInfo().getData().getId(), type, "2", dataBean.getMoney(), dataBean.getWallet_token(), new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 

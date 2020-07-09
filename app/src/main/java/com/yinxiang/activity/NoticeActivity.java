@@ -47,6 +47,7 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initData() {
+        completeRead(1);
         SendRequest.friendSystem(10, new GenericsCallback<NoticeData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

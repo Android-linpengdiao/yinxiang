@@ -45,6 +45,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initData() {
+        completeRead(3);
         SendRequest.friendComment(getUserInfo().getData().getId(), 10, new GenericsCallback<MessageData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

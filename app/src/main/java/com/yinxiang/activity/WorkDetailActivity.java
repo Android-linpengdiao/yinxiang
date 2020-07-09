@@ -423,6 +423,9 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 //        binding.ivLike.setSelected(dataBean.getData().isIs_assist());
         binding.tvElection.setText(String.valueOf(dataBean.getData().getPre_votes()));
 
+        binding.tvLike.setSelected(dataBean.getData().isIs_assist());
+        binding.tvLike.setText(dataBean.getData().getAssist_num() > 0 ? String.valueOf(dataBean.getData().getAssist_num()) : "赞");
+
         binding.deleteView.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
         binding.ivWorksTuiguan.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
         if (dataBean.getData().getActive_id() > 0) {
@@ -496,8 +499,8 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         });
     }
 
-    private void videosAssist(TextView ivLike, int video_id) {
-        String url = ivLike.isSelected() ? APIUrls.url_homePageVideosCancelAssist : APIUrls.url_homePageVideosAssist;
+    private void videosAssist(TextView tvLike, int video_id) {
+        String url = tvLike.isSelected() ? APIUrls.url_homePageVideosCancelAssist : APIUrls.url_homePageVideosAssist;
         SendRequest.homePageVideosAssist(MyApplication.getInstance().getUserInfo().getData().getId(), video_id, url, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -510,7 +513,9 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-                            ivLike.setSelected(!ivLike.isSelected());
+                            worksDetail.getData().setAssist_num(tvLike.isSelected() ? worksDetail.getData().getAssist_num() - 1 : worksDetail.getData().getAssist_num() + 1);
+                            tvLike.setText(worksDetail.getData().getAssist_num() > 0 ? String.valueOf(worksDetail.getData().getAssist_num()) : "赞");
+                            tvLike.setSelected(!tvLike.isSelected());
                         } else {
                             ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));
                         }

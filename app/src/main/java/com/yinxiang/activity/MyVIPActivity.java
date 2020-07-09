@@ -52,7 +52,10 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
 
         if (getUserInfo().getData().getIs_vip() == 1) {
             binding.viewLayoutVip.setVisibility(View.VISIBLE);
+            binding.viewLayoutTopUp.setVisibility(View.GONE);
+            binding.tvVipTime.setText(getUserInfo().getData().getLevel());
         } else if (getUserInfo().getData().getIs_vip() == 2) {
+            binding.viewLayoutVip.setVisibility(View.GONE);
             binding.viewLayoutTopUp.setVisibility(View.VISIBLE);
             initData();
         }
@@ -92,7 +95,7 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void cashPay() {
-        SendRequest.cashPay(getUserInfo().getData().getId(), type, "vip", vipSetData.getData().getMoney(), 0, new StringCallback() {
+        SendRequest.cashPay(getUserInfo().getData().getId(), type, "1", vipSetData.getData().getMoney(), 0, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
