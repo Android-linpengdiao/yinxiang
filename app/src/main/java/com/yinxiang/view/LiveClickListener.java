@@ -7,7 +7,7 @@ import android.view.View;
 
 public class LiveClickListener implements View.OnTouchListener {
     private static final String TAG = "MyClickListener";
-    private static int timeout = 200;//双击间延时
+    private static int timeout = 300;//双击间延时
     private int clickCount = 0;//记录连续点击次数
     private Handler handler;
     private ClickCallBack clickCallBack;
@@ -41,6 +41,7 @@ public class LiveClickListener implements View.OnTouchListener {
                         lastTime = 0;
                     } else if (clickCount >= 2) {
                         clickCallBack.doubleClick((int) event.getRawX(), (int) event.getRawY());
+                        lastTime = System.currentTimeMillis();
                         if (System.currentTimeMillis() - lastTime <timeout){
                             lastTime = System.currentTimeMillis();
                         }else {

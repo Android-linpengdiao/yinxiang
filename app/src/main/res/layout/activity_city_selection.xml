@@ -43,7 +43,8 @@
             android:paddingLeft="14dp"
             android:text="当前定位：北京"
             android:textColor="#ff222222"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:background="@color/white"/>
 
         <View
             android:layout_width="match_parent"
@@ -55,7 +56,8 @@
             android:layout_height="55dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="19dp">
+            android:paddingLeft="19dp"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/area_first"
