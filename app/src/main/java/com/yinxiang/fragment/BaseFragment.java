@@ -59,6 +59,22 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    public void personInformInfo() {
+        SendRequest.personInformInfo(getUserInfo().getData().getId(), new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(UserInfo response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+                    setUserInfo(response);
+                }
+            }
+
+        });
+    }
+
     public SharePopupWindow shareView(final Activity activity, final OnClickListener onClickListener) {
         SharePopupWindow sharePopupWindow = new SharePopupWindow(activity);
         sharePopupWindow.setOnClickListener(new OnClickListener() {

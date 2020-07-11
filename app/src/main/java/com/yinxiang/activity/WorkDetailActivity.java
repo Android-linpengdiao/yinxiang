@@ -335,6 +335,10 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
                                     case R.id.tv_confirm:
+                                        if (getUserInfo().getData().getWallet_token() < Integer.parseInt(wallet_token)) {
+                                            ToastUtils.showShort(getApplication(), "你的余额不足");
+                                            return;
+                                        }
                                         homePageVideosVote(workId, 2);
                                         break;
                                     case R.id.tv_cancel:
@@ -376,10 +380,15 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
+                            personInformInfo();
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
-                                ToastUtils.showShort(getApplication(), "以为TA投一票");
+                                ToastUtils.showShort(getApplication(), "以为TA投" + (free == 1 ? "一" : "三") + "票");
+                                if (worksDetail != null) {
+                                    worksDetail.getData().setPre_votes(worksDetail.getData().getPre_votes() + (free == 1 ? 1 : 3));
+                                    binding.tvElection.setText(String.valueOf(worksDetail.getData().getPre_votes()));
+                                }
                             } else {
-                                ToastUtils.showShort(getApplication(), "今日以为TA投一票，明日再来为TA投一票");
+                                ToastUtils.showShort(getApplication(), "今日以为TA投" + (free == 1 ? "一" : "三") + "票，明日再来为TA投" + (free == 1 ? "一" : "三") + "票");
                             }
                         } else {
                             ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));

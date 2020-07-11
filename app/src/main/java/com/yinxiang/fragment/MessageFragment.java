@@ -118,11 +118,19 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
                     binding.systemNoticeNews.setVisibility(response.getData().getSystem().getNum() > 0 ? View.VISIBLE : View.GONE);
                     binding.systemNoticeNews.setText(String.valueOf(response.getData().getSystem().getNum()));
 
-                    binding.likeNews.setVisibility(response.getData().getAssist().getNum() > 0 ? View.VISIBLE : View.GONE);
-                    binding.likeNews.setText(String.valueOf(response.getData().getAssist().getNum()));
+                    if (getUserInfo().getData().getLike_notice()==1) {
+                        binding.likeNews.setVisibility(response.getData().getAssist().getNum() > 0 ? View.VISIBLE : View.GONE);
+                        binding.likeNews.setText(String.valueOf(response.getData().getAssist().getNum()));
+                    }else {
+                        binding.likeNews.setVisibility(View.GONE);
+                    }
 
-                    binding.commentNews.setVisibility(response.getData().getComment().getNum() > 0 ? View.VISIBLE : View.GONE);
-                    binding.commentNews.setText(String.valueOf(response.getData().getComment().getNum()));
+                    if (getUserInfo().getData().getComment_notice() == 1) {
+                        binding.commentNews.setVisibility(response.getData().getComment().getNum() > 0 ? View.VISIBLE : View.GONE);
+                        binding.commentNews.setText(String.valueOf(response.getData().getComment().getNum()));
+                    }else {
+                        binding.commentNews.setVisibility(View.GONE);
+                    }
 
                     binding.groupMessageNews.setVisibility(response.getData().getClub().getNum() > 0 ? View.VISIBLE : View.GONE);
                     binding.groupMessageNews.setText(String.valueOf(response.getData().getClub().getNum()));

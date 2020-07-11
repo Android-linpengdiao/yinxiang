@@ -92,7 +92,8 @@
                         android:singleLine="true"
                         android:text=""
                         android:textColor="#ff999999"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 
@@ -353,7 +354,8 @@
                             android:singleLine="true"
                             android:text=""
                             android:textColor="#ff999999"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            android:visibility="gone"/>
 
                     </LinearLayout>
 

@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import okhttp3.Call;
 
 public class MyVIPActivity extends BaseActivity implements View.OnClickListener {
-    
+
     private ActivityMyVipBinding binding;
     private String type = "wechat";
     private VipSetData vipSetData;
@@ -54,7 +54,7 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
         if (getUserInfo().getData().getIs_vip() == 1) {
             binding.viewLayoutVip.setVisibility(View.VISIBLE);
             binding.viewLayoutTopUp.setVisibility(View.GONE);
-            binding.tvVipTime.setText(getUserInfo().getData().getLevel());
+            binding.tvVipTime.setText(String.valueOf(getUserInfo().getData().getVip_expire()));
         } else if (getUserInfo().getData().getIs_vip() == 2) {
             binding.viewLayoutVip.setVisibility(View.GONE);
             binding.viewLayoutTopUp.setVisibility(View.VISIBLE);

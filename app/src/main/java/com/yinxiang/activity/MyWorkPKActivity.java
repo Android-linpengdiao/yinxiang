@@ -35,6 +35,9 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
     private ActivityMyWorkPkBinding binding;
     private HomeContestAdapter adapter;
 
+    private WorkPKData worksDetail;
+    private WorkPKData.DataBeanX.DataBean dataBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,23 +54,30 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
                 Intent intent;
                 switch (view.getId()) {
                     case R.id.workView:
+                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                            dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            intent = new Intent(MyWorkPKActivity.this, WorkDetailActivity.class);
+                            intent.putExtra("workId", dataBean.getContent_id());
+                            startActivity(intent);
+                        }
+                        break;
                     case R.id.compareWorkView:
                         if (object instanceof WorkPKData.DataBeanX.DataBean) {
-                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            dataBean = (WorkPKData.DataBeanX.DataBean) object;
                             intent = new Intent(MyWorkPKActivity.this, WorkDetailActivity.class);
-                            intent.putExtra("workId", dataBean.getId());
+                            intent.putExtra("workId", dataBean.getCompare_content_id());
                             startActivity(intent);
                         }
                         break;
                     case R.id.work_vote:
                         if (object instanceof WorkPKData.DataBeanX.DataBean) {
-                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            dataBean = (WorkPKData.DataBeanX.DataBean) object;
                             homePageVideosVoteSet(dataBean.getContent_id(), dataBean.getId(), 1);
                         }
                         break;
                     case R.id.compare_work_vote:
                         if (object instanceof WorkPKData.DataBeanX.DataBean) {
-                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                            dataBean = (WorkPKData.DataBeanX.DataBean) object;
                             homePageVideosVoteSet(dataBean.getCompare_content_id(), dataBean.getId(), 2);
                         }
                         break;
@@ -138,8 +148,15 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
+                            personInformInfo();
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
                                 ToastUtils.showShort(getApplication(), "以为TA投" + (free == 1 ? "一" : "三") + "票");
+                                if (worksDetail != null && dataBean != null) {
+                                    dataBean.setVote_num(dataBean.getVote_num() + (free == 1 ? 1 : 3));
+                                    if (worksDetail.getData().getData().indexOf(dataBean)!=-1) {
+                                        adapter.notifyItemInserted(worksDetail.getData().getData().indexOf(dataBean));
+                                    }
+                                }
                             } else {
                                 ToastUtils.showShort(getApplication(), "今日以为TA投" + (free == 1 ? "一" : "三") + "票，明日再来为TA投" + (free == 1 ? "一" : "三") + "票");
                             }
@@ -169,6 +186,10 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
                                     case R.id.tv_confirm:
+                                        if (getUserInfo().getData().getWallet_token() < Integer.parseInt(wallet_token)) {
+                                            ToastUtils.showShort(getApplication(), "你的余额不足");
+                                            return;
+                                        }
                                         homePageVideosPKVote(id, 2, compareId, self);
                                         break;
                                     case R.id.tv_cancel:
@@ -208,6 +229,7 @@ public class MyWorkPKActivity extends BaseActivity implements View.OnClickListen
             public void onResponse(WorkPKData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    worksDetail = response;
                     adapter.refreshData(response.getData().getData());
                 } else {
                     ToastUtils.showShort(MyWorkPKActivity.this, response.getMsg());

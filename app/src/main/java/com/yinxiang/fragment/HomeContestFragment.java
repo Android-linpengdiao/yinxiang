@@ -50,7 +50,10 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
 
     private HomeContestAdapter adapter;
     private HomeActives homeActives;
-    private HomeActives.DataBean dataBean;
+    private HomeActives.DataBean activesDataBean;
+
+    private WorkPKData worksDetail;
+    private WorkPKData.DataBeanX.DataBean worksDataBean;
 
     private OnFragmentInteractionListener mListener;
 
@@ -155,7 +158,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                homePageVideosPK(dataBean);
+                homePageVideosPK(activesDataBean);
             }
         });
 
@@ -163,7 +166,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void homePageVideosPK(HomeActives.DataBean dataBean) {
-        this.dataBean = dataBean;
+        activesDataBean = dataBean;
         binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.homePageVideosPK(dataBean.getId(), 10, new GenericsCallback<WorkPKData>(new JsonGenericsSerializator()) {
             @Override
@@ -228,8 +231,15 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
+                            personInformInfo();
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
                                 ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "一" : "三") + "票");
+                                if (worksDetail != null && worksDataBean != null) {
+                                    worksDataBean.setVote_num(worksDataBean.getVote_num() + (free == 1 ? 1 : 3));
+                                    if (worksDetail.getData().getData().indexOf(worksDataBean)!=-1) {
+                                        adapter.notifyItemInserted(worksDetail.getData().getData().indexOf(worksDataBean));
+                                    }
+                                }
                             } else {
                                 ToastUtils.showShort(getActivity(), "今日以为TA投" + (free == 1 ? "一" : "三") + "票，明日再来为TA投" + (free == 1 ? "一" : "三") + "票");
                             }
@@ -259,6 +269,10 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
                                     case R.id.tv_confirm:
+                                        if (getUserInfo().getData().getWallet_token()<Integer.parseInt(wallet_token)){
+                                            ToastUtils.showShort(getActivity(),"你的余额不足");
+                                            return;
+                                        }
                                         homePageVideosPKVote(id, 2, compareId, self);
                                         break;
                                     case R.id.tv_cancel:
