@@ -589,20 +589,6 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
         final ImageView background = itemView.findViewById(R.id.background);
         final LoadingView loading = itemView.findViewById(R.id.loadingView);
-//        mSurfaceView.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                if (mPlayer.isPlaying()) {
-//                    imgPlay.animate().alpha(1f).start();
-//                    mPlayer.pause();
-//                } else {
-//                    imgPlay.animate().alpha(0f).start();
-//                    mPlayer.play();
-//                }
-//            }
-//        });
-
 
         destroy();
         mPlayer = new AliVcMediaPlayer(getContext(), mSurfaceView);

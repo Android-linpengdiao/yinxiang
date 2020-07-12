@@ -41,7 +41,6 @@ public class LiveClickListener implements View.OnTouchListener {
                         lastTime = 0;
                     } else if (clickCount >= 2) {
                         clickCallBack.doubleClick((int) event.getRawX(), (int) event.getRawY());
-                        lastTime = System.currentTimeMillis();
                         if (System.currentTimeMillis() - lastTime <timeout){
                             lastTime = System.currentTimeMillis();
                         }else {

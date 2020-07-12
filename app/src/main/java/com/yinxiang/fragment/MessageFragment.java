@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import okhttp3.Call;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ import java.util.List;
 
 public class MessageFragment extends BaseFragment implements View.OnClickListener {
 
+    private static final String TAG = "MessageFragment";
     private FragmentMessageBinding binding;
     private ChatMessageAdapter adapter;
 
@@ -84,22 +87,52 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
         return binding.getRoot();
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initData();
-    }
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            handler.removeMessages(100);
+            initData();
+        }
+    };
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Log.i(TAG, "onHiddenChanged: "+hidden);
         if (!hidden) {
+            if (handler!=null) {
+                handler.removeMessages(100);
+            }
             initData();
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
+        if (handler!=null) {
+            handler.removeMessages(100);
+        }
+        initData();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (handler!=null) {
+            handler.removeMessages(100);
+            handler = null;
+        }
+        super.onDestroy();
+    }
+
+
     private void initData() {
+        Log.i(TAG, "initData: ");
+        if (handler!=null) {
+            handler.sendEmptyMessageDelayed(100, 10000);
+        }
         getChatMessage();
         getWorkMessage();
 

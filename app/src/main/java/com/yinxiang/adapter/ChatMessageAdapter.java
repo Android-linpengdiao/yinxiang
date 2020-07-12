@@ -46,7 +46,9 @@ public class ChatMessageAdapter extends BaseRecyclerAdapter<RecentContact, ItemM
             binding.tvTitle.setText(recentContact.getFromNick());
             binding.tvDesc.setText(recentContact.getContent());
             binding.tvTime.setText(CommonUtil.getDateToString(String.valueOf(recentContact.getTime())));
-            GlideLoader.LoderLoadImage(mContext, recentContact.getContactId(), binding.ivIcon, 100);
+            binding.messageNews.setVisibility(recentContact.getUnreadCount()>0?View.VISIBLE:View.GONE);
+            binding.messageNews.setText(String.valueOf(recentContact.getUnreadCount()));
+            GlideLoader.LoderLoadCircleImage(mContext, recentContact.getContactId(), binding.ivIcon);
             binding.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -121,6 +121,17 @@ public class GlideLoader {
                 .into(view);
     }
 
+    public static void LoderLoadCircleImage(Context context, String url, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .transform(new GlideRoundTransform(context, 100))
+                .placeholder(R.drawable.circle_gray)
+                .error(R.drawable.circle_gray)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(view);
+    }
+
     public static void LoderBlurImage(Context context, String url, ImageView view) {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions
