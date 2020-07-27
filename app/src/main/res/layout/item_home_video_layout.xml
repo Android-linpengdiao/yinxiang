@@ -12,15 +12,21 @@
         android:layout_height="match_parent"
         android:background="@android:color/black">
 
-        <SurfaceView
-            android:id="@+id/surfaceView"
+<!--        <SurfaceView-->
+<!--            android:id="@+id/surfaceView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
+        <com.tencent.rtmp.ui.TXCloudVideoView
+            android:id="@+id/videoView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/img_thumb"

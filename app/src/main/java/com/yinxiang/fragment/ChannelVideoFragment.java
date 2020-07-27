@@ -30,6 +30,12 @@ import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
+import com.tencent.liteav.basic.log.TXCLog;
+import com.tencent.rtmp.ITXLivePlayListener;
+import com.tencent.rtmp.ITXVodPlayListener;
+import com.tencent.rtmp.TXLiveConstants;
+import com.tencent.rtmp.TXVodPlayer;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.yinxiang.R;
 import com.yinxiang.activity.MyWalletActivity;
 import com.yinxiang.activity.ReportActivity;
@@ -164,16 +170,18 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                             startActivity(intent);
                         }
                         break;
-                    case R.id.surfaceView:
-                        if (mPlayer.isPlaying()) {
-                            mPlayer.pause();
-                            if (imgPlay != null) {
-                                imgPlay.animate().alpha(0.6f).start();
-                            }
-                        } else {
-                            mPlayer.play();
-                            if (imgPlay != null) {
-                                imgPlay.animate().alpha(0f).start();
+                    case R.id.videoView:
+                        if (mVodPlayer != null) {
+                            if (mVodPlayer.isPlaying()) {
+                                mVodPlayer.pause();
+                                if (imgPlay != null) {
+                                    imgPlay.animate().alpha(0.6f).start();
+                                }
+                            } else {
+                                mVodPlayer.resume();
+                                if (imgPlay != null) {
+                                    imgPlay.animate().alpha(0f).start();
+                                }
                             }
                         }
                         break;
@@ -407,15 +415,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         Log.i(TAG, "onHiddenSurfaceViewChanged: ");
         if (hidden) {
             pause();
-            if (mSurfaceView != null) {
-                mSurfaceView.setVisibility(View.GONE);
-            }
-        } else {
-            if (mSurfaceView != null) {
-                mSurfaceView.setVisibility(View.VISIBLE);
-            }
         }
-
     }
 
     @Override
@@ -423,9 +423,6 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         Log.i(TAG, "onHiddenChanged: ");
         if (hidden) {
             pause();
-            isShow = false;
-        }else {
-            isShow = true;
         }
         super.onHiddenChanged(hidden);
     }
@@ -433,7 +430,6 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onResume() {
         Log.i(TAG, "onResume: ");
-        isShow = true;
         super.onResume();
     }
 
@@ -441,7 +437,6 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     public void onPause() {
         Log.i(TAG, "onPause: ");
         pause();
-        isShow = false;
         super.onPause();
     }
 
@@ -457,10 +452,10 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         if (messageBus.getCodeType().equals(messageBus.msgId_hiddenChanged)) {
             int index = (int) messageBus.getParam1();
             Log.i(TAG, "onResume getMainMessage: " + index);
-            if (mSurfaceView != null) {
-                mSurfaceView.setVisibility(index == 0 ? View.VISIBLE : View.GONE);
-                Log.i(TAG, "onResume getMainMessage: " + mSurfaceView.isShown());
-            }
+//            if (mSurfaceView != null) {
+//                mSurfaceView.setVisibility(index == 0 ? View.VISIBLE : View.GONE);
+//                Log.i(TAG, "onResume getMainMessage: " + mSurfaceView.isShown());
+//            }
         }
 
     }
@@ -496,97 +491,9 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         });
     }
 
-    private SurfaceView mSurfaceView;
-    private ImageView imgPlay;
-
-    private void playVideo(int position, boolean isBottom) {
-        if (isBottom && mPlayer != null) {
-
-        }
-        View itemView = binding.recyclerView.getChildAt(0);
-        mSurfaceView = itemView.findViewById(R.id.surfaceView);
-        mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
-            public void surfaceCreated(SurfaceHolder holder) {
-//                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
-                holder.setKeepScreenOn(true);
-                // 对于从后台切换到前台,需要重设surface;部分手机锁屏也会做前后台切换的处理
-                if (mPlayer != null) {
-                    mPlayer.setVideoSurface(holder.getSurface());
-                }
-
-            }
-
-            public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-                if (mPlayer != null) {
-                    mPlayer.setSurfaceChanged();
-                }
-            }
-
-            public void surfaceDestroyed(SurfaceHolder holder) {
-            }
-        });
-        imgPlay = itemView.findViewById(R.id.img_play);
-        final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
-        final ImageView background = itemView.findViewById(R.id.background);
-        final LoadingView loading = itemView.findViewById(R.id.loadingView);
-//        mSurfaceView.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                if (mPlayer.isPlaying()) {
-//                    imgPlay.animate().alpha(1f).start();
-//                    mPlayer.pause();
-//                } else {
-//                    imgPlay.animate().alpha(0f).start();
-//                    mPlayer.play();
-//                }
-//            }
-//        });
-
-
-        destroy();
-        mPlayer = new AliVcMediaPlayer(getContext(), mSurfaceView);
-        mPlayer.setCirclePlay(true);
-
-        mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
-            @Override
-            public void onPrepared() {
-//                mSurfaceView.setBackgroundColor(Color.TRANSPARENT);
-                loading.setVisibility(View.GONE);
-                if (isShow) {
-                    mPlayer.play();
-                }
-            }
-        });
-        mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
-            @Override
-            public void onFrameInfoListener() {
-                background.setVisibility(View.GONE);
-                imgThumb.animate().alpha(0).setDuration(200).start();
-            }
-        });
-        mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
-            @Override
-            public void onStopped() {
-                imgPlay.animate().alpha(0.6f).start();
-            }
-        });
-//        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
-//        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
-//        mPlayer.setErrorListener(new MyErrorListener(this));
-//        mPlayer.setCompletedListener(new MyCompletedListener(this));
-//        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
-        mPlayer.enableNativeLog();
-        if (mPlayer != null) {
-            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-        }
-        if (adapter.getItem(position) != null) {
-            mPlayer.prepareToPlay(adapter.getItem(position).getVideo());
-        }
-
-    }
 
     private void releaseVideo(int index) {
+        Log.i(TAG, "releaseVideo: ");
         View itemView = binding.recyclerView.getChildAt(index);
         if (itemView != null) {
             ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
@@ -594,49 +501,289 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
             imgThumb.animate().alpha(1).start();
             imgPlay.animate().alpha(0f).start();
         }
-        stop();
+
     }
 
-    private AliVcMediaPlayer mPlayer;
+    /**
+     * SDK player 相关
+     */
+    private TXVodPlayer mVodPlayer = null;
+    private ImageView imgPlay;
 
-    private void start() {
-//        if (mPlayer != null) {
-//            mPlayer.prepareToPlay(url);
-//        }
+    private void playVideo(int position, boolean isBottom) {
+
+        Log.i(TAG, "playVideo: " + position);
+        View itemView = binding.recyclerView.getChildAt(0);
+        TXCloudVideoView videoView = itemView.findViewById(R.id.videoView);
+        imgPlay = itemView.findViewById(R.id.img_play);
+        final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+//        final ImageView background = itemView.findViewById(R.id.background);
+        final LoadingView loading = itemView.findViewById(R.id.loadingView);
+
+        videoView.setLogMargin(12, 12, 110, 60);
+        videoView.showLog(false);
+
+        if (mVodPlayer == null) {
+            mVodPlayer = new TXVodPlayer(getActivity());
+        }
+
+        mVodPlayer.setVodListener(new ITXVodPlayListener() {
+            @Override
+            public void onPlayEvent(TXVodPlayer txVodPlayer, int event, Bundle param) {
+                if (event != TXLiveConstants.PLAY_EVT_PLAY_PROGRESS) {
+                    String playEventLog = "TXVodPlayer onPlayEvent event: " + event + ", " + param.getString(TXLiveConstants.EVT_DESCRIPTION);
+                    TXCLog.d(TAG, playEventLog);
+                }
+                switch (event) {
+                    case TXLiveConstants.PLAY_EVT_VOD_PLAY_PREPARED://视频播放开始
+//                        mBinding.videoPlayLayout.videoPlay.setSelected(true);
+                        loading.setVisibility(View.GONE);
+                        imgThumb.animate().alpha(0).setDuration(200).start();
+
+                        break;
+                    case TXLiveConstants.PLAY_EVT_RCV_FIRST_I_FRAME://切换软硬解码器后，重新seek位置
+
+                        break;
+                    case TXLiveConstants.PLAY_EVT_PLAY_END:
+
+//                        mBinding.videoPlayLayout.videoPlay.setSelected(false);
+
+                        break;
+                    case TXLiveConstants.PLAY_EVT_PLAY_PROGRESS:
+                        int progress = param.getInt(TXLiveConstants.EVT_PLAY_PROGRESS_MS);
+                        int duration = param.getInt(TXLiveConstants.EVT_PLAY_DURATION_MS);
+
+//                        mBinding.videoPlayLayout.currentDuration.setText(CommonUtil.Formatter.formatTime((int) (progress)));
+//                        mBinding.videoPlayLayout.totalDuration.setText(CommonUtil.Formatter.formatTime((int) (duration)));
+//                        mBinding.videoPlayLayout.progress.setProgress((int) progress);
+//                        mBinding.videoPlayLayout.progress.setMax((int) duration);
+                        break;
+                    case TXLiveConstants.PLAY_EVT_PLAY_BEGIN: {
+//                        updatePlayState(SuperPlayerConst.PLAYSTATE_PLAYING);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                if (event < 0) {// 播放点播文件失败
+                    mVodPlayer.stopPlay(true);
+
+                }
+            }
+
+            @Override
+            public void onNetStatus(TXVodPlayer txVodPlayer, Bundle bundle) {
+
+            }
+        });
+        mVodPlayer.setPlayListener(new ITXLivePlayListener() {
+            @Override
+            public void onPlayEvent(int i, Bundle bundle) {
+                Log.i(TAG, "onPlayEvent: " + i);
+            }
+
+            @Override
+            public void onNetStatus(Bundle bundle) {
+
+            }
+        });
+        mVodPlayer.setPlayerView(videoView);
+        mVodPlayer.setAutoPlay(true);
+        mVodPlayer.setLoop(true);
+        mVodPlayer.enableHardwareDecode(false); // 是否使用硬解码
+        mVodPlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);// player 渲染角度
+        mVodPlayer.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);//player 渲染模式
+        int result = mVodPlayer.startPlay(adapter.getItem(position).getVideo()); // result返回值：0 success;  -1 empty url; -2 invalid url; -3 invalid playType;
+        if (result == 0) {
+//            mBinding.videoPlayLayout.videoPlay.setSelected(true);
+//            showVideoProgressInfo();
+//            hidePlayerView();
+//            addWatchNumber(id);
+        }
+
+//        mBinding.videoPlayLayout.videoContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mBinding.videoPlayLayout.videoPlay.setVisibility(mBinding.videoPlayLayout.videoPlay.isShown() ? View.GONE : View.VISIBLE);
+//                if (mBinding.videoPlayLayout.videoPlay.isShown()) {
+//                    hidePlayerView();
+//                }
+//            }
+//        });
+//        mBinding.videoPlayLayout.videoPlay.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                hidePlayerView();
+//                if (mVodPlayer != null) {
+//                    if (mVodPlayer.isPlaying()) {
+//                        mVodPlayer.pause();
+//                        mBinding.videoPlayLayout.videoPlay.setSelected(false);
+//                    } else {
+//                        mVodPlayer.resume();
+//                        mBinding.videoPlayLayout.videoPlay.setSelected(true);
+//                    }
+//                }
+//            }
+//        });
+
+
     }
+
 
     private void pause() {
-        if (mPlayer != null) {
-            mPlayer.pause();
+        if (mVodPlayer != null && mVodPlayer.isPlaying()) {
+            mVodPlayer.pause();
+            imgPlay.setSelected(false);
         }
         if (imgPlay != null) {
             imgPlay.animate().alpha(0.6f).start();
         }
     }
 
-    private void stop() {
-        if (mPlayer != null) {
-            mPlayer.stop();
-        }
-    }
 
-    private void resume() {
-        if (mPlayer != null) {
-            mPlayer.play();
-        }
-    }
 
-    private void destroy() {
-        if (mPlayer != null) {
-            mPlayer.stop();
-            mPlayer.destroy();
-        }
-    }
 
-    private void replay() {
-        stop();
-        start();
-    }
+//    private SurfaceView mSurfaceView;
+//    private ImageView imgPlay;
+//
+//    private void playVideo(int position, boolean isBottom) {
+//        if (isBottom && mPlayer != null) {
+//
+//        }
+//        View itemView = binding.recyclerView.getChildAt(0);
+//        mSurfaceView = itemView.findViewById(R.id.surfaceView);
+//        mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+//            public void surfaceCreated(SurfaceHolder holder) {
+////                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
+//                holder.setKeepScreenOn(true);
+//                // 对于从后台切换到前台,需要重设surface;部分手机锁屏也会做前后台切换的处理
+//                if (mPlayer != null) {
+//                    mPlayer.setVideoSurface(holder.getSurface());
+//                }
+//
+//            }
+//
+//            public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+//                if (mPlayer != null) {
+//                    mPlayer.setSurfaceChanged();
+//                }
+//            }
+//
+//            public void surfaceDestroyed(SurfaceHolder holder) {
+//            }
+//        });
+//        imgPlay = itemView.findViewById(R.id.img_play);
+//        final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+//        final ImageView background = itemView.findViewById(R.id.background);
+//        final LoadingView loading = itemView.findViewById(R.id.loadingView);
+////        mSurfaceView.setOnClickListener(new View.OnClickListener() {
+////
+////            @Override
+////            public void onClick(View v) {
+////                if (mPlayer.isPlaying()) {
+////                    imgPlay.animate().alpha(1f).start();
+////                    mPlayer.pause();
+////                } else {
+////                    imgPlay.animate().alpha(0f).start();
+////                    mPlayer.play();
+////                }
+////            }
+////        });
+//
+//
+//        destroy();
+//        mPlayer = new AliVcMediaPlayer(getContext(), mSurfaceView);
+//        mPlayer.setCirclePlay(true);
+//
+//        mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
+//            @Override
+//            public void onPrepared() {
+////                mSurfaceView.setBackgroundColor(Color.TRANSPARENT);
+//                loading.setVisibility(View.GONE);
+//                if (isShow) {
+//                    mPlayer.play();
+//                }
+//            }
+//        });
+//        mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
+//            @Override
+//            public void onFrameInfoListener() {
+//                background.setVisibility(View.GONE);
+//                imgThumb.animate().alpha(0).setDuration(200).start();
+//            }
+//        });
+//        mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
+//            @Override
+//            public void onStopped() {
+//                imgPlay.animate().alpha(0.6f).start();
+//            }
+//        });
+////        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
+////        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
+////        mPlayer.setErrorListener(new MyErrorListener(this));
+////        mPlayer.setCompletedListener(new MyCompletedListener(this));
+////        mPlayer.setSeekCompleteListener(new MySeekCompleteListener(this));
+//        mPlayer.enableNativeLog();
+//        if (mPlayer != null) {
+//            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+//        }
+//        if (adapter.getItem(position) != null) {
+//            mPlayer.prepareToPlay(adapter.getItem(position).getVideo());
+//        }
+//
+//    }
+//
+//    private void releaseVideo(int index) {
+//        View itemView = binding.recyclerView.getChildAt(index);
+//        if (itemView != null) {
+//            ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
+//            ImageView imgPlay = itemView.findViewById(R.id.img_play);
+//            imgThumb.animate().alpha(1).start();
+//            imgPlay.animate().alpha(0f).start();
+//        }
+//        stop();
+//    }
+//
+//    private AliVcMediaPlayer mPlayer;
+//
+//    private void start() {
+////        if (mPlayer != null) {
+////            mPlayer.prepareToPlay(url);
+////        }
+//    }
+//
+//    private void pause() {
+//        if (mPlayer != null) {
+//            mPlayer.pause();
+//        }
+//        if (imgPlay != null) {
+//            imgPlay.animate().alpha(0.6f).start();
+//        }
+//    }
+//
+//    private void stop() {
+//        if (mPlayer != null) {
+//            mPlayer.stop();
+//        }
+//    }
+//
+//    private void resume() {
+//        if (mPlayer != null) {
+//            mPlayer.play();
+//        }
+//    }
+//
+//    private void destroy() {
+//        if (mPlayer != null) {
+//            mPlayer.stop();
+//            mPlayer.destroy();
+//        }
+//    }
+//
+//    private void replay() {
+//        stop();
+//        start();
+//    }
 
     public void onButtonPressed(Uri uri) {
 
@@ -654,7 +801,6 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     public void onDetach() {
         super.onDetach();
         mListener = null;
-        destroy();
     }
 
     public interface OnFragmentInteractionListener {

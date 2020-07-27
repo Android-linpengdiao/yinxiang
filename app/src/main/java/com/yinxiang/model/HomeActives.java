@@ -62,6 +62,7 @@ public class HomeActives  implements Serializable {
         private String title;
         private String desc;
         private String video;
+        private String img;
         private String pre_start_time;
         private String rematch_start_time;
         private String final_start_time;
@@ -70,6 +71,14 @@ public class HomeActives  implements Serializable {
         private String pre_end_time;
         private String rematch_end_time;
         private String final_end_time;
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
 
         public int getId() {
             return id;

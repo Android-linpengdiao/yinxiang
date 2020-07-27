@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
@@ -12,6 +13,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -31,6 +33,11 @@ import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.okhttp.utils.APIUrls;
+import com.tencent.liteav.basic.log.TXCLog;
+import com.tencent.rtmp.ITXLivePlayListener;
+import com.tencent.rtmp.ITXVodPlayListener;
+import com.tencent.rtmp.TXLiveConstants;
+import com.tencent.rtmp.TXVodPlayer;
 import com.yinxiang.MyApplication;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityWorkDetailBinding;
@@ -408,16 +415,18 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onPause() {
-        pause();
+        if (mVodPlayer != null && mVodPlayer.isPlaying()) {
+            mVodPlayer.pause();
+            binding.videoPlay.setSelected(false);
+        }
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
-        stop();
-        destroy();
         stopUpdateTimer();
         progressUpdateTimer = null;
+        mVodPlayer = null;
         super.onDestroy();
     }
 
@@ -460,17 +469,17 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (mPlayer != null) {
-                    mPlayer.seekTo(seekBar.getProgress());
-                    if (isCompleted) {
-                        inSeek = false;
-                    } else {
-                        inSeek = true;
-                    }
-                }
+//                if (mPlayer != null) {
+//                    mPlayer.seekTo(seekBar.getProgress());
+//                    if (isCompleted) {
+//                        inSeek = false;
+//                    } else {
+//                        inSeek = true;
+//                    }
+//                }
             }
         });
-        playVideo(dataBean.getData().getVideo());
+        initPlayerView(dataBean.getData().getVideo());
     }
 
     private void personFollow(TextView tvFollow, int follow_id) {
@@ -545,78 +554,103 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
      * ================================ 播放器 ================================================
      */
 
-    private void showVideoProgressInfo() {
-        if (mPlayer != null && !inSeek) {
-            int curPosition = mPlayer.getCurrentPosition();
-            int duration = mPlayer.getDuration();
-            int bufferPosition = mPlayer.getBufferPosition();
-            binding.progress.setMax(duration);
-            binding.progress.setSecondaryProgress(bufferPosition);
-            binding.progress.setProgress(curPosition);
+
+    /**
+     * SDK player 相关
+     */
+    private TXVodPlayer mVodPlayer = null;
+
+    private void initPlayerView(String videoUrl) {
+
+        binding.videoView.setLogMargin(12, 12, 110, 60);
+        binding.videoView.showLog(false);
+
+        if (mVodPlayer == null) {
+            mVodPlayer = new TXVodPlayer(this);
         }
-        startUpdateTimer();
-    }
 
-    private void startUpdateTimer() {
-        progressUpdateTimer.removeMessages(0);
-        progressUpdateTimer.sendEmptyMessageDelayed(0, 1000);
-    }
-
-    private void stopUpdateTimer() {
-        progressUpdateTimer.removeMessages(0);
-    }
-
-    private Handler progressUpdateTimer = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            showVideoProgressInfo();
-        }
-    };
-
-    private void playVideo(String videoUrl) {
-        binding.surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
-            public void surfaceCreated(SurfaceHolder holder) {
-                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
-                holder.setKeepScreenOn(true);
-                // 对于从后台切换到前台,需要重设surface;部分手机锁屏也会做前后台切换的处理
-                if (mPlayer != null) {
-                    mPlayer.setVideoSurface(holder.getSurface());
+        mVodPlayer.setVodListener(new ITXVodPlayListener() {
+            @Override
+            public void onPlayEvent(TXVodPlayer txVodPlayer, int event, Bundle param) {
+                if (event != TXLiveConstants.PLAY_EVT_PLAY_PROGRESS) {
+//                    String playEventLog = "TXVodPlayer onPlayEvent event: " + event + ", " + param.getString(TXLiveConstants.EVT_DESCRIPTION);
+//                    TXCLog.d(TAG, playEventLog);
                 }
+                switch (event) {
+                    case TXLiveConstants.PLAY_EVT_VOD_PLAY_PREPARED://视频播放开始
+                        binding.videoPlay.setSelected(true);
+                        binding.loadingView.setVisibility(View.GONE);
+                        binding.thumbnails.animate().alpha(0).setDuration(200).start();
 
+                        break;
+                    case TXLiveConstants.PLAY_EVT_RCV_FIRST_I_FRAME://切换软硬解码器后，重新seek位置
+
+                        break;
+                    case TXLiveConstants.PLAY_EVT_PLAY_END:
+
+                        binding.videoPlay.setSelected(false);
+
+                        break;
+                    case TXLiveConstants.PLAY_EVT_PLAY_PROGRESS:
+                        int progress = param.getInt(TXLiveConstants.EVT_PLAY_PROGRESS_MS);
+                        int duration = param.getInt(TXLiveConstants.EVT_PLAY_DURATION_MS);
+
+//                        binding.currentDuration.setText(CommonUtil.Formatter.formatTime((int) (progress)));
+//                        binding.totalDuration.setText(CommonUtil.Formatter.formatTime((int) (duration)));
+                        binding.progress.setProgress((int) progress);
+                        binding.progress.setMax((int) duration);
+                        break;
+                    case TXLiveConstants.PLAY_EVT_PLAY_BEGIN: {
+//                        updatePlayState(SuperPlayerConst.PLAYSTATE_PLAYING);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                if (event < 0) {// 播放点播文件失败
+                    mVodPlayer.stopPlay(true);
+
+                }
             }
 
-            public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-                if (mPlayer != null) {
-                    mPlayer.setSurfaceChanged();
-                }
-            }
+            @Override
+            public void onNetStatus(TXVodPlayer txVodPlayer, Bundle bundle) {
 
-            public void surfaceDestroyed(SurfaceHolder holder) {
             }
         });
-//        binding.surfaceView.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                if (mPlayer.isPlaying()) {
-//                    binding.videoPlay.animate().alpha(1).start();
-//                    mPlayer.pause();
-//                } else {
-//                    binding.videoPlay.animate().alpha(0).setDuration(200).start();
-//                    mPlayer.play();
-//                }
-//            }
-//        });
+        mVodPlayer.setPlayListener(new ITXLivePlayListener() {
+            @Override
+            public void onPlayEvent(int i, Bundle bundle) {
+            }
 
-        binding.surfaceView.setOnTouchListener(new LiveClickListener(new LiveClickListener.ClickCallBack() {
+            @Override
+            public void onNetStatus(Bundle bundle) {
+
+            }
+        });
+        mVodPlayer.setPlayerView(binding.videoView);
+        mVodPlayer.setAutoPlay(true);
+        mVodPlayer.setLoop(true);
+        mVodPlayer.enableHardwareDecode(false); // 是否使用硬解码
+        mVodPlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);// player 渲染角度
+        mVodPlayer.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);//player 渲染模式
+        int result = mVodPlayer.startPlay(videoUrl); // result返回值：0 success;  -1 empty url; -2 invalid url; -3 invalid playType;
+        if (result == 0) {
+//            mBinding.videoPlayLayout.videoPlay.setSelected(true);
+//            showVideoProgressInfo();
+            hidePlayerView();
+        }
+        binding.videoView.setOnTouchListener(new LiveClickListener(new LiveClickListener.ClickCallBack() {
             @Override
             public void oneClick() {
-                if (mPlayer.isPlaying()) {
-                    binding.videoPlay.animate().alpha(1).start();
-                    mPlayer.pause();
-                } else {
-                    binding.videoPlay.animate().alpha(0).setDuration(200).start();
-                    mPlayer.play();
+                if (mVodPlayer != null) {
+                    if (mVodPlayer.isPlaying()) {
+                        mVodPlayer.pause();
+                        binding.videoPlay.animate().alpha(0.6f).start();
+                    } else {
+                        mVodPlayer.resume();
+                        binding.videoPlay.animate().alpha(0f).start();
+                    }
                 }
             }
 
@@ -639,101 +673,251 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         }));
 
 
-        mPlayer = new AliVcMediaPlayer(WorkDetailActivity.this, binding.surfaceView);
-        mPlayer.setCirclePlay(true);
-
-        mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
-            @Override
-            public void onPrepared() {
-                binding.surfaceView.setBackgroundColor(Color.TRANSPARENT);
-                binding.loadingView.setVisibility(View.GONE);
-                mPlayer.play();
-            }
-        });
-//        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
-//        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
-        mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
-            @Override
-            public void onFrameInfoListener() {
-                binding.thumbnails.animate().alpha(0).setDuration(200).start();
-                showVideoProgressInfo();
-            }
-        });
-        mPlayer.setErrorListener(new MediaPlayer.MediaPlayerErrorListener() {
-            @Override
-            public void onError(int i, String s) {
-                ToastUtils.showShort(getApplicationContext(), "网络连接似乎出现问题，请重试");
-            }
-        });
-        mPlayer.setCompletedListener(new MediaPlayer.MediaPlayerCompletedListener() {
-            @Override
-            public void onCompleted() {
-                isCompleted = true;
-                showVideoProgressInfo();
-                stopUpdateTimer();
-            }
-        });
-        mPlayer.setSeekCompleteListener(new MediaPlayer.MediaPlayerSeekCompleteListener() {
-            @Override
-            public void onSeekCompleted() {
-                inSeek = false;
-            }
-        });
-        mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
-            @Override
-            public void onStopped() {
-                binding.videoPlay.animate().alpha(1).start();
-            }
-        });
-        mPlayer.enableNativeLog();
-        if (mPlayer != null) {
-            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-        }
-        mPlayer.prepareToPlay(videoUrl);
-        binding.loadingView.setVisibility(View.VISIBLE);
-
     }
 
-    private boolean inSeek = false;
-    private boolean isCompleted = false;
+    private void hidePlayerView() {
+        if (progressUpdateTimer != null) {
+            progressUpdateTimer.removeMessages(UpdatePlayer);
+            progressUpdateTimer.sendEmptyMessageDelayed(UpdatePlayer, 3000);
+        }
+    }
 
-    private AliVcMediaPlayer mPlayer;
+    private void showVideoProgressInfo() {
+        if (mVodPlayer != null) {
+            float curPosition = mVodPlayer.getCurrentPlaybackTime();
+            float duration = mVodPlayer.getPlayableDuration();
+            float bufferPosition = mVodPlayer.getBufferDuration();
+//            binding.currentDuration.setText(CommonUtil.Formatter.formatTime((int) (curPosition * 1000)));
+//            binding.totalDuration.setText(CommonUtil.Formatter.formatTime((int) (duration * 1000)));
+            binding.progress.setMax((int) duration);
+            binding.progress.setSecondaryProgress((int) bufferPosition);
+            binding.progress.setProgress((int) curPosition);
+        }
+//        startUpdateTimer();
+    }
 
-    private void start() {
-//        if (mPlayer != null) {
-//            mPlayer.prepareToPlay();
+    private void startUpdateTimer() {
+        if (progressUpdateTimer != null) {
+            progressUpdateTimer.removeMessages(UpdateTimer);
+            progressUpdateTimer.sendEmptyMessageDelayed(UpdateTimer, 1000);
+        }
+    }
+
+    private void stopUpdateTimer() {
+        if (progressUpdateTimer != null) {
+            progressUpdateTimer.removeMessages(UpdateTimer);
+            progressUpdateTimer.removeMessages(UpdatePlayer);
+        }
+    }
+
+    private final int UpdateTimer = 100;
+    private final int UpdatePlayer = 200;
+    @SuppressLint("HandlerLeak")
+    private Handler progressUpdateTimer = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case UpdateTimer:
+                    showVideoProgressInfo();
+                    break;
+                case UpdatePlayer:
+//                    binding.videoPlay.setVisibility(View.GONE);
+                    break;
+            }
+        }
+    };
+
+
+//    private void showVideoProgressInfo() {
+//        if (mPlayer != null && !inSeek) {
+//            int curPosition = mPlayer.getCurrentPosition();
+//            int duration = mPlayer.getDuration();
+//            int bufferPosition = mPlayer.getBufferPosition();
+//            binding.progress.setMax(duration);
+//            binding.progress.setSecondaryProgress(bufferPosition);
+//            binding.progress.setProgress(curPosition);
 //        }
-    }
-
-    private void pause() {
-        if (mPlayer != null) {
-            mPlayer.pause();
-        }
-    }
-
-    private void stop() {
-        if (mPlayer != null) {
-            mPlayer.stop();
-        }
-    }
-
-    private void resume() {
-        if (mPlayer != null) {
-            mPlayer.play();
-        }
-    }
-
-    private void destroy() {
-        if (mPlayer != null) {
-            mPlayer.stop();
-            mPlayer.destroy();
-        }
-    }
-
-    private void replay() {
-        stop();
-        start();
-    }
+//        startUpdateTimer();
+//    }
+//
+//    private void startUpdateTimer() {
+//        progressUpdateTimer.removeMessages(0);
+//        progressUpdateTimer.sendEmptyMessageDelayed(0, 1000);
+//    }
+//
+//    private void stopUpdateTimer() {
+//        progressUpdateTimer.removeMessages(0);
+//    }
+//
+//    private Handler progressUpdateTimer = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            showVideoProgressInfo();
+//        }
+//    };
+//
+//    private void playVideo(String videoUrl) {
+//        binding.surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+//            public void surfaceCreated(SurfaceHolder holder) {
+//                holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
+//                holder.setKeepScreenOn(true);
+//                // 对于从后台切换到前台,需要重设surface;部分手机锁屏也会做前后台切换的处理
+//                if (mPlayer != null) {
+//                    mPlayer.setVideoSurface(holder.getSurface());
+//                }
+//
+//            }
+//
+//            public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+//                if (mPlayer != null) {
+//                    mPlayer.setSurfaceChanged();
+//                }
+//            }
+//
+//            public void surfaceDestroyed(SurfaceHolder holder) {
+//            }
+//        });
+////        binding.surfaceView.setOnClickListener(new View.OnClickListener() {
+////
+////            @Override
+////            public void onClick(View v) {
+////                if (mPlayer.isPlaying()) {
+////                    binding.videoPlay.animate().alpha(1).start();
+////                    mPlayer.pause();
+////                } else {
+////                    binding.videoPlay.animate().alpha(0).setDuration(200).start();
+////                    mPlayer.play();
+////                }
+////            }
+////        });
+//
+//        binding.surfaceView.setOnTouchListener(new LiveClickListener(new LiveClickListener.ClickCallBack() {
+//            @Override
+//            public void oneClick() {
+//                if (mPlayer.isPlaying()) {
+//                    binding.videoPlay.animate().alpha(1).start();
+//                    mPlayer.pause();
+//                } else {
+//                    binding.videoPlay.animate().alpha(0).setDuration(200).start();
+//                    mPlayer.play();
+//                }
+//            }
+//
+//            @Override
+//            public void doubleClick(int w, int y) {
+//                if (!binding.tvLike.isSelected() && worksDetail != null) {
+//                    videosAssist(binding.tvLike, workId);
+//                }
+//                int liveAnimateImgWidth = 180;
+//                ImageView likeImg = new ImageView(getApplication());
+//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtil.dip2px(getApplication(), liveAnimateImgWidth), CommonUtil.dip2px(getApplication(), liveAnimateImgWidth));
+//                params.leftMargin = w - CommonUtil.dip2px(getApplication(), liveAnimateImgWidth) * 1 / 2;
+//                params.topMargin = y - CommonUtil.dip2px(getApplication(), liveAnimateImgWidth) * 5 / 6;
+//                likeImg.setPadding(10, 10, 10, 10);
+//                likeImg.setLayoutParams(params);
+//                likeImg.setImageResource(R.drawable.likefill_pre);
+//                binding.liveAnimateView.addView(likeImg);
+//                startAnimatorStyleOne(likeImg);
+//            }
+//        }));
+//
+//
+//        mPlayer = new AliVcMediaPlayer(WorkDetailActivity.this, binding.surfaceView);
+//        mPlayer.setCirclePlay(true);
+//
+//        mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
+//            @Override
+//            public void onPrepared() {
+//                binding.surfaceView.setBackgroundColor(Color.TRANSPARENT);
+//                binding.loadingView.setVisibility(View.GONE);
+//                mPlayer.play();
+//            }
+//        });
+////        mPlayer.setPcmDataListener(new MyPcmDataListener(this));
+////        mPlayer.setCircleStartListener(new MyCircleStartListener(this));
+//        mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
+//            @Override
+//            public void onFrameInfoListener() {
+//                binding.thumbnails.animate().alpha(0).setDuration(200).start();
+//                showVideoProgressInfo();
+//            }
+//        });
+//        mPlayer.setErrorListener(new MediaPlayer.MediaPlayerErrorListener() {
+//            @Override
+//            public void onError(int i, String s) {
+//                ToastUtils.showShort(getApplicationContext(), "网络连接似乎出现问题，请重试");
+//            }
+//        });
+//        mPlayer.setCompletedListener(new MediaPlayer.MediaPlayerCompletedListener() {
+//            @Override
+//            public void onCompleted() {
+//                isCompleted = true;
+//                showVideoProgressInfo();
+//                stopUpdateTimer();
+//            }
+//        });
+//        mPlayer.setSeekCompleteListener(new MediaPlayer.MediaPlayerSeekCompleteListener() {
+//            @Override
+//            public void onSeekCompleted() {
+//                inSeek = false;
+//            }
+//        });
+//        mPlayer.setStoppedListener(new MediaPlayer.MediaPlayerStoppedListener() {
+//            @Override
+//            public void onStopped() {
+//                binding.videoPlay.animate().alpha(1).start();
+//            }
+//        });
+//        mPlayer.enableNativeLog();
+//        if (mPlayer != null) {
+//            mPlayer.setVideoScalingMode(com.alivc.player.MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+//        }
+//        mPlayer.prepareToPlay(videoUrl);
+//        binding.loadingView.setVisibility(View.VISIBLE);
+//
+//    }
+//
+//    private boolean inSeek = false;
+//    private boolean isCompleted = false;
+//
+//    private AliVcMediaPlayer mPlayer;
+//
+//    private void start() {
+////        if (mPlayer != null) {
+////            mPlayer.prepareToPlay();
+////        }
+//    }
+//
+//    private void pause() {
+//        if (mPlayer != null) {
+//            mPlayer.pause();
+//        }
+//    }
+//
+//    private void stop() {
+//        if (mPlayer != null) {
+//            mPlayer.stop();
+//        }
+//    }
+//
+//    private void resume() {
+//        if (mPlayer != null) {
+//            mPlayer.play();
+//        }
+//    }
+//
+//    private void destroy() {
+//        if (mPlayer != null) {
+//            mPlayer.stop();
+//            mPlayer.destroy();
+//        }
+//    }
+//
+//    private void replay() {
+//        stop();
+//        start();
+//    }
 
 
     /**

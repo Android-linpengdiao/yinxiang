@@ -45,11 +45,16 @@
                 android:layout_height="211dp"
                 android:background="@color/black">
 
-                <SurfaceView
-                    android:id="@+id/surfaceView"
+<!--                <SurfaceView-->
+<!--                    android:id="@+id/surfaceView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@color/black" />-->
+
+                <com.tencent.rtmp.ui.TXCloudVideoView
+                    android:id="@+id/videoView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black" />
+                    android:layout_height="match_parent"/>
 
                 <ImageView
                     android:id="@+id/thumbnails"
@@ -77,7 +82,7 @@
                     </RelativeLayout>
 
                     <LinearLayout
-                        android:id="@+id/progress_layout"
+                        android:id="@+id/progressLayoutView"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_alignParentBottom="true"
@@ -140,8 +145,7 @@
                     style="@android:style/Widget.Holo.ProgressBar.Large"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone" />
+                    android:layout_centerInParent="true"/>
 
             </RelativeLayout>
 

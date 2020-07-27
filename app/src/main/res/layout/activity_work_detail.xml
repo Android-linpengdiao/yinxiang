@@ -12,11 +12,16 @@
         android:layout_height="match_parent"
         android:background="@android:color/black">
 
-        <com.yinxiang.view.FullScreenVideoView
-            android:id="@+id/surfaceView"
+<!--        <com.yinxiang.view.FullScreenVideoView-->
+<!--            android:id="@+id/surfaceView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_centerInParent="true" />-->
+
+        <com.tencent.rtmp.ui.TXCloudVideoView
+            android:id="@+id/videoView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/thumbnails"
@@ -27,8 +32,8 @@
 
         <ImageView
             android:id="@+id/video_play"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerInParent="true"
             android:alpha="0"
             android:src="@drawable/ic_video_play" />

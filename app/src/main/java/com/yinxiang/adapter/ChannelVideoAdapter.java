@@ -72,7 +72,7 @@ public class ChannelVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBean
             binding.tvElection.setText(String.valueOf(dataBean.getPre_votes()));
             GlideLoader.LoderCircleImage(mContext, dataBean.getTourist().getAvatar(), binding.userIcon);
             GlideLoader.LoderVideoCenterCropImage(mContext, dataBean.getImg(), binding.imgThumb);
-            GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
+//            GlideLoader.LoderVideoCenterCropImage(mContext, "", binding.background);
 
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,11 +142,11 @@ public class ChannelVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBean
                     }
                 }
             });
-            binding.surfaceView.setOnTouchListener(new LiveClickListener(new LiveClickListener.ClickCallBack() {
+            binding.videoView.setOnTouchListener(new LiveClickListener(new LiveClickListener.ClickCallBack() {
                 @Override
                 public void oneClick() {
                     if (onClickListener != null) {
-                        onClickListener.onClick(binding.surfaceView, dataBean);
+                        onClickListener.onClick(binding.videoView, dataBean);
                     }
                 }
 
