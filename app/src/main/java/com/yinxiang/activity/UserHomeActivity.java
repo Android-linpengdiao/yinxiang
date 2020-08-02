@@ -178,6 +178,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.userDesc.setText(userInfo.getData().getDesc());
         binding.touristId.setText("引享号：" + userInfo.getData().getTourist_id());
         binding.userAddr.setText(userInfo.getData().getAddr());
+        binding.userVip.setVisibility(userInfo.getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
         binding.isVip.setVisibility(userInfo.getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
         binding.userLevel.setText("Lv." + userInfo.getData().getLevel());
         binding.creditView.setText("Lv." + userInfo.getData().getCredit());

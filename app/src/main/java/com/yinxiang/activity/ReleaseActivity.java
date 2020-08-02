@@ -62,6 +62,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     private String coverPath;
     private HomeActives.DataBean homeDataBean;
     private ClubData.DataBean clubDataBean;
+    private int maxTime = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,16 +74,20 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         binding.tvAssociation.setOnClickListener(this);
         binding.tvConfirm.setOnClickListener(this);
 
-        int typeId = (new Random()).nextInt(2);
-        Log.i(TAG, "onCreate: " + typeId);
+        if (getUserInfo().getData().getIs_vip() == 2) {
+            maxTime = 180;
+        } else {
+            maxTime = 15;
+        }
+        binding.recordTimeView.setText("请选择一段视频（视频时长" + maxTime + "秒）");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-                Log.i(TAG, "onClick: coverPath = "+coverPath);
-                Log.i(TAG, "onClick: videoPath = "+videoPath);
+                Log.i(TAG, "onClick: coverPath = " + coverPath);
+                Log.i(TAG, "onClick: videoPath = " + videoPath);
                 String name = binding.etName.getText().toString().trim();
                 if (CommonUtil.isBlank(name)) {
                     ToastUtils.showShort(ReleaseActivity.this, "请描述一下你的视频");
@@ -186,8 +191,19 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                     break;
                 case REQUEST_CTYPE:
                     if (data != null) {
+                        if (homeDataBean == null) {
+                            videoPath = "";
+                            coverPath = "";
+                            GlideLoader.LoderLoadImage(ReleaseActivity.this, coverPath, binding.cover, 10);
+                        }
                         homeDataBean = (HomeActives.DataBean) data.getSerializableExtra("homeActives");
                         if (homeDataBean != null) {
+                            if (getUserInfo().getData().getIs_vip() == 2) {
+                                maxTime = 300;
+                            } else {
+                                maxTime = 180;
+                            }
+                            binding.recordTimeView.setText("请选择一段视频（视频时长" + maxTime + "秒）");
                             binding.tvCompetition.setText(homeDataBean.getTitle() + "");
                         }
                     }
@@ -212,8 +228,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
 
     private void openCamera() {
         int type = JCameraView.BUTTON_STATE_ONLY_RECORDER;
-        int minTime = 10;
-        int maxTime = 180;
+        int minTime = 3;
         CameraActivity.startCameraActivity(ReleaseActivity.this, minTime, maxTime, "#44bf19", type, REQUEST_WXCAMERA);
 
     }
@@ -324,7 +339,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                 LoadingManager.hideProgress(ReleaseActivity.this);
                 String videoUrl = "http://" + request.getBucketName() + ".oss-cn-beijing.aliyuncs.com/" + request.getObjectKey();
                 Log.i(TAG, "onSuccess: " + videoUrl);
-                publishWork(coverUrl, videoUrl,homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
+                publishWork(coverUrl, videoUrl, homeDataBean != null ? homeDataBean.getId() : 0, clubDataBean != null ? clubDataBean.getId() : 0);
             }
 
             @Override

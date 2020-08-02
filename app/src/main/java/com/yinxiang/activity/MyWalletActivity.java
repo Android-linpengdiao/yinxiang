@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.View;
 
+import com.baselibrary.UserInfo;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
@@ -49,11 +50,27 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        personInfo();
         initData();
     }
 
+    public void personInfo() {
+        SendRequest.personInformInfo(getUserInfo().getData().getId(), new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(UserInfo response, int id) {
+                if (response.getCode() == 200 && response.getData() != null) {
+                    binding.coin.setText(String.valueOf(response.getData().getWallet_token()));
+                }
+            }
+
+        });
+    }
+
     private void initData() {
-        binding.coin.setText(String.valueOf(getUserInfo().getData().getWallet_token()));
         binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.personWalletRecord(getUserInfo().getData().getId(), 100, new GenericsCallback<WalletRecordData>(new JsonGenericsSerializator()) {
             @Override

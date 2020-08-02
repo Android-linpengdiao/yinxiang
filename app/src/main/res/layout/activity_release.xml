@@ -53,8 +53,46 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="请选择一段视频（视频时长1-5分钟）"
+                    android:text="比赛活动报名"
                     android:textColor="#ff333333"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button_white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="默认不参加任何比赛"
+                        android:textColor="#ff333333"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_competition"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/icon_more"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical|right"
+                        android:text="选择比赛活动"
+                        android:textColor="#ff999999"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/recordTimeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="请选择一段视频（视频时长15秒）"
+                    android:textColor="#ff333333"
+                    android:layout_marginTop="20dp"
                     android:textSize="15sp" />
 
                 <RelativeLayout
@@ -105,43 +143,6 @@
                     android:textColor="#ff333333"
                     android:textColorHint="#ff999999"
                     android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="比赛活动报名"
-                    android:textColor="#ff333333"
-                    android:textSize="15sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/button_white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/padding">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="默认不参加任何比赛"
-                        android:textColor="#ff333333"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/tv_competition"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableRight="@drawable/icon_more"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical|right"
-                        android:text="选择比赛活动"
-                        android:textColor="#ff999999"
-                        android:textSize="15sp" />
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"

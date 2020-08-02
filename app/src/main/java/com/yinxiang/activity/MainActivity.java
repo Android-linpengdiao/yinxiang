@@ -13,6 +13,7 @@ import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
+import com.baselibrary.UserInfo;
 import com.baselibrary.utils.LogUtil;
 import com.google.android.material.navigation.NavigationView;
 
@@ -76,6 +77,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private TextView userTouristId;
     private TextView userAddr;
     private TextView userLevel;
+    private ImageView userVip;
     private ImageView isVip;
     private TextView fanNumber;
     private TextView followNumber;
@@ -102,8 +104,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         if (getUserId() > 0) {
             doLogin();
-            intHeaderData();
+            intHeaderData(getUserInfo());
             personInformInfo();
+        }else {
+            intHeaderData(null);
         }
 
 //        new Handler().postDelayed(new Runnable() {
@@ -157,6 +161,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         userTouristId = headerView.findViewById(R.id.user_tourist_id);
         userAddr = headerView.findViewById(R.id.user_addr);
         userLevel = headerView.findViewById(R.id.user_level);
+        userVip = headerView.findViewById(R.id.user_vip);
         isVip = headerView.findViewById(R.id.is_vip);
         fanNumber = headerView.findViewById(R.id.fan_number);
         followNumber = headerView.findViewById(R.id.follow_number);
@@ -179,7 +184,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myFansView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(MyFansActivity.class);
                 }
             }
@@ -187,7 +192,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myFollowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(MyFollowActivity.class);
                 }
             }
@@ -195,7 +200,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myWorkView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     Intent intent = new Intent(MainActivity.this, MyWorkActivity.class);
                     intent.putExtra("uid", getUserInfo().getData().getId());
                     startActivity(intent);
@@ -205,7 +210,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myWorkPKView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(MyWorkPKActivity.class);
                 }
             }
@@ -213,7 +218,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myWorkRelayView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(MyWorkRelayActivity.class);
                 }
             }
@@ -221,7 +226,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myCompetitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(MyCompetitionActivity.class);
                 }
             }
@@ -229,7 +234,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myWalletView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(MyWalletActivity.class);
                 }
             }
@@ -237,17 +242,17 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myVIPView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0){
-                openActivity(MyVIPActivity.class);
-            }
+                if (getUserId(true) > 0) {
+                    openActivity(MyVIPActivity.class);
+                }
             }
         });
         tvEditor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0){
-                openActivity(EditorActivity.class);
-            }
+                if (getUserId(true) > 0) {
+                    openActivity(EditorActivity.class);
+                }
             }
         });
         tvSetting.setOnClickListener(new View.OnClickListener() {
@@ -259,9 +264,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         userInfoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0){
-                openActivity(EditorActivity.class);
-            }
+                if (getUserId(true) > 0) {
+                    openActivity(EditorActivity.class);
+                }
             }
         });
 
@@ -271,7 +276,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.radioButtonRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(ReleaseActivity.class);
                 }
             }
@@ -279,22 +284,35 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.radioButtonMine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     binding.drawerLayout.openDrawer(Gravity.LEFT);
                 }
             }
         });
     }
 
-    private void intHeaderData() {
-        userName.setText(getUserInfo().getData().getName() + "");
-        userTouristId.setText("引享号：" + getUserInfo().getData().getTourist_id());
-        userAddr.setText(getUserInfo().getData().getAddr() + "");
-        userLevel.setText("Lv." + getUserInfo().getData().getLevel());
-        fanNumber.setText(String.valueOf(getUserInfo().getData().getFan_number()));
-        isVip.setVisibility(getUserInfo().getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
-        followNumber.setText(String.valueOf(getUserInfo().getData().getFollow_number()));
-        GlideLoader.LoderCircleImage(this, getUserInfo().getData().getAvatar(), userIcon);
+    private void intHeaderData(UserInfo userInfo) {
+        if (userInfo!=null) {
+            userName.setText(userInfo.getData().getName() + "");
+            userTouristId.setText("引享号：" + userInfo.getData().getTourist_id());
+            userAddr.setText(userInfo.getData().getAddr() + "");
+            userLevel.setText("Lv." + userInfo.getData().getCredit());
+            userVip.setVisibility(userInfo.getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
+            fanNumber.setText(String.valueOf(userInfo.getData().getFan_number()));
+            isVip.setVisibility(userInfo.getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
+            followNumber.setText(String.valueOf(userInfo.getData().getFollow_number()));
+            GlideLoader.LoderCircleImage(this, userInfo.getData().getAvatar(), userIcon);
+        }else {
+            userName.setText("");
+            userTouristId.setText("引享号：");
+            userAddr.setText("");
+            userLevel.setText("Lv.");
+            userVip.setVisibility(View.GONE);
+            fanNumber.setText(String.valueOf(0));
+            isVip.setVisibility(View.GONE);
+            followNumber.setText(String.valueOf(0));
+            GlideLoader.LoderCircleImage(this, "", userIcon);
+        }
     }
 
 

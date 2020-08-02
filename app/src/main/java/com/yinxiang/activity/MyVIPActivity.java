@@ -51,6 +51,15 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    private void initData() {
         if (getUserInfo().getData().getIs_vip() == 1) {
             binding.viewLayoutVip.setVisibility(View.VISIBLE);
             binding.viewLayoutTopUp.setVisibility(View.GONE);
@@ -58,9 +67,8 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
         } else if (getUserInfo().getData().getIs_vip() == 2) {
             binding.viewLayoutVip.setVisibility(View.GONE);
             binding.viewLayoutTopUp.setVisibility(View.VISIBLE);
-            initData();
+            personVipSet();
         }
-
     }
 
     public void onClick(View v) {
@@ -76,7 +84,7 @@ public class MyVIPActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private void initData() {
+    private void personVipSet() {
         SendRequest.personVipSet(new GenericsCallback<VipSetData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

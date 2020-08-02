@@ -19,13 +19,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-
-import com.alivc.player.AliVcMediaPlayer;
-import com.alivc.player.MediaPlayer;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.GlideLoader;
-import com.baselibrary.utils.ToastUtils;
-import com.tencent.liteav.basic.log.TXCLog;
 import com.tencent.rtmp.ITXLivePlayListener;
 import com.tencent.rtmp.ITXVodPlayListener;
 import com.tencent.rtmp.TXLiveConstants;
@@ -90,7 +85,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         binding.title.setText(dataBean.getTitle());
         binding.tvTitle.setText(dataBean.getTitle());
 //        binding.tvDesc.setText(dataBean.getDesc());
-//        binding.tvDesc.getSettings().setJavaScriptEnabled(true);//支持javascript
+        binding.tvDesc.getSettings().setJavaScriptEnabled(true);//支持javascript
         binding.tvDesc.setWebViewClient(new ArticleWebViewClient());
         binding.tvDesc.loadData(dataBean.getDesc(), "text/html; charset=UTF-8", "UTF-8");
         GlideLoader.LoderVideoImage(this, dataBean.getImg(), binding.thumbnails);

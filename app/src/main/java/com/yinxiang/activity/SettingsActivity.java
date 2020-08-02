@@ -37,7 +37,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         double fileSize = FileSizeUtil.getFileOrFilesSize(FileUtils.getPath(), 3);
         binding.tvFileSize.setText(fileSize + "MB");
-        if (getUserId(true)>0){
+        if (getUserId()>0){
             binding.logout.setVisibility(View.VISIBLE);
         }
     }

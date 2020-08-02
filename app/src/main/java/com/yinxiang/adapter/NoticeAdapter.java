@@ -34,6 +34,7 @@ public class NoticeAdapter extends BaseRecyclerAdapter<NoticeData.DataBeanX.Data
         if (mList != null && mList.size() > 0) {
             binding.tvTitle.setText(dataBean.getTitle());
 //            binding.tvDesc.setText(dataBean.getDesc());
+            binding.tvDesc.getSettings().setJavaScriptEnabled(true);//支持javascript
 //            binding.tvDesc.setWebViewClient(new ArticleWebViewClient());
             binding.tvDesc.loadData(dataBean.getDesc(), "text/html; charset=UTF-8", "UTF-8");
             binding.tvTime.setText(dataBean.getUpdated_at());

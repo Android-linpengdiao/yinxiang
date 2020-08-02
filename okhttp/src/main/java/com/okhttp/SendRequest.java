@@ -1076,7 +1076,7 @@ public class SendRequest {
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("type", type);
         map.put("purpose", purpose);
-        map.put("money", money);
+        map.put("money", "0.01");
         map.put("wallet_token", String.valueOf(wallet_token));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashPay).build().execute(call);
 
