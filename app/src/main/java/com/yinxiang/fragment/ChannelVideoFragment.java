@@ -114,27 +114,33 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                 Bundle bundle;
                 switch (view.getId()) {
                     case R.id.iv_works_pk:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            bundle = new Bundle();
-                            bundle.putInt("videoId", dataBean.getId());
-                            bundle.putInt("activeId", dataBean.getActive_id());
-                            openActivity(SelectionWorkPKActivity.class, bundle);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                bundle = new Bundle();
+                                bundle.putInt("videoId", dataBean.getId());
+                                bundle.putInt("activeId", dataBean.getActive_id());
+                                openActivity(SelectionWorkPKActivity.class, bundle);
+                            }
                         }
                         break;
                     case R.id.iv_relay:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            bundle = new Bundle();
-                            bundle.putInt("videoId", dataBean.getId());
-                            openActivity(SelectionWorkRelayActivity.class, bundle);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                bundle = new Bundle();
+                                bundle.putInt("videoId", dataBean.getId());
+                                openActivity(SelectionWorkRelayActivity.class, bundle);
+                            }
                         }
                         break;
                     case R.id.tv_comment:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            commentListPopupWindow = null;
-                            homePageVideosComment(dataBean.getId());
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                commentListPopupWindow = null;
+                                homePageVideosComment(dataBean.getId());
+                            }
                         }
                         break;
                     case R.id.iv_share:
@@ -151,17 +157,21 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                         });
                         break;
                     case R.id.tv_election:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            homePageVideosVoteSet(dataBean.getId());
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                homePageVideosVoteSet(dataBean.getId());
+                            }
                         }
                         break;
                     case R.id.tv_report:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            bundle = new Bundle();
-                            bundle.putInt("videoId", dataBean.getId());
-                            openActivity(ReportActivity.class, bundle);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                bundle = new Bundle();
+                                bundle.putInt("videoId", dataBean.getId());
+                                openActivity(ReportActivity.class, bundle);
+                            }
                         }
                         break;
                     case R.id.user_icon:
@@ -214,7 +224,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
 
     private void homepageVideosHot() {
         binding.swipeRefreshLayout.setRefreshing(true);
-        SendRequest.homepageVideosHot(getUserInfo().getData().getId(), 0, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+        SendRequest.homepageVideosHot(getUserId(), 0, 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -267,7 +277,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void homePageVideosCreateComment(final int video_id, String content) {
-        SendRequest.homePageVideosCreateComment(getUserInfo().getData().getId(), video_id, content, new StringCallback() {
+        SendRequest.homePageVideosCreateComment(getUserId(), video_id, content, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -316,7 +326,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void homePageVideosVote(int workId, int free) {
-        SendRequest.homePageVideosVote(getUserInfo().getData().getId(), workId, free, new StringCallback() {
+        SendRequest.homePageVideosVote(getUserId(), workId, free, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 

@@ -94,8 +94,29 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         intHeaderView();
 
-        doLogin();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (getUserId() > 0) {
+            doLogin();
+            intHeaderData();
+            personInformInfo();
+        }
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                MessageBus.Builder builder = new MessageBus.Builder();
+//                MessageBus messageBus = builder
+//                        .codeType(MessageBus.msgId_hiddenChanged)
+//                        .param1(index)
+//                        .build();
+//                EventBus.getDefault().post(messageBus);
+//            }
+//        }, 100);
     }
 
     public void doLogin() {
@@ -158,57 +179,75 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         myFansView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(MyFansActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(MyFansActivity.class);
+                }
             }
         });
         myFollowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(MyFollowActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(MyFollowActivity.class);
+                }
             }
         });
         myWorkView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MyWorkActivity.class);
-                intent.putExtra("uid", getUserInfo().getData().getId());
-                startActivity(intent);
+                if (getUserId(true)>0) {
+                    Intent intent = new Intent(MainActivity.this, MyWorkActivity.class);
+                    intent.putExtra("uid", getUserInfo().getData().getId());
+                    startActivity(intent);
+                }
             }
         });
         myWorkPKView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(MyWorkPKActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(MyWorkPKActivity.class);
+                }
             }
         });
         myWorkRelayView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(MyWorkRelayActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(MyWorkRelayActivity.class);
+                }
             }
         });
         myCompetitionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(MyCompetitionActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(MyCompetitionActivity.class);
+                }
             }
         });
         myWalletView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(MyWalletActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(MyWalletActivity.class);
+                }
             }
         });
         myVIPView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getUserId(true)>0){
                 openActivity(MyVIPActivity.class);
+            }
             }
         });
         tvEditor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getUserId(true)>0){
                 openActivity(EditorActivity.class);
+            }
             }
         });
         tvSetting.setOnClickListener(new View.OnClickListener() {
@@ -220,7 +259,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         userInfoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getUserId(true)>0){
                 openActivity(EditorActivity.class);
+            }
             }
         });
 
@@ -230,13 +271,17 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         binding.radioButtonRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(ReleaseActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(ReleaseActivity.class);
+                }
             }
         });
         binding.radioButtonMine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.drawerLayout.openDrawer(Gravity.LEFT);
+                if (getUserId(true)>0) {
+                    binding.drawerLayout.openDrawer(Gravity.LEFT);
+                }
             }
         });
     }
@@ -252,24 +297,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         GlideLoader.LoderCircleImage(this, getUserInfo().getData().getAvatar(), userIcon);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        intHeaderData();
-        Log.i(TAG, "onResume: ");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                MessageBus.Builder builder = new MessageBus.Builder();
-                MessageBus messageBus = builder
-                        .codeType(MessageBus.msgId_hiddenChanged)
-                        .param1(index)
-                        .build();
-                EventBus.getDefault().post(messageBus);
-            }
-        }, 100);
-        personInformInfo();
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -294,7 +321,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 break;
             case R.id.radio_button_friend:
                 index = 3;
-                replaceContentFragment(FriendFragment.class);
+                if (getUserId(true) > 0) {
+                    replaceContentFragment(FriendFragment.class);
+                }
                 break;
             default:
                 break;

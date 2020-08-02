@@ -105,7 +105,9 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.create_club_view:
-                openActivity(CreateClubActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(CreateClubActivity.class);
+                }
                 break;
         }
     }

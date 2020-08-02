@@ -6,9 +6,18 @@ import androidx.databinding.ViewDataBinding;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.baselibrary.Constants;
+import com.baselibrary.UserInfo;
+import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.MsgCache;
+import com.yinxiang.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +85,34 @@ public abstract class BaseRecyclerAdapter<T, B extends ViewDataBinding> extends 
     static class RecyclerHolder extends RecyclerView.ViewHolder {
         public RecyclerHolder(View itemView) {
             super(itemView);
+        }
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        MsgCache.get(mContext).put(Constants.USER_INFO, userInfo);
+    }
+
+    public UserInfo getUserInfo() {
+        UserInfo userinfo = (UserInfo) MsgCache.get(mContext).getAsObject(Constants.USER_INFO);
+        if (!CommonUtil.isBlank(userinfo)) {
+            return userinfo;
+        }
+        return new UserInfo();
+    }
+
+    public int getUserId() {
+        return getUserId(false);
+    }
+
+    public int getUserId(boolean login) {
+        if (getUserInfo().getData() != null) {
+            return getUserInfo().getData().getId();
+        } else {
+            if (login) {
+                Intent intent = new Intent(mContext, LoginActivity.class);
+                mContext.startActivity(intent);
+            }
+            return 0;
         }
     }
 

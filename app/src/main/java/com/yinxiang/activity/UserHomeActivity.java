@@ -91,7 +91,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void homePagePersonIsFollow() {
-        SendRequest.homePagePersonIsFollow(MyApplication.getInstance().getUserInfo().getData().getId(), uid, new StringCallback() {
+        SendRequest.homePagePersonIsFollow(getUserId(), uid, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -121,7 +121,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
 
     private void homePagePersonFollow() {
         String url = binding.tvIsFollow.isSelected() ? APIUrls.url_homePagePersonUnFollow : APIUrls.url_homePagePersonFollow;
-        SendRequest.homePagePersonFollow(MyApplication.getInstance().getUserInfo().getData().getId(), uid, url, new StringCallback() {
+        SendRequest.homePagePersonFollow(getUserInfo().getData().getId(), uid, url, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -199,15 +199,19 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.tv_startChat:
-                if (userInfo.getCode() == 200 && userInfo.getData() != null) {
-                    NimUIKit.startChatting(this,
-                            !CommonUtil.isBlank(userInfo.getData().getYunxin_accid()) ? userInfo.getData().getYunxin_accid() : userInfo.getData().getPhone(),
-                            SessionTypeEnum.P2P, getRobotCustomization(), null);
+                if (getUserId(true) > 0) {
+                    if (userInfo.getCode() == 200 && userInfo.getData() != null) {
+                        NimUIKit.startChatting(this,
+                                !CommonUtil.isBlank(userInfo.getData().getYunxin_accid()) ? userInfo.getData().getYunxin_accid() : userInfo.getData().getPhone(),
+                                SessionTypeEnum.P2P, getRobotCustomization(), null);
+                    }
                 }
                 break;
             case R.id.tv_is_follow:
                 if (!CommonUtil.isBlank(uid)) {
-                    homePagePersonFollow();
+                    if (getUserId(true) > 0) {
+                        homePagePersonFollow();
+                    }
                 }
                 break;
         }

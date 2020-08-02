@@ -118,27 +118,33 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                 Bundle bundle;
                 switch (view.getId()) {
                     case R.id.iv_works_pk:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            bundle = new Bundle();
-                            bundle.putInt("videoId", dataBean.getId());
-                            bundle.putInt("activeId", dataBean.getActive_id());
-                            openActivity(SelectionWorkPKActivity.class, bundle);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                bundle = new Bundle();
+                                bundle.putInt("videoId", dataBean.getId());
+                                bundle.putInt("activeId", dataBean.getActive_id());
+                                openActivity(SelectionWorkPKActivity.class, bundle);
+                            }
                         }
                         break;
                     case R.id.iv_relay:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            bundle = new Bundle();
-                            bundle.putInt("videoId", dataBean.getId());
-                            openActivity(SelectionWorkRelayActivity.class, bundle);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                bundle = new Bundle();
+                                bundle.putInt("videoId", dataBean.getId());
+                                openActivity(SelectionWorkRelayActivity.class, bundle);
+                            }
                         }
                         break;
                     case R.id.tv_comment:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            commentListPopupWindow = null;
-                            homePageVideosComment(dataBean.getId());
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                commentListPopupWindow = null;
+                                homePageVideosComment(dataBean.getId());
+                            }
                         }
                         break;
                     case R.id.iv_share:
@@ -155,17 +161,21 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         });
                         break;
                     case R.id.tv_election:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            homePageVideosVoteSet(dataBean.getId());
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                homePageVideosVoteSet(dataBean.getId());
+                            }
                         }
                         break;
                     case R.id.tv_report:
-                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
-                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
-                            bundle = new Bundle();
-                            bundle.putInt("videoId", dataBean.getId());
-                            openActivity(ReportActivity.class, bundle);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                                dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                                bundle = new Bundle();
+                                bundle.putInt("videoId", dataBean.getId());
+                                openActivity(ReportActivity.class, bundle);
+                            }
                         }
                         break;
                     case R.id.user_icon:
@@ -239,7 +249,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     private void homePageVideosActive(HomeActives.DataBean dataBean) {
         binding.swipeRefreshLayout.setRefreshing(true);
         HomeActivesDataBean = dataBean;
-        SendRequest.homePageVideosActive(getUserInfo().getData().getId(), dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
+        SendRequest.homePageVideosActive(getUserId(), dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -292,7 +302,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void homePageVideosCreateComment(final int video_id, String content) {
-        SendRequest.homePageVideosCreateComment(getUserInfo().getData().getId(), video_id, content, new StringCallback() {
+        SendRequest.homePageVideosCreateComment(getUserId(), video_id, content, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -341,7 +351,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void homePageVideosVote(int workId, int free) {
-        SendRequest.homePageVideosVote(getUserInfo().getData().getId(), workId, free, new StringCallback() {
+        SendRequest.homePageVideosVote(getUserId(), workId, free, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -398,7 +408,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 
     private void Election(final int workId, final String wallet_token, final String votes) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
-        electionPopupWindow.setWallet(wallet_token,votes);
+        electionPopupWindow.setWallet(wallet_token, votes);
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -407,7 +417,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         homePageVideosVote(workId, 1);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投"+votes+"票", "确认支付" + wallet_token + "金币为TA投"+votes+"票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投" + votes + "票", "确认支付" + wallet_token + "金币为TA投" + votes + "票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {

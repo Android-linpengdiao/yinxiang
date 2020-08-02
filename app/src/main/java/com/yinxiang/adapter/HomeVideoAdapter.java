@@ -78,13 +78,17 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    homePagePersonFollow(binding.tvFollow, dataBean);
+                    if (getUserId(true) > 0) {
+                        homePagePersonFollow(binding.tvFollow, dataBean);
+                    }
                 }
             });
             binding.tvLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    homePageVideosAssist(binding.tvLike, dataBean);
+                    if (getUserId(true) > 0) {
+                        homePageVideosAssist(binding.tvLike, dataBean);
+                    }
                 }
             });
             binding.userIcon.setOnClickListener(new View.OnClickListener() {
@@ -153,8 +157,10 @@ public class HomeVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBeanX.D
 
                 @Override
                 public void doubleClick(int w, int y) {
-                    if (!binding.tvLike.isSelected()) {
-                        homePageVideosAssist(binding.tvLike, dataBean);
+                    if (getUserId() > 0) {
+                        if (!binding.tvLike.isSelected()) {
+                            homePageVideosAssist(binding.tvLike, dataBean);
+                        }
                     }
                     int liveAnimateImgWidth = 180;
                     ImageView likeImg = new ImageView(mContext);

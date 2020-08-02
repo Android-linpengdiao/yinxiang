@@ -61,7 +61,7 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
         GlideLoader.LoderBlurImage(this, dataBean.getLogo(), binding.ivClubCover);
 
 
-        if (dataBean.getTourist_id() == getUserInfo().getData().getId()) {
+        if (dataBean.getTourist_id() == getUserId()) {
             initCreateView();
         } else {
             initMemberView();
@@ -131,10 +131,13 @@ public class ClubDetailActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.tv_confirm:
-                if (dataBean.getTourist_id() == getUserInfo().getData().getId()) {
+                if (dataBean.getTourist_id() == getUserId()) {
                     intent = new Intent(ClubDetailActivity.this, ClubDeleteActivity.class);
                     startActivity(intent);
                 } else {
+                    if (getUserId(true)==0){
+                        return;
+                    }
                     if (dataBean.getJoin() == 1) {
                         DialogManager.showPayDialog(ClubDetailActivity.this, "街舞艺术交流群·入团交费", "确认支付" + dataBean.getJoin_token() + "金币加入该社团?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override

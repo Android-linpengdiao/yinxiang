@@ -37,10 +37,13 @@ public class HomeHonorAdapter extends BaseRecyclerAdapter<HonourData.DataBeanX.D
             GlideLoader.LoderCircleImage(mContext, dataBean.getImg(), binding.cover);
             if (position == 0) {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num01));
+                binding.tvRank.setText("");
             } else if (position == 1) {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num02));
+                binding.tvRank.setText("");
             } else if (position == 2) {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.icon_num03));
+                binding.tvRank.setText("");
             } else {
                 binding.tvRank.setBackground(mContext.getResources().getDrawable(R.drawable.transparent));
                 binding.tvRank.setText("No." + (position + 1));

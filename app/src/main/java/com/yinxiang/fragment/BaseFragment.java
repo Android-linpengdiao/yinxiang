@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.view.Gravity;
 import android.view.View;
 
@@ -22,6 +24,7 @@ import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.yinxiang.R;
+import com.yinxiang.activity.LoginActivity;
 import com.yinxiang.manager.TencentHelper;
 import com.yinxiang.manager.WXManager;
 import com.yinxiang.model.VideosVoteSet;
@@ -164,6 +167,21 @@ public class BaseFragment extends Fragment {
             return userinfo;
         }
         return new UserInfo();
+    }
+
+    public int getUserId() {
+        return getUserId(false);
+    }
+
+    public int getUserId(boolean login) {
+        if (getUserInfo().getData() != null) {
+            return getUserInfo().getData().getId();
+        } else {
+            if (login) {
+                openActivity(LoginActivity.class);
+            }
+            return 0;
+        }
     }
 
     public VideosVoteSet getVideosVoteSet() {

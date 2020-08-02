@@ -111,30 +111,40 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
             case R.id.iv_works_tuiguan:
-                bundle = new Bundle();
-                bundle.putInt("videoId", workId);
-                openActivity(MyWorkTuiguangActivity.class, bundle);
+                if (getUserId(true) > 0) {
+                    bundle = new Bundle();
+                    bundle.putInt("videoId", workId);
+                    openActivity(MyWorkTuiguangActivity.class, bundle);
+                }
                 break;
             case R.id.iv_works_pk:
                 if (worksDetail != null) {
-                    bundle = new Bundle();
-                    bundle.putInt("videoId", workId);
-                    bundle.putInt("activeId", worksDetail.getData().getActive_id());
-                    openActivity(SelectionWorkPKActivity.class, bundle);
+                    if (getUserId(true) > 0) {
+                        bundle = new Bundle();
+                        bundle.putInt("videoId", workId);
+                        bundle.putInt("activeId", worksDetail.getData().getActive_id());
+                        openActivity(SelectionWorkPKActivity.class, bundle);
+                    }
                 }
                 break;
             case R.id.iv_relay:
-                bundle = new Bundle();
-                bundle.putInt("videoId", workId);
-                openActivity(SelectionWorkRelayActivity.class, bundle);
+                if (getUserId(true) > 0) {
+                    bundle = new Bundle();
+                    bundle.putInt("videoId", workId);
+                    openActivity(SelectionWorkRelayActivity.class, bundle);
+                }
                 break;
             case R.id.tv_like:
                 if (worksDetail != null) {
-                    videosAssist(binding.tvLike, workId);
+                    if (getUserId(true) > 0) {
+                        videosAssist(binding.tvLike, workId);
+                    }
                 }
                 break;
             case R.id.tv_comment:
-                videosComment(workId);
+                if (getUserId(true) > 0) {
+                    videosComment(workId);
+                }
                 break;
             case R.id.iv_share:
                 shareView(WorkDetailActivity.this, new OnClickListener() {
@@ -150,22 +160,30 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 });
                 break;
             case R.id.tv_election:
-                videosVoteSet(workId);
+                if (getUserId(true) > 0) {
+                    videosVoteSet(workId);
+                }
                 break;
             case R.id.user_icon:
-                Intent intent = new Intent(WorkDetailActivity.this, UserHomeActivity.class);
-                intent.putExtra("uid", worksDetail.getData().getTourist_id());
-                startActivity(intent);
+                if (getUserId(true) > 0) {
+                    Intent intent = new Intent(WorkDetailActivity.this, UserHomeActivity.class);
+                    intent.putExtra("uid", worksDetail.getData().getTourist_id());
+                    startActivity(intent);
+                }
                 break;
             case R.id.tv_follow:
                 if (worksDetail != null) {
-                    personFollow(binding.tvFollow, worksDetail.getData().getTourist().getId());
+                    if (getUserId(true) > 0) {
+                        personFollow(binding.tvFollow, worksDetail.getData().getTourist().getId());
+                    }
                 }
                 break;
             case R.id.tv_report:
-                bundle = new Bundle();
-                bundle.putInt("videoId", workId);
-                openActivity(ReportActivity.class, bundle);
+                if (getUserId(true) > 0) {
+                    bundle = new Bundle();
+                    bundle.putInt("videoId", workId);
+                    openActivity(ReportActivity.class, bundle);
+                }
                 break;
             case R.id.player_back:
                 finish();
@@ -208,7 +226,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
     private void initData() {
         if (getIntent().hasExtra("workId")) {
             workId = getIntent().getIntExtra("workId", 0);
-            SendRequest.worksDetail(getUserInfo().getData().getId(), workId, new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
+            SendRequest.worksDetail(getUserId(), workId, new GenericsCallback<WorksDetail>(new JsonGenericsSerializator()) {
                 @Override
                 public void onError(Call call, Exception e, int id) {
 
@@ -329,7 +347,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
     private void Election(final int workId, final String wallet_token, final String votes) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getApplication());
-        electionPopupWindow.setWallet(wallet_token,votes);
+        electionPopupWindow.setWallet(wallet_token, votes);
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -338,7 +356,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                         homePageVideosVote(workId, 1);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(WorkDetailActivity.this, "为TA投"+votes+"票", "确认支付" + wallet_token + "金币为TA投"+votes+"票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(WorkDetailActivity.this, "为TA投" + votes + "票", "确认支付" + wallet_token + "金币为TA投" + votes + "票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
@@ -445,12 +463,12 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         binding.tvLike.setSelected(dataBean.getData().isIs_assist());
         binding.tvLike.setText(dataBean.getData().getAssist_num() > 0 ? String.valueOf(dataBean.getData().getAssist_num()) : "赞");
 
-        binding.deleteView.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
-        binding.ivWorksTuiguan.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.VISIBLE : View.GONE);
+        binding.deleteView.setVisibility(dataBean.getData().getTourist_id() == getUserId() ? View.VISIBLE : View.GONE);
+        binding.ivWorksTuiguan.setVisibility(dataBean.getData().getTourist_id() == getUserId() ? View.VISIBLE : View.GONE);
         if (dataBean.getData().getActive_id() > 0) {
-            binding.ivWorksPk.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.GONE : View.VISIBLE);
+            binding.ivWorksPk.setVisibility(dataBean.getData().getTourist_id() == getUserId() ? View.GONE : View.VISIBLE);
         }
-        binding.ivRelay.setVisibility(dataBean.getData().getTourist_id() == getUserInfo().getData().getId() ? View.GONE : View.VISIBLE);
+        binding.ivRelay.setVisibility(dataBean.getData().getTourist_id() == getUserId() ? View.GONE : View.VISIBLE);
         binding.tvElection.setVisibility(dataBean.getData().getActive_id() > 0 ? View.VISIBLE : View.GONE);
 
         GlideLoader.LoderCircleImage(this, dataBean.getData().getTourist().getAvatar(), binding.userIcon);

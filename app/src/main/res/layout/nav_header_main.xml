@@ -38,7 +38,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="舞林至尊Jhon"
+                    android:text=""
                     android:textColor="#ff333333"
                     android:textSize="20sp" />
 
@@ -48,7 +48,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="海博号：64888863"
+                    android:text="海博号："
                     android:textColor="#ff333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -96,7 +96,7 @@
                 android:drawablePadding="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Lv.100"
+                android:text="Lv.0"
                 android:textColor="#ffffffff"
                 android:textSize="11sp" />
 

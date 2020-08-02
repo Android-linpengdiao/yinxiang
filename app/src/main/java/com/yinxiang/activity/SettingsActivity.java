@@ -37,6 +37,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         double fileSize = FileSizeUtil.getFileOrFilesSize(FileUtils.getPath(), 3);
         binding.tvFileSize.setText(fileSize + "MB");
+        if (getUserId(true)>0){
+            binding.logout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -52,7 +55,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.message:
-                openActivity(NoticeManageActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(NoticeManageActivity.class);
+                }
                 break;
             case R.id.consult:
                 openActivity(ConsultActivity.class);
@@ -64,7 +69,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 openActivity(AboutActivity.class);
                 break;
             case R.id.feedback:
-                openActivity(FeedbackActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(FeedbackActivity.class);
+                }
                 break;
             case R.id.clear:
 
@@ -85,7 +92,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 });
                 break;
             case R.id.password_manage:
-                openActivity(ResetPasswordActivity.class);
+                if (getUserId(true)>0) {
+                    openActivity(ResetPasswordActivity.class);
+                }
                 break;
             case R.id.logout:
                 DialogManager.showConfirmDialog(SettingsActivity.this, "确定要退出登录？", new DialogManager.Listener() {

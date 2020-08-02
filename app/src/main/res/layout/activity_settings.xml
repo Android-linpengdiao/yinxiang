@@ -315,7 +315,8 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/padding"
-            android:paddingRight="@dimen/padding">
+            android:paddingRight="@dimen/padding"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"

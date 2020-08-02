@@ -66,7 +66,7 @@ public class ChannelVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBean
             String time = CommonUtil.getDuration(mContext, dataBean.getCreated_at(), df.format(new Date()));
             binding.tvTime.setText("发布于" + time);
             binding.tvName.setText(dataBean.getName());
-            binding.tvFollow.setText(dataBean.isIs_person_follow()?"已关注":"关注");
+            binding.tvFollow.setText(dataBean.isIs_person_follow() ? "已关注" : "关注");
             binding.tvLike.setSelected(dataBean.isIs_assist());
             binding.tvLike.setText(dataBean.getAssist_num() > 0 ? String.valueOf(dataBean.getAssist_num()) : "赞");
             binding.tvElection.setText(String.valueOf(dataBean.getPre_votes()));
@@ -77,13 +77,17 @@ public class ChannelVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBean
             binding.tvFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    homePagePersonFollow(binding.tvFollow, dataBean);
+                    if (getUserId(true) > 0) {
+                        homePagePersonFollow(binding.tvFollow, dataBean);
+                    }
                 }
             });
             binding.tvLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    homePageVideosAssist(binding.tvLike, dataBean);
+                    if (getUserId(true) > 0) {
+                        homePageVideosAssist(binding.tvLike, dataBean);
+                    }
                 }
             });
             binding.userIcon.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +156,10 @@ public class ChannelVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBean
 
                 @Override
                 public void doubleClick(int w, int y) {
-                    if (!binding.tvLike.isSelected()) {
-                        homePageVideosAssist(binding.tvLike, dataBean);
+                    if (getUserId() > 0) {
+                        if (!binding.tvLike.isSelected()) {
+                            homePageVideosAssist(binding.tvLike, dataBean);
+                        }
                     }
                     int liveAnimateImgWidth = 180;
                     ImageView likeImg = new ImageView(mContext);
@@ -187,7 +193,7 @@ public class ChannelVideoAdapter extends BaseRecyclerAdapter<HomeVideos.DataBean
                         if (jsonObject.optInt("code") == 200) {
                             if (jsonObject.optInt("code") == 200) {
                                 tvFollow.setSelected(!tvFollow.isSelected());
-                                tvFollow.setText(tvFollow.isSelected()?"已关注":"关注");
+                                tvFollow.setText(tvFollow.isSelected() ? "已关注" : "关注");
                             } else {
                                 ToastUtils.showShort(mContext, jsonObject.optString("msg"));
                             }

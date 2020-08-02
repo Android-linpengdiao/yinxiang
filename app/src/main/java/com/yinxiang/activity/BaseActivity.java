@@ -174,6 +174,21 @@ public class BaseActivity extends AppCompatActivity {
         return new UserInfo();
     }
 
+    public int getUserId() {
+        return getUserId(false);
+    }
+
+    public int getUserId(boolean login) {
+        if (getUserInfo().getData() != null) {
+            return getUserInfo().getData().getId();
+        } else {
+            if (login) {
+                openActivity(LoginActivity.class);
+            }
+            return 0;
+        }
+    }
+
     public VideosVoteSet getVideosVoteSet() {
         VideosVoteSet videosVoteSet = (VideosVoteSet) MsgCache.get(this).getAsObject(Constants.VOTE_SET);
         if (!CommonUtil.isBlank(videosVoteSet)) {

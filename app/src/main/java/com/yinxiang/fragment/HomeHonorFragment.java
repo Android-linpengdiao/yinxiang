@@ -1,12 +1,16 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -115,7 +119,7 @@ public class HomeHonorFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void homePageVideosHonour(HomeActives.DataBean dataBean) {
-        if (dataBean==null){
+        if (dataBean == null) {
             return;
         }
         this.dataBean = dataBean;
@@ -169,8 +173,10 @@ public class HomeHonorFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.friend_view:
-                binding.ivFriend.setSelected(!binding.ivFriend.isSelected());
-                homePageVideosHonour(dataBean);
+                if (getUserId(true) > 0) {
+                    binding.ivFriend.setSelected(!binding.ivFriend.isSelected());
+                    homePageVideosHonour(dataBean);
+                }
                 break;
             case R.id.type:
                 typeView(homeActives);

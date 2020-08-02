@@ -2,12 +2,16 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,31 +104,39 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                 Intent intent;
                 switch (view.getId()) {
                     case R.id.workView:
-                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
-                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
-                            intent = new Intent(getActivity(), WorkDetailActivity.class);
-                            intent.putExtra("workId", dataBean.getContent_id());
-                            startActivity(intent);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                                WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                                intent = new Intent(getActivity(), WorkDetailActivity.class);
+                                intent.putExtra("workId", dataBean.getContent_id());
+                                startActivity(intent);
+                            }
                         }
                         break;
                     case R.id.compareWorkView:
-                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
-                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
-                            intent = new Intent(getActivity(), WorkDetailActivity.class);
-                            intent.putExtra("workId", dataBean.getCompare_content_id());
-                            startActivity(intent);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                                WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                                intent = new Intent(getActivity(), WorkDetailActivity.class);
+                                intent.putExtra("workId", dataBean.getCompare_content_id());
+                                startActivity(intent);
+                            }
                         }
                         break;
                     case R.id.work_vote:
-                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
-                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
-                            homePageVideosVoteSet(dataBean.getContent_id(), dataBean.getId(), 1);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                                WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                                homePageVideosVoteSet(dataBean.getContent_id(), dataBean.getId(), 1);
+                            }
                         }
                         break;
                     case R.id.compare_work_vote:
-                        if (object instanceof WorkPKData.DataBeanX.DataBean) {
-                            WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
-                            homePageVideosVoteSet(dataBean.getCompare_content_id(), dataBean.getId(), 2);
+                        if (getUserId(true) > 0) {
+                            if (object instanceof WorkPKData.DataBeanX.DataBean) {
+                                WorkPKData.DataBeanX.DataBean dataBean = (WorkPKData.DataBeanX.DataBean) object;
+                                homePageVideosVoteSet(dataBean.getCompare_content_id(), dataBean.getId(), 2);
+                            }
                         }
                         break;
                 }
@@ -166,7 +178,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void homePageVideosPK(HomeActives.DataBean dataBean) {
-        if (dataBean==null){
+        if (dataBean == null) {
             return;
         }
         activesDataBean = dataBean;
@@ -222,7 +234,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void homePageVideosPKVote(int videoId, int free, int compareId, int self) {
-        SendRequest.homePageVideosPKVote(getUserInfo().getData().getId(), videoId, free, compareId, self, new StringCallback() {
+        SendRequest.homePageVideosPKVote(getUserId(), videoId, free, compareId, self, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -239,7 +251,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                                 ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                                 if (worksDetail != null && worksDataBean != null) {
                                     worksDataBean.setVote_num(worksDataBean.getVote_num() + (free == 1 ? 1 : 3));
-                                    if (worksDetail.getData().getData().indexOf(worksDataBean)!=-1) {
+                                    if (worksDetail.getData().getData().indexOf(worksDataBean) != -1) {
                                         adapter.notifyItemInserted(worksDetail.getData().getData().indexOf(worksDataBean));
                                     }
                                 }
@@ -259,7 +271,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
 
     private void Election(final int id, final String wallet_token, final String votes, final int compareId, final int self) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
-        electionPopupWindow.setWallet(wallet_token,votes);
+        electionPopupWindow.setWallet(wallet_token, votes);
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -268,13 +280,13 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                         homePageVideosPKVote(id, 1, compareId, self);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投"+votes+"票", "确认支付" + wallet_token + "金币为TA投"+votes+"票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投" + votes + "票", "确认支付" + wallet_token + "金币为TA投" + votes + "票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
                                     case R.id.tv_confirm:
-                                        if (getUserInfo().getData().getWallet_token()<Integer.parseInt(wallet_token)){
-                                            ToastUtils.showShort(getActivity(),"你的余额不足");
+                                        if (getUserInfo().getData().getWallet_token() < Integer.parseInt(wallet_token)) {
+                                            ToastUtils.showShort(getActivity(), "你的余额不足");
                                             return;
                                         }
                                         homePageVideosPKVote(id, 2, compareId, self);
