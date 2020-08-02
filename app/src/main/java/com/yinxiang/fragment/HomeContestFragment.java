@@ -166,6 +166,9 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void homePageVideosPK(HomeActives.DataBean dataBean) {
+        if (dataBean==null){
+            return;
+        }
         activesDataBean = dataBean;
         binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.homePageVideosPK(dataBean.getId(), 10, new GenericsCallback<WorkPKData>(new JsonGenericsSerializator()) {
@@ -206,7 +209,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"), compareId, self);
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"), jsonObject.optJSONObject("data").optString("votes"), compareId, self);
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
                         }
@@ -233,7 +236,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                         if (jsonObject.optInt("code") == 200) {
                             personInformInfo();
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
-                                ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "一" : "三") + "票");
+                                ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                                 if (worksDetail != null && worksDataBean != null) {
                                     worksDataBean.setVote_num(worksDataBean.getVote_num() + (free == 1 ? 1 : 3));
                                     if (worksDetail.getData().getData().indexOf(worksDataBean)!=-1) {
@@ -241,7 +244,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                                     }
                                 }
                             } else {
-                                ToastUtils.showShort(getActivity(), "今日以为TA投" + (free == 1 ? "一" : "三") + "票，明日再来为TA投" + (free == 1 ? "一" : "三") + "票");
+                                ToastUtils.showShort(getActivity(), "今日以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票，明日再来为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                             }
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
@@ -254,8 +257,9 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void Election(final int id, final String wallet_token, final int compareId, final int self) {
+    private void Election(final int id, final String wallet_token, final String votes, final int compareId, final int self) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
+        electionPopupWindow.setWallet(wallet_token,votes);
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -264,7 +268,7 @@ public class HomeContestFragment extends BaseFragment implements View.OnClickLis
                         homePageVideosPKVote(id, 1, compareId, self);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投"+votes+"票", "确认支付" + wallet_token + "金币为TA投"+votes+"票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {

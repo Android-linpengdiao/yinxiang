@@ -32,17 +32,6 @@ public class GlideLoader {
                 .into(view);
     }
 
-    public static void LoderImageUrl(Context context, String url, ImageView view, int round) {
-        Glide.with(context)
-                .load(url)
-                .centerCrop()
-                .transform(new GlideRoundTransform(context, round))
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(view);
-    }
-
     public static void LoderVideoImage(Context context, String url, ImageView view) {
         Glide.with(context)
                 .load(domain + url)
@@ -74,16 +63,6 @@ public class GlideLoader {
                 .into(view);
     }
 
-    public static void LoderCircleImageUrl(Context context, String url, ImageView view) {
-        Glide.with(context)
-                .load(url)
-                .centerCrop()
-                .transform(new GlideRoundTransform(context, 100))
-                .placeholder(R.drawable.head)
-                .error(R.drawable.head)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(view);
-    }
 
     public static void LoderClipImage(Context context, String url, ImageView view) {
         Glide.with(context)

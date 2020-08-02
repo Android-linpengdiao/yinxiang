@@ -68,6 +68,17 @@
             android:padding="@dimen/padding">
 
             <TextView
+                android:id="@+id/releaseHintView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding"
+                android:gravity="center"
+                android:text="温馨提示：先去发布一个作品，再来接力吧"
+                android:textColor="#ff999999"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <TextView
                 android:id="@+id/tv_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

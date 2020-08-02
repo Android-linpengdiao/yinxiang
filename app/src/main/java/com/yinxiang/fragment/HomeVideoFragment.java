@@ -328,7 +328,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"));
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"), jsonObject.optJSONObject("data").optString("votes"));
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
                         }
@@ -355,7 +355,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         if (jsonObject.optInt("code") == 200) {
                             personInformInfo();
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
-                                ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "一" : "三") + "票");
+                                ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                                 if (homeVideos != null && dataBean != null) {
                                     dataBean.setPre_votes(dataBean.getPre_votes() + +(free == 1 ? 1 : 3));
                                     if (homeVideos.getData().getData().indexOf(dataBean) != -1) {
@@ -363,7 +363,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                                     }
                                 }
                             } else {
-                                ToastUtils.showShort(getActivity(), "今日以为TA投" + (free == 1 ? "一" : "三") + "票，明日再来为TA投" + (free == 1 ? "一" : "三") + "票");
+                                ToastUtils.showShort(getActivity(), "今日以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票，明日再来为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                             }
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
@@ -396,8 +396,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         typePopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
-    private void Election(final int workId, final String wallet_token) {
+    private void Election(final int workId, final String wallet_token, final String votes) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
+        electionPopupWindow.setWallet(wallet_token,votes);
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -406,7 +407,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         homePageVideosVote(workId, 1);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投"+votes+"票", "确认支付" + wallet_token + "金币为TA投"+votes+"票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {

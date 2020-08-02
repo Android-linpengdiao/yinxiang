@@ -315,7 +315,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"));
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"), jsonObject.optJSONObject("data").optString("votes"));
                         } else {
                             ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));
                         }
@@ -327,8 +327,9 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         });
     }
 
-    private void Election(final int workId, final String wallet_token) {
+    private void Election(final int workId, final String wallet_token, final String votes) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getApplication());
+        electionPopupWindow.setWallet(wallet_token,votes);
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -337,7 +338,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                         homePageVideosVote(workId, 1);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(WorkDetailActivity.this, "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(WorkDetailActivity.this, "为TA投"+votes+"票", "确认支付" + wallet_token + "金币为TA投"+votes+"票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
@@ -389,13 +390,13 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                         if (jsonObject.optInt("code") == 200) {
                             personInformInfo();
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
-                                ToastUtils.showShort(getApplication(), "以为TA投" + (free == 1 ? "一" : "三") + "票");
+                                ToastUtils.showShort(getApplication(), "以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                                 if (worksDetail != null) {
                                     worksDetail.getData().setPre_votes(worksDetail.getData().getPre_votes() + (free == 1 ? 1 : 3));
                                     binding.tvElection.setText(String.valueOf(worksDetail.getData().getPre_votes()));
                                 }
                             } else {
-                                ToastUtils.showShort(getApplication(), "今日以为TA投" + (free == 1 ? "一" : "三") + "票，明日再来为TA投" + (free == 1 ? "一" : "三") + "票");
+                                ToastUtils.showShort(getApplication(), "今日以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票，明日再来为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                             }
                         } else {
                             ToastUtils.showShort(getApplication(), jsonObject.optString("msg"));

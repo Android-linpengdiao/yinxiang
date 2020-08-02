@@ -31,6 +31,7 @@ import com.tencent.tauth.UiError;
 import com.yinxiang.R;
 import com.yinxiang.manager.TencentHelper;
 import com.yinxiang.manager.WXManager;
+import com.yinxiang.model.VideosVoteSet;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.SharePopupWindow;
 
@@ -171,6 +172,14 @@ public class BaseActivity extends AppCompatActivity {
             return userinfo;
         }
         return new UserInfo();
+    }
+
+    public VideosVoteSet getVideosVoteSet() {
+        VideosVoteSet videosVoteSet = (VideosVoteSet) MsgCache.get(this).getAsObject(Constants.VOTE_SET);
+        if (!CommonUtil.isBlank(videosVoteSet)) {
+            return videosVoteSet;
+        }
+        return new VideosVoteSet();
     }
 
     public <T extends ViewDataBinding> T getViewData(int layoutId) {

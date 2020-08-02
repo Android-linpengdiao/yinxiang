@@ -31,11 +31,13 @@ import com.yinxiang.R;
 import com.yinxiang.adapter.UserHomeWorkAdapter;
 import com.yinxiang.databinding.ActivityUserHomeBinding;
 import com.yinxiang.model.WorkData;
+import com.yinxiang.utils.DialogUtil;
 import com.yinxiang.view.GridItemDecoration;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import okhttp3.Call;
 
@@ -52,6 +54,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
 
         uid = getIntent().getIntExtra("uid", 0);
         binding.back.setOnClickListener(this);
+        binding.userIcon.setOnClickListener(this);
         binding.tvIsFollow.setOnClickListener(this);
 
         adapter = new UserHomeWorkAdapter(this);
@@ -177,6 +180,7 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
         binding.userAddr.setText(userInfo.getData().getAddr());
         binding.isVip.setVisibility(userInfo.getData().getIs_vip() == 1 ? View.VISIBLE : View.GONE);
         binding.userLevel.setText("Lv." + userInfo.getData().getLevel());
+        binding.creditView.setText("Lv." + userInfo.getData().getCredit());
         binding.fanNumber.setText(String.valueOf(userInfo.getData().getFan_number()));
         binding.followNumber.setText(String.valueOf(userInfo.getData().getFollow_number()));
         GlideLoader.LoderCircleImage(UserHomeActivity.this, userInfo.getData().getAvatar(), binding.userIcon);
@@ -189,10 +193,15 @@ public class UserHomeActivity extends BaseActivity implements View.OnClickListen
             case R.id.back:
                 finish();
                 break;
+            case R.id.user_icon:
+                if (userInfo.getCode() == 200 && userInfo.getData() != null) {
+                    DialogUtil.getInstance().showMoreImageView(UserHomeActivity.this, new ArrayList<>(Arrays.asList(userInfo.getData().getAvatar())), 0);
+                }
+                break;
             case R.id.tv_startChat:
                 if (userInfo.getCode() == 200 && userInfo.getData() != null) {
                     NimUIKit.startChatting(this,
-                            !CommonUtil.isBlank(userInfo.getData().getYunxin_accid())?userInfo.getData().getYunxin_accid():userInfo.getData().getPhone(),
+                            !CommonUtil.isBlank(userInfo.getData().getYunxin_accid()) ? userInfo.getData().getYunxin_accid() : userInfo.getData().getPhone(),
                             SessionTypeEnum.P2P, getRobotCustomization(), null);
                 }
                 break;

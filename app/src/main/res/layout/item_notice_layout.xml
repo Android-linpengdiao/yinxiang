@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -42,14 +43,23 @@
                 android:textColor="#ff333333"
                 android:textSize="16sp" />
 
-            <TextView
+<!--            <TextView-->
+<!--                android:id="@+id/tv_desc"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="本周日本平台将会举行视频大..."-->
+<!--                android:textColor="#ff999999"-->
+<!--                android:textSize="14sp" />-->
+
+            <WebView
                 android:id="@+id/tv_desc"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scrollbars="none"
                 android:layout_marginTop="10dp"
-                android:text="本周日本平台将会举行视频大..."
-                android:textColor="#ff999999"
-                android:textSize="14sp" />
+                android:overScrollMode="never"
+                tools:ignore="WebViewLayout" />
 
         </LinearLayout>
 

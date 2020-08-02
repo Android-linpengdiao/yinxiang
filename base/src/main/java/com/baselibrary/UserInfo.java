@@ -90,8 +90,17 @@ public class UserInfo implements Serializable {
         private int follow_number;
         private int level;
         private int age;
+        private int credit;
         private String yunxin_token;
         private String yunxin_accid;
+
+        public int getCredit() {
+            return credit;
+        }
+
+        public void setCredit(int credit) {
+            this.credit = credit;
+        }
 
         public int getId() {
             return id;

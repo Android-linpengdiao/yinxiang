@@ -2,10 +2,12 @@ package com.yinxiang.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
 
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -301,7 +303,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
-                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"));
+                            Election(workId, jsonObject.optJSONObject("data").optString("wallet_token"), jsonObject.optJSONObject("data").optString("votes"));
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
                         }
@@ -327,9 +329,9 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
-                                ToastUtils.showShort(getActivity(), "以为TA投一票");
+                                ToastUtils.showShort(getActivity(), "以为TA投1票");
                             } else {
-                                ToastUtils.showShort(getActivity(), "今日以为TA投一票，明日再来为TA投一票");
+                                ToastUtils.showShort(getActivity(), "今日以为TA投1票，明日再来为TA投1票");
                             }
                         } else {
                             ToastUtils.showShort(getActivity(), jsonObject.optString("msg"));
@@ -342,8 +344,9 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
         });
     }
 
-    private void Election(final int workId, final String wallet_token) {
+    private void Election(final int workId, final String wallet_token, final String votes) {
         ElectionPopupWindow electionPopupWindow = new ElectionPopupWindow(getActivity());
+        electionPopupWindow.setWallet(wallet_token, votes);
         electionPopupWindow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
@@ -352,7 +355,7 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
                         homePageVideosVote(workId, 1);
                         break;
                     case R.id.tv_election_coin:
-                        DialogManager.showPayDialog(getActivity(), "为TA投三票", "确认支付" + wallet_token + "金币为TA投三票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
+                        DialogManager.showPayDialog(getActivity(), "为TA投" + votes + "票", "确认支付" + wallet_token + "金币为TA投" + votes + "票?", String.valueOf(getUserInfo().getData().getWallet_token()), new com.baselibrary.view.OnClickListener() {
                             @Override
                             public void onClick(View view, Object object) {
                                 switch (view.getId()) {
@@ -639,8 +642,6 @@ public class ChannelVideoFragment extends BaseFragment implements View.OnClickLi
             imgPlay.animate().alpha(0.6f).start();
         }
     }
-
-
 
 
 //    private SurfaceView mSurfaceView;

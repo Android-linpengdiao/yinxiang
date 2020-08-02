@@ -7,9 +7,12 @@ import android.os.Environment;
 import android.text.TextUtils;
 
 import com.baselibrary.BaseApplication;
+import com.baselibrary.Constants;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.LogUtil;
 //import com.nim.NimApplication;
+import com.baselibrary.utils.MsgCache;
+import com.baselibrary.utils.ToastUtils;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.UIKitOptions;
 import com.netease.nim.uikit.business.contact.core.util.ContactHelper;
@@ -21,9 +24,16 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.nimlib.sdk.util.NIMUtil;
+import com.okhttp.SendRequest;
+import com.okhttp.callbacks.GenericsCallback;
+import com.okhttp.callbacks.StringCallback;
+import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.okhttp.utils.HttpsUtils;
 import com.okhttp.utils.OkHttpUtils;
 import com.yinxiang.activity.MainActivity;
+import com.yinxiang.model.VideosVoteSet;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +41,7 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -72,6 +83,8 @@ public class MyApplication extends BaseApplication {
             // 初始化UIKit模块
             initUIKit();
         }
+
+        homePageVideosVoteSet();
     }
 
     private void initUIKit() {
@@ -181,5 +194,21 @@ public class MyApplication extends BaseApplication {
         }
 
         return storageRootPath;
+    }
+
+    private void homePageVideosVoteSet() {
+        SendRequest.homePageVideosVoteSet(new GenericsCallback<VideosVoteSet>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(VideosVoteSet response, int id) {
+                if (response.getCode()==200) {
+                    MsgCache.get(getInstance()).put(Constants.VOTE_SET, response);
+                }
+            }
+        });
     }
 }

@@ -37,7 +37,7 @@ public class LikeAdapter extends BaseRecyclerAdapter<MessageData.DataBeanX.DataB
             binding.tvTime.setText(dataBean.getUpdated_at());
             binding.tvTitle.setText(dataBean.getTourist().getName());
             GlideLoader.LoderCircleImage(mContext, !CommonUtil.isBlank(dataBean.getTourist()) ? dataBean.getTourist().getAvatar() : "", binding.userIcon);
-            GlideLoader.LoderImageUrl(mContext, !CommonUtil.isBlank(dataBean.getContent()) ? dataBean.getContent().getImg() : "", binding.cover, 2);
+            GlideLoader.LoderImage(mContext, !CommonUtil.isBlank(dataBean.getContent()) ? dataBean.getContent().getImg() : "", binding.cover, 2);
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

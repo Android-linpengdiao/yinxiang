@@ -115,6 +115,9 @@ public class HomeHonorFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void homePageVideosHonour(HomeActives.DataBean dataBean) {
+        if (dataBean==null){
+            return;
+        }
         this.dataBean = dataBean;
         binding.swipeRefreshLayout.setRefreshing(true);
         SendRequest.homePageVideosHonour(binding.ivFriend.isSelected() ? getUserInfo().getData().getId() : 0, dataBean.getId(), 10, new GenericsCallback<HonourData>(new JsonGenericsSerializator()) {

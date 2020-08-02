@@ -130,6 +130,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void intHeaderView() {
         binding.navView.setNavigationItemSelectedListener(this);
         View headerView = binding.navView.getHeaderView(0);
+        View userInfoView = headerView.findViewById(R.id.userInfoView);
         userIcon = headerView.findViewById(R.id.user_icon);
         userName = headerView.findViewById(R.id.user_name);
         userTouristId = headerView.findViewById(R.id.user_tourist_id);
@@ -214,6 +215,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             @Override
             public void onClick(View v) {
                 openActivity(SettingsActivity.class);
+            }
+        });
+        userInfoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(EditorActivity.class);
             }
         });
 

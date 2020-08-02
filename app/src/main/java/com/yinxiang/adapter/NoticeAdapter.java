@@ -2,8 +2,11 @@ package com.yinxiang.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.yinxiang.R;
+import com.yinxiang.activity.CompetitionDetailActivity;
 import com.yinxiang.databinding.ItemNoticeLayoutBinding;
 import com.yinxiang.model.NoticeData;
 import com.yinxiang.view.OnClickListener;
@@ -30,7 +33,9 @@ public class NoticeAdapter extends BaseRecyclerAdapter<NoticeData.DataBeanX.Data
     protected void onBindItem(final ItemNoticeLayoutBinding binding, final NoticeData.DataBeanX.DataBean dataBean, final int position) {
         if (mList != null && mList.size() > 0) {
             binding.tvTitle.setText(dataBean.getTitle());
-            binding.tvDesc.setText(dataBean.getDesc());
+//            binding.tvDesc.setText(dataBean.getDesc());
+//            binding.tvDesc.setWebViewClient(new ArticleWebViewClient());
+            binding.tvDesc.loadData(dataBean.getDesc(), "text/html; charset=UTF-8", "UTF-8");
             binding.tvTime.setText(dataBean.getUpdated_at());
             binding.viewLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,4 +48,5 @@ public class NoticeAdapter extends BaseRecyclerAdapter<NoticeData.DataBeanX.Data
         }
 
     }
+
 }

@@ -32,6 +32,7 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
     private ActivitySelectionWorkRelayBinding binding;
     private SelectionWorkRelayAdapter workAdapter;
     private int videoId;
+    private WorkData workData;
     private WorkData.DataBeanX.DataBean dataBean;
 
     @Override
@@ -73,8 +74,13 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
                 initData();
             }
         });
-        initData();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
     }
 
     public void onClick(View v) {
@@ -83,10 +89,14 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
                 finish();
                 break;
             case R.id.tv_confirm:
-                if (dataBean != null) {
-                    homePageVideosRelay(dataBean.getId(), videoId);
+                if (workData.getData() != null && workData.getData().getData() != null && workData.getData().getData().size() > 0) {
+                    if (dataBean != null) {
+                        homePageVideosRelay(dataBean.getId(), videoId);
+                    } else {
+                        ToastUtils.showShort(SelectionWorkRelayActivity.this, "请选择你的作品");
+                    }
                 } else {
-                    ToastUtils.showShort(SelectionWorkRelayActivity.this, "请选择你的作品");
+                    openActivity(ReleaseActivity.class);
                 }
                 break;
         }
@@ -104,7 +114,10 @@ public class SelectionWorkRelayActivity extends BaseActivity implements View.OnC
             public void onResponse(WorkData response, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);
                 if (response.getCode() == 200 && response.getData() != null && response.getData().getData() != null) {
+                    workData = response;
                     workAdapter.refreshData(response.getData().getData());
+                    binding.tvConfirm.setText(response.getData().getData().size() > 0 ? "开始接力" : "发布作品");
+                    binding.releaseHintView.setVisibility(response.getData().getData().size() > 0 ? View.GONE : View.VISIBLE);
                 } else {
                     ToastUtils.showShort(SelectionWorkRelayActivity.this, response.getMsg());
                 }

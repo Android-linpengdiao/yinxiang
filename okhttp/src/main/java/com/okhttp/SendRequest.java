@@ -298,15 +298,16 @@ public class SendRequest {
      *
      * @param tourist_id
      * @param video_id
-     * @param type       类型 1涉黄 2涉爆 3涉及反动言论 4其他
+     * @param img        类型 1涉黄 2涉爆 3涉及反动言论 4其他
      * @param body
      * @param call
      */
-    public static void homePageVideosReport(int tourist_id, int video_id, int type, String body, Callback call) {
+    public static void homePageVideosReport(int tourist_id, int video_id, String img, String body, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("video_id", String.valueOf(video_id));
-        map.put("type", String.valueOf(type));
+        map.put("img", img);
+        map.put("type", "4");
         map.put("body", body);
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_homePageVideosReport).build().execute(call);
 
@@ -1075,7 +1076,7 @@ public class SendRequest {
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("type", type);
         map.put("purpose", purpose);
-        map.put("money", "0.01");
+        map.put("money", money);
         map.put("wallet_token", String.valueOf(wallet_token));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashPay).build().execute(call);
 

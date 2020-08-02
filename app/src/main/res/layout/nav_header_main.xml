@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/userInfoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -95,7 +96,7 @@
                 android:drawablePadding="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Lv.1"
+                android:text="Lv.100"
                 android:textColor="#ffffffff"
                 android:textSize="11sp" />
 

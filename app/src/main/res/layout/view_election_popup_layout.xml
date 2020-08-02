@@ -67,7 +67,7 @@
                         android:layout_width="83dp"
                         android:layout_height="35dp"
                         android:gravity="center"
-                        android:text="投一票"
+                        android:text="投1票"
                         android:textColor="#fffafafa"
                         android:background="@drawable/button_radius_red"
                         android:textSize="13sp" />
@@ -97,12 +97,13 @@
                         android:layout_width="83dp"
                         android:layout_height="35dp"
                         android:gravity="center"
-                        android:text="投三票"
+                        android:text="投3票"
                         android:textColor="#fffafafa"
                         android:background="@drawable/button_radius_blue"
                         android:textSize="13sp" />
 
                     <TextView
+                        android:id="@+id/tv_election_coin_votes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="消耗10金币"

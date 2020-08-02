@@ -61,7 +61,8 @@
                     android:gravity="center"
                     android:text="最新"
                     android:textColor="#ff70eddc"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
