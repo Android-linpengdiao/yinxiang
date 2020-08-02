@@ -6,13 +6,12 @@ import android.content.pm.ActivityInfo;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -85,9 +84,33 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         binding.title.setText(dataBean.getTitle());
         binding.tvTitle.setText(dataBean.getTitle());
 //        binding.tvDesc.setText(dataBean.getDesc());
-        binding.tvDesc.getSettings().setJavaScriptEnabled(true);//支持javascript
-        binding.tvDesc.setWebViewClient(new ArticleWebViewClient());
-        binding.tvDesc.loadData(dataBean.getDesc(), "text/html; charset=UTF-8", "UTF-8");
+//        binding.webView.getSettings().setJavaScriptEnabled(true);
+//        binding.webView.getSettings().setSupportZoom(true);
+//        binding.webView.getSettings().setBuiltInZoomControls(true);
+//        binding.webView.setWebViewClient(new ArticleWebViewClient());
+//        binding.webView.setWebViewClient(new WebViewClient() {
+//
+//            @Override
+//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                super.onPageStarted(view, url, favicon);
+//
+//
+//
+//            }
+//
+//
+//
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                view.loadUrl(url);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//            }
+//        });
+//        binding.webView.loadData(dataBean.getDesc(), "text/html; charset=UTF-8", "UTF-8");
         GlideLoader.LoderVideoImage(this, dataBean.getImg(), binding.thumbnails);
         binding.progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -131,35 +154,35 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    private class ArticleWebViewClient extends WebViewClient {
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            //重置webview中img标签的图片大小
-//            imgReset();
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    }
-
-    /**
-     * 对图片进行重置大小，宽度就是手机屏幕宽度，高度根据宽度比便自动缩放
-     **/
-    private void imgReset() {
-        binding.tvDesc.loadUrl("javascript:(function(){" +
-                "var objs = document.getElementsByTagName('img'); " +
-                "for(var i=0;i<objs.length;i++)  " +
-                "{"
-                + "var img = objs[i];   " +
-                "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
-                "}" +
-                "})()");
-    }
+//    private class ArticleWebViewClient extends WebViewClient {
+//
+//        @Override
+//        public void onPageFinished(WebView view, String url) {
+//            super.onPageFinished(view, url);
+//            //重置webview中img标签的图片大小
+////            imgReset();
+//        }
+//
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//            view.loadUrl(url);
+//            return true;
+//        }
+//    }
+//
+//    /**
+//     * 对图片进行重置大小，宽度就是手机屏幕宽度，高度根据宽度比便自动缩放
+//     **/
+//    private void imgReset() {
+//        binding.webView.loadUrl("javascript:(function(){" +
+//                "var objs = document.getElementsByTagName('img'); " +
+//                "for(var i=0;i<objs.length;i++)  " +
+//                "{"
+//                + "var img = objs[i];   " +
+//                "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
+//                "}" +
+//                "})()");
+//    }
 
     @Override
     protected void onResume() {

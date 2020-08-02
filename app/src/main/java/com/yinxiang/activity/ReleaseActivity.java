@@ -74,7 +74,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         binding.tvAssociation.setOnClickListener(this);
         binding.tvConfirm.setOnClickListener(this);
 
-        if (getUserInfo().getData().getIs_vip() == 2) {
+        if (getUserInfo().getData().getIs_vip() == 1) {
             maxTime = 180;
         } else {
             maxTime = 15;
@@ -198,7 +198,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                         }
                         homeDataBean = (HomeActives.DataBean) data.getSerializableExtra("homeActives");
                         if (homeDataBean != null) {
-                            if (getUserInfo().getData().getIs_vip() == 2) {
+                            if (getUserInfo().getData().getIs_vip() == 1) {
                                 maxTime = 300;
                             } else {
                                 maxTime = 180;
@@ -223,6 +223,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
     private void openMedia() {
         Intent intent = new Intent(ReleaseActivity.this, MediaActivity.class);
         intent.putExtra("type", ImageModel.TYPE_VIDEO);
+        intent.putExtra("maxTime", maxTime);
         startActivityForResult(intent, REQUEST_VIDEO);
     }
 

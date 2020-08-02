@@ -43,23 +43,23 @@
                 android:textColor="#ff333333"
                 android:textSize="16sp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_desc"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:text="本周日本平台将会举行视频大..."-->
-<!--                android:textColor="#ff999999"-->
-<!--                android:textSize="14sp" />-->
-
-            <WebView
+            <TextView
                 android:id="@+id/tv_desc"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
                 android:layout_marginTop="10dp"
-                android:overScrollMode="never"
-                tools:ignore="WebViewLayout" />
+                android:text=""
+                android:textColor="#ff999999"
+                android:textSize="14sp" />
+
+<!--            <WebView-->
+<!--                android:id="@+id/tv_desc"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:scrollbars="none"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:overScrollMode="never"-->
+<!--                tools:ignore="WebViewLayout" />-->
 
         </LinearLayout>
 

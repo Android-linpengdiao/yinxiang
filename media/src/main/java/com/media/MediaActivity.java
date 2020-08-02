@@ -97,6 +97,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private int maxstr = 9;
     private int count = 0;
     private int number = 9;
+    private int maxTime = 15;
     private String type = ImageModel.TYPE_IMAGE;
     private String fileType = ImageModel.TYPE_IMAGE;
 
@@ -118,6 +119,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
         type = getIntent().getStringExtra("type");
         number = getIntent().getIntExtra("number", 9);
+        maxTime = getIntent().getIntExtra("maxTime", 15);
 
 
         mImageWork = new ImageWork(this);
@@ -393,8 +395,8 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                     if (ImgSize <= 0) {
                         ToastUtils.showShort(getApplication(), "视频已损坏");
                         return;
-                    } else if (itemImageList.get(i).duration > 60 * 1000) {
-                        ToastUtils.showShort(getApplication(), "视频时长不能大于60s");
+                    } else if (itemImageList.get(i).duration > maxTime * 1000) {
+                        ToastUtils.showShort(getApplication(), "视频时长不能大于"+maxTime+"s");
                         return;
                     }
                 }
