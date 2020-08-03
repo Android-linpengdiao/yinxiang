@@ -139,7 +139,7 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void getWorkMessage() {
-        SendRequest.friendRead(getUserInfo().getData().getId(), new GenericsCallback<FriendRead>(new JsonGenericsSerializator()) {
+        SendRequest.friendRead(getUserId(), new GenericsCallback<FriendRead>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
 

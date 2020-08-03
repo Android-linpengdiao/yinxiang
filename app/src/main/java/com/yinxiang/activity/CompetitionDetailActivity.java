@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +86,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
     private void initView() {
         binding.title.setText(dataBean.getTitle());
         binding.tvTitle.setText(dataBean.getTitle());
-//        binding.tvDesc.setText(dataBean.getDesc());
+        binding.tvDesc.setText(Html.fromHtml(dataBean.getDesc()));
 //        binding.webView.getSettings().setJavaScriptEnabled(true);
 //        binding.webView.getSettings().setSupportZoom(true);
 //        binding.webView.getSettings().setBuiltInZoomControls(true);
