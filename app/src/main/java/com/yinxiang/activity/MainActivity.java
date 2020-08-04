@@ -26,6 +26,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -45,6 +46,7 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.utils.OkHttpUtils;
+import com.umeng.analytics.MobclickAgent;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityMainBinding;
 import com.yinxiang.fragment.ChannelFragment;
@@ -88,6 +90,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         addActivity(this);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, binding.drawerLayout, null, R.string.app_name, R.string.app_name);
@@ -101,6 +104,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
 
         if (getUserId() > 0) {
             doLogin();
@@ -121,6 +125,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //                EventBus.getDefault().post(messageBus);
 //            }
 //        }, 100);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     public void doLogin() {

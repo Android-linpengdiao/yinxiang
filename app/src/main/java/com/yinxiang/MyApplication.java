@@ -30,8 +30,10 @@ import com.okhttp.callbacks.StringCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.okhttp.utils.HttpsUtils;
 import com.okhttp.utils.OkHttpUtils;
+import com.umeng.commonsdk.UMConfigure;
 import com.yinxiang.activity.MainActivity;
 import com.yinxiang.model.VideosVoteSet;
+import com.yinxiang.utils.Config;
 
 import org.json.JSONObject;
 
@@ -70,6 +72,11 @@ public class MyApplication extends BaseApplication {
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                 .build();
         OkHttpUtils.initClient(okHttpClient);
+
+        //初始化组件化基础库, 所有友盟业务SDK都必须调用此初始化接口。
+        //建议在宿主App的Application.onCreate函数中调用基础组件库初始化函数。
+        UMConfigure.init(this, "5f28b3c4b4b08b653e90ecbf", "yinxiang", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.setLogEnabled(true);
 
         // SDK初始化（启动后台服务，若已经存在用户登录信息， SDK 将完成自动登录）
         NIMClient.init(this, loginInfo(), options());

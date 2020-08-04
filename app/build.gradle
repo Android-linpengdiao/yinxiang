@@ -83,6 +83,9 @@ dependencies {
     implementation 'com.tencent.liteav:LiteAVSDK_Player:latest.release'
     implementation 'com.aliyun.video.android:upload:1.6.0'
 
-//    implementation 'com.aliyun.sdk.android:AliyunPlayer:4.5.0-full'
-//    implementation 'com.alivc.conan:AlivcConan:0.9.5'
+
+    // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
+    implementation 'com.umeng.umsdk:common:2.1.0' // 下面各SDK根据宿主App是否使用相关业务按需引入。
+    // 友盟统计SDK
+    implementation 'com.umeng.umsdk:analytics:8.1.3'
 }

@@ -127,10 +127,6 @@
             android:name="com.netease.nim.appKey"
             android:value="42a6a3e47150ed9a694db39790b2c315" />
 
-        <meta-data
-            android:name="android.webkit.WebView.EnableSafeBrowsing"
-            android:value="true" />
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
