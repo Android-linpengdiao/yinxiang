@@ -1,6 +1,7 @@
 package com.yinxiang.activity;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -46,6 +47,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarDarkTheme(true);
+        disableAutoFill();
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private void disableAutoFill() {
+        getWindow().getDecorView().setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
     }
 
     public void setStatusBarDarkTheme(boolean dark) {
@@ -149,7 +156,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void completeRead(int type) {
-        SendRequest.completeRead(getUserInfo().getData().getId(),type, new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
+        SendRequest.completeRead(getUserInfo().getData().getId(), type, new GenericsCallback<UserInfo>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
             }

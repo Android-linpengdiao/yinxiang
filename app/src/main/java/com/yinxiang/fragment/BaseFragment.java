@@ -1,6 +1,7 @@
 package com.yinxiang.fragment;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,6 +39,12 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        disableAutoFill();
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private void disableAutoFill() {
+        getActivity().getWindow().getDecorView().setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
     }
 
     public void setStatusBarDarkTheme(boolean dark) {
