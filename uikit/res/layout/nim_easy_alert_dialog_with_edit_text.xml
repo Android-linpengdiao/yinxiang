@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:gravity="bottom"
             android:includeFontPadding="false"
+            android:importantForAutofill="no"
             android:maxLines="4"
             android:textColor="@color/color_black_333333"
             android:textSize="@dimen/normal_text_size" />

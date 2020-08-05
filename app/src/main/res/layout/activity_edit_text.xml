@@ -46,6 +46,7 @@
             android:padding="@dimen/padding"
             android:textColor="#333333"
             android:textColorHint="#ff999999"
+            android:importantForAutofill="no"
             android:textSize="17sp" />
 
         <View

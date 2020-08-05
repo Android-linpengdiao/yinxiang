@@ -36,6 +36,7 @@
         android:layout_marginRight="10dip"
         android:layout_marginTop="16dip"
         android:hint="@string/team_nickname"
+        android:importantForAutofill="no"
         android:imeOptions="actionDone" />
 
 </LinearLayout>

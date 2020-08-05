@@ -42,6 +42,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/nim_gray_edit_text_bg"
+                android:importantForAutofill="no"
                 android:hint="@string/team_name"
                 android:padding="10dp" />
 
@@ -52,6 +53,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/nim_gray_edit_text_bg"
+                android:importantForAutofill="no"
                 android:hint="@string/team_introduce"
                 android:padding="10dp" />
 

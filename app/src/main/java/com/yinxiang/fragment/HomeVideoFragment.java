@@ -27,6 +27,7 @@ import com.baselibrary.MessageBus;
 import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.FileUtils;
+import com.baselibrary.utils.SharedPreferencesUtils;
 import com.baselibrary.utils.ToastUtils;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
@@ -249,6 +250,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
     private void homePageVideosActive(HomeActives.DataBean dataBean) {
         binding.swipeRefreshLayout.setRefreshing(true);
         HomeActivesDataBean = dataBean;
+        SharedPreferencesUtils.getInstance().setActivityId(dataBean.getId());
         SendRequest.homePageVideosActive(getUserId(), dataBean.getId(), 10, new GenericsCallback<HomeVideos>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {

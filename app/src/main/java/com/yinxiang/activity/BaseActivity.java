@@ -47,12 +47,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarDarkTheme(true);
-        disableAutoFill();
-    }
-
-    @TargetApi(Build.VERSION_CODES.O)
-    private void disableAutoFill() {
-        getWindow().getDecorView().setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
     }
 
     public void setStatusBarDarkTheme(boolean dark) {

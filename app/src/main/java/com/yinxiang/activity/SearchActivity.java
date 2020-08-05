@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.utils.SharedPreferencesUtils;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
@@ -153,7 +154,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void searchWork(String content) {
-        SendRequest.homePageVideosSearch(2, content, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
+        SendRequest.homePageVideosSearch(SharedPreferencesUtils.getInstance().getActivityId(), content, 10, new GenericsCallback<WorkData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
             }

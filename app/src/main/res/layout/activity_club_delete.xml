@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_white"
             android:gravity="left"
+            android:importantForAutofill="no"
             android:hint="请输入解散理由"
             android:minHeight="170dp"
             android:padding="@dimen/padding"

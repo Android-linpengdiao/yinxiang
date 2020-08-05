@@ -31,6 +31,7 @@
         android:layout_marginLeft="11dp"
         android:layout_marginRight="11dp"
         android:layout_marginTop="25dp"
+        android:importantForAutofill="no"
         android:padding="5dp"
         android:background="@drawable/nim_blue_edit_text_bg"
         android:hint="@string/team_announce_title" />
@@ -42,6 +43,7 @@
         android:layout_marginLeft="11dp"
         android:layout_marginRight="11dp"
         android:layout_marginTop="25dp"
+        android:importantForAutofill="no"
         android:padding="5dp"
         android:background="@drawable/nim_blue_edit_text_bg"
         android:hint="@string/team_announce_content" />

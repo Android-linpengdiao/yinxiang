@@ -135,6 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/button_white"
+                    android:importantForAutofill="no"
                     android:gravity="left"
                     android:hint="请描述一下你的视频"
                     android:minHeight="86dp"

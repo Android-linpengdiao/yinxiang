@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
+        android:importantForAutofill="no"
         android:layout_marginTop="16dip"
         android:hint="@string/team_settings_set_name"
         android:imeOptions="actionDone" />
