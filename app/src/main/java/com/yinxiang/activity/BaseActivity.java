@@ -71,7 +71,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public SharePopupWindow shareView(final Activity activity, final OnClickListener onClickListener) {
+    public SharePopupWindow shareView(final Activity activity, String url, String title, String desc, final OnClickListener onClickListener) {
         SharePopupWindow sharePopupWindow = new SharePopupWindow(activity);
         sharePopupWindow.setOnClickListener(new OnClickListener() {
 
@@ -80,15 +80,15 @@ public class BaseActivity extends AppCompatActivity {
                 switch (view.getId()) {
                     case R.id.shareWx:
                         // scene 0代表好友   1代表朋友圈
-                        WXManager.send(activity, 0);
+                        WXManager.send(activity, url, title, desc, 0);
 
                         break;
                     case R.id.shareWxMoment:
-                        WXManager.send(activity, 1);
+                        WXManager.send(activity, url, title, desc, 1);
 
                         break;
                     case R.id.shareQQ:
-                        TencentHelper.shareToQQ(activity, "https://www.baidu.com/", "title", "desc", null, new IUiListener() {
+                        TencentHelper.shareToQQ(activity, url, title, desc, null, new IUiListener() {
                             @Override
                             public void onComplete(Object o) {
                             }

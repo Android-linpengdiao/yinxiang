@@ -612,7 +612,7 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
         mVodPlayer.setPlayerView(binding.videoView);
         mVodPlayer.setAutoPlay(true);
         mVodPlayer.setLoop(true);
-        mVodPlayer.enableHardwareDecode(false); // 是否使用硬解码
+        mVodPlayer.enableHardwareDecode(true); // 是否使用硬解码
         mVodPlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);// player 渲染角度
         mVodPlayer.setRenderMode(TXLiveConstants.RENDER_MODE_ADJUST_RESOLUTION);//player 渲染模式
         int result = mVodPlayer.startPlay(videoUrl); // result返回值：0 success;  -1 empty url; -2 invalid url; -3 invalid playType;

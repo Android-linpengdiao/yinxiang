@@ -192,7 +192,7 @@ public class TencentHelper {
             bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, imageUrl);
         }else {
             Resources res = MyApplication.getInstance().getResources();
-            Bitmap bitmap = BitmapFactory.decodeResource(res, R.mipmap.ic_media_play);
+            Bitmap bitmap = BitmapFactory.decodeResource(res, R.mipmap.icon_app);
             String sharePath = FileUtils.saveBitmap(bitmap);
             bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, sharePath);
         }

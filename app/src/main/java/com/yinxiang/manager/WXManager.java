@@ -167,11 +167,11 @@ public class WXManager {
         sp.edit().clear().apply();
     }
 
-    public static void send(Activity activity, int scene) {
+    public static void send(Activity activity,String url,String title, String desc, int scene) {
         ShareWechatTask asyncTask = new ShareWechatTask(activity);
         IWXAPI iwxapi = WXAPIFactory.createWXAPI(activity.getApplicationContext(), Config.WECHAT_APP_ID, false);
         iwxapi.registerApp(Config.WECHAT_APP_ID);
-        ShareEntity shareEntity = new ShareEntity("https://www.baidu.com/", "title", "desc","");
+        ShareEntity shareEntity = new ShareEntity(url, title, desc,"");
         if (iwxapi.isWXAppInstalled()) {
             if (scene == SendMessageToWX.Req.WXSceneTimeline) {
                 if (iwxapi.getWXAppSupportAPI() >= 0x21020001) {

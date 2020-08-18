@@ -149,17 +149,20 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                         }
                         break;
                     case R.id.iv_share:
-                        shareView(getActivity(), new OnClickListener() {
-                            @Override
-                            public void onClick(View view, Object object) {
+                        if (object instanceof HomeVideos.DataBeanX.DataBean) {
+                            dataBean = (HomeVideos.DataBeanX.DataBean) object;
+                            shareView(getActivity(),dataBean.getVideo(),dataBean.getName(),dataBean.getName(), new OnClickListener() {
+                                @Override
+                                public void onClick(View view, Object object) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onLongClick(View view, Object object) {
+                                @Override
+                                public void onLongClick(View view, Object object) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
                         break;
                     case R.id.tv_election:
                         if (getUserId(true) > 0) {
@@ -663,7 +666,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         mVodPlayer.setPlayerView(videoView);
         mVodPlayer.setAutoPlay(true);
         mVodPlayer.setLoop(true);
-        mVodPlayer.enableHardwareDecode(false); // 是否使用硬解码
+        mVodPlayer.enableHardwareDecode(true); // 是否使用硬解码
         mVodPlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);// player 渲染角度
         mVodPlayer.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);//player 渲染模式
         int result = mVodPlayer.startPlay(adapter.getItem(position).getVideo()); // result返回值：0 success;  -1 empty url; -2 invalid url; -3 invalid playType;

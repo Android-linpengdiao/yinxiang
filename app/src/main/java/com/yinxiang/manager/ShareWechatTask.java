@@ -34,7 +34,7 @@ public class ShareWechatTask extends AsyncTask<Object, Void, Void> {
         ShareEntity entity = (ShareEntity) params[0];
         int scene = (Integer) params[1];
 
-        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.mipmap.icon_app);
 //        if (!CommonUtil.isBlank(entity.thumbnailUrl)) {
 //            try {
 //                URL url = new URL(entity.thumbnailUrl);

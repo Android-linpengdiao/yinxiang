@@ -149,7 +149,11 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
             case R.id.iv_share:
-                shareView(WorkDetailActivity.this, new OnClickListener() {
+                if (worksDetail == null) {
+                    return;
+                }
+                String url = "http://share.yinxiangcn.cn/?video=" + worksDetail.getData().getVideo() + "#/";
+                shareView(WorkDetailActivity.this, url, worksDetail.getData().getName(), worksDetail.getData().getName(), new OnClickListener() {
                     @Override
                     public void onClick(View view, Object object) {
 
@@ -652,7 +656,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
         mVodPlayer.setPlayerView(binding.videoView);
         mVodPlayer.setAutoPlay(true);
         mVodPlayer.setLoop(true);
-        mVodPlayer.enableHardwareDecode(false); // 是否使用硬解码
+        mVodPlayer.enableHardwareDecode(true); // 是否使用硬解码
         mVodPlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);// player 渲染角度
         mVodPlayer.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);//player 渲染模式
         int result = mVodPlayer.startPlay(videoUrl); // result返回值：0 success;  -1 empty url; -2 invalid url; -3 invalid playType;
