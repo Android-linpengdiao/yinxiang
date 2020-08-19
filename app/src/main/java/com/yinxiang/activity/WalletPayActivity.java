@@ -31,7 +31,7 @@ public class WalletPayActivity extends BaseActivity implements View.OnClickListe
     private static final String TAG = "WalletPayActivity";
     private ActivityWalletPayBinding binding;
     private CoinAdapter adapter;
-    private String type = "wechat";
+    private String type = "alipay";
     private WalletSetData.DataBean dataBean;
 
     @Override
