@@ -372,7 +372,7 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
                                 ToastUtils.showShort(getActivity(), "以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                                 if (homeVideos != null && dataBean != null) {
-                                    dataBean.setPre_votes(dataBean.getPre_votes() + +(free == 1 ? 1 : 3));
+                                    dataBean.setPre_votes(dataBean.getPre_votes() + (free == 1 ? 1 : getVideosVoteSet().getData().getVotes()));
                                     if (homeVideos.getData().getData().indexOf(dataBean) != -1) {
                                         adapter.notifyItemChanged(homeVideos.getData().getData().indexOf(dataBean));
                                     }
@@ -655,7 +655,6 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         mVodPlayer.setPlayListener(new ITXLivePlayListener() {
             @Override
             public void onPlayEvent(int i, Bundle bundle) {
-                Log.i(TAG, "onPlayEvent: " + i);
             }
 
             @Override

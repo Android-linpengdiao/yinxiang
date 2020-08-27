@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button_dialog"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="隐私保护提示"
+            android:textColor="#ff333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="2dp"
+            android:text="引享App为了更好地保护您的隐私和信息安全,根据国家相关法律规定和国家标准更新了《引享App用户协议》及《引享App隐私政策》,特向您说明:
+            \n1、为向您提供基本服务，我们会遵循正当、合法、必要的原则收集和使用必要的信息;
+            \n2、为保障您的帐号与使用安全,您需要授权我们获取您的设置权限。
+            \n3、基于您的授权我们可能会收集和使用您的拍摄功能，存储功能以便为您提供匹配服务，您有权拒绝或取消授权。
+            \n4、未经您的授权同意,我们不会将您的信息共享给第三方或用于您未授权的其他用途
+            \n5、我们会采取业界先进的安全措施保护您6、您可以对上述信息进行访问、更正、删除。若您同意前述用户协议及隐藏政策,请点击'同意'并开始使用我们的服务,我们会全力保护您的个人信息安全。"
+            android:textColor="#535353"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="不同意"
+                android:textColor="#ff333333"
+                android:background="@drawable/button_stroke_theme"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="同意"
+                android:textColor="#ffffff"
+                android:background="@drawable/button_radius_theme"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

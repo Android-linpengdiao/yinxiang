@@ -91,7 +91,7 @@
                     android:id="@+id/recordTimeView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="请选择一段视频（视频时长15秒）"
+                    android:text="请选择一段视频（视频时长15秒之内）"
                     android:textColor="#ff333333"
                     android:layout_marginTop="20dp"
                     android:textSize="15sp" />

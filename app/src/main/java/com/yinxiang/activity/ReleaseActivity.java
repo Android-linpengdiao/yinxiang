@@ -79,7 +79,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
         } else {
             maxTime = 15;
         }
-        binding.recordTimeView.setText("请选择一段视频（视频时长" + maxTime + "秒）");
+        binding.recordTimeView.setText("请选择一段视频（视频时长" + maxTime + "秒之内）");
     }
 
     @Override
@@ -203,7 +203,7 @@ public class ReleaseActivity extends BaseActivity implements View.OnClickListene
                             } else {
                                 maxTime = 180;
                             }
-                            binding.recordTimeView.setText("请选择一段视频（视频时长" + maxTime + "秒）");
+                            binding.recordTimeView.setText("请选择一段视频（视频时长" + maxTime + "秒之内）");
                             binding.tvCompetition.setText(homeDataBean.getTitle() + "");
                         }
                     }

@@ -416,7 +416,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                             if (jsonObject.optJSONObject("data").optBoolean("canVote")) {
                                 ToastUtils.showShort(getApplication(), "以为TA投" + (free == 1 ? "1" : getVideosVoteSet().getData().getVotes()) + "票");
                                 if (worksDetail != null) {
-                                    worksDetail.getData().setPre_votes(worksDetail.getData().getPre_votes() + (free == 1 ? 1 : 3));
+                                    worksDetail.getData().setPre_votes(worksDetail.getData().getPre_votes() + (free == 1 ? 1 : getVideosVoteSet().getData().getVotes()));
                                     binding.tvElection.setText(String.valueOf(worksDetail.getData().getPre_votes()));
                                 }
                             } else {

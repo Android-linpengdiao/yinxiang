@@ -154,4 +154,17 @@ public class DialogManager {
         });
     }
 
+
+    public static void showServiceDialog(Activity act,final OnClickListener onClickListener) {
+        final AlertDialog dialog = new AlertDialog.Builder(act, AlertDialog.THEME_HOLO_DARK).create();
+        dialog.setCancelable(true);
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.getDecorView().setBackgroundColor(act.getResources().getColor(R.color.transparent));
+        window.setContentView(R.layout.view_service_dialog_alert);
+//        TextView tvTitle = window.findViewById(R.id.tv_title);
+
+    }
+
+
 }

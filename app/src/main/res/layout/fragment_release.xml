@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="请选择一段视频（视频时长1-5分钟）"
+            android:text="请选择一段视频（视频时长1-5分钟之内）"
             android:textColor="#ff333333"
             android:textSize="15sp" />
 
