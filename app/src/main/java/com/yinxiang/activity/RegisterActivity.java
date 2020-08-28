@@ -82,8 +82,9 @@ public class RegisterActivity extends BaseActivity {
         binding.tvProtocol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setData(Uri.parse(APIUrls.url_UserProtocol));
+                Intent intent = new Intent(RegisterActivity.this,WebViewActivity.class);
+//                intent.setData(Uri.parse(APIUrls.url_UserProtocol));
+                intent.putExtra("url",APIUrls.url_UserProtocol);
                 intent.setAction(Intent.ACTION_VIEW);
                 startActivity(intent);
             }

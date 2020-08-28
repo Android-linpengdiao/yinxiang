@@ -137,22 +137,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         super.onResume();
         MobclickAgent.onResume(this);
 
-        SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
-        if (!sp.getBoolean("once_opened", false)) {
-            sp.edit().putBoolean("once_opened", true).apply();
-            DialogManager.showServiceDialog(MainActivity.this, new OnClickListener() {
-                @Override
-                public void onClick(View view, Object object) {
-
-                }
-
-                @Override
-                public void onLongClick(View view, Object object) {
-
-                }
-            });
-        }
-
         if (getUserId() > 0) {
             doLogin();
             intHeaderData(getUserInfo());

@@ -175,7 +175,7 @@ public class DialogManager {
 
     public static void showServiceDialog(Activity act, final OnClickListener onClickListener) {
         final AlertDialog dialog = new AlertDialog.Builder(act, AlertDialog.THEME_HOLO_DARK).create();
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
         dialog.show();
         Window window = dialog.getWindow();
         window.getDecorView().setBackgroundColor(act.getResources().getColor(R.color.transparent));
@@ -187,11 +187,13 @@ public class DialogManager {
             @Override
             public void onClick(View v) {
                 dialog.cancel();
+                onClickListener.onClick(v,null);
             }
         });
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onClickListener.onClick(v,null);
                 dialog.cancel();
             }
         });
@@ -206,8 +208,8 @@ public class DialogManager {
         // 设置字体大小
 //        spannableString.setSpan(new AbsoluteSizeSpan(CommonUtil.sp2px(mContext, 14)), content.indexOf(stateText), content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         // 设置点击
-        spannableString.setSpan(new MyClickableSpan(userText), content.indexOf(userText), content.indexOf(userText) + userText.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new MyClickableSpan(yinsiText), content.indexOf(yinsiText), content.indexOf(yinsiText) + yinsiText.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new MyClickableSpan(act,userText), content.indexOf(userText), content.indexOf(userText) + userText.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new MyClickableSpan(act,yinsiText), content.indexOf(yinsiText), content.indexOf(yinsiText) + yinsiText.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tvDesc.setText(spannableString);
         tvDesc.setMovementMethod(LinkMovementMethod.getInstance());//不设置 没有点击事件
 
@@ -215,10 +217,11 @@ public class DialogManager {
 
     public static class MyClickableSpan extends ClickableSpan {
 
+        private Activity activity;
         private String msg;
 
-        public MyClickableSpan(String cm) {
-            Log.i(TAG, "MyClickableSpan: " + cm);
+        public MyClickableSpan(Activity activity,String cm) {
+            this.activity = activity;
             this.msg = cm;
         }
 
@@ -229,17 +232,20 @@ public class DialogManager {
 
         @Override
         public void onClick(View view) {
-            Log.i(TAG, "onClick: " + msg);
             if (msg.equals("《引享App用户协议》")) {
                 Intent intent = new Intent();
-                intent.setData(Uri.parse("http://www.yinxiangcn.cn/upload/20200828110521tV5X9.html"));
+//                intent.setData(Uri.parse("http://www.yinxiangcn.cn/upload/20200828110521tV5X9.html"));
+                intent.setClassName(activity.getPackageName(), "com.yinxiang.activity.WebViewActivity");
+                intent.putExtra("url","http://www.yinxiangcn.cn/upload/20200828110521tV5X9.html");
                 intent.setAction(Intent.ACTION_VIEW);
-                BaseApplication.getInstance().startActivity(intent);
+                activity.startActivity(intent);
             } else if (msg.equals("《引享App隐私政策》")) {
                 Intent intent = new Intent();
-                intent.setData(Uri.parse("http://www.yinxiangcn.cn/upload/20200828110521g29u8.html"));
+//                intent.setData(Uri.parse("http://www.yinxiangcn.cn/upload/20200828110521g29u8.html"));
+                intent.setClassName(activity.getPackageName(), "com.yinxiang.activity.WebViewActivity");
+                intent.putExtra("url","http://www.yinxiangcn.cn/upload/20200828110521g29u8.html");
                 intent.setAction(Intent.ACTION_VIEW);
-                BaseApplication.getInstance().startActivity(intent);
+                activity.startActivity(intent);
             }
         }
     }

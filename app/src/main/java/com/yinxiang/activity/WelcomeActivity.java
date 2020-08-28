@@ -1,14 +1,23 @@
 package com.yinxiang.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
+
+import android.content.SharedPreferences;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 
+import android.os.Bundle;
+import android.view.View;
+
+import com.baselibrary.manager.DialogManager;
 import com.baselibrary.utils.CommonUtil;
+import com.baselibrary.view.OnClickListener;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityWelcomeBinding;
 
@@ -35,8 +44,35 @@ public class WelcomeActivity extends BaseActivity {
             finish();
             return;
         }
-        permissionsManager();
+
+        appService();
     }
+
+    private void appService() {
+        SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
+        if (!sp.getBoolean("appService", false)) {
+            DialogManager.showServiceDialog(WelcomeActivity.this, new OnClickListener() {
+                @Override
+                public void onClick(View view, Object object) {
+                    switch (view.getId()) {
+                        case R.id.tv_confirm:
+                            sp.edit().putBoolean("appService", true).apply();
+                            permissionsManager();
+                            break;
+                        case R.id.tv_cancel:
+                            finish();
+                            break;
+                    }
+                }
+
+                @Override
+                public void onLongClick(View view, Object object) {
+
+                }
+            });
+        }
+    }
+
 
     @AfterPermissionGranted(requestCode)
     private void permissionsManager() {
