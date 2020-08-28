@@ -70,6 +70,8 @@ public class WelcomeActivity extends BaseActivity {
 
                 }
             });
+        }else {
+            permissionsManager();
         }
     }
 
