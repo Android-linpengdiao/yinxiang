@@ -122,7 +122,7 @@ public class JoinCompetitionDetailActivity extends BaseActivity implements View.
 
     @Override
     public void onPause() {
-        if (mVodPlayer != null && mVodPlayer.isPlaying()) {
+        if (mVodPlayer != null) {
             mVodPlayer.pause();
             binding.videoPlay.setSelected(false);
             binding.videoPlay.setImageResource(R.drawable.video_play);

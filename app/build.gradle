@@ -71,8 +71,8 @@ dependencies {
     implementation project(':cardview')
     implementation project(':videocompressor')
     implementation project(':LayoutManagerGroup')
-//    implementation project(':nim')
     implementation project(':uikit')
+    implementation project(':downloader')
     // 阿里视频播放器
     api files('libs/AlivcReporter-1.2.aar')
     api files('libs/AlivcPlayer-3.4.6.aar')

@@ -1,6 +1,5 @@
-include ':uikit'
+include ':uikit', ':downloader'
 include ':app',
-//        ':nim',
         ':base',
         ':LayoutManagerGroup',
         ':okhttp',

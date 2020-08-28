@@ -194,7 +194,7 @@ public class CompetitionDetailActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onPause() {
-        if (mVodPlayer != null && mVodPlayer.isPlaying()) {
+        if (mVodPlayer != null) {
             mVodPlayer.pause();
             binding.videoPlay.setSelected(false);
             binding.videoPlay.setImageResource(R.drawable.video_play);

@@ -491,6 +491,8 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         Log.i(TAG, "onHiddenSurfaceViewChanged: ");
         if (hidden) {
             pause();
+        }else {
+            isShow = true;
         }
     }
 
@@ -499,12 +501,15 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
         Log.i(TAG, "onHiddenChanged: ");
         if (hidden) {
             pause();
+        }else {
+            isShow = true;
         }
         super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onResume() {
+        isShow = true;
         Log.i(TAG, "onResume: ");
         super.onResume();
     }
@@ -577,6 +582,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
             imgThumb.animate().alpha(1).start();
             imgPlay.animate().alpha(0f).start();
         }
+        if (mVodPlayer!= null) {
+            mVodPlayer.pause();
+        }
 
     }
 
@@ -601,6 +609,8 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 
         if (mVodPlayer == null) {
             mVodPlayer = new TXVodPlayer(getActivity());
+        } else if (mVodPlayer != null) {
+            mVodPlayer.pause();
         }
 
         mVodPlayer.setVodListener(new ITXVodPlayListener() {
@@ -615,7 +625,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 //                        mBinding.videoPlayLayout.videoPlay.setSelected(true);
                         loading.setVisibility(View.GONE);
                         imgThumb.animate().alpha(0).setDuration(200).start();
-
+                        if (!isShow){
+                            mVodPlayer.pause();
+                        }
                         break;
                     case TXLiveConstants.PLAY_EVT_RCV_FIRST_I_FRAME://切换软硬解码器后，重新seek位置
 
@@ -706,7 +718,8 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 
 
     private void pause() {
-        if (mVodPlayer != null && mVodPlayer.isPlaying()) {
+        isShow = false;
+        if (mVodPlayer != null) {
             mVodPlayer.pause();
             imgPlay.setSelected(false);
         }
@@ -860,8 +873,9 @@ public class HomeVideoFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onDetach() {
-        super.onDetach();
+        Log.i(TAG, "onDetach: ");
         mListener = null;
+        super.onDetach();
 //        destroy();
     }
 

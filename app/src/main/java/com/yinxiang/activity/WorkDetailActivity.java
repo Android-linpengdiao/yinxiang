@@ -153,7 +153,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
                     return;
                 }
                 String url = "http://share.yinxiangcn.cn/?video=" + worksDetail.getData().getVideo() + "#/";
-                shareView(WorkDetailActivity.this, url, worksDetail.getData().getName(), worksDetail.getData().getName(), new OnClickListener() {
+                shareView(WorkDetailActivity.this, worksDetail.getData().getVideo(), worksDetail.getData().getName(), worksDetail.getData().getName(), new OnClickListener() {
                     @Override
                     public void onClick(View view, Object object) {
 
@@ -440,7 +440,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onPause() {
-        if (mVodPlayer != null && mVodPlayer.isPlaying()) {
+        if (mVodPlayer != null) {
             mVodPlayer.pause();
             binding.videoPlay.setSelected(false);
         }

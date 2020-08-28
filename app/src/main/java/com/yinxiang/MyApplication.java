@@ -13,6 +13,8 @@ import com.baselibrary.utils.LogUtil;
 //import com.nim.NimApplication;
 import com.baselibrary.utils.MsgCache;
 import com.baselibrary.utils.ToastUtils;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.UIKitOptions;
 import com.netease.nim.uikit.business.contact.core.util.ContactHelper;
@@ -72,6 +74,14 @@ public class MyApplication extends BaseApplication {
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                 .build();
         OkHttpUtils.initClient(okHttpClient);
+
+        FileDownloader.setupOnApplicationOnCreate(this)
+                .connectionCreator(new FileDownloadUrlConnection
+                        .Creator(new FileDownloadUrlConnection.Configuration()
+                        .connectTimeout(15_000) // set connection timeout.
+                        .readTimeout(15_000) // set read timeout.
+                ))
+                .commit();
 
         //初始化组件化基础库, 所有友盟业务SDK都必须调用此初始化接口。
         //建议在宿主App的Application.onCreate函数中调用基础组件库初始化函数。

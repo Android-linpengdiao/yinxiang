@@ -5,12 +5,15 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -19,11 +22,16 @@ import com.baselibrary.UserInfo;
 import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.MsgCache;
 import com.baselibrary.utils.StatusBarUtil;
+import com.baselibrary.utils.ToastUtils;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadListener;
+import com.liulishuo.filedownloader.FileDownloader;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.GenericsCallback;
 import com.okhttp.sample_okhttp.JsonGenericsSerializator;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
+import com.yinxiang.MyApplication;
 import com.yinxiang.R;
 import com.yinxiang.activity.LoginActivity;
 import com.yinxiang.manager.TencentHelper;
@@ -32,6 +40,8 @@ import com.yinxiang.model.VideosVoteSet;
 import com.yinxiang.view.OnClickListener;
 import com.yinxiang.view.SharePopupWindow;
 
+
+import java.io.File;
 
 import okhttp3.Call;
 
@@ -81,6 +91,8 @@ public class BaseFragment extends Fragment {
     }
 
     public SharePopupWindow shareView(final Activity activity,String url, String title, String desc,  final OnClickListener onClickListener) {
+
+        String shareUrl = "http://share.yinxiangcn.cn/?video=" + url + "#/";
         SharePopupWindow sharePopupWindow = new SharePopupWindow(activity);
         sharePopupWindow.setOnClickListener(new OnClickListener() {
 
@@ -89,15 +101,15 @@ public class BaseFragment extends Fragment {
                 switch (view.getId()) {
                     case R.id.shareWx:
                         // scene 0代表好友   1代表朋友圈
-                        WXManager.send(activity,url, title, desc, 0);
+                        WXManager.send(activity,shareUrl, title, desc, 0);
 
                         break;
                     case R.id.shareWxMoment:
-                        WXManager.send(activity, url, title, desc,1);
+                        WXManager.send(activity, shareUrl, title, desc,1);
 
                         break;
                     case R.id.shareQQ:
-                        TencentHelper.shareToQQ(activity, url, title, desc, null, new IUiListener() {
+                        TencentHelper.shareToQQ(activity, shareUrl, title, desc, null, new IUiListener() {
                             @Override
                             public void onComplete(Object o) {
                             }
@@ -116,7 +128,7 @@ public class BaseFragment extends Fragment {
 
                         break;
                     case R.id.shareWeibo:
-
+                        download(url);
                         break;
                 }
             }
@@ -128,6 +140,47 @@ public class BaseFragment extends Fragment {
         });
         sharePopupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
         return sharePopupWindow;
+    }
+
+    public void download(String url) {
+        if (!CommonUtil.isBlank(url)) {
+            File outputFile = new File(Environment.getExternalStorageDirectory() + File.separator + "download" + File.separator + url.substring(url.lastIndexOf("/") + 1));
+            BaseDownloadTask task = FileDownloader.getImpl().create(url)
+                    .setPath(outputFile.getPath())
+                    .setCallbackProgressTimes(1000)
+                    .setListener(new FileDownloadListener() {
+                        @Override
+                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                            ToastUtils.showShort(MyApplication.getInstance(),"开始下载");
+                        }
+
+                        @Override
+                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+
+                        }
+
+                        @Override
+                        protected void completed(BaseDownloadTask task) {
+                            MyApplication.getInstance().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + task.getPath())));
+                            ToastUtils.showShort(MyApplication.getInstance(),"下载完成");
+                        }
+
+                        @Override
+                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        }
+
+                        @Override
+                        protected void error(BaseDownloadTask task, Throwable e) {
+                        }
+
+                        @Override
+                        protected void warn(BaseDownloadTask task) {
+                            ToastUtils.showShort(MyApplication.getInstance(),"正在下载");
+                        }
+                    });
+            task.start();
+
+        }
     }
 
     public void openActivity(Class<?> mClass) {
