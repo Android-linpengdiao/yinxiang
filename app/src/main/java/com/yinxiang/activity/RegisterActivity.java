@@ -1,6 +1,9 @@
 package com.yinxiang.activity;
 
 import androidx.databinding.DataBindingUtil;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -11,6 +14,7 @@ import com.baselibrary.utils.CommonUtil;
 import com.baselibrary.utils.ToastUtils;
 import com.okhttp.SendRequest;
 import com.okhttp.callbacks.StringCallback;
+import com.okhttp.utils.APIUrls;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityRegisterBinding;
 
@@ -73,6 +77,15 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        binding.tvProtocol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setData(Uri.parse(APIUrls.url_UserProtocol));
+                intent.setAction(Intent.ACTION_VIEW);
+                startActivity(intent);
             }
         });
 

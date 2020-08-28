@@ -9,6 +9,10 @@ public class APIUrls {
 
     public final static String url_fileUpload = url_domain + "api/common/fileUpload";
     public final static String url_createSecurityToken = url_domain + "api/common/ossToken";
+    //用户协议
+    public final static String url_UserProtocol = url_domain + "upload/20200828110521tV5X9.html";
+    //隐私协议
+    public final static String url_privacProtocol = url_domain + "upload/20200828110521g29u8.html";
 
 
     //用户信息

@@ -48,6 +48,7 @@ import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
+import com.okhttp.SendRequest;
 import com.okhttp.callbacks.StringCallback;
 import com.okhttp.utils.OkHttpUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -60,6 +61,7 @@ import com.yinxiang.utils.MD5;
 import com.yinxiang.utils.ViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -105,6 +107,31 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     }
 
+    private void uploadFile(String file) {
+        //Environment.getExternalStorageDirectory() + File.separator +"隐私协议.html"
+        SendRequest.fileUpload(file, file.substring(file.lastIndexOf("/") + 1), new StringCallback() {
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String url = object.optString("data");
+                    Log.i(TAG, "onResponse: file = "+file);
+                    Log.i(TAG, "onResponse: url = "+url);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -112,7 +139,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
         if (!sp.getBoolean("once_opened", false)) {
-//            sp.edit().putBoolean("once_opened", true).apply();
+            sp.edit().putBoolean("once_opened", true).apply();
             DialogManager.showServiceDialog(MainActivity.this, new OnClickListener() {
                 @Override
                 public void onClick(View view, Object object) {
