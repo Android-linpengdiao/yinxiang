@@ -92,7 +92,7 @@ public class BaseFragment extends Fragment {
 
     public SharePopupWindow shareView(final Activity activity,String url, String title, String desc,  final OnClickListener onClickListener) {
 
-        String shareUrl = "http://share.yinxiangcn.cn/#/?video=" + url + "#/";
+        String shareUrl = "http://share.yinxiangcn.cn/#/?video=" + url + "&title="+title;
         SharePopupWindow sharePopupWindow = new SharePopupWindow(activity);
         sharePopupWindow.setOnClickListener(new OnClickListener() {
 
