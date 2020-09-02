@@ -7,6 +7,7 @@ import android.content.Intent;
 import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -57,6 +58,8 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
 
     private ClubData clubData;
 
+    private CountDownTimer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,7 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
         binding.ivIdcardFront.setOnClickListener(this);
         binding.ivIdcardBack.setOnClickListener(this);
         binding.etPhone.setOnClickListener(this);
-        binding.etCode.setOnClickListener(this);
+        binding.tvSendCode.setOnClickListener(this);
         binding.tvConfirm.setOnClickListener(this);
 
         initData(2);
@@ -91,8 +94,8 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
             case R.id.iv_club_logo:
                 openMedia(REQUEST_LOGO);
                 break;
-            case R.id.et_code:
-
+            case R.id.tv_send_code:
+                createClubAuthCode();
                 break;
             case R.id.et_phone:
 
@@ -204,6 +207,48 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
                 }
             }
 
+        });
+    }
+
+    private void createClubAuthCode() {
+        String phone = binding.etPhone.getText().toString().trim();
+        if (phone.length() < 11) {
+            ToastUtils.showShort(CreateClubActivity.this, "手机号码不正确");
+            return;
+        }
+        SendRequest.phoneCode(phone, "club.create", new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    if (json.optInt("code") == 200) {
+                        binding.tvSendCode.setEnabled(false);
+                        timer = new CountDownTimer(60000, 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                binding.tvSendCode.setText(millisUntilFinished / 1000 + "");
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                binding.tvSendCode.setEnabled(true);
+                                binding.tvSendCode.setText("获取验证码");
+                            }
+                        }.start();
+                        ToastUtils.showShort(CreateClubActivity.this, "验证码发送成功");
+                    } else {
+                        String msg = json.optString("msg");
+                        ToastUtils.showShort(getApplication(), msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -363,6 +408,15 @@ public class CreateClubActivity extends BaseActivity implements View.OnClickList
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
             }
             startActivityForResult(intent, requestCode);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
         }
     }
 

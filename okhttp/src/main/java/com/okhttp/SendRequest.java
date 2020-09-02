@@ -101,7 +101,7 @@ public class SendRequest {
      * 发送短信验证码
      *
      * @param phone
-     * @param key   register.code=>注册/forget.password=>忘记密码/phone.login=>手机号验证码登录
+     * @param key   register.code=>注册/forget.password=>忘记密码/phone.login=>手机号验证码登录/club.create=>社团创建验证码）
      * @param call
      */
     public static void phoneCode(String phone, String key, Callback call) {
@@ -656,9 +656,10 @@ public class SendRequest {
 
     }
 
-    public static void channelClubStatus(int status, Callback call) {
+    public static void channelClubStatus(int status,int check_tourist_id, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("status", String.valueOf(status));
+        map.put("check_tourist_id", String.valueOf(check_tourist_id));
         OkHttpUtils.getInstance().get().params(map).url(APIUrls.url_channelClub).build().execute(call);
 
     }
@@ -1087,14 +1088,14 @@ public class SendRequest {
      *
      * @param tourist_id
      * @param club_id
-     * @param wallet_token
+     * @param wallet_record
      * @param call
      */
-    public static void cashJoinClub(int tourist_id, int club_id, int wallet_token, Callback call) {
+    public static void cashJoinClub(int tourist_id, int club_id, int wallet_record, Callback call) {
         Map<String, String> map = new HashMap<>();
         map.put("tourist_id", String.valueOf(tourist_id));
         map.put("club_id", String.valueOf(club_id));
-        map.put("wallet_token", String.valueOf(wallet_token));
+        map.put("wallet_record", String.valueOf(wallet_record));
         OkHttpUtils.getInstance().post().params(map).url(APIUrls.url_cashJoinClub).build().execute(call);
 
     }

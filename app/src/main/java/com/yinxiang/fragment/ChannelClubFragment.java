@@ -1,12 +1,16 @@
 package com.yinxiang.fragment;
 
 import android.content.Context;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,9 +79,9 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
         adapter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view, Object object) {
-                if (object instanceof  ClubData.DataBean) {
+                if (object instanceof ClubData.DataBean) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("dataBean", (ClubData.DataBean)object);
+                    bundle.putSerializable("dataBean", (ClubData.DataBean) object);
                     openActivity(ClubDetailActivity.class, bundle);
                 }
             }
@@ -96,16 +100,22 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
             }
         });
         binding.swipeRefreshLayout.setRefreshing(true);
-        initData();
+
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.create_club_view:
-                if (getUserId(true)>0) {
+                if (getUserId(true) > 0) {
                     openActivity(CreateClubActivity.class);
                 }
                 break;
@@ -113,7 +123,7 @@ public class ChannelClubFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void initData() {
-        SendRequest.channelClubStatus(1, new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
+        SendRequest.channelClubStatus(1, getUserId(), new GenericsCallback<ClubData>(new JsonGenericsSerializator()) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 binding.swipeRefreshLayout.setRefreshing(false);

@@ -45,6 +45,7 @@
             android:textSize="15sp" />
 
         <EditText
+            android:id="@+id/dissolve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_white"
@@ -67,6 +68,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/dissolve_time"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/button_white"
@@ -86,9 +88,8 @@
             android:layout_marginTop="119dp"
             android:layout_marginRight="@dimen/padding"
             android:background="@drawable/button_radius_theme"
-            android:enabled="false"
             android:gravity="center"
-            android:text="保存"
+            android:text="确定"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 

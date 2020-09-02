@@ -1,6 +1,8 @@
 package com.yinxiang.activity;
 
 import androidx.databinding.DataBindingUtil;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -11,6 +13,7 @@ import com.okhttp.SendRequest;
 import com.okhttp.callbacks.StringCallback;
 import com.yinxiang.R;
 import com.yinxiang.databinding.ActivityClubSettingBinding;
+import com.yinxiang.model.ClubData;
 
 import org.json.JSONObject;
 
@@ -19,6 +22,7 @@ import okhttp3.Call;
 public class ClubSettingActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityClubSettingBinding binding;
+    private ClubData.DataBean dataBean;
     private int cid;
     private int join = 2;
     private String joinToken = "0";
@@ -28,8 +32,20 @@ public class ClubSettingActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_club_setting);
 
-        if (getIntent().hasExtra("cid")) {
-            cid = getIntent().getIntExtra("cid", 0);
+        if (getIntent().hasExtra("dataBean")) {
+            dataBean = (ClubData.DataBean) getIntent().getSerializableExtra("dataBean");
+            cid = dataBean.getId();
+            if (dataBean.getJoin() == 1) {
+                join = 1;
+                binding.radioButtonCoin.setChecked(true);
+                binding.joinCoinView.setVisibility(View.VISIBLE);
+                binding.etJoinCoin.setText(String.valueOf(dataBean.getJoin_token()));
+                binding.etJoinCoin.setSelection(String.valueOf(dataBean.getJoin_token()).length());
+            } else if (dataBean.getJoin() == 2) {
+                join = 2;
+                binding.radioButtonFree.setChecked(true);
+                binding.joinCoinView.setVisibility(View.GONE);
+            }
         }
 
         binding.back.setOnClickListener(this);
@@ -93,6 +109,10 @@ public class ClubSettingActivity extends BaseActivity implements View.OnClickLis
                     if (!CommonUtil.isBlank(response)) {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.optInt("code") == 200) {
+                            Intent intent = new Intent();
+                            intent.putExtra("join",join);
+                            intent.putExtra("joinToken",Integer.valueOf(joinToken));
+                            setResult(RESULT_OK, intent);
                             finish();
                         } else {
                             ToastUtils.showShort(ClubSettingActivity.this, jsonObject.optString("msg"));

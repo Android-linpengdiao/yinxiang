@@ -76,10 +76,19 @@ public class ClubData implements Serializable {
         private int status;
         private String refuse;
         private int join;
+        private boolean is_join;
         private int join_token;
         private Object dissolve;
         private Object dissolve_time;
         private int selected;
+
+        public boolean isIs_join() {
+            return is_join;
+        }
+
+        public void setIs_join(boolean is_join) {
+            this.is_join = is_join;
+        }
 
         public int getId() {
             return id;
