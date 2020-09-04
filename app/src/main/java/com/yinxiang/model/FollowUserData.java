@@ -208,7 +208,7 @@ public class FollowUserData {
             private int like_notice;
             private int comment_notice;
             private int is_vip;
-            private int vip_expire;
+            private Object vip_expire;
             private int wallet_token;
             private int fan_number;
             private int follow_number;
@@ -370,11 +370,11 @@ public class FollowUserData {
                 this.is_vip = is_vip;
             }
 
-            public int getVip_expire() {
+            public Object getVip_expire() {
                 return vip_expire;
             }
 
-            public void setVip_expire(int vip_expire) {
+            public void setVip_expire(Object vip_expire) {
                 this.vip_expire = vip_expire;
             }
 
